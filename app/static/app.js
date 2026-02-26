@@ -4,6 +4,12 @@ let sessionId = null;
 let evtSource = null;
 let workspaceData = { papers: [], gaps: [], ideas: [], novelty_scores: [], missions: [] };
 
+// Activity log state
+let currentActivityStep = null;
+let currentActivityEl = null;
+let activityAutoScroll = true;
+let activityStepCounter = 0;
+
 // ===== NAVIGATION =====
 function showSection(name) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -133,13 +139,20 @@ function connectSSE() {
 }
 
 function handleEvent(p) {
-    const { step, status, agent, summary, data } = p;
+    const { type, step, status, agent, summary, data, token } = p;
+
+    // Handle streaming token events
+    if (type === 'token') {
+        appendActivityToken(step, agent, token);
+        return;
+    }
 
     if (step === 'done') {
         setStatus('complete', 'Mission Complete');
         document.getElementById('run-mission-btn').disabled = false;
         if (evtSource) evtSource.close();
         refreshWorkspace();
+        finalizeActivityLog();
         return;
     }
 
@@ -148,6 +161,7 @@ function handleEvent(p) {
         updateTimeline(step, 'error', summary);
         document.getElementById('run-mission-btn').disabled = false;
         if (evtSource) evtSource.close();
+        appendActivityEntry(step, agent, 'error', summary || 'Error occurred');
         return;
     }
 
@@ -156,9 +170,11 @@ function handleEvent(p) {
 
     if (status === 'running') {
         setStatus('running', `${agent}: ${stepLabel(step)}...`);
+        startActivityStep(step, agent);
     }
 
     if (status === 'complete' && data) {
+        completeActivityStep(step, agent, summary);
         switch (step) {
             case 'generate_plan': onPlan(data); break;
             case 'search_papers': onPapers(data); break;
@@ -205,6 +221,13 @@ function resetTimeline() {
         c.classList.remove('active', 'done');
         c.querySelector('.agent-status').textContent = 'Idle';
     });
+    // Reset activity log for new mission
+    const log = getActivityLog();
+    log.innerHTML = '';
+    currentActivityStep = null;
+    currentActivityEl = null;
+    activityStepCounter = 0;
+    updateActivityBadge('LIVE');
 }
 
 function stepLabel(s) {
@@ -224,9 +247,153 @@ function updateAgent(agent, status) {
     else if (status === 'complete') { card.classList.remove('active'); card.classList.add('done'); st.textContent = 'Done'; }
 }
 
+// ===== ACTIVITY LOG =====
+function getActivityLog() {
+    return document.getElementById('activity-log');
+}
+
+function clearActivityLog() {
+    const log = getActivityLog();
+    log.innerHTML = '<div class="activity-placeholder">Agent activity will appear here when a mission is running...</div>';
+    currentActivityStep = null;
+    currentActivityEl = null;
+    updateActivityBadge('IDLE');
+}
+
+function updateActivityBadge(text) {
+    const badge = document.getElementById('activity-badge');
+    if (badge) badge.textContent = text;
+}
+
+function startActivityStep(step, agent) {
+    const log = getActivityLog();
+    // Remove placeholder if present
+    const placeholder = log.querySelector('.activity-placeholder');
+    if (placeholder) placeholder.remove();
+
+    activityStepCounter++;
+    const stepId = `${step}-${activityStepCounter}`;
+    currentActivityStep = stepId;
+    updateActivityBadge('LIVE');
+
+    // Create step header
+    const stepEntry = document.createElement('div');
+    stepEntry.className = 'activity-step';
+    stepEntry.dataset.step = step;
+    stepEntry.id = `activity-step-${stepId}`;
+    stepEntry.innerHTML = `
+        <div class="activity-step-header">
+            <span class="activity-agent-tag agent-${agent.toLowerCase()}">${esc(agent)}</span>
+            <span class="activity-step-label">${stepLabel(step)}</span>
+            <span class="activity-spinner">&#8635;</span>
+        </div>
+        <div class="activity-stream" id="activity-stream-${stepId}"></div>
+    `;
+    log.appendChild(stepEntry);
+
+    currentActivityEl = document.getElementById(`activity-stream-${stepId}`);
+    scrollActivityLog();
+}
+
+function getLatestStreamEl(step) {
+    const allSteps = document.querySelectorAll(`.activity-step[data-step="${step}"]`);
+    if (allSteps.length === 0) return null;
+    const latest = allSteps[allSteps.length - 1];
+    return latest.querySelector('.activity-stream');
+}
+
+function appendActivityToken(step, agent, token) {
+    let streamEl = getLatestStreamEl(step);
+    if (!streamEl) {
+        startActivityStep(step, agent);
+        streamEl = getLatestStreamEl(step);
+    }
+
+    // Append token text, preserving newlines
+    const text = token;
+    if (text.includes('\n')) {
+        const parts = text.split('\n');
+        for (let i = 0; i < parts.length; i++) {
+            if (i > 0) {
+                streamEl.appendChild(document.createElement('br'));
+            }
+            if (parts[i]) {
+                streamEl.appendChild(document.createTextNode(parts[i]));
+            }
+        }
+    } else {
+        streamEl.appendChild(document.createTextNode(text));
+    }
+
+    scrollActivityLog();
+}
+
+function completeActivityStep(step, agent, summary) {
+    const allSteps = document.querySelectorAll(`.activity-step[data-step="${step}"]`);
+    const stepEl = allSteps.length ? allSteps[allSteps.length - 1] : null;
+    if (stepEl) {
+        stepEl.classList.add('completed');
+        const spinner = stepEl.querySelector('.activity-spinner');
+        if (spinner) spinner.innerHTML = '&#10003;';
+
+        if (summary) {
+            const streamEl = stepEl.querySelector('.activity-stream');
+            if (streamEl) {
+                const summaryDiv = document.createElement('div');
+                summaryDiv.className = 'activity-summary';
+                summaryDiv.textContent = summary;
+                streamEl.appendChild(summaryDiv);
+            }
+        }
+    }
+
+    scrollActivityLog();
+}
+
+function appendActivityEntry(step, agent, status, text) {
+    const log = getActivityLog();
+    const placeholder = log.querySelector('.activity-placeholder');
+    if (placeholder) placeholder.remove();
+
+    const entry = document.createElement('div');
+    entry.className = `activity-entry activity-${status}`;
+    entry.innerHTML = `<span class="activity-agent-tag">${esc(agent || '?')}</span> <span>${esc(text)}</span>`;
+    log.appendChild(entry);
+    scrollActivityLog();
+}
+
+function finalizeActivityLog() {
+    updateActivityBadge('DONE');
+    const log = getActivityLog();
+    const doneEntry = document.createElement('div');
+    doneEntry.className = 'activity-done';
+    doneEntry.textContent = 'Mission completed successfully.';
+    log.appendChild(doneEntry);
+    scrollActivityLog();
+}
+
+function scrollActivityLog() {
+    if (!activityAutoScroll) return;
+    const log = getActivityLog();
+    log.scrollTop = log.scrollHeight;
+}
+
 // ===== EVENT DATA HANDLERS =====
 function onPlan(data) {
-    // stored for later use but no dedicated panel in dashboard anymore
+    // Show plan details in activity log
+    if (data.subtopics && data.subtopics.length) {
+        const streamEl = getLatestStreamEl('generate_plan');
+        if (streamEl) {
+            const planDiv = document.createElement('div');
+            planDiv.className = 'activity-plan-detail';
+            planDiv.innerHTML = `
+                <div class="plan-section"><strong>Subtopics:</strong> ${data.subtopics.map(s => esc(s)).join(' | ')}</div>
+                <div class="plan-section"><strong>Keywords:</strong> ${data.keywords.map(k => '<span class="plan-keyword">' + esc(k) + '</span>').join(' ')}</div>
+            `;
+            streamEl.appendChild(planDiv);
+            scrollActivityLog();
+        }
+    }
 }
 
 function onPapers(data) {

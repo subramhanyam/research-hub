@@ -6,6 +6,7 @@ Workspace-based autonomous research workflow engine.
 import asyncio
 import json
 import os
+import threading
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -203,21 +204,57 @@ async def stream_mission(session_id: str):
             return
 
         loop = asyncio.get_event_loop()
+        token_queue: asyncio.Queue = asyncio.Queue()
+
+        async def stream_and_run(step_fn, cur_state, step_name, agent_role, result_box):
+            """Async generator that yields token SSE events and puts result in result_box."""
+            def on_token(token: str):
+                loop.call_soon_threadsafe(
+                    token_queue.put_nowait,
+                    {"type": "token", "step": step_name, "agent": agent_role, "token": token}
+                )
+
+            def _run():
+                try:
+                    su, ep = step_fn(cur_state, on_token=on_token)
+                    result_box["state_update"] = su
+                    result_box["event_payload"] = ep
+                except Exception as e:
+                    result_box["error"] = str(e)
+                finally:
+                    loop.call_soon_threadsafe(token_queue.put_nowait, {"type": "done"})
+
+            thread = threading.Thread(target=_run, daemon=True)
+            thread.start()
+
+            while True:
+                msg = await token_queue.get()
+                if msg["type"] == "done":
+                    break
+                yield f"data: {json.dumps(msg)}\n\n"
+
+            thread.join(timeout=10)
 
         for step_name, step_fn, agent_role in PIPELINE_STEPS:
             yield f"data: {json.dumps({'step': step_name, 'agent': agent_role, 'status': 'running', 'summary': ''})}\n\n"
             await asyncio.sleep(0.05)
 
             try:
-                state_update, event_payload = await loop.run_in_executor(None, step_fn, state)
-                state.update(state_update)
+                result_box = {}
+                async for sse_event in stream_and_run(step_fn, state, step_name, agent_role, result_box):
+                    yield sse_event
+
+                if "error" in result_box:
+                    raise Exception(result_box["error"])
+
+                state.update(result_box["state_update"])
                 workspaces[session_id] = state
 
+                event_payload = result_box["event_payload"]
                 event_payload["agent"] = agent_role
                 yield f"data: {json.dumps(event_payload)}\n\n"
             except Exception as e:
                 yield f"data: {json.dumps({'step': step_name, 'agent': agent_role, 'status': 'error', 'summary': str(e)})}\n\n"
-                # Mark mission as failed
                 if state.get("missions"):
                     state["missions"][-1]["status"] = "failed"
                 return
@@ -226,25 +263,38 @@ async def stream_mission(session_id: str):
                 while should_regenerate(state):
                     yield f"data: {json.dumps({'step': 'generate_ideas', 'agent': 'Planner', 'status': 'running', 'summary': 'Low novelty — regenerating...'})}\n\n"
                     await asyncio.sleep(0.05)
-                    su, ep = await loop.run_in_executor(None, generate_ideas, state)
-                    state.update(su)
-                    ep["agent"] = "Planner"
-                    yield f"data: {json.dumps(ep)}\n\n"
+                    rb = {}
+                    async for sse_event in stream_and_run(generate_ideas, state, 'generate_ideas', 'Planner', rb):
+                        yield sse_event
+                    if "error" in rb:
+                        raise Exception(rb["error"])
+                    state.update(rb["state_update"])
+                    rb["event_payload"]["agent"] = "Planner"
+                    yield f"data: {json.dumps(rb['event_payload'])}\n\n"
 
                     yield f"data: {json.dumps({'step': 'reflect', 'agent': 'Critic', 'status': 'running', 'summary': 'Re-evaluating...'})}\n\n"
                     await asyncio.sleep(0.05)
-                    su, ep = await loop.run_in_executor(None, reflect_on_ideas, state)
-                    state.update(su)
-                    ep["agent"] = "Critic"
-                    yield f"data: {json.dumps(ep)}\n\n"
+                    rb = {}
+                    async for sse_event in stream_and_run(reflect_on_ideas, state, 'reflect', 'Critic', rb):
+                        yield sse_event
+                    if "error" in rb:
+                        raise Exception(rb["error"])
+                    state.update(rb["state_update"])
+                    rb["event_payload"]["agent"] = "Critic"
+                    yield f"data: {json.dumps(rb['event_payload'])}\n\n"
 
         # Save
         yield f"data: {json.dumps({'step': 'save_results', 'agent': 'Planner', 'status': 'running', 'summary': ''})}\n\n"
         await asyncio.sleep(0.05)
-        su, ep = await loop.run_in_executor(None, save_results, state)
-        state.update(su)
-        ep["agent"] = "Planner"
-        yield f"data: {json.dumps(ep)}\n\n"
+        rb = {}
+        async for sse_event in stream_and_run(save_results, state, 'save_results', 'Planner', rb):
+            yield sse_event
+        if "error" in rb:
+            yield f"data: {json.dumps({'step': 'save_results', 'agent': 'Planner', 'status': 'error', 'summary': rb['error']})}\n\n"
+            return
+        state.update(rb["state_update"])
+        rb["event_payload"]["agent"] = "Planner"
+        yield f"data: {json.dumps(rb['event_payload'])}\n\n"
 
         # Update mission status
         if state.get("missions"):

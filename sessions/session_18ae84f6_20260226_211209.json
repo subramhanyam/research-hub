@@ -1,0 +1,619 @@
+{
+  "session_id": "18ae84f6",
+  "topic": "mcp protocall",
+  "subtopics": [
+    "MCP Protocol Architecture",
+    "MCP Protocol Security Analysis",
+    "MCP Protocol Performance Optimization",
+    "MCP Protocol Applications"
+  ],
+  "keywords": [
+    "MCP protocol",
+    "MCP protocol design",
+    "MCP security protocol",
+    "MCP performance evaluation",
+    "MCP protocol implementation",
+    "MCP protocol analysis",
+    "MCP protocol optimization"
+  ],
+  "papers_found": 9,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "summary": "The Model Context Protocol has emerged as a transformative standard for connecting large language models to external data sources and tools, rapidly gaining adoption across major AI providers and development platforms. However, existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces. To address this critical gap, we introduce MCP-Universe, the first comprehensive benchmark specifically designed to evaluate LLMs in realistic and hard tasks through interaction with real-world MCP servers. Our benchmark encompasses 6 core domains spanning 11 different MCP servers: Location Navigation, Repository Management, Financial Analysis, 3D Design, Browser Automation, and Web Searching. To ensure rigorous evaluation, we implement execution-based evaluators, including format evaluators for agent format compliance, static evaluators for time-invariant content matching, and dynamic evaluators that automatically retrieve real-time ground truth for temporally sensitive tasks. Through extensive evaluation of leading LLMs, we find that even SOTA models such as GPT-5 (43.72%), Grok-4 (33.33%) and Claude-4.0-Sonnet (29.44%) exhibit significant performance limitations. In addition, our benchmark poses a significant long-context challenge for LLM agents, as the number of input tokens increases rapidly with the number of interaction steps. Moreover, it introduces an unknown-tools challenge, as LLM agents often lack familiarity with the precise usage of the MCP servers. Notably, enterprise-level agents like Cursor cannot achieve better performance than standard ReAct frameworks. Beyond evaluation, we open-source our extensible evaluation framework with UI support, enabling researchers and practitioners to seamlessly integrate new agents and MCP servers while fostering innovation in the rapidly evolving MCP ecosystem.",
+      "url": "http://arxiv.org/abs/2508.14704v1",
+      "published": "2025-08-20",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "paper_id": 2,
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "summary": "AI development environments are evolving into observability first platforms that integrate real time telemetry, prompt traces, and evaluation feedback into the developer workflow. This paper introduces telemetry aware integrated development environments (IDEs) enabled by the Model Context Protocol (MCP), a system that connects IDEs with prompt metrics, trace logs, and versioned control for real time refinement. We present design patterns for local prompt iteration, CI based optimization, and autonomous agents that adapt behavior using telemetry. Rather than focusing on a single algorithm, we describe an architecture that supports integration with frameworks like DSPy, PromptWizard, and Prompts as Programs. We demonstrate this through Opik, an open source MCP server for LLM telemetry, and position our approach within the emerging LLMOps ecosystem. This work lays a foundation for future research on prompt optimization, IDE agent tooling, and empirical benchmarking in telemetry rich AI development workflows.",
+      "url": "http://arxiv.org/abs/2506.11019v1",
+      "published": "2025-05-14",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "citation_label": "[Paper 2 - Koc 2025]"
+    },
+    {
+      "paper_id": 3,
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "summary": "Today, SIP is a protocol par Excellence in the field of communication over Internet. But, the fact that it belongs to the application layer constitutes a weakness vis-a-vis the NAT traversal. This weakness is due to the way in which the server replies to the requests of clients on the one hand. On the other, it is caused by the dynamic allocation of UDP ports for emission and reception of packets RTP/RTCP. The TURN Protocol may face this weakness. However, its use requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions and this increase the latent time. In this article, we propose to adapt TURN protocol for applications based on SIP protocol such as telephony over Internet, conference video, etc. This adaptation optimises the establishment of multimedia sessions by integrating a manager of TCP connections and multimedia flow controller into SIP Proxy server.",
+      "url": "http://arxiv.org/abs/1002.1178v1",
+      "published": "2010-02-05",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "citation_label": "[Paper 3 - Guezouri 2010]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Formal Modelling and Security Analysis of Bitcoin's Payment Protocol",
+      "summary": "The Payment Protocol standard BIP70, specifying how payments in Bitcoin are performed by merchants and customers, is supported by the largest payment processors and most widely-used wallets. The protocol has been shown to be vulnerable to refund attacks due to lack of authentication of the refund addresses. In this paper, we give the first formal model of the protocol and formalise the refund address security goals for the protocol, namely refund address authentication and secrecy. The formal model utilises communication channels as abstractions conveying security goals on which the protocol modeller and verifier can rely. We analyse the Payment Protocol confirming that it is vulnerable to an attack violating the refund address authentication security goal. Moreover, we present a concrete protocol revision proposal supporting the merchant with publicly verifiable evidence that can mitigate the attack. We verify that the revised protocol meets the security goals defined for the refund address. Hence, we demonstrate that the revised protocol is secure, not only against the existing attacks, but also against any further attacks violating the formalised security goals.",
+      "url": "http://arxiv.org/abs/2103.08436v1",
+      "published": "2021-03-15",
+      "authors": [
+        "Paolo Modesti",
+        "Siamak F. Shahandashti",
+        "Patrick McCorry"
+      ],
+      "citation_label": "[Paper 4 - Modesti 2021]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Changing Neighbors k Secure Sum Protocol for Secure Multi Party Computation",
+      "summary": "Secure sum computation of private data inputs is an important component of Secure Multi party Computation (SMC).In this paper we provide a protocol to compute the sum of individual data inputs with zero probability of data leakage. In our proposed protocol we break input of each party into number of segments and change the arrangement of the parties such that in each round of the computation the neighbors are changed. In this protocol it becomes impossible for semi honest parties to know the private data of some other party.",
+      "url": "http://arxiv.org/abs/1002.2409v1",
+      "published": "2010-02-11",
+      "authors": [
+        "Rashid Sheikh",
+        "Beerendra Kumar",
+        "Durgesh Kumar Mishra"
+      ],
+      "citation_label": "[Paper 5 - Sheikh 2010]"
+    },
+    {
+      "paper_id": 6,
+      "title": "On the Quantum Performance Evaluation of Two Distributed Quantum Architectures",
+      "summary": "Distributed quantum applications impose requirements on the quality of the quantum states that they consume. When analyzing architecture implementations of quantum hardware, characterizing this quality forms an important factor in understanding their performance. Fundamental characteristics of quantum hardware lead to inherent tradeoffs between the quality of states and traditional performance metrics such as throughput. Furthermore, any real-world implementation of quantum hardware exhibits time-dependent noise that degrades the quality of quantum states over time. Here, we study the performance of two possible architectures for interfacing a quantum processor with a quantum network. The first corresponds to the current experimental state of the art in which the same device functions both as a processor and a network device. The second corresponds to a future architecture that separates these two functions over two distinct devices. We model these architectures as Markov chains and compare their quality of executing quantum operations and producing entangled quantum states as functions of their memory lifetimes, as well as the time that it takes to perform various operations within each architecture. As an illustrative example, we apply our analysis to architectures based on Nitrogen-Vacancy centers in diamond, where we find that for present-day device parameters one architecture is more suited to computation-heavy applications, and the other for network-heavy ones. Besides the detailed study of these architectures, a novel contribution of our work are several formulas that connect an understanding of waiting time distributions to the decay of quantum quality over time for the most common noise models employed in quantum technologies. This provides a valuable new tool for performance evaluation experts, and its applications extend beyond the two architectures studied in this work.",
+      "url": "http://arxiv.org/abs/2107.12246v2",
+      "published": "2021-07-26",
+      "authors": [
+        "Gayane Vardoyan",
+        "Matthew Skrzypczyk",
+        "Stephanie Wehner"
+      ],
+      "citation_label": "[Paper 6 - Vardoyan 2021]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Performance of Genetic Algorithms in the Context of Software Model Refactoring",
+      "summary": "Software systems continuously evolve due to new functionalities, requirements, or maintenance activities. In the context of software evolution, software refactoring has gained a strategic relevance. The space of possible software refactoring is usually very large, as it is given by the combinations of different refactoring actions that can produce software system alternatives. Multi-objective algorithms have shown the ability to discover alternatives by pursuing different objectives simultaneously. Performance of such algorithms in the context of software model refactoring is of paramount importance. Therefore, in this paper, we conduct a performance analysis of three genetic algorithms to compare them in terms of performance and quality of solutions. Our results show that there are significant differences in performance among the algorithms (e.g., PESA2 seems to be the fastest one, while NSGA-II shows the least memory usage).",
+      "url": "http://arxiv.org/abs/2308.13875v1",
+      "published": "2023-08-26",
+      "authors": [
+        "Vittorio Cortellessa",
+        "Daniele Di Pompeo",
+        "Michele Tucci"
+      ],
+      "citation_label": "[Paper 7 - Cortellessa 2023]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Core QUIC: Enabling Dynamic, Implementation-Agnostic Protocol Extensions",
+      "summary": "While applications quickly evolve, Internet protocols do not follow the same pace. There are two root causes for this. First, extending protocol with cleartext control plane is usually hindered by various network devices such as middleboxes. Second, such extensions usually require support from all participating entities, but often these run different implementations, leading to the chicken-and-egg deployment issue. The recently standardized QUIC protocol paved the way for dealing with the first concern by embedding encryption by design. However, it attracted so much interest that there is now a large heterogeneity in QUIC implementations, hence amplifying the second problem.\n  To get rid of these deployment issues and to enable inter-operable, implementation-independent innovation at transport layer, we propose a paradigm shift called Core QUIC. While Core QUIC keeps compliant with the standardized QUIC protocol, it enforces implementation architecture such that any Core QUIC-supporting participant can be extended with the same, generic bytecode. To achieve this, Core QUIC defines a standardized representation format of common QUIC structures on which plugins running in a controlled environment can operate to extend the underlying host implementation. We demonstrate the feasibility of our approach by making two implementations Core QUIC-compliant. Then, we show that we can extend both with the same plugin code over several use cases.",
+      "url": "http://arxiv.org/abs/2405.01279v1",
+      "published": "2024-05-02",
+      "authors": [
+        "Quentin De Coninck"
+      ],
+      "citation_label": "[Paper 8 - Coninck 2024]"
+    },
+    {
+      "paper_id": 9,
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "summary": "This paper introduces and investigates a regularity condition in the asymptotic sense for optimization problems whose objective functions are polynomial. Under this regularity condition, the normalization argument in asymptotic analysis enables us to see the solution existence as well as the solution stability of these problems. We prove a Frank-Wolfe type theorem for regular optimization problems and an Eaves type theorem for non-regular pseudoconvex optimization problems. Moreover, we show results on the stability such as upper semicontinuity and local upper-H\u00f6lder stability of the solution map of polynomial optimization problems. At the end of the paper, we discuss the genericity of the regularity condition.",
+      "url": "http://arxiv.org/abs/1808.06100v6",
+      "published": "2018-08-18",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "citation_label": "[Paper 9 - Hieu 2018]"
+    }
+  ],
+  "limitations_extracted": 22,
+  "limitations": [
+    {
+      "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The number of input tokens increases rapidly with the number of interaction steps, posing a significant long-context challenge for LLM agents.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "LLM agents often lack familiarity with the precise usage of the MCP servers, introducing an unknown-tools challenge.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Even SOTA models exhibit significant performance limitations.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The approach focuses on design patterns and architecture, rather than a single algorithm, which may limit its applicability.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The approach requires integration with frameworks like DSPy, PromptWizard, and Prompts as Programs, which may introduce additional complexity.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The TURN protocol requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions, increasing the latent time.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The SIP protocol belongs to the application layer, constituting a weakness vis-a-vis the NAT traversal.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The Payment Protocol is vulnerable to refund attacks due to lack of authentication of the refund addresses.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The protocol modeller and verifier rely on communication channels as abstractions conveying security goals, which may not be comprehensive.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The proposed protocol revision may introduce additional complexity or overhead.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The Changing Neighbors k Secure Sum Protocol may not be efficient for large-scale computations.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The protocol assumes semi-honest parties, which may not be realistic in all scenarios.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The analysis is limited to two possible architectures for interfacing a quantum processor with a quantum network.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The study is based on current experimental state of the art and may not be applicable to future architectures.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The performance evaluation is limited to Nitrogen-Vacancy centers in diamond and may not be generalizable to other quantum systems.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The comparison of genetic algorithms is limited to three algorithms and may not be representative of all possible algorithms.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The analysis of genetic algorithms is limited to the context of software model refactoring and may not be applicable to other domains.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The Core QUIC approach requires a standardized representation format of common QUIC structures, which may be difficult to establish.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The feasibility of the Core QUIC approach is demonstrated with only two implementations, which may not be sufficient to prove its general applicability.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The regularity condition introduced in the paper may not be generic and may not hold for all polynomial optimization problems.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The analysis is limited to polynomial optimization problems and may not be applicable to other types of optimization problems.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Methodological Scope Limitations",
+      "count": 6,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The approach focuses on design patterns and architecture, rather than a single algorithm, which may limit its applicability.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The study is based on current experimental state of the art and may not be applicable to future architectures.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The comparison of genetic algorithms is limited to three algorithms and may not be representative of all possible algorithms.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The analysis of genetic algorithms is limited to the context of software model refactoring and may not be applicable to other domains.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The regularity condition introduced in the paper may not be generic and may not hold for all polynomial optimization problems.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The analysis is limited to polynomial optimization problems and may not be applicable to other types of optimization problems.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Protocol Security Limitations",
+      "count": 6,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The SIP protocol belongs to the application layer, constituting a weakness vis-a-vis the NAT traversal.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The Payment Protocol is vulnerable to refund attacks due to lack of authentication of the refund addresses.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The protocol modeller and verifier rely on communication channels as abstractions conveying security goals, which may not be comprehensive.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The proposed protocol revision may introduce additional complexity or overhead.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The Changing Neighbors k Secure Sum Protocol may not be efficient for large-scale computations.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The protocol assumes semi-honest parties, which may not be realistic in all scenarios.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Complexity and Integration Challenges",
+      "count": 3,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The number of input tokens increases rapidly with the number of interaction steps, posing a significant long-context challenge for LLM agents.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "LLM agents often lack familiarity with the precise usage of the MCP servers, introducing an unknown-tools challenge.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The approach requires integration with frameworks like DSPy, PromptWizard, and Prompts as Programs, which may introduce additional complexity.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Real World Complexity Limitations",
+      "count": 2,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Even SOTA models exhibit significant performance limitations.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Quantum Interface Limitations",
+      "count": 2,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The analysis is limited to two possible architectures for interfacing a quantum processor with a quantum network.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The performance evaluation is limited to Nitrogen-Vacancy centers in diamond and may not be generalizable to other quantum systems.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Implementation Limitations",
+      "count": 2,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The Core QUIC approach requires a standardized representation format of common QUIC structures, which may be difficult to establish.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The feasibility of the Core QUIC approach is demonstrated with only two implementations, which may not be sufficient to prove its general applicability.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Increased Latency Limitation",
+      "count": 1,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The TURN protocol requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions, increasing the latent time.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "Limited applicability and generalizability due to narrow focus on specific algorithms, architectures, or protocols",
+      "supporting_papers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ]
+    },
+    {
+      "gap": "Vulnerabilities in protocol security, including lack of authentication and potential for attacks",
+      "supporting_papers": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "gap": "Challenges in integrating and scaling complex systems, including issues with input tokens, tool usage, and framework compatibility",
+      "supporting_papers": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "gap": "Inability to capture real-world complexity and challenges, including long-horizon reasoning and unfamiliar tool spaces",
+      "supporting_papers": [
+        13,
+        14
+      ]
+    },
+    {
+      "gap": "Limitations in quantum interface architectures and performance evaluations, including restricted generalizability to other quantum systems",
+      "supporting_papers": [
+        15,
+        16
+      ]
+    }
+  ],
+  "research_ideas": [
+    {
+      "title": "Secure MCP Framework for Generalizable Protocol Development",
+      "description": "This research aims to develop a secure and generalizable framework for MCP protocol development, addressing vulnerabilities in protocol security and limited applicability. The approach will focus on designing a flexible and modular architecture that can be easily integrated with various algorithms and protocols. This will enable the creation of more robust and widely applicable MCP protocols.",
+      "addresses_gaps": [
+        "Limited applicability and generalizability",
+        "Vulnerabilities in protocol security"
+      ],
+      "cited_papers": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "title": "Complex System Integration and Scaling for Real-World MCP Applications",
+      "description": "This research will investigate the challenges of integrating and scaling complex systems for real-world MCP applications, including issues with input tokens, tool usage, and framework compatibility. The approach will involve developing novel methods and tools for capturing real-world complexity and addressing long-horizon reasoning and unfamiliar tool spaces. This will enable the development of more effective and scalable MCP protocols.",
+      "addresses_gaps": [
+        "Challenges in integrating and scaling complex systems",
+        "Inability to capture real-world complexity and challenges"
+      ],
+      "cited_papers": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "title": "Quantum-Enabled MCP Protocol Development for Enhanced Performance and Generalizability",
+      "description": "This research will explore the development of quantum-enabled MCP protocols, leveraging quantum interface architectures to enhance performance and generalizability. The approach will involve investigating novel quantum-inspired methods for MCP protocol development and evaluating their performance using quantum systems. This will enable the creation of more efficient and widely applicable MCP protocols.",
+      "addresses_gaps": [
+        "Limitations in quantum interface architectures and performance evaluations",
+        "Limited applicability and generalizability"
+      ],
+      "cited_papers": [
+        15,
+        16,
+        1,
+        2
+      ]
+    }
+  ],
+  "novelty_scores": [
+    6,
+    8,
+    9
+  ],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]",
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "published": "2025-08-20",
+      "url": "http://arxiv.org/abs/2508.14704v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Koc 2025]",
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "published": "2025-05-14",
+      "url": "http://arxiv.org/abs/2506.11019v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Guezouri 2010]",
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "published": "2010-02-05",
+      "url": "http://arxiv.org/abs/1002.1178v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Modesti 2021]",
+      "title": "Formal Modelling and Security Analysis of Bitcoin's Payment Protocol",
+      "authors": [
+        "Paolo Modesti",
+        "Siamak F. Shahandashti",
+        "Patrick McCorry"
+      ],
+      "published": "2021-03-15",
+      "url": "http://arxiv.org/abs/2103.08436v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Sheikh 2010]",
+      "title": "Changing Neighbors k Secure Sum Protocol for Secure Multi Party Computation",
+      "authors": [
+        "Rashid Sheikh",
+        "Beerendra Kumar",
+        "Durgesh Kumar Mishra"
+      ],
+      "published": "2010-02-11",
+      "url": "http://arxiv.org/abs/1002.2409v1"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Vardoyan 2021]",
+      "title": "On the Quantum Performance Evaluation of Two Distributed Quantum Architectures",
+      "authors": [
+        "Gayane Vardoyan",
+        "Matthew Skrzypczyk",
+        "Stephanie Wehner"
+      ],
+      "published": "2021-07-26",
+      "url": "http://arxiv.org/abs/2107.12246v2"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Cortellessa 2023]",
+      "title": "Performance of Genetic Algorithms in the Context of Software Model Refactoring",
+      "authors": [
+        "Vittorio Cortellessa",
+        "Daniele Di Pompeo",
+        "Michele Tucci"
+      ],
+      "published": "2023-08-26",
+      "url": "http://arxiv.org/abs/2308.13875v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Coninck 2024]",
+      "title": "Core QUIC: Enabling Dynamic, Implementation-Agnostic Protocol Extensions",
+      "authors": [
+        "Quentin De Coninck"
+      ],
+      "published": "2024-05-02",
+      "url": "http://arxiv.org/abs/2405.01279v1"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Hieu 2018]",
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "published": "2018-08-18",
+      "url": "http://arxiv.org/abs/1808.06100v6"
+    }
+  ],
+  "generated_at": "2026-02-26T21:12:09.164699",
+  "chroma_db": {
+    "session_id": "18ae84f6",
+    "path": "./chroma_db",
+    "papers_collection": "papers_18ae84f6",
+    "limitations_collection": "limitations_18ae84f6",
+    "total_papers_stored": 9,
+    "total_limitations_stored": 22
+  }
+}

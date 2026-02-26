@@ -1,6 +1,7 @@
 """
 Research Agent — extracted from research_agent.ipynb
 Each node function returns (state_update, sse_event) tuple.
+Streaming variants use callback to push partial tokens via SSE.
 """
 
 import os
@@ -10,7 +11,7 @@ import uuid
 import arxiv
 import numpy as np
 from datetime import datetime
-from typing import Literal
+from typing import Literal, Callable, Optional
 from dotenv import load_dotenv
 
 import chromadb
@@ -28,6 +29,27 @@ llm = ChatGroq(
     model="llama-3.3-70b-versatile",
     temperature=0.7,
 )
+
+llm_streaming = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    temperature=0.7,
+    streaming=True,
+)
+
+
+def llm_stream(prompt: str, on_token: Optional[Callable[[str], None]] = None) -> str:
+    """Invoke LLM with streaming. Calls on_token for each chunk, returns full text."""
+    if on_token is None:
+        response = llm.invoke([HumanMessage(content=prompt)])
+        return response.content
+
+    full_text = ""
+    for chunk in llm_streaming.stream([HumanMessage(content=prompt)]):
+        token = chunk.content
+        if token:
+            full_text += token
+            on_token(token)
+    return full_text
 
 # ---------- ChromaDB ----------
 CHROMA_DB_PATH = "./chroma_db"
@@ -117,7 +139,7 @@ def _parse_json(text: str):
 #  NODE FUNCTIONS — each returns (state_update_dict, sse_event_dict)
 # ======================================================================
 
-def generate_plan(state: dict) -> tuple:
+def generate_plan(state: dict, on_token: Optional[Callable] = None) -> tuple:
     topic = state["topic"]
 
     prompt = f"""You are a research assistant. Given the topic \"{topic}\", generate:
@@ -130,8 +152,8 @@ Return ONLY valid JSON in this format:
   "keywords": ["keyword1", "keyword2", ...]
 }}"""
 
-    response = llm.invoke([HumanMessage(content=prompt)])
-    data = _parse_json(response.content)
+    response_text = llm_stream(prompt, on_token)
+    data = _parse_json(response_text)
 
     state_update = {"subtopics": data["subtopics"], "keywords": data["keywords"]}
     event = {
@@ -143,7 +165,7 @@ Return ONLY valid JSON in this format:
     return state_update, event
 
 
-def search_papers(state: dict) -> tuple:
+def search_papers(state: dict, on_token: Optional[Callable] = None) -> tuple:
     keywords = state["keywords"]
     session_id = state["session_id"]
     papers_col, _ = get_session_collections(session_id)
@@ -155,6 +177,8 @@ def search_papers(state: dict) -> tuple:
     client = arxiv.Client()
 
     for kw in keywords:
+        if on_token:
+            on_token(f"\n[Searching arXiv for: \"{kw}\"]\n")
         search = arxiv.Search(
             query=kw,
             max_results=3,
@@ -174,6 +198,8 @@ def search_papers(state: dict) -> tuple:
                     "citation_label": f"[Paper {paper_id_counter} - {authors_list[0].split()[-1]} {result.published.year}]",
                 }
                 all_papers.append(paper)
+                if on_token:
+                    on_token(f"  Found: {result.title[:80]}\n")
                 paper_id_counter += 1
 
                 safe_id = result.entry_id.replace("/", "_").replace(":", "_")
@@ -212,7 +238,7 @@ def search_papers(state: dict) -> tuple:
     return state_update, event
 
 
-def extract_limitations(state: dict) -> tuple:
+def extract_limitations(state: dict, on_token: Optional[Callable] = None) -> tuple:
     papers = state["papers"]
 
     all_limitations = []
@@ -220,6 +246,8 @@ def extract_limitations(state: dict) -> tuple:
     batch_size = 5
     for i in range(0, len(papers), batch_size):
         batch = papers[i : i + batch_size]
+        if on_token:
+            on_token(f"\n[Analyzing batch {i//batch_size + 1}/{(len(papers)-1)//batch_size + 1}: papers {i+1}-{min(i+batch_size, len(papers))}]\n")
         papers_text = ""
         for j, p in enumerate(batch):
             papers_text += f"\n--- {p['citation_label']}: {p['title']} ---\n{p['summary']}\n"
@@ -236,8 +264,7 @@ Example:
   {{"limitation": "No evaluation on real-world data.", "paper_id": 2}}
 ]"""
 
-        response = llm.invoke([HumanMessage(content=prompt)])
-        text = response.content.strip()
+        text = llm_stream(prompt, on_token).strip()
 
         try:
             limitations_data = _parse_json(text)
@@ -281,7 +308,7 @@ Example:
     return state_update, event
 
 
-def cluster_limitations(state: dict) -> tuple:
+def cluster_limitations(state: dict, on_token: Optional[Callable] = None) -> tuple:
     limitations = state["limitations"]
     topic = state.get("topic", "research")
     session_id = state["session_id"]
@@ -337,12 +364,15 @@ def cluster_limitations(state: dict) -> tuple:
         clusters_dict.setdefault(int(label), []).append(limitations[idx])
 
     clusters = []
+    if on_token:
+        on_token(f"\n[Formed {len(clusters_dict)} clusters, naming themes...]\n")
     for label, lims in clusters_dict.items():
         sample = "; ".join(l["text"] if isinstance(l, dict) else l for l in lims[:3])
-        resp = llm.invoke(
-            [HumanMessage(content=f"Give a short 3-5 word theme name for these limitations: {sample}. Reply with ONLY the theme name.")]
-        )
-        theme = resp.content.strip().strip('"')
+        theme_prompt = f"Give a short 3-5 word theme name for these limitations: {sample}. Reply with ONLY the theme name."
+        theme_text = llm_stream(theme_prompt, on_token)
+        theme = theme_text.strip().strip('"')
+        if on_token:
+            on_token(f"\n  Cluster {label + 1}: \"{theme}\" ({len(lims)} limitations)\n")
 
         cited_papers = list(
             set(l.get("paper_id") for l in lims if isinstance(l, dict) and l.get("paper_id"))
@@ -372,7 +402,7 @@ def cluster_limitations(state: dict) -> tuple:
     return state_update, event
 
 
-def identify_gaps(state: dict) -> tuple:
+def identify_gaps(state: dict, on_token: Optional[Callable] = None) -> tuple:
     clusters = state["clusters"]
     papers = state["papers"]
 
@@ -397,8 +427,8 @@ Return ONLY a JSON array:
   {{"gap": "description of the gap", "supporting_papers": [1, 3, 5]}}
 ]"""
 
-    response = llm.invoke([HumanMessage(content=prompt)])
-    gaps_data = _parse_json(response.content)
+    response_text = llm_stream(prompt, on_token)
+    gaps_data = _parse_json(response_text)
 
     gaps = []
     for g in gaps_data:
@@ -429,7 +459,7 @@ Return ONLY a JSON array:
     return state_update, event
 
 
-def generate_ideas(state: dict) -> tuple:
+def generate_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
     gaps = state["gaps"]
     topic = state["topic"]
     papers = state["papers"]
@@ -474,8 +504,8 @@ Return ONLY a JSON array:
   }}
 ]"""
 
-    response = llm.invoke([HumanMessage(content=prompt)])
-    ideas = _parse_json(response.content)
+    response_text = llm_stream(prompt, on_token)
+    ideas = _parse_json(response_text)
 
     state_update = {"ideas": ideas, "reflection_attempts": 0}
     event = {
@@ -502,7 +532,7 @@ Return ONLY a JSON array:
     return state_update, event
 
 
-def reflect_on_ideas(state: dict) -> tuple:
+def reflect_on_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
     ideas = state["ideas"]
     attempts = state.get("reflection_attempts", 0)
 
@@ -518,8 +548,8 @@ Return ONLY a JSON array of objects:
   {{"title": "...", "novelty_score": 8, "feedback": "why this score"}}
 ]"""
 
-    response = llm.invoke([HumanMessage(content=prompt)])
-    scores_data = _parse_json(response.content)
+    response_text = llm_stream(prompt, on_token)
+    scores_data = _parse_json(response_text)
     scores = [s["novelty_score"] for s in scores_data]
 
     state_update = {
@@ -549,7 +579,7 @@ def should_regenerate(state: dict) -> bool:
     return avg_score < 7 and attempts < 3
 
 
-def save_results(state: dict) -> tuple:
+def save_results(state: dict, on_token: Optional[Callable] = None) -> tuple:
     session_id = state.get("session_id", "unknown")
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = os.path.join(SESSIONS_DIR, f"session_{session_id}_{timestamp}.json")
