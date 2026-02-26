@@ -1,0 +1,17 @@
+langchain-groq
+langgraph
+langchain-community
+langchain-core
+dotenv
+fastapi
+uvicorn
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+jinja2
+PyPDF2
+arxiv
+scikit-learn
+numpy
+chromadb
+sentence-transformers

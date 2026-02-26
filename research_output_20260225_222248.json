@@ -1,0 +1,410 @@
+{
+  "topic": "agentic rag ",
+  "subtopics": [
+    "Agentic Rag as a Concept in Cognitive Science",
+    "Applications of Agentic Rag in Artificial Intelligence",
+    "Philosophical Implications of Agentic Rag on Free Will",
+    "Neuroscientific Basis of Agentic Rag",
+    "Agentic Rag in Human-Computer Interaction"
+  ],
+  "keywords": [
+    "agentic rag",
+    "cognitive architecture",
+    "autonomy in AI",
+    "human agency",
+    "free will and determinism",
+    "neural correlates of agency",
+    "artificial general intelligence",
+    "human-computer interaction"
+  ],
+  "papers_found": 24,
+  "papers": [
+    {
+      "title": "Retrieval Augmented Generation (RAG) for Fintech: Agentic Design and Evaluation",
+      "summary": "Retrieval-Augmented Generation (RAG) systems often face limitations in specialized domains such as fintech, where domain-specific ontologies, dense terminology, and acronyms complicate effective retrieval and synthesis. This paper introduces an agentic RAG architecture designed to address these challenges through a modular pipeline of specialized agents. The proposed system supports intelligent query reformulation, iterative sub-query decomposition guided by keyphrase extraction, contextual acronym resolution, and cross-encoder-based context re-ranking. We evaluate our approach against a standard RAG baseline using a curated dataset of 85 question--answer--reference triples derived from an enterprise fintech knowledge base. Experimental results demonstrate that the agentic RAG system outperforms the baseline in retrieval precision and relevance, albeit with increased latency. These findings suggest that structured, multi-agent methodologies offer a promising direction for enhancing retrieval robustness in complex, domain-specific settings.",
+      "url": "http://arxiv.org/abs/2510.25518v1",
+      "published": "2025-10-29",
+      "authors": [
+        "Thomas Cook",
+        "Richard Osuagwu",
+        "Liman Tsatiashvili"
+      ]
+    },
+    {
+      "title": "RAG-Gym: Systematic Optimization of Language Agents for Retrieval-Augmented Generation",
+      "summary": "Retrieval-augmented generation (RAG) has shown great promise for knowledge-intensive tasks and recently advanced with agentic RAG, where language agents engage in multi-round interactions with external knowledge sources for adaptive information retrieval. However, existing agentic RAG methods often depend on ad-hoc prompt engineering and lack a unified optimization framework. We introduce RAG-Gym, a comprehensive platform that systematically explores three optimization dimensions: (1) prompt engineering, (2) actor tuning, and (3) critic training. For prompt engineering, we propose Re$^2$Search, a novel agent incorporating reasoning reflection that significantly outperforms standard prompts. In actor tuning, we evaluate three popular post-training algorithms with fine-grained process supervision and identify direct preference optimization as the most effective. We further demonstrate that a trained critic can enhance inference by selecting higher-quality intermediate reasoning steps. Together, these findings lead to the optimized Re$^2$Search++ agent, which surpasses most recent methods like Search-R1 by a relative increase of 3.2% to 11.6% in average F1. Finally, we examine the impact of different reward sources and analyze scaling properties in training and inference, offering practical insights for agentic RAG optimization. The project homepage is available at https://rag-gym.github.io.",
+      "url": "http://arxiv.org/abs/2502.13957v2",
+      "published": "2025-02-19",
+      "authors": [
+        "Guangzhi Xiong",
+        "Qiao Jin",
+        "Xiao Wang"
+      ]
+    },
+    {
+      "title": "MultiHop-RAG: Benchmarking Retrieval-Augmented Generation for Multi-Hop Queries",
+      "summary": "Retrieval-augmented generation (RAG) augments large language models (LLM) by retrieving relevant knowledge, showing promising potential in mitigating LLM hallucinations and enhancing response quality, thereby facilitating the great adoption of LLMs in practice. However, we find that existing RAG systems are inadequate in answering multi-hop queries, which require retrieving and reasoning over multiple pieces of supporting evidence. Furthermore, to our knowledge, no existing RAG benchmarking dataset focuses on multi-hop queries. In this paper, we develop a novel dataset, MultiHop-RAG, which consists of a knowledge base, a large collection of multi-hop queries, their ground-truth answers, and the associated supporting evidence. We detail the procedure of building the dataset, utilizing an English news article dataset as the underlying RAG knowledge base. We demonstrate the benchmarking utility of MultiHop-RAG in two experiments. The first experiment compares different embedding models for retrieving evidence for multi-hop queries. In the second experiment, we examine the capabilities of various state-of-the-art LLMs, including GPT-4, PaLM, and Llama2-70B, in reasoning and answering multi-hop queries given the evidence. Both experiments reveal that existing RAG methods perform unsatisfactorily in retrieving and answering multi-hop queries. We hope MultiHop-RAG will be a valuable resource for the community in developing effective RAG systems, thereby facilitating greater adoption of LLMs in practice. The MultiHop-RAG and implemented RAG system is publicly available at https://github.com/yixuantt/MultiHop-RAG/.",
+      "url": "http://arxiv.org/abs/2401.15391v1",
+      "published": "2024-01-27",
+      "authors": [
+        "Yixuan Tang",
+        "Yi Yang"
+      ]
+    },
+    {
+      "title": "WEBCA: Weakly-Electric-Fish Bioinspired Cognitive Architecture",
+      "summary": "Neuroethology has been an active field of study for more than a century now. Out of some of the most interesting species that has been studied so far, weakly electric fish is a fascinating one. It performs communication, echo-location and inter-species detection efficiently with an interesting configuration of sensors, neu-rons and a simple brain. In this paper we propose a cognitive architecture inspired by the way these fishes handle and process information. We believe that it is eas-ier to understand and mimic the neural architectures of a simpler species than that of human. Hence, the proposed architecture is expected to both help research in cognitive robotics and also help understand more complicated brains like that of human beings.",
+      "url": "http://arxiv.org/abs/1806.11401v1",
+      "published": "2018-06-29",
+      "authors": [
+        "Amit Kumar Mishra"
+      ]
+    },
+    {
+      "title": "An Initial Description of Capabilities and Constraints for a Computational Auditory System (an Artificial Ear) for Cognitive Architectures",
+      "summary": "We present an initial set of factors, features, and constraints for developing a Computational Auditory System (CAS, aka less formally an artificial ear, AE) for use by cognitive architectures. We start to define a CAS and what tasks it should be able to perform. We then outline the features of a CAS for use by a cognitive architecture and factors that influence its performance. We conclude with an update on what has been created so far and insights on how to create and use a CAS in a cognitive architecture and include a set of functionalities for an artificial ear.",
+      "url": "http://arxiv.org/abs/2202.05332v1",
+      "published": "2022-02-10",
+      "authors": [
+        "Frank E. Ritter",
+        "Mathieu Brener"
+      ]
+    },
+    {
+      "title": "Using a cognitive architecture to consider antiBlackness in design and development of AI systems",
+      "summary": "How might we use cognitive modeling to consider the ways in which antiblackness, and racism more broadly, impact the design and development of AI systems? We provide a discussion and an example towards an answer to this question. We use the ACT-R/\u03a6 cognitive architecture and an existing knowledge graph system, ConceptNet, to consider this question not only from a cognitive and sociocultural perspective, but also from a physiological perspective. In addition to using a cognitive modeling as a means to explore how antiblackness may manifest in the design and development of AI systems (particularly from a software engineering perspective), we also introduce connections between antiblackness, the Human, and computational cognitive modeling. We argue that the typical eschewing of sociocultural processes and knowledge structures in cognitive architectures and cognitive modeling implicitly furthers a colorblind approach to cognitive modeling and hides sociocultural context that is always present in human behavior and affects cognitive processes.",
+      "url": "http://arxiv.org/abs/2207.00644v3",
+      "published": "2022-07-01",
+      "authors": [
+        "Christopher L. Dancy"
+      ]
+    },
+    {
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ]
+    },
+    {
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ]
+    },
+    {
+      "title": "Levels of Autonomy for AI Agents",
+      "summary": "Autonomy is a double-edged sword for AI agents, simultaneously unlocking transformative possibilities and serious risks. How can agent developers calibrate the appropriate levels of autonomy at which their agents should operate? We argue that an agent's level of autonomy can be treated as a deliberate design decision, separate from its capability and operational environment. In this work, we define five levels of escalating agent autonomy, characterized by the roles a user can take when interacting with an agent: operator, collaborator, consultant, approver, and observer. Within each level, we describe the ways by which a user can exert control over the agent and open questions for how to design the nature of user-agent interaction. We then highlight a potential application of our framework towards AI autonomy certificates to govern agent behavior in single- and multi-agent systems. We conclude by proposing early ideas for evaluating agents' autonomy. Our work aims to contribute meaningful, practical steps towards responsibly deployed and useful AI agents in the real world.",
+      "url": "http://arxiv.org/abs/2506.12469v2",
+      "published": "2025-06-14",
+      "authors": [
+        "K. J. Kevin Feng",
+        "David W. McDonald",
+        "Amy X. Zhang"
+      ]
+    },
+    {
+      "title": "Advanced Data Protection Control (ADPC): An Interdisciplinary Overview",
+      "summary": "The Advanced Data Protection Control (ADPC) is a technical specification - and a set of sociotechnical mechanisms surrounding it - that can change the current practice of Internet-based personal data protection and consenting by providing novel and standardized means for the communication of privacy and consenting data, meta-data, information, requests, preferences, and decisions. The ADPC supports humans in practicing their rights to privacy and agency by giving them more human-centric control over the processing of their personal data and consent. It helps the data controllers to improve their users' experiences and provides them with easy-to-adopt means to comply with the relevant legal and ethical requirements and expectations.",
+      "url": "http://arxiv.org/abs/2209.09724v1",
+      "published": "2022-09-20",
+      "authors": [
+        "Soheil Human"
+      ]
+    },
+    {
+      "title": "Needs-aware Artificial Intelligence: AI that 'serves [human] needs'",
+      "summary": "By defining the current limits (and thereby the frontiers), many boundaries are shaping, and will continue to shape, the future of Artificial Intelligence (AI). We push on these boundaries in order to make further progress into what were yesterday's frontiers. They are both pliable and resilient - always creating new boundaries of what AI can (or should) achieve. Among these are technical boundaries (such as processing capacity), psychological boundaries (such as human trust in AI systems), ethical boundaries (such as with AI weapons), and conceptual boundaries (such as the AI people can imagine). It is within this final category while it can play a fundamental role in all other boundaries} that we find the construct of needs and the limitations that our current concept of need places on the future AI.",
+      "url": "http://arxiv.org/abs/2202.04977v3",
+      "published": "2022-02-10",
+      "authors": [
+        "Ryan Watkins",
+        "Soheil Human"
+      ]
+    },
+    {
+      "title": "The Interplay between Human and Machine Agency",
+      "summary": "Human-machine networks affect many aspects of our lives: from sharing experiences with family and friends, knowledge creation and distance learning, and managing utility bills or providing feedback on retail items, to more specialised networks providing decision support to human operators and the delivery of health care via a network of clinicians, family, friends, and both physical and virtual social robots. Such networks rely on increasingly sophisticated machine algorithms, e.g., to recommend friends or purchases, to track our online activities in order to optimise the services available, and assessing risk to help maintain or even enhance people's health. Users are being offered ever increasing power and reach through these networks by machines which have to support and allow users to be able to achieve goals such as maintaining contact, making better decisions, and monitoring their health. As such, this comes down to a synergy between human and machine agency in which one is dependent in complex ways on the other. With that agency questions arise about trust, risk and regulation, as well as social influence and potential for computer-mediated self-efficacy. In this paper, we explore these constructs and their relationships and present a model based on review of the literature which seeks to identify the various dependencies between them.",
+      "url": "http://arxiv.org/abs/1702.04537v1",
+      "published": "2017-02-15",
+      "authors": [
+        "J. Brian Pickering",
+        "Vegard Engen",
+        "Paul Walland"
+      ]
+    },
+    {
+      "title": "Against free will in the contemporary natural sciences",
+      "summary": "The claim of the freedom of the will (understood as an individual who is transcendent to Nature) in the name of XXth century scientific knowledge, against the perspective of XVIIIth-XIXth century scientific materialism, is analysed and refuted in the present paper. The hypothesis of reductionism finds no obstacle within contemporary natural sciences. Determinism in classical physics is irrefutable, unless classical physics is itself refuted. From quantum mechanics, some authors argue that free will is possible because there is an ontological indeterminism in the natural laws, and that the mind is responsible for the wave function collapse of matter, which leads to a choice among the different possibilities for the body. However, here I defend the opposite thesis because indeterminism does not imply free will, and because the considerations about an autonomous mind sending orders to the body is against neuroscience or evolutionary theories about human beings. The quantum theory of measurement can be interpreted without the intervention of human minds, but other fields of science cannot contemplate the mentalist scenario. A fatalistic or materialist view, which denies the possibility of a free will, makes much more sense in scientific terms.",
+      "url": "http://arxiv.org/abs/1612.01466v1",
+      "published": "2016-12-05",
+      "authors": [
+        "Martin Lopez-Corredoira"
+      ]
+    },
+    {
+      "title": "What does a group algebra of a free group know about the group?",
+      "summary": "We describe solutions to the problem of elementary classification in the class of group algebras of free groups. We will show that unlike free groups, two group algebras of free groups over infinite fields are elementarily equivalent if and only if the groups are isomorphic and the fields are equivalent in the weak second order logic. We will show that the set of all free bases of a free group $F$ is 0-definable in the group algebra $K(F)$ when $K$ is an infinite field, the set of geodesics is definable, and many geometric properties of $F$ are definable in $K(F)$. Therefore $K(F)$ knows some very important information about $F$. We will show that similar results hold for group algebras of limit groups.",
+      "url": "http://arxiv.org/abs/1607.03138v3",
+      "published": "2016-07-11",
+      "authors": [
+        "O. Kharlampovich",
+        "A. Miasnikov"
+      ]
+    },
+    {
+      "title": "Finite free probability and $S$ transforms of Jacobi processes",
+      "summary": "In this paper, we study the $S$ transforms of Jacobi processes in the frameworks of free and finite free probability theories. We begin by deriving a partial differential equation satisfied by the free $S$ transform of the free Jacobi process, and we provide a detailed analysis of its characteristic curves. We turn next our attention to the averaged characteristic polynomial of the Hermitian Jacobi process and to the dynamic of its roots, referred to as the \\emph{frozen Jacobi process}. In particular, we prove, for a specific set of parameters, that the former aligns up to a Szeg\u00f6 variable transformation with the Hermite unitary polynomial. We also provide an expansion of the averaged characteristic polynomial of the Hermitian process in the basis of Jacobi polynomials. Finally, we establish the convergence of the frozen Jacobi process to the free Jacobi process in high dimensions by using the finite free S transform. In doing so, we prove a general result, interesting in its own, on the convergence of the finite differences of the finite free $S$ transform, which paves the way to obtain asymptotics of differential-difference equations satisfied by time-dependent finite free S-transforms of polynomial sequences with positive roots.",
+      "url": "http://arxiv.org/abs/2511.02758v3",
+      "published": "2025-11-04",
+      "authors": [
+        "Nizar Demni",
+        "Nicolas Gilliers",
+        "Tarek Hamdi"
+      ]
+    },
+    {
+      "title": "Active Inference as a Model of Agency",
+      "summary": "Is there a canonical way to think of agency beyond reward maximisation? In this paper, we show that any type of behaviour complying with physically sound assumptions about how macroscopic biological agents interact with the world canonically integrates exploration and exploitation in the sense of minimising risk and ambiguity about states of the world. This description, known as active inference, refines the free energy principle, a popular descriptive framework for action and perception originating in neuroscience. Active inference provides a normative Bayesian framework to simulate and model agency that is widely used in behavioural neuroscience, reinforcement learning (RL) and robotics. The usefulness of active inference for RL is three-fold. \\emph{a}) Active inference provides a principled solution to the exploration-exploitation dilemma that usefully simulates biological agency. \\emph{b}) It provides an explainable recipe to simulate behaviour, whence behaviour follows as an explainable mixture of exploration and exploitation under a generative world model, and all differences in behaviour are explicit in differences in world model. \\emph{c}) This framework is universal in the sense that it is theoretically possible to rewrite any RL algorithm conforming to the descriptive assumptions of active inference as an active inference algorithm. Thus, active inference can be used as a tool to uncover and compare the commitments and assumptions of more specific models of agency.",
+      "url": "http://arxiv.org/abs/2401.12917v1",
+      "published": "2024-01-23",
+      "authors": [
+        "Lancelot Da Costa",
+        "Samuel Tenka",
+        "Dominic Zhao"
+      ]
+    },
+    {
+      "title": "The Deep Arbitrary Polynomial Chaos Neural Network or how Deep Artificial Neural Networks could benefit from Data-Driven Homogeneous Chaos Theory",
+      "summary": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is determined via their multi-layer architecture, activation functions and the so-called loss function. However, for a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains the same, where the node response is encoded as a linear superposition of neural activity, while the non-linearity is triggered by the activation functions. In the current paper, we suggest to analyze the neural signal processing in DANNs from the point of view of homogeneous chaos theory as known from polynomial chaos expansion (PCE). From the PCE perspective, the (linear) response on each node of a DANN could be seen as a $1^{st}$ degree multi-variate polynomial of single neurons from the previous layer, i.e. linear weighted sum of monomials. From this point of view, the conventional DANN structure relies implicitly (but erroneously) on a Gaussian distribution of neural signals. Additionally, this view revels that by design DANNs do not necessarily fulfill any orthogonality or orthonormality condition for a majority of data-driven applications. Therefore, the prevailing handling of neural signals in DANNs could lead to redundant representation as any neural signal could contain some partial information from other neural signals. To tackle that challenge, we suggest to employ the data-driven generalization of PCE theory known as arbitrary polynomial chaos (aPC) to construct a corresponding multi-variate orthonormal representations on each node of a DANN to obtain Deep arbitrary polynomial chaos neural networks.",
+      "url": "http://arxiv.org/abs/2306.14753v1",
+      "published": "2023-06-26",
+      "authors": [
+        "Sergey Oladyshkin",
+        "Timothy Praditia",
+        "Ilja Kr\u00f6ker"
+      ]
+    },
+    {
+      "title": "A Tutorial about Random Neural Networks in Supervised Learning",
+      "summary": "Random Neural Networks (RNNs) are a class of Neural Networks (NNs) that can also be seen as a specific type of queuing network. They have been successfully used in several domains during the last 25 years, as queuing networks to analyze the performance of resource sharing in many engineering areas, as learning tools and in combinatorial optimization, where they are seen as neural systems, and also as models of neurological aspects of living beings. In this article we focus on their learning capabilities, and more specifically, we present a practical guide for using the RNN to solve supervised learning problems. We give a general description of these models using almost indistinctly the terminology of Queuing Theory and the neural one. We present the standard learning procedures used by RNNs, adapted from similar well-established improvements in the standard NN field. We describe in particular a set of learning algorithms covering techniques based on the use of first order and, then, of second order derivatives. We also discuss some issues related to these objects and present new perspectives about their use in supervised learning problems. The tutorial describes their most relevant applications, and also provides a large bibliography.",
+      "url": "http://arxiv.org/abs/1609.04846v1",
+      "published": "2016-09-15",
+      "authors": [
+        "Sebasti\u00e1n Basterrech",
+        "Gerardo Rubino"
+      ]
+    },
+    {
+      "title": "The Artificial Scientist: Logicist, Emergentist, and Universalist Approaches to Artificial General Intelligence",
+      "summary": "We attempt to define what is necessary to construct an Artificial Scientist, explore and evaluate several approaches to artificial general intelligence (AGI) which may facilitate this, conclude that a unified or hybrid approach is necessary and explore two theories that satisfy this requirement to some degree.",
+      "url": "http://arxiv.org/abs/2110.01831v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett",
+        "Yoshihiro Maruyama"
+      ]
+    },
+    {
+      "title": "Compression, The Fermi Paradox and Artificial Super-Intelligence",
+      "summary": "The following briefly discusses possible difficulties in communication with and control of an AGI (artificial general intelligence), building upon an explanation of The Fermi Paradox and preceding work on symbol emergence and artificial general intelligence. The latter suggests that to infer what someone means, an agent constructs a rationale for the observed behaviour of others. Communication then requires two agents labour under similar compulsions and have similar experiences (construct similar solutions to similar tasks). Any non-human intelligence may construct solutions such that any rationale for their behaviour (and thus the meaning of their signals) is outside the scope of what a human is inclined to notice or comprehend. Further, the more compressed a signal, the closer it will appear to random noise. Another intelligence may possess the ability to compress information to the extent that, to us, their signals would appear indistinguishable from noise (an explanation for The Fermi Paradox). To facilitate predictive accuracy an AGI would tend to more compressed representations of the world, making any rationale for their behaviour more difficult to comprehend for the same reason. Communication with and control of an AGI may subsequently necessitate not only human-like compulsions and experiences, but imposed cognitive impairment.",
+      "url": "http://arxiv.org/abs/2110.01835v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett"
+      ]
+    },
+    {
+      "title": "Creative Problem Solving in Artificially Intelligent Agents: A Survey and Framework",
+      "summary": "Creative Problem Solving (CPS) is a sub-area within Artificial Intelligence (AI) that focuses on methods for solving off-nominal, or anomalous problems in autonomous systems. Despite many advancements in planning and learning, resolving novel problems or adapting existing knowledge to a new context, especially in cases where the environment may change in unpredictable ways post deployment, remains a limiting factor in the safe and useful integration of intelligent systems. The emergence of increasingly autonomous systems dictates the necessity for AI agents to deal with environmental uncertainty through creativity. To stimulate further research in CPS, we present a definition and a framework of CPS, which we adopt to categorize existing AI methods in this field. Our framework consists of four main components of a CPS problem, namely, 1) problem formulation, 2) knowledge representation, 3) method of knowledge manipulation, and 4) method of evaluation. We conclude our survey with open research questions, and suggested directions for the future.",
+      "url": "http://arxiv.org/abs/2204.10358v1",
+      "published": "2022-04-21",
+      "authors": [
+        "Evana Gizzi",
+        "Lakshmi Nair",
+        "Sonia Chernova"
+      ]
+    },
+    {
+      "title": "Towards Responsible AI: A Design Space Exploration of Human-Centered Artificial Intelligence User Interfaces to Investigate Fairness",
+      "summary": "With Artificial intelligence (AI) to aid or automate decision-making advancing rapidly, a particular concern is its fairness. In order to create reliable, safe and trustworthy systems through human-centred artificial intelligence (HCAI) design, recent efforts have produced user interfaces (UIs) for AI experts to investigate the fairness of AI models. In this work, we provide a design space exploration that supports not only data scientists but also domain experts to investigate AI fairness. Using loan applications as an example, we held a series of workshops with loan officers and data scientists to elicit their requirements. We instantiated these requirements into FairHIL, a UI to support human-in-the-loop fairness investigations, and describe how this UI could be generalized to other use cases. We evaluated FairHIL through a think-aloud user study. Our work contributes better designs to investigate an AI model's fairness-and move closer towards responsible AI.",
+      "url": "http://arxiv.org/abs/2206.00474v1",
+      "published": "2022-06-01",
+      "authors": [
+        "Yuri Nakao",
+        "Lorenzo Strappelli",
+        "Simone Stumpf"
+      ]
+    },
+    {
+      "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+      "summary": "While generative artificial intelligence (Gen AI) increasingly transforms academic environments, a critical gap exists in understanding and mitigating human biases in AI interactions, such as anchoring and confirmation bias. This position paper advocates for metacognitive AI literacy interventions to help university students critically engage with AI and address biases across the Human-AI interaction workflows. The paper presents the importance of considering (1) metacognitive support with deliberate friction focusing on human bias; (2) bi-directional Human-AI interaction intervention addressing both input formulation and output interpretation; and (3) adaptive scaffolding that responds to diverse user engagement patterns. These frameworks are illustrated through ongoing work on \"DeBiasMe,\" AIED (AI in Education) interventions designed to enhance awareness of cognitive biases while empowering user agency in AI interactions. The paper invites multiple stakeholders to engage in discussions on design and evaluation methods for scaffolding mechanisms, bias visualization, and analysis frameworks. This position contributes to the emerging field of AI-augmented learning by emphasizing the critical role of metacognition in helping students navigate the complex interaction between human, statistical, and systemic biases in AI use while highlighting how cognitive adaptation to AI systems must be explicitly integrated into comprehensive AI literacy frameworks.",
+      "url": "http://arxiv.org/abs/2504.16770v1",
+      "published": "2025-04-23",
+      "authors": [
+        "Chaeyeon Lim"
+      ]
+    },
+    {
+      "title": "Vision Based Game Development Using Human Computer Interaction",
+      "summary": "A Human Computer Interface (HCI) System for playing games is designed here for more natural communication with the machines. The system presented here is a vision-based system for detection of long voluntary eye blinks and interpretation of blink patterns for communication between man and machine. This system replaces the mouse with the human face as a new way to interact with the computer. Facial features (nose tip and eyes) are detected and tracked in realtime to use their actions as mouse events. The coordinates and movement of the nose tip in the live video feed are translated to become the coordinates and movement of the mouse pointer on the application. The left or right eye blinks fire left or right mouse click events. The system works with inexpensive USB cameras and runs at a frame rate of 30 frames per second.",
+      "url": "http://arxiv.org/abs/1002.2191v1",
+      "published": "2010-02-10",
+      "authors": [
+        "S. Sumathi",
+        "S. K. Srivatsa",
+        "M. Uma Maheswari"
+      ]
+    }
+  ],
+  "limitations_extracted": 46,
+  "clusters": [
+    {
+      "theme": "Cognitive Architecture Limitations",
+      "limitations": [
+        "The proposed cognitive architecture inspired by weakly electric fish may not be directly applicable to more complex species like humans.",
+        "The development of a Computational Auditory System for cognitive architectures is still in its initial stages and requires further research.",
+        "The paper does not provide a comprehensive evaluation of the proposed cognitive architecture's effectiveness in mitigating antiblackness in AI systems.",
+        "The work relies on a specific cognitive architecture, ACT-R/\u03a6, which may not be generalizable to other architectures.",
+        "The chapter on GenIR does not discuss potential biases in the large-scale training data used by generative AI models.",
+        "The study on OpenAI's ethical AI discourse is limited to a single case study and may not be representative of the broader AI industry.",
+        "The proposed levels of autonomy for AI agents are not empirically validated and may require further testing.",
+        "The work on GenIR does not explore the potential risks and downsides of generative AI models, such as hallucination and disinformation.",
+        "The study on OpenAI's discourse does not examine the potential impact of ethics-washing practices on the development of AI systems.",
+        "The proposed framework for evaluating agents' autonomy is still in its early stages and requires further development and refinement.",
+        "The current concept of need places limitations on the future of Artificial Intelligence.",
+        "The interplay between human and machine agency raises questions about trust, risk, and regulation that are not fully addressed.",
+        "The exploration of the relationships between human and machine agency is based on a review of the literature and may not reflect the full complexity of real-world interactions.",
+        "The Artificial Scientist approach may require a unified or hybrid approach to artificial general intelligence, which can be challenging to implement.",
+        "The compression of signals by an artificial general intelligence may make it difficult for humans to comprehend their behavior and communicate with them.",
+        "The imposed cognitive impairment required for communication with an artificial general intelligence may limit its predictive accuracy and capabilities.",
+        "The current state of Creative Problem Solving in Artificial Intelligence is limited by its inability to resolve novel problems in unpredictable environments.",
+        "The framework for Creative Problem Solving presented in the paper may not be comprehensive or universally applicable.",
+        "The design space exploration for human-centered artificial intelligence user interfaces may not be generalizable to all use cases beyond loan applications.",
+        "The FairHIL UI may not be effective in supporting fairness investigations for AI models in domains other than loan applications.",
+        "The DeBiasMe intervention may not be effective in mitigating human biases in AI interactions for all types of users or in all contexts.",
+        "The metacognitive AI literacy interventions presented in the paper may require significant resources and expertise to implement and evaluate."
+      ],
+      "count": 22
+    },
+    {
+      "theme": "Scope and Adoption Limitations",
+      "limitations": [
+        "The proposed system may not perform well in domains outside of fintech due to its specialized design.",
+        "The Advanced Data Protection Control specification is a technical solution that may not address the underlying sociotechnical complexities of personal data protection.",
+        "The paper on ADPC does not provide a detailed analysis of the potential challenges and barriers to adopting the proposed specification.",
+        "The active inference framework does not provide a clear solution for handling complex or dynamic environments.",
+        "The active inference framework may not be able to handle situations where the agent's goals and preferences are not clearly defined."
+      ],
+      "count": 5
+    },
+    {
+      "theme": "Algorithmic Limitation Constraints",
+      "limitations": [
+        "The analysis of human-machine networks relies on increasingly sophisticated machine algorithms, which may not always be available or effective.",
+        "The Deep Arbitrary Polynomial Chaos Neural Network approach relies on the assumption that neural signals can be represented as a linear superposition of neural activity.",
+        "The prevailing handling of neural signals in Deep Artificial Neural Networks could lead to redundant representation.",
+        "Random Neural Networks may not be suitable for large-scale supervised learning problems due to their queuing network nature.",
+        "The Deep Arbitrary Polynomial Chaos Neural Network approach may require significant computational resources to construct and train."
+      ],
+      "count": 5
+    },
+    {
+      "theme": "RAG System Limitations",
+      "limitations": [
+        "The proposed agentic RAG system has increased latency compared to the standard RAG baseline.",
+        "Existing agentic RAG methods often depend on ad-hoc prompt engineering and lack a unified optimization framework.",
+        "Existing RAG systems are inadequate in answering multi-hop queries, which require retrieving and reasoning over multiple pieces of supporting evidence.",
+        "No existing RAG benchmarking dataset focuses on multi-hop queries."
+      ],
+      "count": 4
+    },
+    {
+      "theme": "Scientific Theory Limitations",
+      "limitations": [
+        "The hypothesis of reductionism and determinism may not be applicable to all fields of science, particularly those involving human decision-making and free will.",
+        "The refutation of the claim of free will is based on a materialist view, which may not be universally accepted.",
+        "The Fermi Paradox explanation provided may not be applicable to all types of non-human intelligence."
+      ],
+      "count": 3
+    },
+    {
+      "theme": "Methodological Limitations",
+      "limitations": [
+        "The study of Jacobi processes is restricted to specific parameters and may not be representative of all possible scenarios.",
+        "The study of finite free probability and S transforms of Jacobi processes is highly technical and may not be accessible to non-experts.",
+        "The convergence of the frozen Jacobi process to the free Jacobi process is established only in high dimensions and may not hold in lower dimensions."
+      ],
+      "count": 3
+    },
+    {
+      "theme": "Technical System Limitations",
+      "limitations": [
+        "The vision-based game development system may not be robust to variations in lighting, facial expressions, or other environmental factors.",
+        "The system may not be able to accurately detect and interpret eye blinks or other facial features in real-time, particularly for users with certain disabilities or characteristics.",
+        "The system's reliance on inexpensive USB cameras may limit its accuracy or performance in certain settings."
+      ],
+      "count": 3
+    },
+    {
+      "theme": "Field Size Restrictions",
+      "limitations": [
+        "The results on group algebras of free groups are limited to infinite fields and may not generalize to finite fields."
+      ],
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    "Lack of generalizability of cognitive architectures to complex species like humans",
+    "Insufficient evaluation of cognitive architectures in mitigating social biases in AI systems",
+    "Limited scope and adoptability of proposed systems and specifications across different domains and industries",
+    "Inadequacy of existing algorithms and methods in handling complex tasks such as multi-hop queries and neural signal representation",
+    "Methodological limitations and lack of accessibility in studying complex technical processes"
+  ],
+  "research_ideas": [
+    {
+      "title": "Cognitive Architecture for Complex Species",
+      "description": "This research proposes a novel cognitive architecture that incorporates human-like reasoning and decision-making processes, enabling more accurate modeling of complex species like humans. The approach will involve integrating machine learning and cognitive science techniques to develop a more generalizable framework. This framework will be tested on various complex tasks to evaluate its efficacy.",
+      "addresses_gaps": [
+        "Lack of generalizability of cognitive architectures to complex species like humans",
+        "Inadequacy of existing algorithms and methods in handling complex tasks"
+      ]
+    },
+    {
+      "title": "Bias-Mitigating Cognitive Architectures for AI Systems",
+      "description": "This research aims to develop and evaluate cognitive architectures that can mitigate social biases in AI systems, ensuring more fair and equitable decision-making processes. The approach will involve designing and testing architectures that incorporate bias-detection and correction mechanisms, using real-world datasets and scenarios. The goal is to create more transparent and accountable AI systems.",
+      "addresses_gaps": [
+        "Insufficient evaluation of cognitive architectures in mitigating social biases in AI systems",
+        "Limited scope and adoptability of proposed systems and specifications across different domains and industries"
+      ]
+    },
+    {
+      "title": "Accessible Framework for Studying Complex Technical Processes",
+      "description": "This research proposes an accessible framework for studying complex technical processes, addressing methodological limitations and lack of accessibility in current approaches. The framework will provide a modular and flexible structure for analyzing and modeling complex systems, using visual interfaces and interactive tools to facilitate understanding and collaboration. The goal is to make complex technical processes more accessible to a broader range of researchers and practitioners.",
+      "addresses_gaps": [
+        "Methodological limitations and lack of accessibility in studying complex technical processes",
+        "Limited scope and adoptability of proposed systems and specifications across different domains and industries"
+      ]
+    }
+  ],
+  "novelty_scores": [
+    8,
+    9,
+    6
+  ],
+  "generated_at": "2026-02-25T22:22:48.499688",
+  "chroma_db": {
+    "path": "./chroma_db",
+    "total_papers_stored": 24,
+    "total_limitations_stored": 46
+  }
+}

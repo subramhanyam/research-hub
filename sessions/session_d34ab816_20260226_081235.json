@@ -1,0 +1,1192 @@
+{
+  "session_id": "d34ab816",
+  "topic": "ai in medical",
+  "subtopics": [
+    "AI-assisted Diagnosis",
+    "Medical Image Analysis using Deep Learning",
+    "Natural Language Processing for Clinical Text Analysis",
+    "Predictive Modeling for Patient Outcomes",
+    "Personalized Medicine with AI"
+  ],
+  "keywords": [
+    "medical imaging segmentation",
+    "clinical decision support systems",
+    "deep learning for healthcare",
+    "natural language processing in medicine",
+    "ai in medical diagnosis",
+    "healthcare analytics",
+    "medical text analysis",
+    "predictive modeling in healthcare"
+  ],
+  "papers_found": 22,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Deep learning and its application to medical image segmentation",
+      "summary": "One of the most common tasks in medical imaging is semantic segmentation. Achieving this segmentation automatically has been an active area of research, but the task has been proven very challenging due to the large variation of anatomy across different patients. However, recent advances in deep learning have made it possible to significantly improve the performance of image recognition and semantic segmentation methods in the field of computer vision. Due to the data driven approaches of hierarchical feature learning in deep learning frameworks, these advances can be translated to medical images without much difficulty. Several variations of deep convolutional neural networks have been successfully applied to medical images. Especially fully convolutional architectures have been proven efficient for segmentation of 3D medical images. In this article, we describe how to build a 3D fully convolutional network (FCN) that can process 3D images in order to produce automatic semantic segmentations. The model is trained and evaluated on a clinical computed tomography (CT) dataset and shows state-of-the-art performance in multi-organ segmentation.",
+      "url": "http://arxiv.org/abs/1803.08691v1",
+      "published": "2018-03-23",
+      "authors": [
+        "Holger R. Roth",
+        "Chen Shen",
+        "Hirohisa Oda"
+      ],
+      "citation_label": "[Paper 1 - Roth 2018]"
+    },
+    {
+      "paper_id": 2,
+      "title": "HiDiff: Hybrid Diffusion Framework for Medical Image Segmentation",
+      "summary": "Medical image segmentation has been significantly advanced with the rapid development of deep learning (DL) techniques. Existing DL-based segmentation models are typically discriminative; i.e., they aim to learn a mapping from the input image to segmentation masks. However, these discriminative methods neglect the underlying data distribution and intrinsic class characteristics, suffering from unstable feature space. In this work, we propose to complement discriminative segmentation methods with the knowledge of underlying data distribution from generative models. To that end, we propose a novel hybrid diffusion framework for medical image segmentation, termed HiDiff, which can synergize the strengths of existing discriminative segmentation models and new generative diffusion models. HiDiff comprises two key components: discriminative segmentor and diffusion refiner. First, we utilize any conventional trained segmentation models as discriminative segmentor, which can provide a segmentation mask prior for diffusion refiner. Second, we propose a novel binary Bernoulli diffusion model (BBDM) as the diffusion refiner, which can effectively, efficiently, and interactively refine the segmentation mask by modeling the underlying data distribution. Third, we train the segmentor and BBDM in an alternate-collaborative manner to mutually boost each other. Extensive experimental results on abdomen organ, brain tumor, polyps, and retinal vessels segmentation datasets, covering four widely-used modalities, demonstrate the superior performance of HiDiff over existing medical segmentation algorithms, including the state-of-the-art transformer- and diffusion-based ones. In addition, HiDiff excels at segmenting small objects and generalizing to new datasets. Source codes are made available at https://github.com/takimailto/HiDiff.",
+      "url": "http://arxiv.org/abs/2407.03548v1",
+      "published": "2024-07-03",
+      "authors": [
+        "Tao Chen",
+        "Chenhui Wang",
+        "Zhihao Chen"
+      ],
+      "citation_label": "[Paper 2 - Chen 2024]"
+    },
+    {
+      "paper_id": 3,
+      "title": "Unsupervised Segmentation of 3D Medical Images Based on Clustering and Deep Representation Learning",
+      "summary": "This paper presents a novel unsupervised segmentation method for 3D medical images. Convolutional neural networks (CNNs) have brought significant advances in image segmentation. However, most of the recent methods rely on supervised learning, which requires large amounts of manually annotated data. Thus, it is challenging for these methods to cope with the growing amount of medical images. This paper proposes a unified approach to unsupervised deep representation learning and clustering for segmentation. Our proposed method consists of two phases. In the first phase, we learn deep feature representations of training patches from a target image using joint unsupervised learning (JULE) that alternately clusters representations generated by a CNN and updates the CNN parameters using cluster labels as supervisory signals. We extend JULE to 3D medical images by utilizing 3D convolutions throughout the CNN architecture. In the second phase, we apply k-means to the deep representations from the trained CNN and then project cluster labels to the target image in order to obtain the fully segmented image. We evaluated our methods on three images of lung cancer specimens scanned with micro-computed tomography (micro-CT). The automatic segmentation of pathological regions in micro-CT could further contribute to the pathological examination process. Hence, we aim to automatically divide each image into the regions of invasive carcinoma, noninvasive carcinoma, and normal tissue. Our experiments show the potential abilities of unsupervised deep representation learning for medical image segmentation.",
+      "url": "http://arxiv.org/abs/1804.03830v1",
+      "published": "2018-04-11",
+      "authors": [
+        "Takayasu Moriya",
+        "Holger R. Roth",
+        "Shota Nakamura"
+      ],
+      "citation_label": "[Paper 3 - Moriya 2018]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Clinical Productivity System - A Decision Support Model",
+      "summary": "Purpose: This goal of this study was to evaluate the effects of a data-driven clinical productivity system that leverages Electronic Health Record (EHR) data to provide productivity decision support functionality in a real-world clinical setting. The system was implemented for a large behavioral health care provider seeing over 75,000 distinct clients a year. Design/methodology/approach: The key metric in this system is a \"VPU\", which simultaneously optimizes multiple aspects of clinical care. The resulting mathematical value of clinical productivity was hypothesized to tightly link the organization's performance to its expectations and, through transparency and decision support tools at the clinician level, affect significant changes in productivity, quality, and consistency relative to traditional models of clinical productivity. Findings: In only 3 months, every single variable integrated into the VPU system showed significant improvement, including a 30% rise in revenue, 10% rise in clinical percentage, a 25% rise in treatment plan completion, a 20% rise in case rate eligibility, along with similar improvements in compliance/audit issues, outcomes collection, access, etc. Practical implications: A data-driven clinical productivity system employing decision support functionality is effective because of the impact on clinician behavior relative to traditional clinical productivity systems. Critically, the model is also extensible to integration with outcomes-based productivity. Originality/Value: EHR's are only a first step - the problem is turning that data into useful information. Technology can leverage the data in order to produce actionable information that can inform clinical practice and decision-making. Without additional technology, EHR's are essentially just copies of paper-based records stored in electronic form.",
+      "url": "http://arxiv.org/abs/1206.0021v1",
+      "published": "2012-05-31",
+      "authors": [
+        "Casey C. Bennett"
+      ],
+      "citation_label": "[Paper 4 - Bennett 2012]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Clinical Decision Support System for Unani Medicine Practitioners",
+      "summary": "Like other fields of Traditional Medicines, Unani Medicines have been found as an effective medical practice for ages. It is still widely used in the subcontinent, particularly in Pakistan and India. However, Unani Medicines Practitioners are lacking modern IT applications in their everyday clinical practices. An Online Clinical Decision Support System may address this challenge to assist apprentice Unani Medicines practitioners in their diagnostic processes. The proposed system provides a web-based interface to enter the patient's symptoms, which are then automatically analyzed by our system to generate a list of probable diseases. The system allows practitioners to choose the most likely disease and inform patients about the associated treatment options remotely. The system consists of three modules: an Online Clinical Decision Support System, an Artificial Intelligence Inference Engine, and a comprehensive Unani Medicines Database. The system employs advanced AI techniques such as Decision Trees, Deep Learning, and Natural Language Processing. For system development, the project team used a technology stack that includes React, FastAPI, and MySQL. Data and functionality of the application is exposed using APIs for integration and extension with similar domain applications. The novelty of the project is that it addresses the challenge of diagnosing diseases accurately and efficiently in the context of Unani Medicines principles. By leveraging the power of technology, the proposed Clinical Decision Support System has the potential to ease access to healthcare services and information, reduce cost, boost practitioner and patient satisfaction, improve speed and accuracy of the diagnostic process, and provide effective treatments remotely. The application will be useful for Unani Medicines Practitioners, Patients, Government Drug Regulators, Software Developers, and Medical Researchers.",
+      "url": "http://arxiv.org/abs/2310.18361v1",
+      "published": "2023-10-24",
+      "authors": [
+        "Haider Sultan",
+        "Hafiza Farwa Mahmood",
+        "Noor Fatima"
+      ],
+      "citation_label": "[Paper 5 - Sultan 2023]"
+    },
+    {
+      "paper_id": 6,
+      "title": "EHRs Connect Research and Practice: Where Predictive Modeling, Artificial Intelligence, and Clinical Decision Support Intersect",
+      "summary": "Objectives: Electronic health records (EHRs) are only a first step in capturing and utilizing health-related data - the challenge is turning that data into useful information. Furthermore, EHRs are increasingly likely to include data relating to patient outcomes, functionality such as clinical decision support, and genetic information as well, and, as such, can be seen as repositories of increasingly valuable information about patients' health conditions and responses to treatment over time. Methods: We describe a case study of 423 patients treated by Centerstone within Tennessee and Indiana in which we utilized electronic health record data to generate predictive algorithms of individual patient treatment response. Multiple models were constructed using predictor variables derived from clinical, financial and geographic data. Results: For the 423 patients, 101 deteriorated, 223 improved and in 99 there was no change in clinical condition. Based on modeling of various clinical indicators at baseline, the highest accuracy in predicting individual patient response ranged from 70-72% within the models tested. In terms of individual predictors, the Centerstone Assessment of Recovery Level - Adult (CARLA) baseline score was most significant in predicting outcome over time (odds ratio 4.1 + 2.27). Other variables with consistently significant impact on outcome included payer, diagnostic category, location and provision of case management services. Conclusions: This approach represents a promising avenue toward reducing the current gap between research and practice across healthcare, developing data-driven clinical decision support based on real-world populations, and serving as a component of embedded clinical artificial intelligences that \"learn\" over time.",
+      "url": "http://arxiv.org/abs/1204.4927v1",
+      "published": "2012-04-22",
+      "authors": [
+        "Casey Bennett",
+        "Tom Doub",
+        "Rebecca Selove"
+      ],
+      "citation_label": "[Paper 6 - Bennett 2012]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Privacy-preserving machine learning for healthcare: open challenges and future perspectives",
+      "summary": "Machine Learning (ML) has recently shown tremendous success in modeling various healthcare prediction tasks, ranging from disease diagnosis and prognosis to patient treatment. Due to the sensitive nature of medical data, privacy must be considered along the entire ML pipeline, from model training to inference. In this paper, we conduct a review of recent literature concerning Privacy-Preserving Machine Learning (PPML) for healthcare. We primarily focus on privacy-preserving training and inference-as-a-service, and perform a comprehensive review of existing trends, identify challenges, and discuss opportunities for future research directions. The aim of this review is to guide the development of private and efficient ML models in healthcare, with the prospects of translating research efforts into real-world settings.",
+      "url": "http://arxiv.org/abs/2303.15563v1",
+      "published": "2023-03-27",
+      "authors": [
+        "Alejandro Guerra-Manzanares",
+        "L. Julian Lechuga Lopez",
+        "Michail Maniatakos"
+      ],
+      "citation_label": "[Paper 7 - Guerra-Manzanares 2023]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "summary": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncertainty using the learned evidence. To ensure theoretically sound evidential models, the evidence needs to be non-negative, which requires special activation functions for model training and inference. This constraint often leads to inferior predictive performance compared to standard softmax models, making it challenging to extend them to many large-scale datasets. To unveil the real cause of this undesired behavior, we theoretically investigate evidential models and identify a fundamental limitation that explains the inferior performance: existing evidential activation functions create zero evidence regions, which prevent the model to learn from training samples falling into such regions. A deeper analysis of evidential activation functions based on our theoretical underpinning inspires the design of a novel regularizer that effectively alleviates this fundamental limitation. Extensive experiments over many challenging real-world datasets and settings confirm our theoretical findings and demonstrate the effectiveness of our proposed approach.",
+      "url": "http://arxiv.org/abs/2306.11113v2",
+      "published": "2023-06-19",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "citation_label": "[Paper 8 - Pandey 2023]"
+    },
+    {
+      "paper_id": 9,
+      "title": "The Modern Mathematics of Deep Learning",
+      "summary": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalization power of overparametrized neural networks, the role of depth in deep architectures, the apparent absence of the curse of dimensionality, the surprisingly successful optimization performance despite the non-convexity of the problem, understanding what features are learned, why deep architectures perform exceptionally well in physical problems, and which fine aspects of an architecture affect the behavior of a learning task in which way. We present an overview of modern approaches that yield partial answers to these questions. For selected approaches, we describe the main ideas in more detail.",
+      "url": "http://arxiv.org/abs/2105.04026v2",
+      "published": "2021-05-09",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "citation_label": "[Paper 9 - Berner 2021]"
+    },
+    {
+      "paper_id": 10,
+      "title": "An Open Natural Language Processing Development Framework for EHR-based Clinical Research: A case demonstration using the National COVID Cohort Collaborative (N3C)",
+      "summary": "While we pay attention to the latest advances in clinical natural language processing (NLP), we can notice some resistance in the clinical and translational research community to adopt NLP models due to limited transparency, interpretability, and usability. In this study, we proposed an open natural language processing development framework. We evaluated it through the implementation of NLP algorithms for the National COVID Cohort Collaborative (N3C). Based on the interests in information extraction from COVID-19 related clinical notes, our work includes 1) an open data annotation process using COVID-19 signs and symptoms as the use case, 2) a community-driven ruleset composing platform, and 3) a synthetic text data generation workflow to generate texts for information extraction tasks without involving human subjects. The corpora were derived from texts from three different institutions (Mayo Clinic, University of Kentucky, University of Minnesota). The gold standard annotations were tested with a single institution's (Mayo) ruleset. This resulted in performances of 0.876, 0.706, and 0.694 in F-scores for Mayo, Minnesota, and Kentucky test datasets, respectively. The study as a consortium effort of the N3C NLP subgroup demonstrates the feasibility of creating a federated NLP algorithm development and benchmarking platform to enhance multi-institution clinical NLP study and adoption. Although we use COVID-19 as a use case in this effort, our framework is general enough to be applied to other domains of interest in clinical NLP.",
+      "url": "http://arxiv.org/abs/2110.10780v3",
+      "published": "2021-10-20",
+      "authors": [
+        "Sijia Liu",
+        "Andrew Wen",
+        "Liwei Wang"
+      ],
+      "citation_label": "[Paper 10 - Liu 2021]"
+    },
+    {
+      "paper_id": 11,
+      "title": "A Comprehensive Review of State-of-The-Art Methods for Java Code Generation from Natural Language Text",
+      "summary": "Java Code Generation consists in generating automatically Java code from a Natural Language Text. This NLP task helps in increasing programmers' productivity by providing them with immediate solutions to the simplest and most repetitive tasks. Code generation is a challenging task because of the hard syntactic rules and the necessity of a deep understanding of the semantic aspect of the programming language. Many works tried to tackle this task using either RNN-based, or Transformer-based models. The latter achieved remarkable advancement in the domain and they can be divided into three groups: (1) encoder-only models, (2) decoder-only models, and (3) encoder-decoder models. In this paper, we provide a comprehensive review of the evolution and progress of deep learning models in Java code generation task. We focus on the most important methods and present their merits and limitations, as well as the objective functions used by the community. In addition, we provide a detailed description of datasets and evaluation metrics used in the literature. Finally, we discuss results of different models on CONCODE dataset, then propose some future directions.",
+      "url": "http://arxiv.org/abs/2306.06371v1",
+      "published": "2023-06-10",
+      "authors": [
+        "Jessica L\u00f3pez Espejel",
+        "Mahaman Sanoussi Yahaya Alassan",
+        "El Mehdi Chouham"
+      ],
+      "citation_label": "[Paper 11 - Espejel 2023]"
+    },
+    {
+      "paper_id": 12,
+      "title": "Towards the Study of Morphological Processing of the Tangkhul Language",
+      "summary": "There is no or little work on natural language processing of Tangkhul language. The current work is a humble beginning of morphological processing of this language using an unsupervised approach. We use a small corpus collected from different sources of text books, short stories and articles of other topics. Based on the experiments carried out, the morpheme identification task using morphessor gives reasonable and interesting output despite using a small corpus.",
+      "url": "http://arxiv.org/abs/2006.16212v1",
+      "published": "2020-06-29",
+      "authors": [
+        "Mirinso Shadang",
+        "Navanath Saharia",
+        "Thoudam Doren Singh"
+      ],
+      "citation_label": "[Paper 12 - Shadang 2020]"
+    },
+    {
+      "paper_id": 13,
+      "title": "Medical Knowledge-Guided Deep Curriculum Learning for Elbow Fracture Diagnosis from X-Ray Images",
+      "summary": "Elbow fractures are one of the most common fracture types. Diagnoses on elbow fractures often need the help of radiographic imaging to be read and analyzed by a specialized radiologist with years of training. Thanks to the recent advances of deep learning, a model that can classify and detect different types of bone fractures needs only hours of training and has shown promising results. However, most existing deep learning models are purely data-driven, lacking incorporation of known domain knowledge from human experts. In this work, we propose a novel deep learning method to diagnose elbow fracture from elbow X-ray images by integrating domain-specific medical knowledge into a curriculum learning framework. In our method, the training data are permutated by sampling without replacement at the beginning of each training epoch. The sampling probability of each training sample is guided by a scoring criterion constructed based on clinically known knowledge from human experts, where the scoring indicates the diagnosis difficultness of different elbow fracture subtypes. We also propose an algorithm that updates the sampling probabilities at each epoch, which is applicable to other sampling-based curriculum learning frameworks. We design an experiment with 1865 elbow X-ray images for a fracture/normal binary classification task and compare our proposed method to a baseline method and a previous method using multiple metrics. Our results show that the proposed method achieves the highest classification performance. Also, our proposed probability update algorithm boosts the performance of the previous method.",
+      "url": "http://arxiv.org/abs/2110.10381v1",
+      "published": "2021-10-20",
+      "authors": [
+        "Jun Luo",
+        "Gene Kitamura",
+        "Emine Doganay"
+      ],
+      "citation_label": "[Paper 13 - Luo 2021]"
+    },
+    {
+      "paper_id": 14,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 14 - Ai 2025]"
+    },
+    {
+      "paper_id": 15,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "citation_label": "[Paper 15 - Wilfley 2026]"
+    },
+    {
+      "paper_id": 16,
+      "title": "Machine Learning for Everyone: Simplifying Healthcare Analytics with BigQuery ML",
+      "summary": "Machine learning (ML) transforms healthcare by enabling predictive analytics, personalized treatments, and improved patient outcomes. However, traditional ML workflows often require specialized skills, infrastructure, and resources, limiting accessibility for many healthcare professionals. This paper explores how BigQuery ML Cloud service helps healthcare researchers and data analysts to build and deploy models using SQL, without need for advanced ML knowledge. Our results demonstrate that the Boosted Tree model achieved the highest performance among the three models making it highly effective for diabetes prediction. BigQuery ML directly integrates predictive analytics into their workflows to inform decision-making and support patient care. We reveal this capability through a case study on diabetes prediction using the Diabetes Health Indicators Dataset. Our study underscores BigQuery ML's role in democratizing machine learning, enabling faster, scalable, and efficient predictive analytics that can directly enhance healthcare decision-making processes. This study aims to bridge the gap between advanced machine learning and practical healthcare analytics by providing detailed insights into BigQuery ML's capabilities. By demonstrating its utility in a real-world case study, we highlight its potential to simplify complex workflows and expand access to predictive tools for a broader audience of healthcare professionals.",
+      "url": "http://arxiv.org/abs/2502.07026v2",
+      "published": "2025-02-10",
+      "authors": [
+        "Mohammad Amir Salari",
+        "Bahareh Rahmani"
+      ],
+      "citation_label": "[Paper 16 - Salari 2025]"
+    },
+    {
+      "paper_id": 17,
+      "title": "Bridging Service Design, Visualizations, and Visual Analytics in Healthcare Digital Twins: Challenges, Gaps, and Research Opportunities",
+      "summary": "Digital twins (DT) are increasingly used in healthcare to model patients, processes, and physiological systems. While recent solutions leverage visualization, visual analytics, and user interaction, these systems rarely incorporate structured service design methodologies. Bridging service design with visual analytics and visualization can be valuable for the healthcare DT community. This paper aims to introduce the service design discipline to visualization researchers by framing this integration gap and suggesting research directions to enhance the real-world applicability of DT solutions.",
+      "url": "http://arxiv.org/abs/2506.24104v2",
+      "published": "2025-06-30",
+      "authors": [
+        "Mariia Ershova",
+        "Graziano Blasilli"
+      ],
+      "citation_label": "[Paper 17 - Ershova 2025]"
+    },
+    {
+      "paper_id": 18,
+      "title": "A Survey on Active Learning and Human-in-the-Loop Deep Learning for Medical Image Analysis",
+      "summary": "Fully automatic deep learning has become the state-of-the-art technique for many tasks including image acquisition, analysis and interpretation, and for the extraction of clinically useful information for computer-aided detection, diagnosis, treatment planning, intervention and therapy. However, the unique challenges posed by medical image analysis suggest that retaining a human end user in any deep learning enabled system will be beneficial. In this review we investigate the role that humans might play in the development and deployment of deep learning enabled diagnostic applications and focus on techniques that will retain a significant input from a human end user. Human-in-the-Loop computing is an area that we see as increasingly important in future research due to the safety-critical nature of working in the medical domain. We evaluate four key areas that we consider vital for deep learning in the clinical practice: (1) Active Learning to choose the best data to annotate for optimal model performance; (2) Interaction with model outputs - using iterative feedback to steer models to optima for a given prediction and offering meaningful ways to interpret and respond to predictions; (3) Practical considerations - developing full scale applications and the key considerations that need to be made before deployment; (4) Future Prospective and Unanswered Questions - knowledge gaps and related research fields that will benefit human-in-the-loop computing as they evolve. We offer our opinions on the most promising directions of research and how various aspects of each area might be unified towards common goals.",
+      "url": "http://arxiv.org/abs/1910.02923v2",
+      "published": "2019-10-07",
+      "authors": [
+        "Samuel Budd",
+        "Emma C Robinson",
+        "Bernhard Kainz"
+      ],
+      "citation_label": "[Paper 18 - Budd 2019]"
+    },
+    {
+      "paper_id": 19,
+      "title": "Building medical image classifiers with very limited data using segmentation networks",
+      "summary": "Deep learning has shown promising results in medical image analysis, however, the lack of very large annotated datasets confines its full potential. Although transfer learning with ImageNet pre-trained classification models can alleviate the problem, constrained image sizes and model complexities can lead to unnecessary increase in computational cost and decrease in performance. As many common morphological features are usually shared by different classification tasks of an organ, it is greatly beneficial if we can extract such features to improve classification with limited samples. Therefore, inspired by the idea of curriculum learning, we propose a strategy for building medical image classifiers using features from segmentation networks. By using a segmentation network pre-trained on similar data as the classification task, the machine can first learn the simpler shape and structural concepts before tackling the actual classification problem which usually involves more complicated concepts. Using our proposed framework on a 3D three-class brain tumor type classification problem, we achieved 82% accuracy on 191 testing samples with 91 training samples. When applying to a 2D nine-class cardiac semantic level classification problem, we achieved 86% accuracy on 263 testing samples with 108 training samples. Comparisons with ImageNet pre-trained classifiers and classifiers trained from scratch are presented.",
+      "url": "http://arxiv.org/abs/1808.05205v1",
+      "published": "2018-08-15",
+      "authors": [
+        "Ken C. L. Wong",
+        "Tanveer Syeda-Mahmood",
+        "Mehdi Moradi"
+      ],
+      "citation_label": "[Paper 19 - Wong 2018]"
+    },
+    {
+      "paper_id": 20,
+      "title": "TransMorph: Transformer for unsupervised medical image registration",
+      "summary": "In the last decade, convolutional neural networks (ConvNets) have been a major focus of research in medical image analysis. However, the performances of ConvNets may be limited by a lack of explicit consideration of the long-range spatial relationships in an image. Recently Vision Transformer architectures have been proposed to address the shortcomings of ConvNets and have produced state-of-the-art performances in many medical imaging applications. Transformers may be a strong candidate for image registration because their substantially larger receptive field enables a more precise comprehension of the spatial correspondence between moving and fixed images. Here, we present TransMorph, a hybrid Transformer-ConvNet model for volumetric medical image registration. This paper also presents diffeomorphic and Bayesian variants of TransMorph: the diffeomorphic variants ensure the topology-preserving deformations, and the Bayesian variant produces a well-calibrated registration uncertainty estimate. We extensively validated the proposed models using 3D medical images from three applications: inter-patient and atlas-to-patient brain MRI registration and phantom-to-CT registration. The proposed models are evaluated in comparison to a variety of existing registration methods and Transformer architectures. Qualitative and quantitative results demonstrate that the proposed Transformer-based model leads to a substantial performance improvement over the baseline methods, confirming the effectiveness of Transformers for medical image registration.",
+      "url": "http://arxiv.org/abs/2111.10480v6",
+      "published": "2021-11-19",
+      "authors": [
+        "Junyu Chen",
+        "Eric C. Frey",
+        "Yufan He"
+      ],
+      "citation_label": "[Paper 20 - Chen 2021]"
+    },
+    {
+      "paper_id": 21,
+      "title": "Document Understanding for Healthcare Referrals",
+      "summary": "Reliance on scanned documents and fax communication for healthcare referrals leads to high administrative costs and errors that may affect patient care. In this work we propose a hybrid model leveraging LayoutLMv3 along with domain-specific rules to identify key patient, physician, and exam-related entities in faxed referral documents. We explore some of the challenges in applying a document understanding model to referrals, which have formats varying by medical practice, and evaluate model performance using MUC-5 metrics to obtain appropriate metrics for the practical use case. Our analysis shows the addition of domain-specific rules to the transformer model yields greatly increased precision and F1 scores, suggesting a hybrid model trained on a curated dataset can increase efficiency in referral management.",
+      "url": "http://arxiv.org/abs/2309.13184v1",
+      "published": "2023-09-22",
+      "authors": [
+        "Jimit Mistry",
+        "Natalia M. Arzeno"
+      ],
+      "citation_label": "[Paper 21 - Mistry 2023]"
+    },
+    {
+      "paper_id": 22,
+      "title": "Building predictive models of healthcare costs with open healthcare data",
+      "summary": "Due to rapidly rising healthcare costs worldwide, there is significant interest in controlling them. An important aspect concerns price transparency, as preliminary efforts have demonstrated that patients will shop for lower costs, driving efficiency. This requires the data to be made available, and models that can predict healthcare costs for a wide range of patient demographics and conditions. We present an approach to this problem by developing a predictive model using machine-learning techniques. We analyzed de-identified patient data from New York State SPARCS (statewide planning and research cooperative system), consisting of 2.3 million records in 2016. We built models to predict costs from patient diagnoses and demographics. We investigated two model classes consisting of sparse regression and decision trees. We obtained the best performance by using a decision tree with depth 10. We obtained an R-square value of 0.76 which is better than the values reported in the literature for similar problems.",
+      "url": "http://arxiv.org/abs/2304.02191v1",
+      "published": "2023-04-05",
+      "authors": [
+        "A. Ravishankar Rao",
+        "Subrata Garai",
+        "Soumyabrata Dey"
+      ],
+      "citation_label": "[Paper 22 - Rao 2023]"
+    }
+  ],
+  "limitations_extracted": 48,
+  "limitations": [
+    {
+      "text": "Requires large amounts of manually annotated data for supervised learning",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Roth 2018]"
+    },
+    {
+      "text": "Limited to specific clinical computed tomography (CT) dataset",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Roth 2018]"
+    },
+    {
+      "text": "Neglects underlying data distribution and intrinsic class characteristics",
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Chen 2024]"
+    },
+    {
+      "text": "Only evaluated on specific datasets (abdomen organ, brain tumor, polyps, and retinal vessels segmentation datasets)",
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Chen 2024]"
+    },
+    {
+      "text": "Requires additional technology to turn EHR data into useful information",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Bennett 2012]"
+    },
+    {
+      "text": "Only implemented for a large behavioral health care provider",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Bennett 2012]"
+    },
+    {
+      "text": "Limited to specific mathematical value of clinical productivity (VPU)",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Bennett 2012]"
+    },
+    {
+      "text": "Lacks evaluation on real-world clinical settings other than the one described",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Bennett 2012]"
+    },
+    {
+      "text": "Relies on joint unsupervised learning (JULE) which may not be effective for all types of medical images",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Moriya 2018]"
+    },
+    {
+      "text": "Only evaluated on three images of lung cancer specimens",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Moriya 2018]"
+    },
+    {
+      "text": "May not generalize well to other types of medical images or diseases",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Moriya 2018]"
+    },
+    {
+      "text": "Dependent on the quality of the Unani Medicines Database",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Sultan 2023]"
+    },
+    {
+      "text": "May not be effective for complex or rare diseases",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Sultan 2023]"
+    },
+    {
+      "text": "Limited to Unani Medicines principles and may not be applicable to other traditional medicines",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Sultan 2023]"
+    },
+    {
+      "text": "The predictive models had an accuracy of only 70-72% in predicting individual patient response.",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2012]"
+    },
+    {
+      "text": "The use of certain activation functions in evidential models can lead to inferior predictive performance compared to standard softmax models.",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Pandey 2023]"
+    },
+    {
+      "text": "Evidential activation functions can create zero evidence regions, preventing the model from learning from certain training samples.",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Pandey 2023]"
+    },
+    {
+      "text": "The field of mathematical analysis of deep learning has many unanswered research questions, including the generalization power of overparametrized neural networks and the role of depth in deep architectures.",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Berner 2021]"
+    },
+    {
+      "text": "Clinical natural language processing (NLP) models can be limited by their lack of transparency, interpretability, and usability.",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Liu 2021]"
+    },
+    {
+      "text": "The performance of NLP models can vary significantly across different institutions and datasets.",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Liu 2021]"
+    },
+    {
+      "text": "Privacy must be considered along the entire machine learning pipeline, from model training to inference, which can be a challenge in healthcare applications.",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Guerra-Manzanares 2023]"
+    },
+    {
+      "text": "Hard syntactic rules and necessity of deep understanding of semantic aspect of programming language",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Espejel 2023]"
+    },
+    {
+      "text": "Small corpus used for morpheme identification task",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Shadang 2020]"
+    },
+    {
+      "text": "Most existing deep learning models are purely data-driven, lacking incorporation of known domain knowledge from human experts",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Luo 2021]"
+    },
+    {
+      "text": "Model hallucination, particularly in scenarios requiring precision and external knowledge",
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Ai 2025]"
+    },
+    {
+      "text": "Ethics-washing practices in industry, lacking application of academic and advocacy ethics frameworks or vocabularies",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Wilfley 2026]"
+    },
+    {
+      "text": "Lack of evaluation on CONCODE dataset for some models",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Espejel 2023]"
+    },
+    {
+      "text": "Limited work on natural language processing of Tangkhul language",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Shadang 2020]"
+    },
+    {
+      "text": "Dataset size and quality may impact performance of deep learning models",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Luo 2021]"
+    },
+    {
+      "text": "Retrieval-augmented generation paradigm and other methods for corpus modeling and understanding may have challenges",
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Ai 2025]"
+    },
+    {
+      "text": "Governance implications and need for more research on ethics in AI",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Wilfley 2026]"
+    },
+    {
+      "text": "Requires specialized skills, infrastructure, and resources for traditional ML workflows",
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Salari 2025]"
+    },
+    {
+      "text": "Lack of structured service design methodologies in digital twins",
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Ershova 2025]"
+    },
+    {
+      "text": "Fully automatic deep learning may not be sufficient for medical image analysis due to safety-critical nature",
+      "paper_id": 18,
+      "citation_label": "[Paper 18 - Budd 2019]"
+    },
+    {
+      "text": "Limited availability of large annotated datasets for deep learning in medical image analysis",
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Wong 2018]"
+    },
+    {
+      "text": "Convolutional neural networks may not capture long-range spatial relationships in medical images",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Chen 2021]"
+    },
+    {
+      "text": "Lack of explicit consideration of spatial correspondence between moving and fixed images in ConvNets",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Chen 2021]"
+    },
+    {
+      "text": "Potential performance limitations of ConvNets due to lack of topology-preserving deformations",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Chen 2021]"
+    },
+    {
+      "text": "Reliance on scanned documents and fax communication for healthcare referrals may lead to errors in the model if the quality of the documents is poor.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The hybrid model may not generalize well to referral documents with formats significantly different from those in the training dataset.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model's performance may be affected by the quality of the domain-specific rules used.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The analysis is limited to a specific use case and may not be applicable to other document understanding tasks.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The dataset used for training the model is curated, which may not represent real-world scenarios.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model's performance may be improved with a larger and more diverse dataset.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The predictive model is developed using data from a specific region (New York State) and may not generalize well to other regions.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model is limited to predicting costs based on patient diagnoses and demographics, and may not account for other factors that affect healthcare costs.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model's performance is evaluated using a specific metric (R-square value), which may not capture all aspects of the model's performance.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The data used for training the model is from 2016, which may not reflect current trends and patterns in healthcare costs.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Machine Learning Limitations",
+      "count": 19,
+      "cited_paper_ids": [
+        1,
+        2,
+        6,
+        7,
+        8,
+        11,
+        13,
+        14
+      ],
+      "limitations": [
+        {
+          "text": "Requires large amounts of manually annotated data for supervised learning",
+          "citation_label": "[Paper 1 - Roth 2018]"
+        },
+        {
+          "text": "Neglects underlying data distribution and intrinsic class characteristics",
+          "citation_label": "[Paper 2 - Chen 2024]"
+        },
+        {
+          "text": "The predictive models had an accuracy of only 70-72% in predicting individual patient response.",
+          "citation_label": "[Paper 6 - Bennett 2012]"
+        },
+        {
+          "text": "The use of certain activation functions in evidential models can lead to inferior predictive performance compared to standard softmax models.",
+          "citation_label": "[Paper 8 - Pandey 2023]"
+        },
+        {
+          "text": "Evidential activation functions can create zero evidence regions, preventing the model from learning from certain training samples.",
+          "citation_label": "[Paper 8 - Pandey 2023]"
+        },
+        {
+          "text": "Privacy must be considered along the entire machine learning pipeline, from model training to inference, which can be a challenge in healthcare applications.",
+          "citation_label": "[Paper 7 - Guerra-Manzanares 2023]"
+        },
+        {
+          "text": "Most existing deep learning models are purely data-driven, lacking incorporation of known domain knowledge from human experts",
+          "citation_label": "[Paper 13 - Luo 2021]"
+        },
+        {
+          "text": "Model hallucination, particularly in scenarios requiring precision and external knowledge",
+          "citation_label": "[Paper 14 - Ai 2025]"
+        },
+        {
+          "text": "Lack of evaluation on CONCODE dataset for some models",
+          "citation_label": "[Paper 11 - Espejel 2023]"
+        },
+        {
+          "text": "Dataset size and quality may impact performance of deep learning models",
+          "citation_label": "[Paper 13 - Luo 2021]"
+        },
+        {
+          "text": "The hybrid model may not generalize well to referral documents with formats significantly different from those in the training dataset.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The model's performance may be affected by the quality of the domain-specific rules used.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The analysis is limited to a specific use case and may not be applicable to other document understanding tasks.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The dataset used for training the model is curated, which may not represent real-world scenarios.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The model's performance may be improved with a larger and more diverse dataset.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The predictive model is developed using data from a specific region (New York State) and may not generalize well to other regions.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The model is limited to predicting costs based on patient diagnoses and demographics, and may not account for other factors that affect healthcare costs.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The model's performance is evaluated using a specific metric (R-square value), which may not capture all aspects of the model's performance.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The data used for training the model is from 2016, which may not reflect current trends and patterns in healthcare costs.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Dataset and Methodology Limitations",
+      "count": 11,
+      "cited_paper_ids": [
+        1,
+        2,
+        3,
+        9,
+        18,
+        19,
+        20
+      ],
+      "limitations": [
+        {
+          "text": "Limited to specific clinical computed tomography (CT) dataset",
+          "citation_label": "[Paper 1 - Roth 2018]"
+        },
+        {
+          "text": "Only evaluated on specific datasets (abdomen organ, brain tumor, polyps, and retinal vessels segmentation datasets)",
+          "citation_label": "[Paper 2 - Chen 2024]"
+        },
+        {
+          "text": "Relies on joint unsupervised learning (JULE) which may not be effective for all types of medical images",
+          "citation_label": "[Paper 3 - Moriya 2018]"
+        },
+        {
+          "text": "Only evaluated on three images of lung cancer specimens",
+          "citation_label": "[Paper 3 - Moriya 2018]"
+        },
+        {
+          "text": "May not generalize well to other types of medical images or diseases",
+          "citation_label": "[Paper 3 - Moriya 2018]"
+        },
+        {
+          "text": "The field of mathematical analysis of deep learning has many unanswered research questions, including the generalization power of overparametrized neural networks and the role of depth in deep architectures.",
+          "citation_label": "[Paper 9 - Berner 2021]"
+        },
+        {
+          "text": "Fully automatic deep learning may not be sufficient for medical image analysis due to safety-critical nature",
+          "citation_label": "[Paper 18 - Budd 2019]"
+        },
+        {
+          "text": "Limited availability of large annotated datasets for deep learning in medical image analysis",
+          "citation_label": "[Paper 19 - Wong 2018]"
+        },
+        {
+          "text": "Convolutional neural networks may not capture long-range spatial relationships in medical images",
+          "citation_label": "[Paper 20 - Chen 2021]"
+        },
+        {
+          "text": "Lack of explicit consideration of spatial correspondence between moving and fixed images in ConvNets",
+          "citation_label": "[Paper 20 - Chen 2021]"
+        },
+        {
+          "text": "Potential performance limitations of ConvNets due to lack of topology-preserving deformations",
+          "citation_label": "[Paper 20 - Chen 2021]"
+        }
+      ]
+    },
+    {
+      "theme": "Limited Scope Application",
+      "count": 6,
+      "cited_paper_ids": [
+        4,
+        5
+      ],
+      "limitations": [
+        {
+          "text": "Only implemented for a large behavioral health care provider",
+          "citation_label": "[Paper 4 - Bennett 2012]"
+        },
+        {
+          "text": "Limited to specific mathematical value of clinical productivity (VPU)",
+          "citation_label": "[Paper 4 - Bennett 2012]"
+        },
+        {
+          "text": "Lacks evaluation on real-world clinical settings other than the one described",
+          "citation_label": "[Paper 4 - Bennett 2012]"
+        },
+        {
+          "text": "Dependent on the quality of the Unani Medicines Database",
+          "citation_label": "[Paper 5 - Sultan 2023]"
+        },
+        {
+          "text": "May not be effective for complex or rare diseases",
+          "citation_label": "[Paper 5 - Sultan 2023]"
+        },
+        {
+          "text": "Limited to Unani Medicines principles and may not be applicable to other traditional medicines",
+          "citation_label": "[Paper 5 - Sultan 2023]"
+        }
+      ]
+    },
+    {
+      "theme": "NLP Model Limitations",
+      "count": 6,
+      "cited_paper_ids": [
+        10,
+        11,
+        12,
+        14
+      ],
+      "limitations": [
+        {
+          "text": "Clinical natural language processing (NLP) models can be limited by their lack of transparency, interpretability, and usability.",
+          "citation_label": "[Paper 10 - Liu 2021]"
+        },
+        {
+          "text": "The performance of NLP models can vary significantly across different institutions and datasets.",
+          "citation_label": "[Paper 10 - Liu 2021]"
+        },
+        {
+          "text": "Hard syntactic rules and necessity of deep understanding of semantic aspect of programming language",
+          "citation_label": "[Paper 11 - Espejel 2023]"
+        },
+        {
+          "text": "Small corpus used for morpheme identification task",
+          "citation_label": "[Paper 12 - Shadang 2020]"
+        },
+        {
+          "text": "Limited work on natural language processing of Tangkhul language",
+          "citation_label": "[Paper 12 - Shadang 2020]"
+        },
+        {
+          "text": "Retrieval-augmented generation paradigm and other methods for corpus modeling and understanding may have challenges",
+          "citation_label": "[Paper 14 - Ai 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "Data Integration Challenges",
+      "count": 2,
+      "cited_paper_ids": [
+        4
+      ],
+      "limitations": [
+        {
+          "text": "Requires additional technology to turn EHR data into useful information",
+          "citation_label": "[Paper 4 - Bennett 2012]"
+        },
+        {
+          "text": "Reliance on scanned documents and fax communication for healthcare referrals may lead to errors in the model if the quality of the documents is poor.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Ethics in AI Governance",
+      "count": 2,
+      "cited_paper_ids": [
+        15
+      ],
+      "limitations": [
+        {
+          "text": "Ethics-washing practices in industry, lacking application of academic and advocacy ethics frameworks or vocabularies",
+          "citation_label": "[Paper 15 - Wilfley 2026]"
+        },
+        {
+          "text": "Governance implications and need for more research on ethics in AI",
+          "citation_label": "[Paper 15 - Wilfley 2026]"
+        }
+      ]
+    },
+    {
+      "theme": "Complexity and Resource Intensity",
+      "count": 1,
+      "cited_paper_ids": [
+        16
+      ],
+      "limitations": [
+        {
+          "text": "Requires specialized skills, infrastructure, and resources for traditional ML workflows",
+          "citation_label": "[Paper 16 - Salari 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "Digital Service Design Gaps",
+      "count": 1,
+      "cited_paper_ids": [
+        17
+      ],
+      "limitations": [
+        {
+          "text": "Lack of structured service design methodologies in digital twins",
+          "citation_label": "[Paper 17 - Ershova 2025]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "Requirement for large amounts of manually annotated data for supervised learning and neglect of underlying data distribution",
+      "supporting_papers": [
+        1,
+        2,
+        6,
+        7,
+        8,
+        11,
+        13,
+        14
+      ]
+    },
+    {
+      "gap": "Limited scope of application and evaluation on specific datasets",
+      "supporting_papers": [
+        1,
+        2,
+        3,
+        4,
+        9,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "gap": "Lack of transparency, interpretability, and usability in NLP models",
+      "supporting_papers": [
+        10,
+        11,
+        12,
+        14
+      ]
+    },
+    {
+      "gap": "Need for specialized skills, infrastructure, and resources for traditional ML workflows",
+      "supporting_papers": [
+        16
+      ]
+    },
+    {
+      "gap": "Ethics and governance implications in AI development and application",
+      "supporting_papers": [
+        15
+      ]
+    }
+  ],
+  "research_ideas": [
+    {
+      "title": "Hybrid Active Learning for Medical Image Segmentation",
+      "description": "This approach combines traditional active learning methods with reinforcement learning to select the most informative samples for annotation, reducing the need for large amounts of manually annotated data. It leverages the strengths of both methods to improve the efficiency and accuracy of medical image segmentation. By incorporating reinforcement learning, the model can adapt to changing data distributions and learn to prioritize the most uncertain samples.",
+      "addresses_gaps": [
+        "requirement for large amounts of manually annotated data"
+      ],
+      "cited_papers": [
+        1,
+        2,
+        18
+      ]
+    },
+    {
+      "title": "Explainable NLP for Clinical Decision Support",
+      "description": "This research proposes a novel framework for developing interpretable and transparent NLP models for clinical decision support, addressing the lack of transparency and usability in current models. The framework integrates attention mechanisms and model explainability techniques to provide insights into the decision-making process of the model. This approach enables clinicians to understand and trust the model's predictions, leading to more effective decision-making.",
+      "addresses_gaps": [
+        "lack of transparency, interpretability, and usability in NLP models"
+      ],
+      "cited_papers": [
+        10,
+        11,
+        14
+      ]
+    },
+    {
+      "title": "Low-Resource Medical AI Development using Transfer Learning and Automated Machine Learning",
+      "description": "This research aims to develop a low-resource medical AI development framework using transfer learning and automated machine learning techniques, addressing the need for specialized skills, infrastructure, and resources for traditional ML workflows. The framework leverages pre-trained models and automates the process of model selection, hyperparameter tuning, and deployment, making it accessible to a broader range of users. By reducing the barriers to entry, this approach enables more widespread adoption of AI in medical applications.",
+      "addresses_gaps": [
+        "need for specialized skills, infrastructure, and resources",
+        "limited scope of application and evaluation"
+      ],
+      "cited_papers": [
+        16,
+        3,
+        20
+      ]
+    }
+  ],
+  "novelty_scores": [
+    7,
+    8,
+    6
+  ],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Roth 2018]",
+      "title": "Deep learning and its application to medical image segmentation",
+      "authors": [
+        "Holger R. Roth",
+        "Chen Shen",
+        "Hirohisa Oda"
+      ],
+      "published": "2018-03-23",
+      "url": "http://arxiv.org/abs/1803.08691v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Chen 2024]",
+      "title": "HiDiff: Hybrid Diffusion Framework for Medical Image Segmentation",
+      "authors": [
+        "Tao Chen",
+        "Chenhui Wang",
+        "Zhihao Chen"
+      ],
+      "published": "2024-07-03",
+      "url": "http://arxiv.org/abs/2407.03548v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Moriya 2018]",
+      "title": "Unsupervised Segmentation of 3D Medical Images Based on Clustering and Deep Representation Learning",
+      "authors": [
+        "Takayasu Moriya",
+        "Holger R. Roth",
+        "Shota Nakamura"
+      ],
+      "published": "2018-04-11",
+      "url": "http://arxiv.org/abs/1804.03830v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Bennett 2012]",
+      "title": "Clinical Productivity System - A Decision Support Model",
+      "authors": [
+        "Casey C. Bennett"
+      ],
+      "published": "2012-05-31",
+      "url": "http://arxiv.org/abs/1206.0021v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Sultan 2023]",
+      "title": "Clinical Decision Support System for Unani Medicine Practitioners",
+      "authors": [
+        "Haider Sultan",
+        "Hafiza Farwa Mahmood",
+        "Noor Fatima"
+      ],
+      "published": "2023-10-24",
+      "url": "http://arxiv.org/abs/2310.18361v1"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2012]",
+      "title": "EHRs Connect Research and Practice: Where Predictive Modeling, Artificial Intelligence, and Clinical Decision Support Intersect",
+      "authors": [
+        "Casey Bennett",
+        "Tom Doub",
+        "Rebecca Selove"
+      ],
+      "published": "2012-04-22",
+      "url": "http://arxiv.org/abs/1204.4927v1"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Guerra-Manzanares 2023]",
+      "title": "Privacy-preserving machine learning for healthcare: open challenges and future perspectives",
+      "authors": [
+        "Alejandro Guerra-Manzanares",
+        "L. Julian Lechuga Lopez",
+        "Michail Maniatakos"
+      ],
+      "published": "2023-03-27",
+      "url": "http://arxiv.org/abs/2303.15563v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Pandey 2023]",
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "published": "2023-06-19",
+      "url": "http://arxiv.org/abs/2306.11113v2"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Berner 2021]",
+      "title": "The Modern Mathematics of Deep Learning",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "published": "2021-05-09",
+      "url": "http://arxiv.org/abs/2105.04026v2"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Liu 2021]",
+      "title": "An Open Natural Language Processing Development Framework for EHR-based Clinical Research: A case demonstration using the National COVID Cohort Collaborative (N3C)",
+      "authors": [
+        "Sijia Liu",
+        "Andrew Wen",
+        "Liwei Wang"
+      ],
+      "published": "2021-10-20",
+      "url": "http://arxiv.org/abs/2110.10780v3"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Espejel 2023]",
+      "title": "A Comprehensive Review of State-of-The-Art Methods for Java Code Generation from Natural Language Text",
+      "authors": [
+        "Jessica L\u00f3pez Espejel",
+        "Mahaman Sanoussi Yahaya Alassan",
+        "El Mehdi Chouham"
+      ],
+      "published": "2023-06-10",
+      "url": "http://arxiv.org/abs/2306.06371v1"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Shadang 2020]",
+      "title": "Towards the Study of Morphological Processing of the Tangkhul Language",
+      "authors": [
+        "Mirinso Shadang",
+        "Navanath Saharia",
+        "Thoudam Doren Singh"
+      ],
+      "published": "2020-06-29",
+      "url": "http://arxiv.org/abs/2006.16212v1"
+    },
+    {
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Luo 2021]",
+      "title": "Medical Knowledge-Guided Deep Curriculum Learning for Elbow Fracture Diagnosis from X-Ray Images",
+      "authors": [
+        "Jun Luo",
+        "Gene Kitamura",
+        "Emine Doganay"
+      ],
+      "published": "2021-10-20",
+      "url": "http://arxiv.org/abs/2110.10381v1"
+    },
+    {
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Ai 2025]",
+      "title": "Foundations of GenIR",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "published": "2025-01-06",
+      "url": "http://arxiv.org/abs/2501.02842v1"
+    },
+    {
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Wilfley 2026]",
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "published": "2026-01-23",
+      "url": "http://arxiv.org/abs/2601.16513v1"
+    },
+    {
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Salari 2025]",
+      "title": "Machine Learning for Everyone: Simplifying Healthcare Analytics with BigQuery ML",
+      "authors": [
+        "Mohammad Amir Salari",
+        "Bahareh Rahmani"
+      ],
+      "published": "2025-02-10",
+      "url": "http://arxiv.org/abs/2502.07026v2"
+    },
+    {
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Ershova 2025]",
+      "title": "Bridging Service Design, Visualizations, and Visual Analytics in Healthcare Digital Twins: Challenges, Gaps, and Research Opportunities",
+      "authors": [
+        "Mariia Ershova",
+        "Graziano Blasilli"
+      ],
+      "published": "2025-06-30",
+      "url": "http://arxiv.org/abs/2506.24104v2"
+    },
+    {
+      "paper_id": 18,
+      "citation_label": "[Paper 18 - Budd 2019]",
+      "title": "A Survey on Active Learning and Human-in-the-Loop Deep Learning for Medical Image Analysis",
+      "authors": [
+        "Samuel Budd",
+        "Emma C Robinson",
+        "Bernhard Kainz"
+      ],
+      "published": "2019-10-07",
+      "url": "http://arxiv.org/abs/1910.02923v2"
+    },
+    {
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Wong 2018]",
+      "title": "Building medical image classifiers with very limited data using segmentation networks",
+      "authors": [
+        "Ken C. L. Wong",
+        "Tanveer Syeda-Mahmood",
+        "Mehdi Moradi"
+      ],
+      "published": "2018-08-15",
+      "url": "http://arxiv.org/abs/1808.05205v1"
+    },
+    {
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Chen 2021]",
+      "title": "TransMorph: Transformer for unsupervised medical image registration",
+      "authors": [
+        "Junyu Chen",
+        "Eric C. Frey",
+        "Yufan He"
+      ],
+      "published": "2021-11-19",
+      "url": "http://arxiv.org/abs/2111.10480v6"
+    },
+    {
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Mistry 2023]",
+      "title": "Document Understanding for Healthcare Referrals",
+      "authors": [
+        "Jimit Mistry",
+        "Natalia M. Arzeno"
+      ],
+      "published": "2023-09-22",
+      "url": "http://arxiv.org/abs/2309.13184v1"
+    },
+    {
+      "paper_id": 22,
+      "citation_label": "[Paper 22 - Rao 2023]",
+      "title": "Building predictive models of healthcare costs with open healthcare data",
+      "authors": [
+        "A. Ravishankar Rao",
+        "Subrata Garai",
+        "Soumyabrata Dey"
+      ],
+      "published": "2023-04-05",
+      "url": "http://arxiv.org/abs/2304.02191v1"
+    }
+  ],
+  "generated_at": "2026-02-26T08:12:35.127985",
+  "chroma_db": {
+    "session_id": "d34ab816",
+    "path": "./chroma_db",
+    "papers_collection": "papers_d34ab816",
+    "limitations_collection": "limitations_d34ab816",
+    "total_papers_stored": 22,
+    "total_limitations_stored": 48
+  }
+}

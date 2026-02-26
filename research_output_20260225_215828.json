@@ -1,0 +1,380 @@
+{
+  "topic": "ai in agriculture",
+  "subtopics": [
+    "Precision Farming using AI",
+    "Crop Yield Prediction with Machine Learning",
+    "Automated Weed Control using Computer Vision",
+    "Livestock Health Monitoring with AI",
+    "AI-based Soil Analysis"
+  ],
+  "keywords": [
+    "agricultural automation",
+    "machine learning in agriculture",
+    "computer vision for crop monitoring",
+    "ai for precision farming",
+    "deep learning for soil analysis",
+    "ai in livestock health",
+    "crop yield prediction models",
+    "ai for agricultural sustainability"
+  ],
+  "papers_found": 21,
+  "papers": [
+    {
+      "title": "Agricultural Policy in Ukraine",
+      "summary": "Building upon the theory and methodology of agricultural policy developed in the previous chapter, in Chapter 2 we analyse and assess agricultural policy making in Ukraine since the breakup of Soviet Union till today. Going from top down to the bottom, we begin by describing the evolution of state policy in the agri-food sector. In the beginning, we describe the major milestones of agricultural policy making since independence, paving the way to the political economy of the modern agricultural policy in Ukraine. Then we describe the role of agri-food sector in the national economy as well as globally in ensuring food security in the world. After, we dig deeper and focus on a detailed performance of agricultural sector by looking at farm structures, their land use, overall and sector-wise untapped productivity potential. Modern agricultural policy and institutional set-up is contained and analyzed in details in the section 2.4. A review of the agricultural up- and downstream sectors wraps up this chapter",
+      "url": "http://arxiv.org/abs/2305.01478v1",
+      "published": "2023-04-29",
+      "authors": [
+        "Oleg Nivievskyi",
+        "Pavlo Martyshev",
+        "Sergiy Kvasha"
+      ]
+    },
+    {
+      "title": "IFC models for (semi)automating common planning checks for building permits",
+      "summary": "To support building permit issuing with automatic digital tools, the reuse of models produced by designers would make the process quicker and more objective. However, current studies and pilots often leave a gap with respect to the models as actually provided by architects, having varying quality and content. In this study, rather than taking a top down approach, we started from the available data and made the necessary inferences, which gave the opportunity to tackle basic and common issues often preventing smooth automatic processing. Specific characteristics of the IFC models were outlined and a tool was developed to extract the necessary information from them to check representative regulations. While the case study is specific in location, regulations and input models, the type of issues encountered are a generally applicable example for automated code compliance checking. This represents a solid base for future works towards the automation of building permits issuing.",
+      "url": "http://arxiv.org/abs/2011.03117v3",
+      "published": "2020-11-03",
+      "authors": [
+        "Francesca Noardo",
+        "Teng Wu",
+        "Ken Arroyo Ohori"
+      ]
+    },
+    {
+      "title": "Photorealistic Robotic Simulation using Unreal Engine 5 for Agricultural Applications",
+      "summary": "This work presents a new robotics simulation environment built upon Unreal Engine 5 (UE5) for agricultural image data generation. The simulation utilizes the state-of-the-art real-time rendering engine to provide realistic plant images which are often used in agricultural applications. This study showcases the rendering accuracy of UE5 in comparison to existing tools and assesses its positional accuracy when integrated with Robot Operating Systems (ROS). The results indicate that UE5 achieves an impressive average distance error of 0.021mm when compared to predetermined setpoints in a multi-robot setup involving two UR10 arms.",
+      "url": "http://arxiv.org/abs/2405.18551v1",
+      "published": "2024-05-28",
+      "authors": [
+        "Xingjian Li",
+        "Lirong Xiang"
+      ]
+    },
+    {
+      "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+      "summary": "Data science has become increasingly essential for the production of official statistics, as it enables the automated collection, processing, and analysis of large amounts of data. With such data science practices in place, it enables more timely, more insightful and more flexible reporting. However, the quality and integrity of data-science-driven statistics rely on the accuracy and reliability of the data sources and the machine learning techniques that support them. In particular, changes in data sources are inevitable to occur and pose significant risks that are crucial to address in the context of machine learning for official statistics.\n  This paper gives an overview of the main risks, liabilities, and uncertainties associated with changing data sources in the context of machine learning for official statistics. We provide a checklist of the most prevalent origins and causes of changing data sources; not only on a technical level but also regarding ownership, ethics, regulation, and public perception. Next, we highlight the repercussions of changing data sources on statistical reporting. These include technical effects such as concept drift, bias, availability, validity, accuracy and completeness, but also the neutrality and potential discontinuation of the statistical offering. We offer a few important precautionary measures, such as enhancing robustness in both data sourcing and statistical techniques, and thorough monitoring. In doing so, machine learning-based official statistics can maintain integrity, reliability, consistency, and relevance in policy-making, decision-making, and public discourse.",
+      "url": "http://arxiv.org/abs/2306.04338v1",
+      "published": "2023-06-07",
+      "authors": [
+        "Cedric De Boom",
+        "Michael Reusens"
+      ]
+    },
+    {
+      "title": "DOME: Recommendations for supervised machine learning validation in biology",
+      "summary": "Modern biology frequently relies on machine learning to provide predictions and improve decision processes. There have been recent calls for more scrutiny on machine learning performance and possible limitations. Here we present a set of community-wide recommendations aiming to help establish standards of supervised machine learning validation in biology. Adopting a structured methods description for machine learning based on data, optimization, model, evaluation (DOME) will aim to help both reviewers and readers to better understand and assess the performance and limitations of a method or outcome. The recommendations are formulated as questions to anyone wishing to pursue implementation of a machine learning algorithm. Answers to these questions can be easily included in the supplementary material of published papers.",
+      "url": "http://arxiv.org/abs/2006.16189v4",
+      "published": "2020-06-25",
+      "authors": [
+        "Ian Walsh",
+        "Dmytro Fishman",
+        "Dario Garcia-Gasulla"
+      ]
+    },
+    {
+      "title": "Public Policymaking for International Agricultural Trade using Association Rules and Ensemble Machine Learning",
+      "summary": "International economics has a long history of improving our understanding of factors causing trade, and the consequences of free flow of goods and services across countries. The recent shocks to the free trade regime, especially trade disputes among major economies, as well as black swan events, such as trade wars and pandemics, raise the need for improved predictions to inform policy decisions. AI methods are allowing economists to solve such prediction problems in new ways. In this manuscript, we present novel methods that predict and associate food and agricultural commodities traded internationally. Association Rules (AR) analysis has been deployed successfully for economic scenarios at the consumer or store level, such as for market basket analysis. In our work however, we present analysis of imports and exports associations and their effects on commodity trade flows. Moreover, Ensemble Machine Learning methods are developed to provide improved agricultural trade predictions, outlier events' implications, and quantitative pointers to policy makers.",
+      "url": "http://arxiv.org/abs/2111.07508v1",
+      "published": "2021-11-15",
+      "authors": [
+        "Feras A. Batarseh",
+        "Munisamy Gopinath",
+        "Anderson Monken"
+      ]
+    },
+    {
+      "title": "Spatial Monitoring and Insect Behavioural Analysis Using Computer Vision for Precision Pollination",
+      "summary": "Insects are the most important global pollinator of crops and play a key role in maintaining the sustainability of natural ecosystems. Insect pollination monitoring and management are therefore essential for improving crop production and food security. Computer vision facilitated pollinator monitoring can intensify data collection over what is feasible using manual approaches. The new data it generates may provide a detailed understanding of insect distributions and facilitate fine-grained analysis sufficient to predict their pollination efficacy and underpin precision pollination. Current computer vision facilitated insect tracking in complex outdoor environments is restricted in spatial coverage and often constrained to a single insect species. This limits its relevance to agriculture. Therefore, in this article we introduce a novel system to facilitate markerless data capture for insect counting, insect motion tracking, behaviour analysis and pollination prediction across large agricultural areas. Our system is comprised of edge computing multi-point video recording, offline automated multispecies insect counting, tracking and behavioural analysis. We implement and test our system on a commercial berry farm to demonstrate its capabilities. Our system successfully tracked four insect varieties, at nine monitoring stations within polytunnels, obtaining an F-score above 0.8 for each variety. The system enabled calculation of key metrics to assess the relative pollination impact of each insect variety. With this technological advancement, detailed, ongoing data collection for precision pollination becomes achievable. This is important to inform growers and apiarists managing crop pollination, as it allows data-driven decisions to be made to improve food production and food security.",
+      "url": "http://arxiv.org/abs/2205.04675v2",
+      "published": "2022-05-10",
+      "authors": [
+        "Malika Nisal Ratnayake",
+        "Don Chathurika Amarathunga",
+        "Asaduz Zaman"
+      ]
+    },
+    {
+      "title": "WiCV 2019: The Sixth Women In Computer Vision Workshop",
+      "summary": "In this paper we present the Women in Computer Vision Workshop - WiCV 2019, organized in conjunction with CVPR 2019. This event is meant for increasing the visibility and inclusion of women researchers in the computer vision field. Computer vision and machine learning have made incredible progress over the past years, but the number of female researchers is still low both in academia and in industry. WiCV is organized especially for the following reason: to raise visibility of female researchers, to increase collaborations between them, and to provide mentorship to female junior researchers in the field. In this paper, we present a report of trends over the past years, along with a summary of statistics regarding presenters, attendees, and sponsorship for the current workshop.",
+      "url": "http://arxiv.org/abs/1909.10225v1",
+      "published": "2019-09-23",
+      "authors": [
+        "Irene Amerini",
+        "Elena Balashova",
+        "Sayna Ebrahimi"
+      ]
+    },
+    {
+      "title": "Global Adaptive Filtering Layer for Computer Vision",
+      "summary": "We devise a universal adaptive neural layer to \"learn\" optimal frequency filter for each image together with the weights of the base neural network that performs some computer vision task. The proposed approach takes the source image in the spatial domain, automatically selects the best frequencies from the frequency domain, and transmits the inverse-transform image to the main neural network. Remarkably, such a simple add-on layer dramatically improves the performance of the main network regardless of its design. We observe that the light networks gain a noticeable boost in the performance metrics; whereas, the training of the heavy ones converges faster when our adaptive layer is allowed to \"learn\" alongside the main architecture. We validate the idea in four classical computer vision tasks: classification, segmentation, denoising, and erasing, considering popular natural and medical data benchmarks.",
+      "url": "http://arxiv.org/abs/2010.01177v4",
+      "published": "2020-10-02",
+      "authors": [
+        "Viktor Shipitsin",
+        "Iaroslav Bespalov",
+        "Dmitry V. Dylov"
+      ]
+    },
+    {
+      "title": "Learning from Data to Optimize Control in Precision Farming",
+      "summary": "Precision farming is one way of many to meet a 70 percent increase in global demand for agricultural products on current agricultural land by 2050 at reduced need of fertilizers and efficient use of water resources. The catalyst for the emergence of precision farming has been satellite positioning and navigation followed by Internet-of-Things, generating vast information that can be used to optimize farming processes in real-time. Statistical tools from data mining, predictive modeling, and machine learning analyze pattern in historical data, to make predictions about future events as well as intelligent actions. This special issue presents the latest development in statistical inference, machine learning and optimum control for precision farming.",
+      "url": "http://arxiv.org/abs/2007.05493v1",
+      "published": "2020-07-07",
+      "authors": [
+        "Alexander Kocian",
+        "Luca Incrocci"
+      ]
+    },
+    {
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ]
+    },
+    {
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ]
+    },
+    {
+      "title": "Prediction of soil fertility parameters using USB-microscope imagery and portable X-ray fluorescence spectrometry",
+      "summary": "This study investigated the use of portable X-ray fluorescence (PXRF) spectrometry and soil image analysis for rapid soil fertility assessment, with a focus on key indicators such as available boron (B), organic carbon (OC), available manganese (Mn), available sulfur (S), and the sulfur availability index (SAI). A total of 1,133 soil samples from diverse agro-climatic zones in Eastern India were analyzed. The research integrated color and texture features from microscopic soil images, PXRF data, and auxiliary soil variables (AVs) using a Random Forest model. Results showed that combining image features (IFs) with AVs significantly improved prediction accuracy for available B (R2 = 0.80) and OC (R2 = 0.88). A data fusion approach, incorporating IFs, AVs, and PXRF data, further enhanced predictions for available Mn and SAI, with R2 values of 0.72 and 0.70, respectively. The study highlights the potential of integrating these technologies to offer rapid, cost-effective soil testing methods, paving the way for more advanced predictive models and a deeper understanding of soil fertility. Future work should explore the application of deep learning models on a larger dataset, incorporating soils from a wider range of agro-climatic zones under field conditions.",
+      "url": "http://arxiv.org/abs/2404.12415v2",
+      "published": "2024-04-17",
+      "authors": [
+        "Shubhadip Dasgupta",
+        "Satwik Pate",
+        "Divya Rathore"
+      ]
+    },
+    {
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "summary": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncertainty using the learned evidence. To ensure theoretically sound evidential models, the evidence needs to be non-negative, which requires special activation functions for model training and inference. This constraint often leads to inferior predictive performance compared to standard softmax models, making it challenging to extend them to many large-scale datasets. To unveil the real cause of this undesired behavior, we theoretically investigate evidential models and identify a fundamental limitation that explains the inferior performance: existing evidential activation functions create zero evidence regions, which prevent the model to learn from training samples falling into such regions. A deeper analysis of evidential activation functions based on our theoretical underpinning inspires the design of a novel regularizer that effectively alleviates this fundamental limitation. Extensive experiments over many challenging real-world datasets and settings confirm our theoretical findings and demonstrate the effectiveness of our proposed approach.",
+      "url": "http://arxiv.org/abs/2306.11113v2",
+      "published": "2023-06-19",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ]
+    },
+    {
+      "title": "The Modern Mathematics of Deep Learning",
+      "summary": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalization power of overparametrized neural networks, the role of depth in deep architectures, the apparent absence of the curse of dimensionality, the surprisingly successful optimization performance despite the non-convexity of the problem, understanding what features are learned, why deep architectures perform exceptionally well in physical problems, and which fine aspects of an architecture affect the behavior of a learning task in which way. We present an overview of modern approaches that yield partial answers to these questions. For selected approaches, we describe the main ideas in more detail.",
+      "url": "http://arxiv.org/abs/2105.04026v2",
+      "published": "2021-05-09",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ]
+    },
+    {
+      "title": "The Digital Transformation in Health: How AI Can Improve the Performance of Health Systems",
+      "summary": "Mobile health has the potential to revolutionize health care delivery and patient engagement. In this work, we discuss how integrating Artificial Intelligence into digital health applications-focused on supply chain, patient management, and capacity building, among other use cases-can improve the health system and public health performance. We present an Artificial Intelligence and Reinforcement Learning platform that allows the delivery of adaptive interventions whose impact can be optimized through experimentation and real-time monitoring. The system can integrate multiple data sources and digital health applications. The flexibility of this platform to connect to various mobile health applications and digital devices and send personalized recommendations based on past data and predictions can significantly improve the impact of digital tools on health system outcomes. The potential for resource-poor settings, where the impact of this approach on health outcomes could be more decisive, is discussed specifically. This framework is, however, similarly applicable to improving efficiency in health systems where scarcity is not an issue.",
+      "url": "http://arxiv.org/abs/2409.16098v2",
+      "published": "2024-09-24",
+      "authors": [
+        "\u00c1frica Peri\u00e1\u00f1ez",
+        "Ana Fern\u00e1ndez del R\u00edo",
+        "Ivan Nazarov"
+      ]
+    },
+    {
+      "title": "An Efficient Data Warehouse for Crop Yield Prediction",
+      "summary": "Nowadays, precision agriculture combined with modern information and communications technologies, is becoming more common in agricultural activities such as automated irrigation systems, precision planting, variable rate applications of nutrients and pesticides, and agricultural decision support systems. In the latter, crop management data analysis, based on machine learning and data mining, focuses mainly on how to efficiently forecast and improve crop yield. In recent years, raw and semi-processed agricultural data are usually collected using sensors, robots, satellites, weather stations, farm equipment, farmers and agribusinesses while the Internet of Things (IoT) should deliver the promise of wirelessly connecting objects and devices in the agricultural ecosystem. Agricultural data typically captures information about farming entities and operations. Every farming entity encapsulates an individual farming concept, such as field, crop, seed, soil, temperature, humidity, pest, and weed. Agricultural datasets are spatial, temporal, complex, heterogeneous, non-standardized, and very large. In particular, agricultural data is considered as Big Data in terms of volume, variety, velocity and veracity. Designing and developing a data warehouse for precision agriculture is a key foundation for establishing a crop intelligence platform, which will enable resource efficient agronomy decision making and recommendations. Some of the requirements for such an agricultural data warehouse are privacy, security, and real-time access among its stakeholders (e.g., farmers, farm equipment manufacturers, agribusinesses, co-operative societies, customers and possibly Government agencies). However, currently there are very few reports in the literature that focus on the design of efficient data warehouses with the view of enabling Agricultural Big Data analysis and data mining. In this paper ...",
+      "url": "http://arxiv.org/abs/1807.00035v1",
+      "published": "2018-06-26",
+      "authors": [
+        "Vuong M. Ngo",
+        "Nhien-An Le-Khac",
+        "M-Tahar Kechadi"
+      ]
+    },
+    {
+      "title": "Development of Crop Yield Estimation Model using Soil and Environmental Parameters",
+      "summary": "Crop yield is affected by various soil and environmental parameters and can vary significantly. Therefore, a crop yield estimation model which can predict pre-harvest yield is required for food security. The study is conducted on tea forms operating under National Tea Research Institute, Pakistan. The data is recorded on monthly basis for ten years period. The parameters collected are minimum and maximum temperature, humidity, rainfall, PH level of the soil, usage of pesticide and labor expertise. The design of model incorporated all of these parameters and identified the parameters which are most crucial for yield predictions. Feature transformation is performed to obtain better performing model. The designed model is based on an ensemble of neural networks and provided an R-squared of 0.9461 and RMSE of 0.1204 indicating the usability of the proposed model in yield forecasting based on surface and environmental parameters.",
+      "url": "http://arxiv.org/abs/2102.05755v2",
+      "published": "2021-02-10",
+      "authors": [
+        "Nisar Ahmed",
+        "Hafiz Muhammad Shahzad Asif",
+        "Gulshan Saleem"
+      ]
+    },
+    {
+      "title": "Comparative Analysis of Weather-Based Indexes and the Actuaries Climate Index$^{TM}$ for Crop Yield Prediction and Weather-Derivative Pricing",
+      "summary": "Climate change poses significant challenges to the agricultural and financial sectors, affecting crop productivity and overall financial stability. This study evaluates the robustness of the Actuaries Climate Index$^{TM}$ (ACI), a newer entrant in the field as a tool for measuring climate impacts, by comparing its explanatory power with well-established weather-based indexes (WBIs) across two key sectors. In the agricultural context, the yields of three major crops are predicted using generalized statistical models and advanced machine learning algorithms with climate indexes as explanatory variables. To enhance model reliability and address multicollinearity among weather-related variables, the study also incorporates both principal component analysis and functional principal component analysis. A total of 22 models, each constructed with different sets of explanatory variables, demonstrate the significant impact of wind speed and sea-level changes, alongside temperature and precipitation, on crop yield variability across six regions of the United States. For the financial market application, the analysis adapts the weather derivative framework, as it is a critical instrument for energy companies, insurers, and agribusinesses seeking to hedge against weather-related risks. By analyzing the payoffs of derivative contracts that use WBIs and ACI components as underlying variables, the findings reveal that the ACI framework holds a strong potential as a comprehensive climate risk indicator, not only for the agricultural sector but also for the finance and insurance industries.",
+      "url": "http://arxiv.org/abs/2504.21143v2",
+      "published": "2025-04-29",
+      "authors": [
+        "Cem Yavrum",
+        "A. Sevtap Selcuk-Kestel",
+        "Jos\u00e9 Garrido"
+      ]
+    },
+    {
+      "title": "AI Governance and Ethics Framework for Sustainable AI and Sustainability",
+      "summary": "AI is transforming the existing technology landscape at a rapid phase enabling data-informed decision making and autonomous decision making. Unlike any other technology, because of the decision-making ability of AI, ethics and governance became a key concern. There are many emerging AI risks for humanity, such as autonomous weapons, automation-spurred job loss, socio-economic inequality, bias caused by data and algorithms, privacy violations and deepfakes. Social diversity, equity and inclusion are considered key success factors of AI to mitigate risks, create values and drive social justice. Sustainability became a broad and complex topic entangled with AI. Many organizations (government, corporate, not-for-profits, charities and NGOs) have diversified strategies driving AI for business optimization and social-and-environmental justice. Partnerships and collaborations become important more than ever for equity and inclusion of diversified and distributed people, data and capabilities. Therefore, in our journey towards an AI-enabled sustainable future, we need to address AI ethics and governance as a priority. These AI ethics and governance should be underpinned by human ethics.",
+      "url": "http://arxiv.org/abs/2210.08984v1",
+      "published": "2022-09-28",
+      "authors": [
+        "Mahendra Samarawickrama"
+      ]
+    },
+    {
+      "title": "Bio-inspired Synthetic Ivory as a Sustainable Material for Piano Keys",
+      "summary": "Natural ivory is no longer readily or legally available, as it is obtained primarily from elephant tusks, which now enjoy international protection. Ivory, however, is the best material known for piano keys. We present a hydroxylapatite-gelatin biocomposite that is chemically identical to natural ivory but with functional properties optimized to replace it. As this biocomposite is fabricated from abundant materials in an environmentally friendly process and is furthermore biodegradable, it is a sustainable solution for piano keys with the ideal functional properties of natural ivory.",
+      "url": "http://arxiv.org/abs/1912.06481v1",
+      "published": "2019-12-13",
+      "authors": [
+        "Dieter Fischer",
+        "Sarah Parks",
+        "Jochen Mannhart"
+      ]
+    }
+  ],
+  "limitations_extracted": 39,
+  "clusters": [
+    {
+      "theme": "Data Limitation Constraints",
+      "limitations": [
+        "The quality and integrity of data-science-driven statistics rely on the accuracy and reliability of the data sources and machine learning techniques, which can be affected by changes in data sources.",
+        "The DOME recommendations for supervised machine learning validation in biology may not be universally applicable to all biological domains and machine learning algorithms.",
+        "The study on changing data sources in the age of machine learning for official statistics does not provide a comprehensive solution to address the risks and uncertainties associated with changing data sources.",
+        "The DOME recommendations do not provide a clear framework for evaluating the performance and limitations of machine learning algorithms in biology.",
+        "The method is not evaluated on real-world data with varying weather conditions, lighting, and other environmental factors.",
+        "The method proposed in the paper has not been evaluated on real-world data or in field conditions.",
+        "The study does not explore the potential biases or limitations of the Random Forest model used for prediction.",
+        "The research does not investigate the potential impact of using deep learning models on a larger dataset with diverse agro-climatic zones.",
+        "The proposed framework in Paper 1 may not be applicable to all resource-poor settings due to potential limitations in data availability and infrastructure.",
+        "The design of the data warehouse in Paper 2 does not address the issue of data standardization, which could affect its efficiency and scalability.",
+        "The proposed models in Papers 3 and 4 rely on historical data and may not be able to adapt to changing climate conditions or other external factors.",
+        "No evaluation of the proposed frameworks and models is conducted on real-world data or in real-world settings, which may limit their practical applicability.",
+        "The data used in Papers 3 and 4 is collected over a limited time period, which may not be representative of long-term trends and patterns.",
+        "The proposed models and frameworks may not be scalable to larger datasets or more complex systems, which could limit their usefulness in practice."
+      ],
+      "count": 14
+    },
+    {
+      "theme": "Research Method Limitations",
+      "limitations": [
+        "The study on agricultural policy in Ukraine does not provide an in-depth analysis of the policy's impact on the environment.",
+        "The analysis of agricultural policy in Ukraine is limited to the post-Soviet era and does not provide a historical context of agricultural policy in the region.",
+        "The approach may not be scalable to larger agricultural areas or more complex farming systems.",
+        "The method does not account for other factors that may affect pollination, such as pesticide use or climate change.",
+        "The study only analyzed soil samples from Eastern India and did not explore other agro-climatic zones.",
+        "The study relies on a specific type of microscope and spectrometry, which may not be widely available or applicable to all types of soil.",
+        "The crop yield estimation model in Paper 3 is limited to tea farms and may not be generalizable to other crops or regions.",
+        "The study in Paper 4 does not account for other factors that may impact crop yield, such as soil quality and pest management.",
+        "The studies in Papers 2 and 4 do not address the issue of data privacy and security, which is critical in the context of agricultural data and decision-making."
+      ],
+      "count": 9
+    },
+    {
+      "theme": "Evidential Model Limitations",
+      "limitations": [
+        "The system requires a large amount of labeled data for training, which can be time-consuming and expensive to obtain.",
+        "The existing evidential activation functions create zero evidence regions, preventing the model from learning from certain training samples.",
+        "The inferior predictive performance of evidential models compared to standard softmax models limits their application to large-scale datasets.",
+        "The evidential deep learning approach requires special activation functions, which can be computationally expensive and may not be suitable for all types of neural networks.",
+        "The mathematical analysis of deep learning is still a developing field and many research questions remain unanswered."
+      ],
+      "count": 5
+    },
+    {
+      "theme": "Research Scope Limitations",
+      "limitations": [
+        "The robotic simulation environment using Unreal Engine 5 is limited to agricultural applications and may not be generalizable to other fields.",
+        "The simulation environment using Unreal Engine 5 requires predetermined setpoints in a multi-robot setup, which may not be feasible in all real-world scenarios.",
+        "The analysis of ethical AI discourse is limited to OpenAI's public communication and documentation, and may not reflect the company's internal practices or decision-making processes.",
+        "The AI governance and ethics framework in Paper 5 may not be sufficient to address all emerging AI risks, such as autonomous weapons and deepfakes."
+      ],
+      "count": 4
+    },
+    {
+      "theme": "Technical Compatibility Limitations",
+      "limitations": [
+        "The IFC models used for automating common planning checks for building permits may not be applicable to all locations and regulations.",
+        "The tool developed for extracting information from IFC models may not be compatible with all types of models and software."
+      ],
+      "count": 2
+    },
+    {
+      "theme": "Spatial Coverage Limitations",
+      "limitations": [
+        "Current computer vision facilitated insect tracking in complex outdoor environments is restricted in spatial coverage and often constrained to a single insect species.",
+        "The system is limited to tracking insects within polytunnels and may not be effective in open fields."
+      ],
+      "count": 2
+    },
+    {
+      "theme": "Adaptive Layer Limitations",
+      "limitations": [
+        "The proposed adaptive layer may not be effective for all types of images or computer vision tasks.",
+        "The performance of the adaptive layer may be sensitive to the choice of hyperparameters and requires further tuning."
+      ],
+      "count": 2
+    },
+    {
+      "theme": "Gender Diversity in Tech",
+      "limitations": [
+        "The number of female researchers in computer vision is still low, which may limit the diversity of perspectives and ideas in the field."
+      ],
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    "Inability to ensure data quality and integrity due to changes in data sources and limitations in machine learning techniques",
+    "Lack of universally applicable validation methods for supervised machine learning in biology across different domains and algorithms",
+    "Insufficient scalability and generalizability of models and approaches to larger and more complex systems or different fields",
+    "Requirement for large amounts of labeled data and limitations in evidential models' predictive performance",
+    "Restrictions in spatial coverage and adaptability of computer vision and machine learning models to various environments and tasks"
+  ],
+  "research_ideas": [
+    {
+      "title": "Multi-Source Data Fusion for AI in Agriculture",
+      "description": "This approach involves developing a robust data fusion framework that integrates data from diverse sources, such as sensors, drones, and satellites, to improve data quality and integrity. The framework will utilize advanced machine learning techniques to handle noisy and missing data, ensuring reliable inputs for AI models. This will enable more accurate predictions and decision-making in agricultural applications.",
+      "addresses_gaps": [
+        "Inability to ensure data quality and integrity due to changes in data sources and limitations in machine learning techniques"
+      ]
+    },
+    {
+      "title": "Transfer Learning for Scalable and Generalizable AI Models in Agriculture",
+      "description": "This research focuses on developing transfer learning methods that enable AI models to adapt to new, unseen environments and tasks, thereby improving their scalability and generalizability. By leveraging pre-trained models and fine-tuning them on smaller, task-specific datasets, this approach aims to reduce the need for large amounts of labeled data and enhance model performance. This will facilitate the application of AI in various agricultural domains and fields.",
+      "addresses_gaps": [
+        "Insufficient scalability and generalizability of models and approaches to larger and more complex systems or different fields",
+        "Requirement for large amounts of labeled data and limitations in evidential models' predictive performance"
+      ]
+    },
+    {
+      "title": "Adaptive Computer Vision for Agricultural Environments",
+      "description": "This project proposes the development of adaptive computer vision models that can adjust to varying environmental conditions, such as lighting, weather, and crop types, to improve their spatial coverage and adaptability. By incorporating domain-specific knowledge and online learning mechanisms, these models will be able to learn from new data and update their parameters in real-time, enhancing their performance in diverse agricultural settings. This will enable more accurate and reliable agricultural monitoring and decision-making.",
+      "addresses_gaps": [
+        "Restrictions in spatial coverage and adaptability of computer vision and machine learning models to various environments and tasks"
+      ]
+    }
+  ],
+  "novelty_scores": [
+    6,
+    7,
+    8
+  ],
+  "generated_at": "2026-02-25T21:58:28.840747",
+  "chroma_db": {
+    "path": "./chroma_db",
+    "total_papers_stored": 21,
+    "total_limitations_stored": 39
+  }
+}

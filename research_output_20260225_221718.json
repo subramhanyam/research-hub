@@ -1,0 +1,325 @@
+{
+  "topic": "mcp protocall",
+  "subtopics": [
+    "MCP Protocol Overview",
+    "MCP Protocol Security Analysis",
+    "MCP Protocol Implementation",
+    "MCP Protocol Performance Optimization"
+  ],
+  "keywords": [
+    "MCP protocol",
+    "MCP security",
+    "MCP implementation",
+    "MCP performance",
+    "Multiparty Computation Protocol",
+    "Secure Multi-Party Computation",
+    "MCP cryptographic protocol",
+    "Distributed MCP protocol"
+  ],
+  "papers_found": 16,
+  "papers": [
+    {
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "summary": "The Model Context Protocol has emerged as a transformative standard for connecting large language models to external data sources and tools, rapidly gaining adoption across major AI providers and development platforms. However, existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces. To address this critical gap, we introduce MCP-Universe, the first comprehensive benchmark specifically designed to evaluate LLMs in realistic and hard tasks through interaction with real-world MCP servers. Our benchmark encompasses 6 core domains spanning 11 different MCP servers: Location Navigation, Repository Management, Financial Analysis, 3D Design, Browser Automation, and Web Searching. To ensure rigorous evaluation, we implement execution-based evaluators, including format evaluators for agent format compliance, static evaluators for time-invariant content matching, and dynamic evaluators that automatically retrieve real-time ground truth for temporally sensitive tasks. Through extensive evaluation of leading LLMs, we find that even SOTA models such as GPT-5 (43.72%), Grok-4 (33.33%) and Claude-4.0-Sonnet (29.44%) exhibit significant performance limitations. In addition, our benchmark poses a significant long-context challenge for LLM agents, as the number of input tokens increases rapidly with the number of interaction steps. Moreover, it introduces an unknown-tools challenge, as LLM agents often lack familiarity with the precise usage of the MCP servers. Notably, enterprise-level agents like Cursor cannot achieve better performance than standard ReAct frameworks. Beyond evaluation, we open-source our extensible evaluation framework with UI support, enabling researchers and practitioners to seamlessly integrate new agents and MCP servers while fostering innovation in the rapidly evolving MCP ecosystem.",
+      "url": "http://arxiv.org/abs/2508.14704v1",
+      "published": "2025-08-20",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ]
+    },
+    {
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "summary": "AI development environments are evolving into observability first platforms that integrate real time telemetry, prompt traces, and evaluation feedback into the developer workflow. This paper introduces telemetry aware integrated development environments (IDEs) enabled by the Model Context Protocol (MCP), a system that connects IDEs with prompt metrics, trace logs, and versioned control for real time refinement. We present design patterns for local prompt iteration, CI based optimization, and autonomous agents that adapt behavior using telemetry. Rather than focusing on a single algorithm, we describe an architecture that supports integration with frameworks like DSPy, PromptWizard, and Prompts as Programs. We demonstrate this through Opik, an open source MCP server for LLM telemetry, and position our approach within the emerging LLMOps ecosystem. This work lays a foundation for future research on prompt optimization, IDE agent tooling, and empirical benchmarking in telemetry rich AI development workflows.",
+      "url": "http://arxiv.org/abs/2506.11019v1",
+      "published": "2025-05-14",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ]
+    },
+    {
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "summary": "Today, SIP is a protocol par Excellence in the field of communication over Internet. But, the fact that it belongs to the application layer constitutes a weakness vis-a-vis the NAT traversal. This weakness is due to the way in which the server replies to the requests of clients on the one hand. On the other, it is caused by the dynamic allocation of UDP ports for emission and reception of packets RTP/RTCP. The TURN Protocol may face this weakness. However, its use requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions and this increase the latent time. In this article, we propose to adapt TURN protocol for applications based on SIP protocol such as telephony over Internet, conference video, etc. This adaptation optimises the establishment of multimedia sessions by integrating a manager of TCP connections and multimedia flow controller into SIP Proxy server.",
+      "url": "http://arxiv.org/abs/1002.1178v1",
+      "published": "2010-02-05",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ]
+    },
+    {
+      "title": "The Everyday Security of Living with Conflict",
+      "summary": "When `cyber' is used as a prefix, attention is typically drawn to the technological and spectacular aspects of war and conflict -- and, by extension, security. We offer a different approach to engaging with and understanding security in such contexts, by foregrounding the everyday -- mundane -- experiences of security within communities living with and fleeing from war. We do so through three vignettes from our field research in Colombia, Lebanon and Sweden, respectively, and by highlighting the significance of ethnography for security research with communities living in regions afflicted by war. We conclude by setting out a call to action for security researchers and practitioners to consider such lived experiences in the design of security technology that aims to cater to the needs of communities in `global conflict and disaster regions'.",
+      "url": "http://arxiv.org/abs/2506.09580v1",
+      "published": "2025-06-11",
+      "authors": [
+        "Jessica McClearn",
+        "Reem Talhouk",
+        "Rikke Bjerg Jensen"
+      ]
+    },
+    {
+      "title": "Securing Automated Insulin Delivery Systems: A Review of Security Threats and Protective Strategies",
+      "summary": "Automated Insulin Delivery (AID) systems represent a significant advancement in diabetes care and wearable physiological closed-loop control technologies, integrating continuous glucose monitoring, control algorithms, and insulin pumps to improve blood glucose level control and reduce the burden of patient self-management. However, their increasing dependence on wireless communication and automatic control introduces security risks that may compromise patient privacy or result in life-threatening treatment errors. This paper presents a comprehensive survey of the AID system security landscape, covering technical vulnerabilities, regulatory frameworks, and commercial security measures. In addition, we conduct a systematic review of attack vectors and defence mechanisms proposed in the literature, following the PRISMA framework. Our findings highlight critical gaps, including the lack of specific security evaluation frameworks, insufficient protections in real-world deployments, and the need for comprehensive, lightweight, and adaptive defence mechanisms. We further investigate available research resources and outline open research challenges and future directions to guide the development of more secure and reliable AID systems. By focusing on AID systems, this review offers a representative case study for examining and improving the cybersecurity of safety-critical medical wearable systems.",
+      "url": "http://arxiv.org/abs/2503.14006v2",
+      "published": "2025-03-18",
+      "authors": [
+        "Yuchen Niu",
+        "Siew-Kei Lam"
+      ]
+    },
+    {
+      "title": "Evaluation Report on MCP Servers",
+      "summary": "With the rise of LLMs, a large number of Model Context Protocol (MCP) services have emerged since the end of 2024. However, the effectiveness and efficiency of MCP servers have not been well studied. To study these questions, we propose an evaluation framework, called MCPBench. We selected several widely used MCP server and conducted an experimental evaluation on their accuracy, time, and token usage. Our experiments showed that the most effective MCP, Bing Web Search, achieved an accuracy of 64%. Importantly, we found that the accuracy of MCP servers can be substantially enhanced by involving declarative interface. This research paves the way for further investigations into optimized MCP implementations, ultimately leading to better AI-driven applications and data retrieval solutions.",
+      "url": "http://arxiv.org/abs/2504.11094v2",
+      "published": "2025-04-15",
+      "authors": [
+        "Zhiling Luo",
+        "Xiaorong Shi",
+        "Xuanrui Lin"
+      ]
+    },
+    {
+      "title": "Performance of Genetic Algorithms in the Context of Software Model Refactoring",
+      "summary": "Software systems continuously evolve due to new functionalities, requirements, or maintenance activities. In the context of software evolution, software refactoring has gained a strategic relevance. The space of possible software refactoring is usually very large, as it is given by the combinations of different refactoring actions that can produce software system alternatives. Multi-objective algorithms have shown the ability to discover alternatives by pursuing different objectives simultaneously. Performance of such algorithms in the context of software model refactoring is of paramount importance. Therefore, in this paper, we conduct a performance analysis of three genetic algorithms to compare them in terms of performance and quality of solutions. Our results show that there are significant differences in performance among the algorithms (e.g., PESA2 seems to be the fastest one, while NSGA-II shows the least memory usage).",
+      "url": "http://arxiv.org/abs/2308.13875v1",
+      "published": "2023-08-26",
+      "authors": [
+        "Vittorio Cortellessa",
+        "Daniele Di Pompeo",
+        "Michele Tucci"
+      ]
+    },
+    {
+      "title": "A Performance Study of GA and LSH in Multiprocessor Job Scheduling",
+      "summary": "Multiprocessor task scheduling is an important and computationally difficult problem. This paper proposes a comparison study of genetic algorithm and list scheduling algorithm. Both algorithms are naturally parallelizable but have heavy data dependencies. Based on experimental results, this paper presents a detailed analysis of the scalability, advantages and disadvantages of each algorithm. Multiprocessors have emerged as a powerful computing means for running real-time applications, especially where a uni-processor system would not be sufficient enough to execute all the tasks. The high performance and reliability of multiprocessors have made them a powerful computing resource. Such computing environment requires an efficient algorithm to determine when and on which processor a given task should execute. In multiprocessor systems, an efficient scheduling of a parallel program onto the processors that minimizes the entire execution time is vital for achieving a high performance. This scheduling problem is known to be NP- Hard. In multiprocessor scheduling problem, a given program is to be scheduled in a given multiprocessor system such that the program's execution time is minimized. The last job must be completed as early as possible. Genetic algorithm (GA) is one of the widely used techniques for constrained optimization.",
+      "url": "http://arxiv.org/abs/1002.1149v1",
+      "published": "2010-02-05",
+      "authors": [
+        "S. R. Vijayalakshmi",
+        "G. Padmavathi"
+      ]
+    },
+    {
+      "title": "A Secure Multiparty Quantum Least Common Multiple Computation Protocol",
+      "summary": "In this paper, we present a secure multiparty computation (SMC) protocol for least common multiple (LCM) based on Shor's quantum period-finding algorithm (QPA). Our protocol is based on the following principle: the connection of multiple periodic functions is also a periodic function whose period is exactly the least common multiple of all small periods. Since QPA is a probabilistic algorithm, we also propose a one-vote-down vote protocol based on the existing secure multi-party quantum summation protocol, which is used to verify the results of the proposed LCM protocol. Security analysis shows that under the semi-honest model, the proposed protocol is secure with high probability, while the computational consumption remains at polynomial complexity. The protocol proposed in this paper solves the problem of efficient and secure multiparty computation of LCM, demonstrating quantum computation potential.",
+      "url": "http://arxiv.org/abs/2210.08165v2",
+      "published": "2022-10-15",
+      "authors": [
+        "Zixian Li",
+        "Wenjie Liu"
+      ]
+    },
+    {
+      "title": "Separation and Encodability in Mixed Choice Multiparty Sessions (Technical Report)",
+      "summary": "Multiparty session types (MP) are a type discipline for enforcing the structured, deadlock-free communication of concurrent and message-passing programs. Traditional MP have a limited form of choice in which alternative communication possibilities are offered by a single participant and selected by another. Mixed choice multiparty session types (MCMP) extend the choice construct to include both selections and offers in the same choice. This paper first proposes a general typing system for a mixed choice synchronous multiparty session calculus, and prove type soundness, communication safety, and deadlock-freedom.\n  Next we compare expressiveness of nine subcalcli of MCMP-calculus by examining their encodability (there exists a good encoding from one to another) and separation (there exists no good encoding from one calculus to another). We prove 8 new encodablity results and 20 new separation results. In summary, MCMP is strictly more expressive than classical multiparty sessions (MP) and mixed choice in mixed sessions. This contrasts earlier results where mixed sessions do not add any expressiveness to non-mixed fundamental sessions, shedding a light on expressiveness of multiparty mixed choice.",
+      "url": "http://arxiv.org/abs/2405.08104v2",
+      "published": "2024-05-13",
+      "authors": [
+        "Kirstin Peters",
+        "Nobuko Yoshida"
+      ]
+    },
+    {
+      "title": "Secure Multi-Party Quantum Conference and Xor Computation",
+      "summary": "Quantum conference is a process of securely exchanging messages between three or more parties, using quantum resources. A Measurement Device Independent Quantum Dialogue (MDI-QD) protocol, which is secure against information leakage, has been proposed (Quantum Information Processing 16.12 (2017): 305) in 2017, is proven to be insecure against intercept-and-resend attack strategy. We first modify this protocol and generalize this MDI-QD to a three-party quantum conference and then to a multi-party quantum conference. We also propose a protocol for quantum multi-party XOR computation. None of these three protocols proposed here use entanglement as a resource and we prove the correctness and security of our proposed protocols.",
+      "url": "http://arxiv.org/abs/2101.05560v1",
+      "published": "2021-01-14",
+      "authors": [
+        "Nayana Das",
+        "Goutam Paul"
+      ]
+    },
+    {
+      "title": "Delegating Multi-Party Quantum Computations vs. Dishonest Majority in Two Quantum Rounds",
+      "summary": "Multi-Party Quantum Computation (MPQC) has attracted a lot of attention as a potential killer-app for quantum networks through it's ability to preserve privacy and integrity of the highly valuable computations they would enable. Contributing to the latest challenges in this field, we present a composable protocol achieving blindness and verifiability even in the case of a single honest client. The security of our protocol is reduced, in an information-theoretically secure way, to that of a classical composable Secure Multi-Party Computation (SMPC) used to coordinate the various parties. Our scheme thus provides a statistically secure upgrade of such classical scheme to a quantum one with the same level of security.\n  In addition, (i) the clients can delegate their computation to a powerful fully fault-tolerant server and only need to perform single qubit operations to unlock the full potential of multi-party quantum computation; (ii) the amount of quantum communication with the server is reduced to sending quantum states at the beginning of the computation and receiving the output states at the end, which is optimal and removes the need for interactive quantum communication; and (iii) it has a low constant multiplicative qubit overhead compared to the single-client delegated protocol it is built upon.\n  The main technical ingredient of our paper is the bootstraping of the MPQC construction by Double Blind Quantum Computation, a new composable resource for blind multiparty quantum computation, that demonstrates the surprising fact that the full protocol does not require verifiability of all components to achieve security.",
+      "url": "http://arxiv.org/abs/2102.12949v3",
+      "published": "2021-02-25",
+      "authors": [
+        "Theodoros Kapourniotis",
+        "Elham Kashefi",
+        "Luka Music"
+      ]
+    },
+    {
+      "title": "Secure Multi-Party Computation with a Dishonest Majority via Quantum Means",
+      "summary": "We introduce a scheme for secure multi-party computation utilising the quantum correlations of entangled states. First we present a scheme for two-party computation, exploiting the correlations of a Greenberger-Horne-Zeilinger state to provide, with the help of a third party, a near-private computation scheme. We then present a variation of this scheme which is passively secure with threshold t=2, in other words, remaining secure when pairs of players conspire together provided they faithfully follow the protocol. We show that this can be generalised to computations of n-party polynomials of degree 2 with a threshold of n-1. The threshold achieved is significantly higher than the best known classical threshold, which satisfies the bound t<n/2.",
+      "url": "http://arxiv.org/abs/0906.2297v4",
+      "published": "2009-06-12",
+      "authors": [
+        "Klearchos Loukopoulos",
+        "Daniel E. Browne"
+      ]
+    },
+    {
+      "title": "\"MCP Does Not Stand for Misuse Cryptography Protocol\": Uncovering Cryptographic Misuse in Model Context Protocol at Scale",
+      "summary": "The Model Context Protocol (MCP) is rapidly emerging as the middleware for LLM-based applications, offering a standardized interface for tool integration. However, its built-in security mechanisms are minimal: while schemas and declarations prevent malformed requests, MCP provides no guarantees of authenticity or confidentiality, forcing developers to implement cryptography themselves. Such ad hoc practices are historically prone to misuse, and within MCP they threaten sensitive data and services. We present MICRYSCOPE, the first domain-specific framework for detecting cryptographic misuses in MCP implementations. MICRYSCOPE combines three key innovations: a cross-language intermediate representation that normalizes cryptographic APIs across diverse ecosystems, a hybrid dependency analysis that uncovers explicit and implicit function relationships (including insecure runtime compositions orchestrated by LLMs) and a taint-based misuse detector that tracks sensitive data flows and flags violations of established cryptographic rules. Applying MICRYSCOPE to 9,403 MCP servers, we identified 720 with cryptographic logic, of which 19.7% exhibited misuses. These flaws are concentrated in certain markets (e.g., Smithery Registry with 42% insecure servers), languages (Python at 34% misuse rate), and categories (Developer Tools and Data Science & ML accounting for over 50% of all misuses). Case studies reveal real-world consequences, including leaked API keys, insecure DES/ECB tools, and MD5-based authentication bypasses. Our study establishes the first ecosystem-wide view of cryptographic misuse in MCP and provides both tools and insights to strengthen the security foundations of this rapidly growing protocol.",
+      "url": "http://arxiv.org/abs/2512.03775v1",
+      "published": "2025-12-03",
+      "authors": [
+        "Biwei Yan",
+        "Yue Zhang",
+        "Minghui Xu"
+      ]
+    },
+    {
+      "title": "Multi-partite quantum cryptographic protocols with noisy GHZ states",
+      "summary": "We propose a wide class of distillation schemes for multi-partite entangled states that are CSS-states. Our proposal provides not only superior efficiency, but also new insights on the connection between CSS-states and bipartite graph states. We then apply our distillation schemes to the tri-partite case for three cryptographic tasks--namely, (a) conference key agreement, (b) quantum sharing of classical secrets and (c) third-man cryptography. Moreover, we construct ``prepare-and-measure'' protocols for the above three cryptographic tasks which can be implemented with the generation of only a single entangled pair at a time. This gives significant simplification over previous experimental implementations which require two entangled pairs generated simultaneously. We also study the yields of those protocols and the threshold values of the fidelity above which the protocols can function securely. Rather surprisingly, our protocols will function securely even when the initial state does not violate the standard Bell-inequalities for GHZ states.",
+      "url": "http://arxiv.org/abs/quant-ph/0404133v4",
+      "published": "2004-04-23",
+      "authors": [
+        "Kai Chen",
+        "Hoi-Kwong Lo"
+      ]
+    },
+    {
+      "title": "Composable Security of Distributed Symmetric Key Establishment Protocol",
+      "summary": "The Distributed Symmetric Key Establishment (DSKE) protocol provides secure secret exchange (e.g., for key exchange) between two honest parties that need not have had prior contact, and use intermediaries with whom they each securely share confidential data. We show the composable security of the DSKE protocol in the constructive cryptography framework of Maurer. Specifically, we prove the security (correctness and confidentiality) and robustness of this protocol against any computationally unbounded adversary, who additionally may have fully compromised a bounded number of the intermediaries and can eavesdrop on all communication. As DSKE is highly scalable in a network setting with no distance limit, it is expected to be a cost-effective quantum-safe cryptographic solution to safeguarding the network security against the threat of quantum computers.",
+      "url": "http://arxiv.org/abs/2304.13789v2",
+      "published": "2023-04-26",
+      "authors": [
+        "Jie Lin",
+        "Manfred von Willich",
+        "Hoi-Kwong Lo"
+      ]
+    }
+  ],
+  "limitations_extracted": 39,
+  "clusters": [
+    {
+      "theme": "Security and Limitations",
+      "limitations": [
+        "The use of TURN protocol requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions, increasing the latent time.",
+        "The adaptation of TURN protocol to SIP protocol may not be suitable for all applications.",
+        "The secure multiparty quantum least common multiple computation protocol is based on the semi-honest model and may not be secure in the presence of malicious parties.",
+        "The protocol's security analysis did not consider the impact of quantum noise and error correction on the protocol's security.",
+        "The proposed protocols in Paper 1 do not address the issue of entanglement as a resource.",
+        "The security of the protocol in Paper 2 relies on the security of a classical composable Secure Multi-Party Computation used to coordinate the parties.",
+        "The scheme in Paper 3 is only passively secure with a threshold of t=2, and its security against active attacks is not considered.",
+        "The protocols in Paper 5 require a high-fidelity entangled state, which can be difficult to achieve in practice.",
+        "No evaluation of the proposed protocols in Paper 1 against other types of attacks, such as side-channel attacks, is provided.",
+        "The protocol in Paper 2 assumes a single honest client, and its security against a dishonest majority is not considered.",
+        "The scheme in Paper 3 is limited to computations of n-party polynomials of degree 2, and its applicability to more general computations is not explored.",
+        "The protocols in Paper 5 are not compared to other existing multi-partite quantum cryptographic protocols in terms of efficiency and security.",
+        "The security proof does not consider computationally bounded adversaries.",
+        "The protocol's performance in the presence of a large number of compromised intermediaries is not evaluated.",
+        "No discussion on the protocol's resistance to side-channel attacks is provided.",
+        "The protocol's implementation and practical deployment are not addressed."
+      ],
+      "count": 16
+    },
+    {
+      "theme": "Methodological Limitations Found",
+      "limitations": [
+        "Enterprise-level agents may not achieve better performance than standard frameworks.",
+        "The proposed MCPBench framework only evaluated several widely used MCP servers and may not be representative of all MCP servers.",
+        "The experiments in the MCPBench framework were limited to accuracy, time, and token usage, and did not consider other important metrics.",
+        "The evaluation of MCP servers and genetic algorithms was limited to experimental evaluations and did not include theoretical analyses or proofs of optimality.",
+        "The framework in Paper 4, MICRYSCOPE, may not detect all possible cryptographic misuses in MCP implementations.",
+        "The study in Paper 4 is limited to 9,403 MCP servers, and its results may not be generalizable to the entire MCP ecosystem."
+      ],
+      "count": 6
+    },
+    {
+      "theme": "Real World Limitations",
+      "limitations": [
+        "Existing benchmarks for large language models are overly simplistic and fail to capture real application challenges.",
+        "Even state-of-the-art models exhibit significant performance limitations in realistic tasks.",
+        "The benchmark poses a significant long-context challenge for LLM agents as the number of input tokens increases rapidly with the number of interaction steps.",
+        "The benchmark introduces an unknown-tools challenge, as LLM agents often lack familiarity with the precise usage of the MCP servers.",
+        "There is a need for more research on prompt optimization, IDE agent tooling, and empirical benchmarking in telemetry-rich AI development workflows."
+      ],
+      "count": 5
+    },
+    {
+      "theme": "Methodological Limitations",
+      "limitations": [
+        "The genetic algorithms used in the software model refactoring study were limited to three algorithms and may not be representative of all possible algorithms.",
+        "The performance analysis of genetic algorithms in software model refactoring did not consider the impact of different problem sizes and complexities.",
+        "The comparison study of genetic algorithm and list scheduling algorithm in multiprocessor job scheduling did not evaluate other scheduling algorithms.",
+        "The study of genetic algorithms in software model refactoring and multiprocessor job scheduling did not consider the use of other optimization techniques, such as simulated annealing or ant colony optimization."
+      ],
+      "count": 4
+    },
+    {
+      "theme": "Security Gaps in AID",
+      "limitations": [
+        "Automated Insulin Delivery systems lack specific security evaluation frameworks and insufficient protections in real-world deployments.",
+        "Available defence mechanisms for AID systems are not comprehensive, lightweight, and adaptive.",
+        "The development of more secure and reliable AID systems requires further investigation of open research challenges and future directions."
+      ],
+      "count": 3
+    },
+    {
+      "theme": "System Limitations and Constraints",
+      "limitations": [
+        "The mixed choice multiparty session types proposed in the paper may not be applicable to all types of concurrent and message-passing programs.",
+        "The typing system proposed for mixed choice synchronous multiparty session calculus may not be efficient for large and complex programs.",
+        "The encodability and separation results proved in the paper may not be generalizable to other calculi and typing systems."
+      ],
+      "count": 3
+    },
+    {
+      "theme": "Conflict Zone Security",
+      "limitations": [
+        "Security researchers and practitioners often overlook the everyday experiences of security within communities living with and fleeing from war."
+      ],
+      "count": 1
+    },
+    {
+      "theme": "Lack of Practical Testing",
+      "limitations": [
+        "The distillation schemes in Paper 5 are not tested with experimental implementations, and their practicality is not evaluated."
+      ],
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    "Inadequate security measures in Automated Insulin Delivery systems and other applications",
+    "Insufficient evaluation frameworks and benchmarks for assessing performance in real-world scenarios",
+    "Limited adaptability and applicability of existing protocols and algorithms to various applications and contexts",
+    "Inability to handle large and complex programs or datasets efficiently",
+    "Lack of consideration for malicious parties and real-world deployment scenarios in security protocols"
+  ],
+  "research_ideas": [
+    {
+      "title": "Secure MCP Protocol Framework for Automated Insulin Delivery",
+      "description": "This research proposes a novel security framework for MCP protocols in Automated Insulin Delivery systems, incorporating intrusion detection and encryption methods to protect against malicious attacks. The framework will be evaluated using real-world scenario simulations and benchmarked against existing protocols. This approach aims to provide a robust and reliable security solution for critical healthcare applications.",
+      "addresses_gaps": [
+        "Inadequate security measures",
+        "Lack of consideration for malicious parties and real-world deployment scenarios"
+      ]
+    },
+    {
+      "title": "Adaptive MCP Protocol Optimization for Diverse Applications",
+      "description": "This research focuses on developing an adaptive MCP protocol that can efficiently handle large and complex programs or datasets, and be applied to various applications and contexts. The protocol will utilize machine learning techniques to optimize its performance in real-time, based on the specific requirements of each application. This approach will address the limited adaptability and applicability of existing protocols.",
+      "addresses_gaps": [
+        "Limited adaptability and applicability",
+        "Inability to handle large and complex programs or datasets efficiently"
+      ]
+    },
+    {
+      "title": "Comprehensive Evaluation Framework for MCP Protocols",
+      "description": "This research proposes a comprehensive evaluation framework for assessing the performance of MCP protocols in real-world scenarios, incorporating benchmarks and metrics that consider security, efficiency, and adaptability. The framework will be designed to accommodate various applications and contexts, providing a standardized approach for evaluating and comparing MCP protocols. This approach aims to address the insufficient evaluation frameworks and benchmarks in the field.",
+      "addresses_gaps": [
+        "Insufficient evaluation frameworks and benchmarks",
+        "Limited adaptability and applicability"
+      ]
+    }
+  ],
+  "novelty_scores": [
+    8,
+    9,
+    6
+  ],
+  "generated_at": "2026-02-25T22:17:18.521757",
+  "chroma_db": {
+    "path": "./chroma_db",
+    "total_papers_stored": 37,
+    "total_limitations_stored": 78
+  }
+}

@@ -1,0 +1,718 @@
+{
+  "session_id": "a5b7c885",
+  "topic": "mcp protocall",
+  "subtopics": [
+    "MCP Protocol Architecture",
+    "MCP Protocol Security Analysis",
+    "MCP Protocol Performance Optimization",
+    "MCP Protocol Applications in Networking"
+  ],
+  "keywords": [
+    "MCP protocol design",
+    "MCP protocol implementation",
+    "MCP security protocols",
+    "MCP network architecture",
+    "MCP protocol evaluation",
+    "MCP protocol optimization techniques",
+    "MCP protocol in wireless networks"
+  ],
+  "papers_found": 12,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "summary": "The Model Context Protocol has emerged as a transformative standard for connecting large language models to external data sources and tools, rapidly gaining adoption across major AI providers and development platforms. However, existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces. To address this critical gap, we introduce MCP-Universe, the first comprehensive benchmark specifically designed to evaluate LLMs in realistic and hard tasks through interaction with real-world MCP servers. Our benchmark encompasses 6 core domains spanning 11 different MCP servers: Location Navigation, Repository Management, Financial Analysis, 3D Design, Browser Automation, and Web Searching. To ensure rigorous evaluation, we implement execution-based evaluators, including format evaluators for agent format compliance, static evaluators for time-invariant content matching, and dynamic evaluators that automatically retrieve real-time ground truth for temporally sensitive tasks. Through extensive evaluation of leading LLMs, we find that even SOTA models such as GPT-5 (43.72%), Grok-4 (33.33%) and Claude-4.0-Sonnet (29.44%) exhibit significant performance limitations. In addition, our benchmark poses a significant long-context challenge for LLM agents, as the number of input tokens increases rapidly with the number of interaction steps. Moreover, it introduces an unknown-tools challenge, as LLM agents often lack familiarity with the precise usage of the MCP servers. Notably, enterprise-level agents like Cursor cannot achieve better performance than standard ReAct frameworks. Beyond evaluation, we open-source our extensible evaluation framework with UI support, enabling researchers and practitioners to seamlessly integrate new agents and MCP servers while fostering innovation in the rapidly evolving MCP ecosystem.",
+      "url": "http://arxiv.org/abs/2508.14704v1",
+      "published": "2025-08-20",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "paper_id": 2,
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "summary": "AI development environments are evolving into observability first platforms that integrate real time telemetry, prompt traces, and evaluation feedback into the developer workflow. This paper introduces telemetry aware integrated development environments (IDEs) enabled by the Model Context Protocol (MCP), a system that connects IDEs with prompt metrics, trace logs, and versioned control for real time refinement. We present design patterns for local prompt iteration, CI based optimization, and autonomous agents that adapt behavior using telemetry. Rather than focusing on a single algorithm, we describe an architecture that supports integration with frameworks like DSPy, PromptWizard, and Prompts as Programs. We demonstrate this through Opik, an open source MCP server for LLM telemetry, and position our approach within the emerging LLMOps ecosystem. This work lays a foundation for future research on prompt optimization, IDE agent tooling, and empirical benchmarking in telemetry rich AI development workflows.",
+      "url": "http://arxiv.org/abs/2506.11019v1",
+      "published": "2025-05-14",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "citation_label": "[Paper 2 - Koc 2025]"
+    },
+    {
+      "paper_id": 3,
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "summary": "Today, SIP is a protocol par Excellence in the field of communication over Internet. But, the fact that it belongs to the application layer constitutes a weakness vis-a-vis the NAT traversal. This weakness is due to the way in which the server replies to the requests of clients on the one hand. On the other, it is caused by the dynamic allocation of UDP ports for emission and reception of packets RTP/RTCP. The TURN Protocol may face this weakness. However, its use requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions and this increase the latent time. In this article, we propose to adapt TURN protocol for applications based on SIP protocol such as telephony over Internet, conference video, etc. This adaptation optimises the establishment of multimedia sessions by integrating a manager of TCP connections and multimedia flow controller into SIP Proxy server.",
+      "url": "http://arxiv.org/abs/1002.1178v1",
+      "published": "2010-02-05",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "citation_label": "[Paper 3 - Guezouri 2010]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Core QUIC: Enabling Dynamic, Implementation-Agnostic Protocol Extensions",
+      "summary": "While applications quickly evolve, Internet protocols do not follow the same pace. There are two root causes for this. First, extending protocol with cleartext control plane is usually hindered by various network devices such as middleboxes. Second, such extensions usually require support from all participating entities, but often these run different implementations, leading to the chicken-and-egg deployment issue. The recently standardized QUIC protocol paved the way for dealing with the first concern by embedding encryption by design. However, it attracted so much interest that there is now a large heterogeneity in QUIC implementations, hence amplifying the second problem.\n  To get rid of these deployment issues and to enable inter-operable, implementation-independent innovation at transport layer, we propose a paradigm shift called Core QUIC. While Core QUIC keeps compliant with the standardized QUIC protocol, it enforces implementation architecture such that any Core QUIC-supporting participant can be extended with the same, generic bytecode. To achieve this, Core QUIC defines a standardized representation format of common QUIC structures on which plugins running in a controlled environment can operate to extend the underlying host implementation. We demonstrate the feasibility of our approach by making two implementations Core QUIC-compliant. Then, we show that we can extend both with the same plugin code over several use cases.",
+      "url": "http://arxiv.org/abs/2405.01279v1",
+      "published": "2024-05-02",
+      "authors": [
+        "Quentin De Coninck"
+      ],
+      "citation_label": "[Paper 4 - Coninck 2024]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Formal Modelling and Security Analysis of Bitcoin's Payment Protocol",
+      "summary": "The Payment Protocol standard BIP70, specifying how payments in Bitcoin are performed by merchants and customers, is supported by the largest payment processors and most widely-used wallets. The protocol has been shown to be vulnerable to refund attacks due to lack of authentication of the refund addresses. In this paper, we give the first formal model of the protocol and formalise the refund address security goals for the protocol, namely refund address authentication and secrecy. The formal model utilises communication channels as abstractions conveying security goals on which the protocol modeller and verifier can rely. We analyse the Payment Protocol confirming that it is vulnerable to an attack violating the refund address authentication security goal. Moreover, we present a concrete protocol revision proposal supporting the merchant with publicly verifiable evidence that can mitigate the attack. We verify that the revised protocol meets the security goals defined for the refund address. Hence, we demonstrate that the revised protocol is secure, not only against the existing attacks, but also against any further attacks violating the formalised security goals.",
+      "url": "http://arxiv.org/abs/2103.08436v1",
+      "published": "2021-03-15",
+      "authors": [
+        "Paolo Modesti",
+        "Siamak F. Shahandashti",
+        "Patrick McCorry"
+      ],
+      "citation_label": "[Paper 5 - Modesti 2021]"
+    },
+    {
+      "paper_id": 6,
+      "title": "GHZ correlation provides secure Anonymous Veto Protocol",
+      "summary": "Anonymous Veto (AV) and Dining cryptographers (DC) are two basic primitives for the cryptographic problems where the main aim is to hide the identity of the senders of the messages. These can be achieved by classical methods where the security is based either on computational hardness or on shared private keys. In this regard, we present a secure quantum protocol for both DC and AV by exploiting the GHZ correlations. We first solve a generalized version of the DC problem with the help of multiparty GHZ state. This allow us to provide a secure quantum protocol for the AV. Securities for both the protocols rely on some novel and fundamental features of GHZ correlations related to quantum nonlocality.",
+      "url": "http://arxiv.org/abs/1507.00592v2",
+      "published": "2015-07-02",
+      "authors": [
+        "Ramij Rahaman",
+        "Guruprasad Kar"
+      ],
+      "citation_label": "[Paper 6 - Rahaman 2015]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Secure ARP and Secure DHCP Protocols to Mitigate Security Attacks",
+      "summary": "For network computers to communicate to one another, they need to know one another's IP address and MAC address. Address Resolution Protocol (ARP) is developed to find the Ethernet address that map to a specific IP address. The source computer broadcasts the request for Ethernet address and eventually the target computer replies. The IP to Ethernet address mapping would later be stored in an ARP Cache for some time duration, after which the process is repeated. Since ARP is susceptible to ARP poisoning attacks, we propose to make it unicast, centralized and secure, along with a secure design of DHCP protocol to mitigate MAC spoofing. The secure protocol designs are explained in detail. Lastly we also discuss some performance issues to show how the proposed protocols work.",
+      "url": "http://arxiv.org/abs/1410.4398v1",
+      "published": "2014-10-16",
+      "authors": [
+        "B. Issac"
+      ],
+      "citation_label": "[Paper 7 - Issac 2014]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Architectural Implications of Graph Neural Networks",
+      "summary": "Graph neural networks (GNN) represent an emerging line of deep learning models that operate on graph structures. It is becoming more and more popular due to its high accuracy achieved in many graph-related tasks. However, GNN is not as well understood in the system and architecture community as its counterparts such as multi-layer perceptrons and convolutional neural networks. This work tries to introduce the GNN to our community. In contrast to prior work that only presents characterizations of GCNs, our work covers a large portion of the varieties for GNN workloads based on a general GNN description framework. By constructing the models on top of two widely-used libraries, we characterize the GNN computation at inference stage concerning general-purpose and application-specific architectures and hope our work can foster more system and architecture research for GNNs.",
+      "url": "http://arxiv.org/abs/2009.00804v2",
+      "published": "2020-09-02",
+      "authors": [
+        "Zhihui Zhang",
+        "Jingwen Leng",
+        "Lingxiao Ma"
+      ],
+      "citation_label": "[Paper 8 - Zhang 2020]"
+    },
+    {
+      "paper_id": 9,
+      "title": "Dalorex: A Data-Local Program Execution and Architecture for Memory-bound Applications",
+      "summary": "Applications with low data reuse and frequent irregular memory accesses, such as graph or sparse linear algebra workloads, fail to scale well due to memory bottlenecks and poor core utilization. While prior work with prefetching, decoupling, or pipelining can mitigate memory latency and improve core utilization, memory bottlenecks persist due to limited off-chip bandwidth. Approaches doing processing in-memory (PIM) with Hybrid Memory Cube (HMC) overcome bandwidth limitations but fail to achieve high core utilization due to poor task scheduling and synchronization overheads. Moreover, the high memory-per-core ratio available with HMC limits strong scaling.\n  We introduce Dalorex, a hardware-software co-design that achieves high parallelism and energy efficiency, demonstrating strong scaling with >16,000 cores when processing graph and sparse linear algebra workloads. Over the prior work in PIM, both using 256 cores, Dalorex improves performance and energy consumption by two orders of magnitude through (1) a tile-based distributed-memory architecture where each processing tile holds an equal amount of data, and all memory operations are local; (2) a task-based parallel programming model where tasks are executed by the processing unit that is co-located with the target data; (3) a network design optimized for irregular traffic, where all communication is one-way, and messages do not contain routing metadata; (4) novel traffic-aware task scheduling hardware that maintains high core utilization; and (5) a data placement strategy that improves work balance.\n  This work proposes architectural and software innovations to provide the greatest scalability to date for running graph algorithms while still being programmable for other domains.",
+      "url": "http://arxiv.org/abs/2207.13219v4",
+      "published": "2022-07-26",
+      "authors": [
+        "Marcelo Orenes-Vera",
+        "Esin Tureci",
+        "David Wentzlaff"
+      ],
+      "citation_label": "[Paper 9 - Orenes-Vera 2022]"
+    },
+    {
+      "paper_id": 10,
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "summary": "This paper introduces and investigates a regularity condition in the asymptotic sense for optimization problems whose objective functions are polynomial. Under this regularity condition, the normalization argument in asymptotic analysis enables us to see the solution existence as well as the solution stability of these problems. We prove a Frank-Wolfe type theorem for regular optimization problems and an Eaves type theorem for non-regular pseudoconvex optimization problems. Moreover, we show results on the stability such as upper semicontinuity and local upper-H\u00f6lder stability of the solution map of polynomial optimization problems. At the end of the paper, we discuss the genericity of the regularity condition.",
+      "url": "http://arxiv.org/abs/1808.06100v6",
+      "published": "2018-08-18",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "citation_label": "[Paper 10 - Hieu 2018]"
+    },
+    {
+      "paper_id": 11,
+      "title": "EyeSec: A Retrofittable Augmented Reality Tool for Troubleshooting Wireless Sensor Networks in the Field",
+      "summary": "Wireless Sensor Networks (WSNs) often lack interfaces for remote debugging. Thus, fault diagnosis and troubleshooting are conducted at the deployment site. Currently, WSN operators lack dedicated tools that aid them in this process. Therefore, we introduce EyeSec, a tool for WSN monitoring and maintenance in the field. An Augmented Reality Device (AR Device) identifies sensor nodes using optical markers. Portable Sniffer Units capture network traffic and extract information. With those data, the AR Device network topology and data flows between sensor nodes are visualized. Unlike previous tools, EyeSec is fully portable, independent of any given infrastructure and does not require dedicated and expensive AR hardware. Using passive inspection only, it can be retrofitted to already deployed WSNs. We implemented a proof of concept on low-cost embedded hardware and commodity smart phones and demonstrate the usage of EyeSec within a WSN test bed using the 6LoWPAN transmission protocol.",
+      "url": "http://arxiv.org/abs/1907.12364v1",
+      "published": "2019-07-08",
+      "authors": [
+        "Martin Striegel",
+        "Carsten Rolfes",
+        "Johann Heyszl"
+      ],
+      "citation_label": "[Paper 11 - Striegel 2019]"
+    },
+    {
+      "paper_id": 12,
+      "title": "A Comparison of Link Layer Attacks on Wireless Sensor Networks",
+      "summary": "Wireless sensor networks (WSNs) have many potential applications [1, 5] and unique challenges. They usually consist of hundreds or thousands small sensor nodes such as MICA2, which operate autonomously; conditions such as cost, invisible deployment and many application domains, lead to small size and limited resources sensors [2]. WSNs are susceptible to many types of link layer attacks [1] and most of traditional networks security techniques are unusable on WSNs [2]; due to wireless and shared nature of communication channel, untrusted transmissions, deployment in open environments, unattended nature and limited resources [1]. So, security is a vital requirement for these networks; but we have to design a proper security mechanism that attends to WSN's constraints and requirements. In this paper, we focus on security of WSNs, divide it (the WSNs security) into four categories and will consider them, include: an overview of WSNs, security in WSNs, the threat model on WSNs, a wide variety of WSNs' link layer attacks and a comparison of them. This work enables us to identify the purpose and capabilities of the attackers; also, the goal and effects of the link layer attacks on WSNs are introduced. Also, this paper discusses known approaches of security detection and defensive mechanisms against the link layer attacks; this would enable it security managers to manage the link layer attacks of WSNs more effectively.",
+      "url": "http://arxiv.org/abs/1103.5589v1",
+      "published": "2011-03-29",
+      "authors": [
+        "Shahriar Mohammadi",
+        "Hossein Jadidoleslamy"
+      ],
+      "citation_label": "[Paper 12 - Mohammadi 2011]"
+    }
+  ],
+  "limitations_extracted": 26,
+  "limitations": [
+    {
+      "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "text": "Significant performance limitations of even SOTA models",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "text": "Long-context challenge for LLM agents",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "text": "Unknown-tools challenge for LLM agents",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "text": "Lack of integration with frameworks like DSPy, PromptWizard, and Prompts as Programs",
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Koc 2025]"
+    },
+    {
+      "text": "NAT traversal weakness in SIP protocol",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Guezouri 2010]"
+    },
+    {
+      "text": "Increased latent time due to exchanges between clients and TURN server",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Guezouri 2010]"
+    },
+    {
+      "text": "Deployment issues due to heterogeneity in QUIC implementations",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Coninck 2024]"
+    },
+    {
+      "text": "Lack of authentication of refund addresses in Bitcoin's Payment Protocol",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Modesti 2021]"
+    },
+    {
+      "text": "Vulnerability to refund attacks in Bitcoin's Payment Protocol",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Modesti 2021]"
+    },
+    {
+      "text": "Security relies on some novel and fundamental features of GHZ correlations related to quantum nonlocality, which may be difficult to implement in practice.",
+      "paper_id": "Paper 6 - Rahaman 2015",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Performance issues may arise in the proposed secure ARP and DHCP protocols.",
+      "paper_id": "Paper 7 - Issac 2014",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "GNNs are not as well understood in the system and architecture community as other deep learning models.",
+      "paper_id": "Paper 8 - Zhang 2020",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Memory bottlenecks persist due to limited off-chip bandwidth in traditional architectures.",
+      "paper_id": "Paper 9 - Orenes-Vera 2022",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Prior work with prefetching, decoupling, or pipelining can mitigate memory latency but may not achieve high core utilization.",
+      "paper_id": "Paper 9 - Orenes-Vera 2022",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Approaches doing processing in-memory (PIM) with Hybrid Memory Cube (HMC) may fail to achieve high core utilization due to poor task scheduling and synchronization overheads.",
+      "paper_id": "Paper 9 - Orenes-Vera 2022",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The high memory-per-core ratio available with HMC limits strong scaling.",
+      "paper_id": "Paper 9 - Orenes-Vera 2022",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The regularity condition in the asymptotic sense for optimization problems may not always hold in practice.",
+      "paper_id": "Paper 10 - Hieu 2018",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The solution existence and stability of polynomial optimization problems may not be guaranteed without the regularity condition.",
+      "paper_id": "Paper 10 - Hieu 2018",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The genericity of the regularity condition is not fully understood and requires further research.",
+      "paper_id": "Paper 10 - Hieu 2018",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Lack of dedicated tools for WSN operators to aid in fault diagnosis and troubleshooting",
+      "paper_id": "Paper 11 - Striegel 2019",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Limited resources of sensor nodes",
+      "paper_id": "Paper 12 - Mohammadi 2011",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Unusable traditional network security techniques on WSNs due to wireless and shared nature of communication channel",
+      "paper_id": "Paper 12 - Mohammadi 2011",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No evaluation of EyeSec on large-scale WSNs or in real-world deployment scenarios",
+      "paper_id": "Paper 11 - Striegel 2019",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No discussion of potential security vulnerabilities of EyeSec itself",
+      "paper_id": "Paper 11 - Striegel 2019",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Limited focus on link layer attacks, without considering other types of attacks on WSNs",
+      "paper_id": "Paper 12 - Mohammadi 2011",
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "GNN Performance Limitations",
+      "count": 7,
+      "cited_paper_ids": [
+        1,
+        "Paper 8 - Zhang 2020",
+        "Paper 9 - Orenes-Vera 2022"
+      ],
+      "limitations": [
+        {
+          "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges",
+          "citation_label": "[Paper 1 - Luo 2025]"
+        },
+        {
+          "text": "Significant performance limitations of even SOTA models",
+          "citation_label": "[Paper 1 - Luo 2025]"
+        },
+        {
+          "text": "GNNs are not as well understood in the system and architecture community as other deep learning models.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Memory bottlenecks persist due to limited off-chip bandwidth in traditional architectures.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Prior work with prefetching, decoupling, or pipelining can mitigate memory latency but may not achieve high core utilization.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Approaches doing processing in-memory (PIM) with Hybrid Memory Cube (HMC) may fail to achieve high core utilization due to poor task scheduling and synchronization overheads.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The high memory-per-core ratio available with HMC limits strong scaling.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Quantum Security Limitations",
+      "count": 6,
+      "cited_paper_ids": [
+        "Paper 6 - Rahaman 2015",
+        "Paper 12 - Mohammadi 2011",
+        "Paper 11 - Striegel 2019"
+      ],
+      "limitations": [
+        {
+          "text": "Security relies on some novel and fundamental features of GHZ correlations related to quantum nonlocality, which may be difficult to implement in practice.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Lack of dedicated tools for WSN operators to aid in fault diagnosis and troubleshooting",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Unusable traditional network security techniques on WSNs due to wireless and shared nature of communication channel",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No evaluation of EyeSec on large-scale WSNs or in real-world deployment scenarios",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No discussion of potential security vulnerabilities of EyeSec itself",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Limited focus on link layer attacks, without considering other types of attacks on WSNs",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Refund Protocol Vulnerabilities",
+      "count": 4,
+      "cited_paper_ids": [
+        3,
+        "Paper 7 - Issac 2014",
+        5
+      ],
+      "limitations": [
+        {
+          "text": "NAT traversal weakness in SIP protocol",
+          "citation_label": "[Paper 3 - Guezouri 2010]"
+        },
+        {
+          "text": "Lack of authentication of refund addresses in Bitcoin's Payment Protocol",
+          "citation_label": "[Paper 5 - Modesti 2021]"
+        },
+        {
+          "text": "Vulnerability to refund attacks in Bitcoin's Payment Protocol",
+          "citation_label": "[Paper 5 - Modesti 2021]"
+        },
+        {
+          "text": "Performance issues may arise in the proposed secure ARP and DHCP protocols.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Resource Constraints Challenge",
+      "count": 3,
+      "cited_paper_ids": [
+        1,
+        "Paper 12 - Mohammadi 2011"
+      ],
+      "limitations": [
+        {
+          "text": "Long-context challenge for LLM agents",
+          "citation_label": "[Paper 1 - Luo 2025]"
+        },
+        {
+          "text": "Unknown-tools challenge for LLM agents",
+          "citation_label": "[Paper 1 - Luo 2025]"
+        },
+        {
+          "text": "Limited resources of sensor nodes",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Optimization Limitations and Challenges",
+      "count": 3,
+      "cited_paper_ids": [
+        "Paper 10 - Hieu 2018"
+      ],
+      "limitations": [
+        {
+          "text": "The regularity condition in the asymptotic sense for optimization problems may not always hold in practice.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The solution existence and stability of polynomial optimization problems may not be guaranteed without the regularity condition.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The genericity of the regularity condition is not fully understood and requires further research.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Limited Framework Compatibility",
+      "count": 1,
+      "cited_paper_ids": [
+        2
+      ],
+      "limitations": [
+        {
+          "text": "Lack of integration with frameworks like DSPy, PromptWizard, and Prompts as Programs",
+          "citation_label": "[Paper 2 - Koc 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "TURN Server Latency Issues",
+      "count": 1,
+      "cited_paper_ids": [
+        3
+      ],
+      "limitations": [
+        {
+          "text": "Increased latent time due to exchanges between clients and TURN server",
+          "citation_label": "[Paper 3 - Guezouri 2010]"
+        }
+      ]
+    },
+    {
+      "theme": "QUIC Implementation Inconsistencies",
+      "count": 1,
+      "cited_paper_ids": [
+        4
+      ],
+      "limitations": [
+        {
+          "text": "Deployment issues due to heterogeneity in QUIC implementations",
+          "citation_label": "[Paper 4 - Coninck 2024]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "GNNs have significant performance limitations and lack real-world application challenges in existing benchmarks",
+      "supporting_papers": [
+        1,
+        8,
+        9
+      ]
+    },
+    {
+      "gap": "Quantum security relies on novel features of GHZ correlations, which may be difficult to implement in practice, and lacks dedicated tools for fault diagnosis and troubleshooting",
+      "supporting_papers": [
+        6,
+        11,
+        12
+      ]
+    },
+    {
+      "gap": "Refund protocols are vulnerable to attacks due to lack of authentication and NAT traversal weaknesses",
+      "supporting_papers": [
+        3,
+        5,
+        7
+      ]
+    },
+    {
+      "gap": "Resource constraints, such as limited resources of sensor nodes and long-context challenges for LLM agents, pose significant challenges",
+      "supporting_papers": [
+        1,
+        12
+      ]
+    },
+    {
+      "gap": "Optimization problems may not always meet the regularity condition, leading to solution existence and stability issues",
+      "supporting_papers": [
+        10
+      ]
+    }
+  ],
+  "research_ideas": [
+    {
+      "title": "Real-World GNN Applications and Benchmarking",
+      "description": "This research aims to develop novel benchmarks and applications for Graph Neural Networks (GNNs) that address real-world challenges and limitations. It will focus on creating more realistic and applicable scenarios for GNNs, such as modeling complex networks and relationships. This will help to improve the performance and usability of GNNs in practical settings.",
+      "addresses_gaps": [
+        "GNNs performance limitations and lack of real-world application challenges"
+      ],
+      "cited_papers": [
+        1,
+        8,
+        9
+      ]
+    },
+    {
+      "title": "Quantum-Secure Refund Protocols with Fault Diagnosis and Troubleshooting",
+      "description": "This research proposes to develop novel refund protocols that utilize quantum security features, such as GHZ correlations, and incorporate dedicated tools for fault diagnosis and troubleshooting. This will help to address the vulnerabilities of existing refund protocols and provide more secure and reliable transactions. The research will also investigate the practical implementation of these protocols.",
+      "addresses_gaps": [
+        "Quantum security and refund protocol vulnerabilities"
+      ],
+      "cited_papers": [
+        3,
+        5,
+        6,
+        11
+      ]
+    },
+    {
+      "title": "Optimization of Resource-Constrained MCP Protocols with Stability Guarantees",
+      "description": "This research focuses on developing optimization techniques for MCP protocols that operate under resource constraints, such as limited sensor node resources and long-context challenges for LLM agents. The goal is to ensure solution existence and stability in optimization problems, even when the regularity condition is not met. This will help to provide more efficient and reliable MCP protocols.",
+      "addresses_gaps": [
+        "Resource constraints and optimization problem stability"
+      ],
+      "cited_papers": [
+        1,
+        10,
+        12
+      ]
+    }
+  ],
+  "novelty_scores": [
+    6,
+    9,
+    7
+  ],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]",
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "published": "2025-08-20",
+      "url": "http://arxiv.org/abs/2508.14704v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Koc 2025]",
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "published": "2025-05-14",
+      "url": "http://arxiv.org/abs/2506.11019v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Guezouri 2010]",
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "published": "2010-02-05",
+      "url": "http://arxiv.org/abs/1002.1178v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Coninck 2024]",
+      "title": "Core QUIC: Enabling Dynamic, Implementation-Agnostic Protocol Extensions",
+      "authors": [
+        "Quentin De Coninck"
+      ],
+      "published": "2024-05-02",
+      "url": "http://arxiv.org/abs/2405.01279v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Modesti 2021]",
+      "title": "Formal Modelling and Security Analysis of Bitcoin's Payment Protocol",
+      "authors": [
+        "Paolo Modesti",
+        "Siamak F. Shahandashti",
+        "Patrick McCorry"
+      ],
+      "published": "2021-03-15",
+      "url": "http://arxiv.org/abs/2103.08436v1"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Rahaman 2015]",
+      "title": "GHZ correlation provides secure Anonymous Veto Protocol",
+      "authors": [
+        "Ramij Rahaman",
+        "Guruprasad Kar"
+      ],
+      "published": "2015-07-02",
+      "url": "http://arxiv.org/abs/1507.00592v2"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Issac 2014]",
+      "title": "Secure ARP and Secure DHCP Protocols to Mitigate Security Attacks",
+      "authors": [
+        "B. Issac"
+      ],
+      "published": "2014-10-16",
+      "url": "http://arxiv.org/abs/1410.4398v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Zhang 2020]",
+      "title": "Architectural Implications of Graph Neural Networks",
+      "authors": [
+        "Zhihui Zhang",
+        "Jingwen Leng",
+        "Lingxiao Ma"
+      ],
+      "published": "2020-09-02",
+      "url": "http://arxiv.org/abs/2009.00804v2"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Orenes-Vera 2022]",
+      "title": "Dalorex: A Data-Local Program Execution and Architecture for Memory-bound Applications",
+      "authors": [
+        "Marcelo Orenes-Vera",
+        "Esin Tureci",
+        "David Wentzlaff"
+      ],
+      "published": "2022-07-26",
+      "url": "http://arxiv.org/abs/2207.13219v4"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Hieu 2018]",
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "published": "2018-08-18",
+      "url": "http://arxiv.org/abs/1808.06100v6"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Striegel 2019]",
+      "title": "EyeSec: A Retrofittable Augmented Reality Tool for Troubleshooting Wireless Sensor Networks in the Field",
+      "authors": [
+        "Martin Striegel",
+        "Carsten Rolfes",
+        "Johann Heyszl"
+      ],
+      "published": "2019-07-08",
+      "url": "http://arxiv.org/abs/1907.12364v1"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Mohammadi 2011]",
+      "title": "A Comparison of Link Layer Attacks on Wireless Sensor Networks",
+      "authors": [
+        "Shahriar Mohammadi",
+        "Hossein Jadidoleslamy"
+      ],
+      "published": "2011-03-29",
+      "url": "http://arxiv.org/abs/1103.5589v1"
+    }
+  ],
+  "generated_at": "2026-02-26T07:50:33.241839",
+  "chroma_db": {
+    "session_id": "a5b7c885",
+    "path": "./chroma_db",
+    "papers_collection": "papers_a5b7c885",
+    "limitations_collection": "limitations_a5b7c885",
+    "total_papers_stored": 12,
+    "total_limitations_stored": 26
+  }
+}

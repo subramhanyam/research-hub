@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResearchPilot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app-container">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside id="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">&#9670;</span>
+            <span class="brand-name">ResearchPilot</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+                <span class="nav-icon">&#9632;</span> Dashboard
+            </button>
+            <button class="nav-item" data-section="papers" onclick="showSection('papers')">
+                <span class="nav-icon">&#9733;</span> Papers
+            </button>
+            <button class="nav-item" data-section="search" onclick="showSection('search')">
+                <span class="nav-icon">&#9906;</span> arXiv Search
+            </button>
+            <button class="nav-item" data-section="missions" onclick="showSection('missions')">
+                <span class="nav-icon">&#9873;</span> Missions
+            </button>
+            <button class="nav-item" data-section="gaps" onclick="showSection('gaps')">
+                <span class="nav-icon">&#9888;</span> Gaps
+            </button>
+            <button class="nav-item" data-section="ideas" onclick="showSection('ideas')">
+                <span class="nav-icon">&#9729;</span> Ideas
+            </button>
+            <button class="nav-item" data-section="reports" onclick="showSection('reports')">
+                <span class="nav-icon">&#9998;</span> Reports
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="workspace-selector">
+                <label>WORKSPACE</label>
+                <div class="ws-name" id="ws-name">No workspace</div>
+                <div class="ws-id" id="ws-id">--</div>
+            </div>
+            <button class="sidebar-btn" onclick="createWorkspace()">+ New Workspace</button>
+            <label class="sidebar-btn resume-btn">
+                &#8635; Resume Session
+                <input type="file" id="resume-file" accept=".json" onchange="resumeSession()" hidden>
+            </label>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main id="main-content">
+
+        <!-- Top Bar -->
+        <header id="topbar">
+            <div class="topbar-left">
+                <h2 id="section-title">Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="status-indicator">
+                    <span class="status-dot" id="status-dot"></span>
+                    <span id="status-text">Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== SECTION: DASHBOARD ===== -->
+        <section id="sec-dashboard" class="section active">
+
+            <!-- Overview Cards -->
+            <div class="overview-cards">
+                <div class="ov-card">
+                    <div class="ov-label">Total Papers</div>
+                    <div class="ov-value" id="ov-papers">0</div>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-label">Missions Run</div>
+                    <div class="ov-value" id="ov-missions">0</div>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-label">Gaps Found</div>
+                    <div class="ov-value" id="ov-gaps">0</div>
+                </div>
+                <div class="ov-card">
+                    <div class="ov-label">Ideas Generated</div>
+                    <div class="ov-value" id="ov-ideas">0</div>
+                </div>
+            </div>
+
+            <!-- Run Mission -->
+            <div class="panel mission-launch">
+                <div class="panel-header"><h3>&#9889; Run Autonomous Research</h3></div>
+                <div class="mission-input-row">
+                    <input type="text" id="mission-topic" placeholder="Define research goal... e.g. AI in Agriculture">
+                    <button id="run-mission-btn" onclick="runMission()">Execute Mission</button>
+                </div>
+            </div>
+
+            <!-- Agents + Timeline row -->
+            <div class="dash-row">
+                <!-- Agent Cards -->
+                <div class="panel" id="agents-panel">
+                    <div class="panel-header"><h3>Active Agents</h3></div>
+                    <div class="agents-grid">
+                        <div class="agent-card" id="agent-Planner"><div class="agent-avatar">&#9881;</div><div class="agent-name">Planner</div><div class="agent-status">Idle</div></div>
+                        <div class="agent-card" id="agent-Researcher"><div class="agent-avatar">&#9906;</div><div class="agent-name">Researcher</div><div class="agent-status">Idle</div></div>
+                        <div class="agent-card" id="agent-Analyst"><div class="agent-avatar">&#9733;</div><div class="agent-name">Analyst</div><div class="agent-status">Idle</div></div>
+                        <div class="agent-card" id="agent-Critic"><div class="agent-avatar">&#9878;</div><div class="agent-name">Critic</div><div class="agent-status">Idle</div></div>
+                    </div>
+                </div>
+                <!-- Timeline -->
+                <div class="panel" id="timeline-panel">
+                    <div class="panel-header"><h3>Execution Timeline</h3></div>
+                    <div class="timeline" id="timeline">
+                        <div class="tl-step" id="step-generate_plan"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Generate Plan</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-search_papers"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Search Papers</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-extract_limitations"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Extract Limitations</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-cluster_limitations"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Cluster Limitations</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-identify_gaps"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Identify Gaps</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-generate_ideas"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Generate Ideas</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-reflect"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Novelty Reflection</span><span class="tl-summary"></span></div></div>
+                        <div class="tl-step" id="step-save_results"><span class="tl-icon pending">&#9744;</span><div class="tl-info"><span class="tl-label">Save Results</span><span class="tl-summary"></span></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Semantic search -->
+            <div class="panel">
+                <div class="panel-header"><h3>&#9906; Semantic Search in Workspace</h3></div>
+                <div class="semantic-search-row">
+                    <input type="text" id="sem-search-input" placeholder="Search within your papers...">
+                    <button onclick="semanticSearch()">Search</button>
+                </div>
+                <div id="sem-search-results"></div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: PAPERS ===== -->
+        <section id="sec-papers" class="section">
+            <div class="section-toolbar">
+                <input type="text" id="papers-filter" placeholder="Filter papers..." oninput="filterPapers()">
+                <select id="papers-sort" onchange="sortPapers()">
+                    <option value="id">Sort by ID</option>
+                    <option value="year">Sort by Year</option>
+                    <option value="title">Sort by Title</option>
+                </select>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>&#9733; Papers Library</h3>
+                    <span class="badge" id="papers-lib-count">0</span>
+                </div>
+                <div id="papers-list" class="papers-list"></div>
+                <div id="papers-empty" class="empty-state">No papers yet. Use arXiv Search to find and add papers, or run a mission.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: ARXIV SEARCH ===== -->
+        <section id="sec-search" class="section">
+            <div class="panel">
+                <div class="panel-header"><h3>&#9906; Search arXiv Papers</h3></div>
+                <div class="arxiv-search-form">
+                    <div class="search-main-row">
+                        <input type="text" id="arxiv-query" placeholder="Search arXiv... e.g. transformer attention mechanism">
+                        <button onclick="searchArxiv()">Search</button>
+                    </div>
+                    <div class="search-filters">
+                        <div class="filter-group">
+                            <label>Sort by</label>
+                            <select id="arxiv-sort">
+                                <option value="relevance">Relevance</option>
+                                <option value="date">Date (newest)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>From</label>
+                            <input type="date" id="arxiv-date-from">
+                        </div>
+                        <div class="filter-group">
+                            <label>To</label>
+                            <input type="date" id="arxiv-date-to">
+                        </div>
+                        <div class="filter-group">
+                            <label>Results</label>
+                            <select id="arxiv-max">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="arxiv-loading" class="loading-bar hidden"></div>
+                <div id="arxiv-results" class="arxiv-results"></div>
+                <div id="arxiv-empty" class="empty-state">Enter a search query to find papers on arXiv.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: MISSIONS ===== -->
+        <section id="sec-missions" class="section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>&#9873; Mission History</h3>
+                    <span class="badge" id="missions-count">0</span>
+                </div>
+                <div id="missions-list" class="missions-list"></div>
+                <div id="missions-empty" class="empty-state">No missions yet. Go to Dashboard and run an autonomous research mission.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: GAPS ===== -->
+        <section id="sec-gaps" class="section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>&#9888; Identified Research Gaps</h3>
+                    <span class="badge" id="gaps-badge">0</span>
+                </div>
+                <div id="gaps-list"></div>
+                <div id="gaps-empty" class="empty-state">No gaps identified yet. Run a research mission first.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: IDEAS ===== -->
+        <section id="sec-ideas" class="section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>&#9729; Generated Research Ideas</h3>
+                </div>
+                <div id="ideas-list" class="ideas-grid"></div>
+                <div id="ideas-empty" class="empty-state">No ideas generated yet. Run a research mission first.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION: REPORTS ===== -->
+        <section id="sec-reports" class="section">
+            <div class="panel">
+                <div class="panel-header"><h3>&#9998; Research Reports</h3></div>
+                <div class="report-actions">
+                    <button id="gen-report-btn" onclick="generateReport()" disabled>Generate Research Brief</button>
+                    <button id="download-btn" onclick="downloadJSON()" disabled>Download Session JSON</button>
+                </div>
+                <div id="report-content" class="report-content"></div>
+                <div id="report-empty" class="empty-state">Click "Generate Research Brief" after running a mission to create a structured report.</div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

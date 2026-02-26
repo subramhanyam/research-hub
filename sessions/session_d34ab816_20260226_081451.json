@@ -1,0 +1,1270 @@
+{
+  "session_id": "d34ab816",
+  "topic": "how can we use ai in surgries",
+  "subtopics": [
+    "AI-assisted surgical planning and navigation",
+    "Machine learning for real-time surgical decision support",
+    "Robotics and computer vision in surgical procedures",
+    "Predictive analytics for surgical outcomes and patient recovery",
+    "Natural language processing for surgical note analysis"
+  ],
+  "keywords": [
+    "surgical robotics",
+    "medical computer vision",
+    "AI in surgery",
+    "machine learning for healthcare",
+    "surgical planning and navigation",
+    "real-time surgical decision support",
+    "predictive analytics in surgery",
+    "natural language processing for surgical notes"
+  ],
+  "papers_found": 23,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Task segmentation based on transition state clustering for surgical robot assistance",
+      "summary": "Understanding surgical tasks represents an important challenge for autonomy in surgical robotic systems. To achieve this, we propose an online task segmentation framework that uses hierarchical transition state clustering to activate predefined robot assistance. Our approach involves performing a first clustering on visual features and a subsequent clustering on robot kinematic features for each visual cluster. This enables to capture relevant task transition information on each modality independently. The approach is implemented for a pick-and-place task commonly found in surgical training. The validation of the transition segmentation showed high accuracy and fast computation time. We have integrated the transition recognition module with predefined robot-assisted tool positioning. The complete framework has shown benefits in reducing task completion time and cognitive workload.",
+      "url": "http://arxiv.org/abs/2406.09990v1",
+      "published": "2024-06-14",
+      "authors": [
+        "Yutaro Yamada",
+        "Jacinto Colan",
+        "Ana Davila"
+      ],
+      "citation_label": "[Paper 1 - Yamada 2024]"
+    },
+    {
+      "paper_id": 2,
+      "title": "Fuzzy-RRT for Obstacle Avoidance in a 2-DOF Semi-Autonomous Surgical Robotic Arm",
+      "summary": "AI-driven semi-autonomous robotic surgery is essential for addressing the medical challenges of long-duration interplanetary missions, where limited crew sizes and communication delays restrict traditional surgical approaches. Current robotic surgery systems require full surgeon control, demanding extensive expertise and limiting feasibility in space. We propose a novel adaptation of the Fuzzy Rapidly-exploring Random Tree algorithm for obstacle avoidance and collaborative control in a two-degree-of-freedom robotic arm modeled on the Miniaturized Robotic-Assisted surgical system. It was found that the Fuzzy Rapidly-exploring Random Tree algorithm resulted in an 743 percent improvement to path search time and 43 percent improvement to path cost.",
+      "url": "http://arxiv.org/abs/2504.17979v1",
+      "published": "2025-04-24",
+      "authors": [
+        "Kaaustaaub Shankar",
+        "Wilhelm Louw",
+        "Bharadwaj Dogga"
+      ],
+      "citation_label": "[Paper 2 - Shankar 2025]"
+    },
+    {
+      "paper_id": 3,
+      "title": "A Reactive Autonomous Camera System for the RAVEN II Surgical Robot",
+      "summary": "The endoscopic camera of a surgical robot provides surgeons with a magnified 3D view of the surgical field, but repositioning it increases mental workload and operation time. Poor camera placement contributes to safety-critical events when surgical tools move out of the view of the camera. This paper presents a proof of concept of an autonomous camera system for the Raven II surgical robot that aims to reduce surgeon workload and improve safety by providing an optimal view of the workspace showing all objects of interest. This system uses transfer learning to localize and classify objects of interest within the view of a stereoscopic camera. The positions and centroid of the objects are estimated and a set of control rules determines the movement of the camera towards a more desired view. Our perception module had an accuracy of 61.21% overall for identifying objects of interest and was able to localize both graspers and multiple blocks in the environment. Comparison of the commands proposed by our system with the desired commands from a survey of 13 participants indicates that the autonomous camera system proposes appropriate movements for the tilt and pan of the camera.",
+      "url": "http://arxiv.org/abs/2010.04785v1",
+      "published": "2020-10-09",
+      "authors": [
+        "Kay Hutchinson",
+        "Mohammad Samin Yasar",
+        "Harshneet Bhatia"
+      ],
+      "citation_label": "[Paper 3 - Hutchinson 2020]"
+    },
+    {
+      "paper_id": 4,
+      "title": "WiCV 2019: The Sixth Women In Computer Vision Workshop",
+      "summary": "In this paper we present the Women in Computer Vision Workshop - WiCV 2019, organized in conjunction with CVPR 2019. This event is meant for increasing the visibility and inclusion of women researchers in the computer vision field. Computer vision and machine learning have made incredible progress over the past years, but the number of female researchers is still low both in academia and in industry. WiCV is organized especially for the following reason: to raise visibility of female researchers, to increase collaborations between them, and to provide mentorship to female junior researchers in the field. In this paper, we present a report of trends over the past years, along with a summary of statistics regarding presenters, attendees, and sponsorship for the current workshop.",
+      "url": "http://arxiv.org/abs/1909.10225v1",
+      "published": "2019-09-23",
+      "authors": [
+        "Irene Amerini",
+        "Elena Balashova",
+        "Sayna Ebrahimi"
+      ],
+      "citation_label": "[Paper 4 - Amerini 2019]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Spatial Monitoring and Insect Behavioural Analysis Using Computer Vision for Precision Pollination",
+      "summary": "Insects are the most important global pollinator of crops and play a key role in maintaining the sustainability of natural ecosystems. Insect pollination monitoring and management are therefore essential for improving crop production and food security. Computer vision facilitated pollinator monitoring can intensify data collection over what is feasible using manual approaches. The new data it generates may provide a detailed understanding of insect distributions and facilitate fine-grained analysis sufficient to predict their pollination efficacy and underpin precision pollination. Current computer vision facilitated insect tracking in complex outdoor environments is restricted in spatial coverage and often constrained to a single insect species. This limits its relevance to agriculture. Therefore, in this article we introduce a novel system to facilitate markerless data capture for insect counting, insect motion tracking, behaviour analysis and pollination prediction across large agricultural areas. Our system is comprised of edge computing multi-point video recording, offline automated multispecies insect counting, tracking and behavioural analysis. We implement and test our system on a commercial berry farm to demonstrate its capabilities. Our system successfully tracked four insect varieties, at nine monitoring stations within polytunnels, obtaining an F-score above 0.8 for each variety. The system enabled calculation of key metrics to assess the relative pollination impact of each insect variety. With this technological advancement, detailed, ongoing data collection for precision pollination becomes achievable. This is important to inform growers and apiarists managing crop pollination, as it allows data-driven decisions to be made to improve food production and food security.",
+      "url": "http://arxiv.org/abs/2205.04675v2",
+      "published": "2022-05-10",
+      "authors": [
+        "Malika Nisal Ratnayake",
+        "Don Chathurika Amarathunga",
+        "Asaduz Zaman"
+      ],
+      "citation_label": "[Paper 5 - Ratnayake 2022]"
+    },
+    {
+      "paper_id": 6,
+      "title": "Global Adaptive Filtering Layer for Computer Vision",
+      "summary": "We devise a universal adaptive neural layer to \"learn\" optimal frequency filter for each image together with the weights of the base neural network that performs some computer vision task. The proposed approach takes the source image in the spatial domain, automatically selects the best frequencies from the frequency domain, and transmits the inverse-transform image to the main neural network. Remarkably, such a simple add-on layer dramatically improves the performance of the main network regardless of its design. We observe that the light networks gain a noticeable boost in the performance metrics; whereas, the training of the heavy ones converges faster when our adaptive layer is allowed to \"learn\" alongside the main architecture. We validate the idea in four classical computer vision tasks: classification, segmentation, denoising, and erasing, considering popular natural and medical data benchmarks.",
+      "url": "http://arxiv.org/abs/2010.01177v4",
+      "published": "2020-10-02",
+      "authors": [
+        "Viktor Shipitsin",
+        "Iaroslav Bespalov",
+        "Dmitry V. Dylov"
+      ],
+      "citation_label": "[Paper 6 - Shipitsin 2020]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 7 - Ai 2025]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "citation_label": "[Paper 8 - Wilfley 2026]"
+    },
+    {
+      "paper_id": 9,
+      "title": "An introduction to algebraic surgery",
+      "summary": "Browder-Novikov-Sullivan-Wall surgery theory investigates the homotopy types of manifolds, using a combination of algebra and topology. It is the aim of these notes to provide an introduction to the more algebraic aspects of the theory (such as the Wall surgery obstruction groups), without losing sight of the geometric motivation.",
+      "url": "http://arxiv.org/abs/math/0008071v1",
+      "published": "2000-08-09",
+      "authors": [
+        "Andrew Ranicki"
+      ],
+      "citation_label": "[Paper 9 - Ranicki 2000]"
+    },
+    {
+      "paper_id": 10,
+      "title": "Privacy-preserving machine learning for healthcare: open challenges and future perspectives",
+      "summary": "Machine Learning (ML) has recently shown tremendous success in modeling various healthcare prediction tasks, ranging from disease diagnosis and prognosis to patient treatment. Due to the sensitive nature of medical data, privacy must be considered along the entire ML pipeline, from model training to inference. In this paper, we conduct a review of recent literature concerning Privacy-Preserving Machine Learning (PPML) for healthcare. We primarily focus on privacy-preserving training and inference-as-a-service, and perform a comprehensive review of existing trends, identify challenges, and discuss opportunities for future research directions. The aim of this review is to guide the development of private and efficient ML models in healthcare, with the prospects of translating research efforts into real-world settings.",
+      "url": "http://arxiv.org/abs/2303.15563v1",
+      "published": "2023-03-27",
+      "authors": [
+        "Alejandro Guerra-Manzanares",
+        "L. Julian Lechuga Lopez",
+        "Michail Maniatakos"
+      ],
+      "citation_label": "[Paper 10 - Guerra-Manzanares 2023]"
+    },
+    {
+      "paper_id": 11,
+      "title": "Beyond Volume: The Impact of Complex Healthcare Data on the Machine Learning Pipeline",
+      "summary": "From medical charts to national census, healthcare has traditionally operated under a paper-based paradigm. However, the past decade has marked a long and arduous transformation bringing healthcare into the digital age. Ranging from electronic health records, to digitized imaging and laboratory reports, to public health datasets, today, healthcare now generates an incredible amount of digital information. Such a wealth of data presents an exciting opportunity for integrated machine learning solutions to address problems across multiple facets of healthcare practice and administration. Unfortunately, the ability to derive accurate and informative insights requires more than the ability to execute machine learning models. Rather, a deeper understanding of the data on which the models are run is imperative for their success. While a significant effort has been undertaken to develop models able to process the volume of data obtained during the analysis of millions of digitalized patient records, it is important to remember that volume represents only one aspect of the data. In fact, drawing on data from an increasingly diverse set of sources, healthcare data presents an incredibly complex set of attributes that must be accounted for throughout the machine learning pipeline. This chapter focuses on highlighting such challenges, and is broken down into three distinct components, each representing a phase of the pipeline. We begin with attributes of the data accounted for during preprocessing, then move to considerations during model building, and end with challenges to the interpretation of model output. For each component, we present a discussion around data as it relates to the healthcare domain and offer insight into the challenges each may impose on the efficiency of machine learning techniques.",
+      "url": "http://arxiv.org/abs/1706.01513v2",
+      "published": "2017-06-01",
+      "authors": [
+        "Keith Feldman",
+        "Louis Faust",
+        "Xian Wu"
+      ],
+      "citation_label": "[Paper 11 - Feldman 2017]"
+    },
+    {
+      "paper_id": 12,
+      "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+      "summary": "Data science has become increasingly essential for the production of official statistics, as it enables the automated collection, processing, and analysis of large amounts of data. With such data science practices in place, it enables more timely, more insightful and more flexible reporting. However, the quality and integrity of data-science-driven statistics rely on the accuracy and reliability of the data sources and the machine learning techniques that support them. In particular, changes in data sources are inevitable to occur and pose significant risks that are crucial to address in the context of machine learning for official statistics.\n  This paper gives an overview of the main risks, liabilities, and uncertainties associated with changing data sources in the context of machine learning for official statistics. We provide a checklist of the most prevalent origins and causes of changing data sources; not only on a technical level but also regarding ownership, ethics, regulation, and public perception. Next, we highlight the repercussions of changing data sources on statistical reporting. These include technical effects such as concept drift, bias, availability, validity, accuracy and completeness, but also the neutrality and potential discontinuation of the statistical offering. We offer a few important precautionary measures, such as enhancing robustness in both data sourcing and statistical techniques, and thorough monitoring. In doing so, machine learning-based official statistics can maintain integrity, reliability, consistency, and relevance in policy-making, decision-making, and public discourse.",
+      "url": "http://arxiv.org/abs/2306.04338v1",
+      "published": "2023-06-07",
+      "authors": [
+        "Cedric De Boom",
+        "Michael Reusens"
+      ],
+      "citation_label": "[Paper 12 - Boom 2023]"
+    },
+    {
+      "paper_id": 13,
+      "title": "A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems",
+      "summary": "In various applications of land vehicle navigation and automatic guidance systems, Global Navigation Satellite System/Inertial Measurement Unit (GNSS/IMU) positioning performance crucially depends on the attitude determination accuracy affected by gyro and accelerometer bias instabilities. Traditional bias estimation approaches based on the Kalman filter suffer from implementation complexity and require non-intuitive tuning procedures. In this paper we propose, as an alternative, a simple observer that estimates inertial sensor biases exclusively in terms of quantities with obvious geometrical meaning. By this, any multidimensional vector-matrix operations are avoided and observer tuning is substantially simplified. The observer has been successfully tested in a farming vehicle navigation system.",
+      "url": "http://arxiv.org/abs/1501.06618v1",
+      "published": "2015-01-26",
+      "authors": [
+        "Vasiliy M. Tereshkov"
+      ],
+      "citation_label": "[Paper 13 - Tereshkov 2015]"
+    },
+    {
+      "paper_id": 14,
+      "title": "Perspectives on Surgical Data Science",
+      "summary": "The availability of large amounts of data together with advances in analytical techniques afford an opportunity to address difficult challenges in ensuring that healthcare is safe, effective, efficient, patient-centered, equitable, and timely. Surgical care and training stand to tremendously gain through surgical data science. Herein, we discuss a few perspectives on the scope and objectives for surgical data science.",
+      "url": "http://arxiv.org/abs/1610.04276v1",
+      "published": "2016-10-13",
+      "authors": [
+        "S. Swaroop Vedula",
+        "Masaru Ishii",
+        "Gregory D. Hager"
+      ],
+      "citation_label": "[Paper 14 - Vedula 2016]"
+    },
+    {
+      "paper_id": 15,
+      "title": "HDDL 2.1: Towards Defining a Formalism and a Semantics for Temporal HTN Planning",
+      "summary": "Real world applications as in industry and robotics need modelling rich and diverse automated planning problems. Their resolution usually requires coordinated and concurrent action execution. In several cases, these problems are naturally decomposed in a hierarchical way and expressed by a Hierarchical Task Network (HTN) formalism.\n  HDDL, a hierarchical extension of the Planning Domain Definition Language (PDDL), unlike PDDL 2.1 does not allow to represent planning problems with numerical and temporal constraints, which are essential for real world applications. We propose to fill the gap between HDDL and these operational needs and to extend HDDL by taking inspiration from PDDL 2.1 in order to express numerical and temporal expressions. This paper opens discussions on the semantics and the syntax needed for a future HDDL 2.1 extension.",
+      "url": "http://arxiv.org/abs/2306.07353v1",
+      "published": "2023-06-12",
+      "authors": [
+        "Damien Pellier",
+        "Alexandre Albore",
+        "Humbert Fiorino"
+      ],
+      "citation_label": "[Paper 15 - Pellier 2023]"
+    },
+    {
+      "paper_id": 16,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "summary": "Motor is the most widely used production equipment in industrial field. In order to realize the real-time state monitoring and multi-fault pre-diagnosis of three-phase motor, this paper presents a design of three-phase motor state monitoring and fault diagnosis system based on LabVIEW.\n  The multi-dimensional vibration acceleration, rotational speed, temperature, current and voltage signals of the motor are collected with NI cDAQ acquisition equipment in real time and high speed. At the same time, the model of motor health state and fault state is established. The order analysis algorithm is used to analyze the data at an advanced level, and the diagnosis and classification of different fault types are realized. The system is equipped with multi-channel acquisition, display, analysis and storage. Combined with the current cloud transmission technology, we will back up the data to the cloud to be used by other terminals.",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "published": "2018-06-25",
+      "authors": [
+        "S. Q. Liu",
+        "Z. S. Ji",
+        "Y Wang"
+      ],
+      "citation_label": "[Paper 16 - Liu 2018]"
+    },
+    {
+      "paper_id": 17,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "summary": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and Resource Allocation Problem (DOAP), denoted as $\\mathbf{P}$, in VEC with both bandwidth and computational resource constraints, aiming to maximize the total vehicle utility. To solve $\\mathbf{P}$, we propose $\\mathtt{SARound}$, an approximation algorithm based on Linear Program rounding and local-ratio techniques, that improves the best-known approximation ratio for DOAP from $\\frac{1}{6}$ to $\\frac{1}{4}$. Additionally, we design an online service subscription and offloading control framework to address the challenges of short task deadlines and rapidly changing wireless network conditions. To validate our approach, we develop a comprehensive VEC simulator, VecSim, using the open-source simulation libraries OMNeT++ and Simu5G. VecSim integrates our designed framework to manage the full life-cycle of real-time vehicular tasks. Experimental results, based on profiled object detection applications and real-world taxi trace data, show that $\\mathtt{SARound}$ consistently outperforms state-of-the-art baselines under varying network conditions while maintaining runtime efficiency.",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "published": "2025-12-16",
+      "authors": [
+        "Chuanchao Gao",
+        "Arvind Easwaran"
+      ],
+      "citation_label": "[Paper 17 - Gao 2025]"
+    },
+    {
+      "paper_id": 18,
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "summary": "This paper proposes a system for the ingestion and analysis of real-time sensor and actor data of bulk materials handling plants and machinery. It references issues that concern mining sensor data in cyber physical systems (CPS). The advance of cyber physical systems has created a significant change in the architecture of sensor and actor data. It affects the complexity of the observed systems in general, the number of signals being processed, the spatial distribution of the signal sources on a machine or plant and the global availability of the data. There are different definitions for what constitutes cyber physical systems: the most succinct and pertinent to the work shown in this paper is the definition given by the IEEE: A CPS is a system with a coupling of the cyber aspects of computing and communications with the physical aspects of dynamics and engineering that must abide by the laws of physics. This includes sensor networks, real-time and hybrid systems. Results computed from sensor and actor data must obey the equations used for modelling the physics of the observed system - this fundamentally poses an inverse problem. Such problems are not covered sufficiently by literature addressing mining of sensor data. Even available standard books on mining sensor data do not discuss the special nature of sensor data. Typically, present approaches of mining data rely on correlation as being a sole, reliable measure for significance. It is not taken into account that the inverse solutions to the model-describing equations are required to establish a semantic link between a sensor observation and its precedent cause. Without this link - without causality - there can be no physics based knowledge discovery.",
+      "url": "http://arxiv.org/abs/1802.00625v1",
+      "published": "2018-02-02",
+      "authors": [
+        "Christopher Josef Rothschedl",
+        "Roland Ritt",
+        "Paul O'Leary"
+      ],
+      "citation_label": "[Paper 18 - Rothschedl 2018]"
+    },
+    {
+      "paper_id": 19,
+      "title": "Enhancing Cyber Security Through Predictive Analytics: Real-Time Threat Detection and Response",
+      "summary": "This study evaluates the application of predictive analytics for real-time cyber-attack detection and response, focusing on how statistical and machine learning methods can improve decision-making in Security Operations Centers (SOCs). Using a curated network-traffic dataset of 2,000 records, we analyzed key features such as attack type, packet length, anomaly scores, protocol usage, and geo-location patterns to assess their predictive value. Findings indicate that attack type has a measurable influence on response actions, while basic header metrics alone lack the precision needed for accurate classification. These results highlight the importance of incorporating richer contextual features - such as user behavior, asset criticality, and temporal patterns - into predictive models. By integrating such features into operational pipelines, organizations can improve early threat detection, reduce false positives, and optimize resource allocation. This research contributes actionable insights for advancing proactive, data-driven cyber defense strategies and outlines directions for future implementation in live SOC environments.",
+      "url": "http://arxiv.org/abs/2407.10864v2",
+      "published": "2024-07-15",
+      "authors": [
+        "Muhammad Danish"
+      ],
+      "citation_label": "[Paper 19 - Danish 2024]"
+    },
+    {
+      "paper_id": 20,
+      "title": "Exploring Student Expectations and Confidence in Learning Analytics",
+      "summary": "Learning Analytics (LA) is nowadays ubiquitous in many educational systems, providing the ability to collect and analyze student data in order to understand and optimize learning and the environments in which it occurs. On the other hand, the collection of data requires to comply with the growing demand regarding privacy legislation. In this paper, we use the Student Expectation of Learning Analytics Questionnaire (SELAQ) to analyze the expectations and confidence of students from different faculties regarding the processing of their data for Learning Analytics purposes. This allows us to identify four clusters of students through clustering algorithms: Enthusiasts, Realists, Cautious and Indifferents. This structured analysis provides valuable insights into the acceptance and criticism of Learning Analytics among students.",
+      "url": "http://arxiv.org/abs/2601.05082v1",
+      "published": "2026-01-08",
+      "authors": [
+        "Hayk Asatryan",
+        "Basile Tousside",
+        "Janis Mohr"
+      ],
+      "citation_label": "[Paper 20 - Asatryan 2026]"
+    },
+    {
+      "paper_id": 21,
+      "title": "An Open Natural Language Processing Development Framework for EHR-based Clinical Research: A case demonstration using the National COVID Cohort Collaborative (N3C)",
+      "summary": "While we pay attention to the latest advances in clinical natural language processing (NLP), we can notice some resistance in the clinical and translational research community to adopt NLP models due to limited transparency, interpretability, and usability. In this study, we proposed an open natural language processing development framework. We evaluated it through the implementation of NLP algorithms for the National COVID Cohort Collaborative (N3C). Based on the interests in information extraction from COVID-19 related clinical notes, our work includes 1) an open data annotation process using COVID-19 signs and symptoms as the use case, 2) a community-driven ruleset composing platform, and 3) a synthetic text data generation workflow to generate texts for information extraction tasks without involving human subjects. The corpora were derived from texts from three different institutions (Mayo Clinic, University of Kentucky, University of Minnesota). The gold standard annotations were tested with a single institution's (Mayo) ruleset. This resulted in performances of 0.876, 0.706, and 0.694 in F-scores for Mayo, Minnesota, and Kentucky test datasets, respectively. The study as a consortium effort of the N3C NLP subgroup demonstrates the feasibility of creating a federated NLP algorithm development and benchmarking platform to enhance multi-institution clinical NLP study and adoption. Although we use COVID-19 as a use case in this effort, our framework is general enough to be applied to other domains of interest in clinical NLP.",
+      "url": "http://arxiv.org/abs/2110.10780v3",
+      "published": "2021-10-20",
+      "authors": [
+        "Sijia Liu",
+        "Andrew Wen",
+        "Liwei Wang"
+      ],
+      "citation_label": "[Paper 21 - Liu 2021]"
+    },
+    {
+      "paper_id": 22,
+      "title": "A Comprehensive Review of State-of-The-Art Methods for Java Code Generation from Natural Language Text",
+      "summary": "Java Code Generation consists in generating automatically Java code from a Natural Language Text. This NLP task helps in increasing programmers' productivity by providing them with immediate solutions to the simplest and most repetitive tasks. Code generation is a challenging task because of the hard syntactic rules and the necessity of a deep understanding of the semantic aspect of the programming language. Many works tried to tackle this task using either RNN-based, or Transformer-based models. The latter achieved remarkable advancement in the domain and they can be divided into three groups: (1) encoder-only models, (2) decoder-only models, and (3) encoder-decoder models. In this paper, we provide a comprehensive review of the evolution and progress of deep learning models in Java code generation task. We focus on the most important methods and present their merits and limitations, as well as the objective functions used by the community. In addition, we provide a detailed description of datasets and evaluation metrics used in the literature. Finally, we discuss results of different models on CONCODE dataset, then propose some future directions.",
+      "url": "http://arxiv.org/abs/2306.06371v1",
+      "published": "2023-06-10",
+      "authors": [
+        "Jessica L\u00f3pez Espejel",
+        "Mahaman Sanoussi Yahaya Alassan",
+        "El Mehdi Chouham"
+      ],
+      "citation_label": "[Paper 22 - Espejel 2023]"
+    },
+    {
+      "paper_id": 23,
+      "title": "Towards the Study of Morphological Processing of the Tangkhul Language",
+      "summary": "There is no or little work on natural language processing of Tangkhul language. The current work is a humble beginning of morphological processing of this language using an unsupervised approach. We use a small corpus collected from different sources of text books, short stories and articles of other topics. Based on the experiments carried out, the morpheme identification task using morphessor gives reasonable and interesting output despite using a small corpus.",
+      "url": "http://arxiv.org/abs/2006.16212v1",
+      "published": "2020-06-29",
+      "authors": [
+        "Mirinso Shadang",
+        "Navanath Saharia",
+        "Thoudam Doren Singh"
+      ],
+      "citation_label": "[Paper 23 - Shadang 2020]"
+    }
+  ],
+  "limitations_extracted": 55,
+  "limitations": [
+    {
+      "text": "Limited to a pick-and-place task commonly found in surgical training",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Requires full surgeon control, demanding extensive expertise",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Accuracy of 61.21% for identifying objects of interest, which may not be sufficient for all applications",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Low number of female researchers in the computer vision field",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Current computer vision facilitated insect tracking in complex outdoor environments is restricted in spatial coverage and often constrained to a single insect species",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "System tested on a commercial berry farm, which may not be representative of all agricultural environments",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No mention of handling multiple simultaneous tasks or more complex surgical procedures",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Two-degree-of-freedom robotic arm may not be sufficient for all surgical tasks",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Camera system relies on transfer learning, which may require significant amounts of labeled data",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Lack of exploration of the adaptive layer's performance on more complex computer vision tasks",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No discussion of potential challenges and limitations of the proposed adaptive layer in real-world applications",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Potential for model hallucination in generative AI models",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Need for further research on the applications of generative AI in multi-modal scenarios",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Limited scope of the case study to only OpenAI's public discourse",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No consideration of other stakeholders' perspectives on ethical AI",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Lack of a comprehensive framework for evaluating the effectiveness of ethics-washing practices",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The introduction to algebraic surgery is limited to the more algebraic aspects of the theory",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "No discussion of the geometric motivation behind the algebraic aspects of the theory",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Current PPML methods may not be efficient or scalable for large-scale healthcare datasets",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Need for further research on developing private and efficient ML models in healthcare",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Lack of evaluation of PPML methods in real-world healthcare settings",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Volume is only one aspect of the data, and other attributes such as complexity must be accounted for throughout the machine learning pipeline.",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Feldman 2017]"
+    },
+    {
+      "text": "Changes in data sources pose significant risks to the accuracy and reliability of machine learning techniques for official statistics.",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Boom 2023]"
+    },
+    {
+      "text": "Traditional bias estimation approaches based on the Kalman filter suffer from implementation complexity and require non-intuitive tuning procedures.",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Tereshkov 2015]"
+    },
+    {
+      "text": "Lack of formalism and semantics for temporal HTN planning in HDDL, limiting its ability to represent planning problems with numerical and temporal constraints.",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Pellier 2023]"
+    },
+    {
+      "text": "Machine learning models require more than just the ability to execute, but also a deeper understanding of the data on which they are run.",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Feldman 2017]"
+    },
+    {
+      "text": "Data science practices for official statistics rely on the accuracy and reliability of data sources, which can be affected by changes in data sources.",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Boom 2023]"
+    },
+    {
+      "text": "The proposed observer for gyro and accelerometer biases may not be applicable to all land navigation systems or scenarios.",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Tereshkov 2015]"
+    },
+    {
+      "text": "HDDL does not currently support numerical and temporal expressions, limiting its ability to model real-world planning problems.",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Pellier 2023]"
+    },
+    {
+      "text": "The efficiency of machine learning techniques can be imposed by challenges in data preprocessing, model building, and interpretation of model output.",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Feldman 2017]"
+    },
+    {
+      "text": "Concept drift, bias, availability, validity, accuracy, and completeness can be affected by changing data sources in machine learning for official statistics.",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Boom 2023]"
+    },
+    {
+      "text": "No discussion on the potential impact of sensor malfunctions on the system's accuracy.",
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Liu 2018]"
+    },
+    {
+      "text": "The system's performance in scenarios with high levels of noise or interference in the collected signals is not evaluated.",
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Liu 2018]"
+    },
+    {
+      "text": "The proposed system does not provide a detailed analysis of the computational resources required for real-time processing and analysis of the collected data.",
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Liu 2018]"
+    },
+    {
+      "text": "The algorithm's performance under varying network conditions and task deadlines is not extensively evaluated.",
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Gao 2025]"
+    },
+    {
+      "text": "The approximation ratio of the proposed algorithm may not be optimal for all scenarios.",
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Gao 2025]"
+    },
+    {
+      "text": "The simulator used for validation, VecSim, may not accurately capture all real-world complexities and nuances of VEC systems.",
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Gao 2025]"
+    },
+    {
+      "text": "The paper does not provide a comprehensive comparison with other state-of-the-art task offloading and resource allocation algorithms.",
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Gao 2025]"
+    },
+    {
+      "text": "The system does not address the potential issues related to data privacy and security in the context of real-time sensor and actor data analysis.",
+      "paper_id": 18,
+      "citation_label": "[Paper 18 - Rothschedl 2018]"
+    },
+    {
+      "text": "The paper highlights the need for physics-based knowledge discovery, but does not provide a clear solution or approach for achieving this.",
+      "paper_id": 18,
+      "citation_label": "[Paper 18 - Rothschedl 2018]"
+    },
+    {
+      "text": "The study relies on a curated dataset, which may not be representative of all real-world network traffic scenarios.",
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Danish 2024]"
+    },
+    {
+      "text": "The predictive models used in the study may not generalize well to other types of cyber-attacks or network environments.",
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Danish 2024]"
+    },
+    {
+      "text": "The research does not provide a detailed analysis of the potential impact of false positives and false negatives on the overall security posture of the organization.",
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Danish 2024]"
+    },
+    {
+      "text": "The study focuses on the technical aspects of predictive analytics, but does not address the organizational and procedural challenges of implementing such systems in real-world SOCs.",
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Danish 2024]"
+    },
+    {
+      "text": "The paper does not provide a comprehensive evaluation of the potential biases in the Learning Analytics system and their impact on student outcomes.",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Asatryan 2026]"
+    },
+    {
+      "text": "The study relies on a specific questionnaire (SELAQ) and clustering algorithm, which may not be suitable or generalizable to all educational contexts.",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Asatryan 2026]"
+    },
+    {
+      "text": "The research does not provide a clear plan for addressing the concerns and criticisms of students who are cautious or indifferent about Learning Analytics.",
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Asatryan 2026]"
+    },
+    {
+      "text": "Limited transparency, interpretability, and usability of NLP models",
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Liu 2021]"
+    },
+    {
+      "text": "Single institution's ruleset used for gold standard annotations",
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Liu 2021]"
+    },
+    {
+      "text": "Small corpus size used for morpheme identification task",
+      "paper_id": 23,
+      "citation_label": "[Paper 23 - Shadang 2020]"
+    },
+    {
+      "text": "Limited to specific domains of interest in clinical NLP",
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Liu 2021]"
+    },
+    {
+      "text": "RNN-based and Transformer-based models have limitations in Java code generation task",
+      "paper_id": 22,
+      "citation_label": "[Paper 22 - Espejel 2023]"
+    },
+    {
+      "text": "Lack of work on natural language processing of Tangkhul language",
+      "paper_id": 23,
+      "citation_label": "[Paper 23 - Shadang 2020]"
+    },
+    {
+      "text": "No evaluation on multiple institutions' datasets for NLP algorithm development and benchmarking platform",
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Liu 2021]"
+    },
+    {
+      "text": "Hard syntactic rules and necessity of deep understanding of semantic aspect of programming language in Java code generation task",
+      "paper_id": 22,
+      "citation_label": "[Paper 22 - Espejel 2023]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Computer Vision Limitations",
+      "count": 32,
+      "cited_paper_ids": [
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "limitations": [
+        {
+          "text": "Accuracy of 61.21% for identifying objects of interest, which may not be sufficient for all applications",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Low number of female researchers in the computer vision field",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Current computer vision facilitated insect tracking in complex outdoor environments is restricted in spatial coverage and often constrained to a single insect species",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "System tested on a commercial berry farm, which may not be representative of all agricultural environments",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Camera system relies on transfer learning, which may require significant amounts of labeled data",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Lack of exploration of the adaptive layer's performance on more complex computer vision tasks",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No discussion of potential challenges and limitations of the proposed adaptive layer in real-world applications",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Current PPML methods may not be efficient or scalable for large-scale healthcare datasets",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Need for further research on developing private and efficient ML models in healthcare",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Lack of evaluation of PPML methods in real-world healthcare settings",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Volume is only one aspect of the data, and other attributes such as complexity must be accounted for throughout the machine learning pipeline.",
+          "citation_label": "[Paper 11 - Feldman 2017]"
+        },
+        {
+          "text": "Changes in data sources pose significant risks to the accuracy and reliability of machine learning techniques for official statistics.",
+          "citation_label": "[Paper 12 - Boom 2023]"
+        },
+        {
+          "text": "Traditional bias estimation approaches based on the Kalman filter suffer from implementation complexity and require non-intuitive tuning procedures.",
+          "citation_label": "[Paper 13 - Tereshkov 2015]"
+        },
+        {
+          "text": "Machine learning models require more than just the ability to execute, but also a deeper understanding of the data on which they are run.",
+          "citation_label": "[Paper 11 - Feldman 2017]"
+        },
+        {
+          "text": "Data science practices for official statistics rely on the accuracy and reliability of data sources, which can be affected by changes in data sources.",
+          "citation_label": "[Paper 12 - Boom 2023]"
+        },
+        {
+          "text": "The proposed observer for gyro and accelerometer biases may not be applicable to all land navigation systems or scenarios.",
+          "citation_label": "[Paper 13 - Tereshkov 2015]"
+        },
+        {
+          "text": "The efficiency of machine learning techniques can be imposed by challenges in data preprocessing, model building, and interpretation of model output.",
+          "citation_label": "[Paper 11 - Feldman 2017]"
+        },
+        {
+          "text": "Concept drift, bias, availability, validity, accuracy, and completeness can be affected by changing data sources in machine learning for official statistics.",
+          "citation_label": "[Paper 12 - Boom 2023]"
+        },
+        {
+          "text": "No discussion on the potential impact of sensor malfunctions on the system's accuracy.",
+          "citation_label": "[Paper 16 - Liu 2018]"
+        },
+        {
+          "text": "The system's performance in scenarios with high levels of noise or interference in the collected signals is not evaluated.",
+          "citation_label": "[Paper 16 - Liu 2018]"
+        },
+        {
+          "text": "The proposed system does not provide a detailed analysis of the computational resources required for real-time processing and analysis of the collected data.",
+          "citation_label": "[Paper 16 - Liu 2018]"
+        },
+        {
+          "text": "The algorithm's performance under varying network conditions and task deadlines is not extensively evaluated.",
+          "citation_label": "[Paper 17 - Gao 2025]"
+        },
+        {
+          "text": "The approximation ratio of the proposed algorithm may not be optimal for all scenarios.",
+          "citation_label": "[Paper 17 - Gao 2025]"
+        },
+        {
+          "text": "The simulator used for validation, VecSim, may not accurately capture all real-world complexities and nuances of VEC systems.",
+          "citation_label": "[Paper 17 - Gao 2025]"
+        },
+        {
+          "text": "The system does not address the potential issues related to data privacy and security in the context of real-time sensor and actor data analysis.",
+          "citation_label": "[Paper 18 - Rothschedl 2018]"
+        },
+        {
+          "text": "The study relies on a curated dataset, which may not be representative of all real-world network traffic scenarios.",
+          "citation_label": "[Paper 19 - Danish 2024]"
+        },
+        {
+          "text": "The predictive models used in the study may not generalize well to other types of cyber-attacks or network environments.",
+          "citation_label": "[Paper 19 - Danish 2024]"
+        },
+        {
+          "text": "The research does not provide a detailed analysis of the potential impact of false positives and false negatives on the overall security posture of the organization.",
+          "citation_label": "[Paper 19 - Danish 2024]"
+        },
+        {
+          "text": "The study focuses on the technical aspects of predictive analytics, but does not address the organizational and procedural challenges of implementing such systems in real-world SOCs.",
+          "citation_label": "[Paper 19 - Danish 2024]"
+        },
+        {
+          "text": "The paper does not provide a comprehensive evaluation of the potential biases in the Learning Analytics system and their impact on student outcomes.",
+          "citation_label": "[Paper 20 - Asatryan 2026]"
+        },
+        {
+          "text": "The study relies on a specific questionnaire (SELAQ) and clustering algorithm, which may not be suitable or generalizable to all educational contexts.",
+          "citation_label": "[Paper 20 - Asatryan 2026]"
+        },
+        {
+          "text": "The research does not provide a clear plan for addressing the concerns and criticisms of students who are cautious or indifferent about Learning Analytics.",
+          "citation_label": "[Paper 20 - Asatryan 2026]"
+        }
+      ]
+    },
+    {
+      "theme": "Generative AI Limitations",
+      "count": 6,
+      "cited_paper_ids": [
+        22,
+        15
+      ],
+      "limitations": [
+        {
+          "text": "Potential for model hallucination in generative AI models",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Need for further research on the applications of generative AI in multi-modal scenarios",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Lack of formalism and semantics for temporal HTN planning in HDDL, limiting its ability to represent planning problems with numerical and temporal constraints.",
+          "citation_label": "[Paper 15 - Pellier 2023]"
+        },
+        {
+          "text": "HDDL does not currently support numerical and temporal expressions, limiting its ability to model real-world planning problems.",
+          "citation_label": "[Paper 15 - Pellier 2023]"
+        },
+        {
+          "text": "RNN-based and Transformer-based models have limitations in Java code generation task",
+          "citation_label": "[Paper 22 - Espejel 2023]"
+        },
+        {
+          "text": "Hard syntactic rules and necessity of deep understanding of semantic aspect of programming language in Java code generation task",
+          "citation_label": "[Paper 22 - Espejel 2023]"
+        }
+      ]
+    },
+    {
+      "theme": "Data Quality Constraints",
+      "count": 6,
+      "cited_paper_ids": [
+        21,
+        23
+      ],
+      "limitations": [
+        {
+          "text": "Limited transparency, interpretability, and usability of NLP models",
+          "citation_label": "[Paper 21 - Liu 2021]"
+        },
+        {
+          "text": "Single institution's ruleset used for gold standard annotations",
+          "citation_label": "[Paper 21 - Liu 2021]"
+        },
+        {
+          "text": "Small corpus size used for morpheme identification task",
+          "citation_label": "[Paper 23 - Shadang 2020]"
+        },
+        {
+          "text": "Limited to specific domains of interest in clinical NLP",
+          "citation_label": "[Paper 21 - Liu 2021]"
+        },
+        {
+          "text": "Lack of work on natural language processing of Tangkhul language",
+          "citation_label": "[Paper 23 - Shadang 2020]"
+        },
+        {
+          "text": "No evaluation on multiple institutions' datasets for NLP algorithm development and benchmarking platform",
+          "citation_label": "[Paper 21 - Liu 2021]"
+        }
+      ]
+    },
+    {
+      "theme": "Basic Surgical Task Constraints",
+      "count": 4,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "Limited to a pick-and-place task commonly found in surgical training",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Requires full surgeon control, demanding extensive expertise",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No mention of handling multiple simultaneous tasks or more complex surgical procedures",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Two-degree-of-freedom robotic arm may not be sufficient for all surgical tasks",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Methodological Research Constraints",
+      "count": 3,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "Limited scope of the case study to only OpenAI's public discourse",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No consideration of other stakeholders' perspectives on ethical AI",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Lack of a comprehensive framework for evaluating the effectiveness of ethics-washing practices",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Algebraic Focus Only",
+      "count": 2,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The introduction to algebraic surgery is limited to the more algebraic aspects of the theory",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "No discussion of the geometric motivation behind the algebraic aspects of the theory",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Limited Comparative Analysis",
+      "count": 1,
+      "cited_paper_ids": [
+        17
+      ],
+      "limitations": [
+        {
+          "text": "The paper does not provide a comprehensive comparison with other state-of-the-art task offloading and resource allocation algorithms.",
+          "citation_label": "[Paper 17 - Gao 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "Knowledge Discovery Limitations",
+      "count": 1,
+      "cited_paper_ids": [
+        18
+      ],
+      "limitations": [
+        {
+          "text": "The paper highlights the need for physics-based knowledge discovery, but does not provide a clear solution or approach for achieving this.",
+          "citation_label": "[Paper 18 - Rothschedl 2018]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "Limited accuracy and robustness of computer vision models",
+      "supporting_papers": [
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "gap": "Lack of transparency, interpretability, and usability of AI models",
+      "supporting_papers": [
+        15,
+        21,
+        23
+      ]
+    },
+    {
+      "gap": "Insufficient consideration of multiple stakeholders, tasks, and scenarios in AI research",
+      "supporting_papers": [
+        17,
+        18,
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "gap": "Need for further research on the applications of generative AI and physics-based knowledge discovery",
+      "supporting_papers": [
+        15,
+        18,
+        22
+      ]
+    },
+    {
+      "gap": "Limited scope and methodology of AI research, including lack of comprehensive frameworks and comparative analysis",
+      "supporting_papers": [
+        17,
+        21,
+        22,
+        23
+      ]
+    }
+  ],
+  "research_ideas": [
+    {
+      "title": "Multimodal Computer Vision for Enhanced Surgical Accuracy",
+      "description": "This research proposes a novel multimodal computer vision approach that combines RGB, depth, and thermal imaging to improve the accuracy and robustness of surgical procedures. By integrating multiple modalities, the system can better handle variations in lighting, tissue reflectance, and other environmental factors. This approach can be applied to various surgical tasks, such as tumor segmentation and anatomical structure identification.",
+      "addresses_gaps": [
+        "Limited accuracy and robustness of computer vision models"
+      ],
+      "cited_papers": [
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "title": "Transparent and Interpretable AI Models for Surgical Decision Support",
+      "description": "This research aims to develop transparent and interpretable AI models that can provide surgical teams with actionable insights and explanations for their predictions and recommendations. By using techniques such as attention mechanisms, feature importance, and model-agnostic interpretability methods, the system can provide a higher level of trust and understanding among clinicians. This approach can be applied to various surgical applications, such as patient risk stratification and surgical outcome prediction.",
+      "addresses_gaps": [
+        "Lack of transparency, interpretability, and usability of AI models"
+      ],
+      "cited_papers": [
+        15,
+        21,
+        23
+      ]
+    },
+    {
+      "title": "Generative AI for Personalized Surgical Planning and Simulation",
+      "description": "This research proposes the use of generative AI models, such as generative adversarial networks (GANs) and variational autoencoders (VAEs), to generate personalized surgical plans and simulate various surgical scenarios. By incorporating physics-based knowledge discovery and multiple stakeholder perspectives, the system can provide clinicians with a more comprehensive understanding of the surgical procedure and its potential outcomes. This approach can be applied to various surgical applications, such as orthopedic surgery and neurosurgery.",
+      "addresses_gaps": [
+        "Need for further research on the applications of generative AI and physics-based knowledge discovery",
+        "Insufficient consideration of multiple stakeholders, tasks, and scenarios in AI research"
+      ],
+      "cited_papers": [
+        15,
+        17,
+        18,
+        21,
+        22
+      ]
+    }
+  ],
+  "novelty_scores": [
+    6,
+    7,
+    8
+  ],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Yamada 2024]",
+      "title": "Task segmentation based on transition state clustering for surgical robot assistance",
+      "authors": [
+        "Yutaro Yamada",
+        "Jacinto Colan",
+        "Ana Davila"
+      ],
+      "published": "2024-06-14",
+      "url": "http://arxiv.org/abs/2406.09990v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Shankar 2025]",
+      "title": "Fuzzy-RRT for Obstacle Avoidance in a 2-DOF Semi-Autonomous Surgical Robotic Arm",
+      "authors": [
+        "Kaaustaaub Shankar",
+        "Wilhelm Louw",
+        "Bharadwaj Dogga"
+      ],
+      "published": "2025-04-24",
+      "url": "http://arxiv.org/abs/2504.17979v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Hutchinson 2020]",
+      "title": "A Reactive Autonomous Camera System for the RAVEN II Surgical Robot",
+      "authors": [
+        "Kay Hutchinson",
+        "Mohammad Samin Yasar",
+        "Harshneet Bhatia"
+      ],
+      "published": "2020-10-09",
+      "url": "http://arxiv.org/abs/2010.04785v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Amerini 2019]",
+      "title": "WiCV 2019: The Sixth Women In Computer Vision Workshop",
+      "authors": [
+        "Irene Amerini",
+        "Elena Balashova",
+        "Sayna Ebrahimi"
+      ],
+      "published": "2019-09-23",
+      "url": "http://arxiv.org/abs/1909.10225v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Ratnayake 2022]",
+      "title": "Spatial Monitoring and Insect Behavioural Analysis Using Computer Vision for Precision Pollination",
+      "authors": [
+        "Malika Nisal Ratnayake",
+        "Don Chathurika Amarathunga",
+        "Asaduz Zaman"
+      ],
+      "published": "2022-05-10",
+      "url": "http://arxiv.org/abs/2205.04675v2"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Shipitsin 2020]",
+      "title": "Global Adaptive Filtering Layer for Computer Vision",
+      "authors": [
+        "Viktor Shipitsin",
+        "Iaroslav Bespalov",
+        "Dmitry V. Dylov"
+      ],
+      "published": "2020-10-02",
+      "url": "http://arxiv.org/abs/2010.01177v4"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Ai 2025]",
+      "title": "Foundations of GenIR",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "published": "2025-01-06",
+      "url": "http://arxiv.org/abs/2501.02842v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Wilfley 2026]",
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "published": "2026-01-23",
+      "url": "http://arxiv.org/abs/2601.16513v1"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Ranicki 2000]",
+      "title": "An introduction to algebraic surgery",
+      "authors": [
+        "Andrew Ranicki"
+      ],
+      "published": "2000-08-09",
+      "url": "http://arxiv.org/abs/math/0008071v1"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Guerra-Manzanares 2023]",
+      "title": "Privacy-preserving machine learning for healthcare: open challenges and future perspectives",
+      "authors": [
+        "Alejandro Guerra-Manzanares",
+        "L. Julian Lechuga Lopez",
+        "Michail Maniatakos"
+      ],
+      "published": "2023-03-27",
+      "url": "http://arxiv.org/abs/2303.15563v1"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Feldman 2017]",
+      "title": "Beyond Volume: The Impact of Complex Healthcare Data on the Machine Learning Pipeline",
+      "authors": [
+        "Keith Feldman",
+        "Louis Faust",
+        "Xian Wu"
+      ],
+      "published": "2017-06-01",
+      "url": "http://arxiv.org/abs/1706.01513v2"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Boom 2023]",
+      "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+      "authors": [
+        "Cedric De Boom",
+        "Michael Reusens"
+      ],
+      "published": "2023-06-07",
+      "url": "http://arxiv.org/abs/2306.04338v1"
+    },
+    {
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Tereshkov 2015]",
+      "title": "A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems",
+      "authors": [
+        "Vasiliy M. Tereshkov"
+      ],
+      "published": "2015-01-26",
+      "url": "http://arxiv.org/abs/1501.06618v1"
+    },
+    {
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Vedula 2016]",
+      "title": "Perspectives on Surgical Data Science",
+      "authors": [
+        "S. Swaroop Vedula",
+        "Masaru Ishii",
+        "Gregory D. Hager"
+      ],
+      "published": "2016-10-13",
+      "url": "http://arxiv.org/abs/1610.04276v1"
+    },
+    {
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Pellier 2023]",
+      "title": "HDDL 2.1: Towards Defining a Formalism and a Semantics for Temporal HTN Planning",
+      "authors": [
+        "Damien Pellier",
+        "Alexandre Albore",
+        "Humbert Fiorino"
+      ],
+      "published": "2023-06-12",
+      "url": "http://arxiv.org/abs/2306.07353v1"
+    },
+    {
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Liu 2018]",
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "authors": [
+        "S. Q. Liu",
+        "Z. S. Ji",
+        "Y Wang"
+      ],
+      "published": "2018-06-25",
+      "url": "http://arxiv.org/abs/1806.09998v1"
+    },
+    {
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Gao 2025]",
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "authors": [
+        "Chuanchao Gao",
+        "Arvind Easwaran"
+      ],
+      "published": "2025-12-16",
+      "url": "http://arxiv.org/abs/2512.14002v1"
+    },
+    {
+      "paper_id": 18,
+      "citation_label": "[Paper 18 - Rothschedl 2018]",
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "authors": [
+        "Christopher Josef Rothschedl",
+        "Roland Ritt",
+        "Paul O'Leary"
+      ],
+      "published": "2018-02-02",
+      "url": "http://arxiv.org/abs/1802.00625v1"
+    },
+    {
+      "paper_id": 19,
+      "citation_label": "[Paper 19 - Danish 2024]",
+      "title": "Enhancing Cyber Security Through Predictive Analytics: Real-Time Threat Detection and Response",
+      "authors": [
+        "Muhammad Danish"
+      ],
+      "published": "2024-07-15",
+      "url": "http://arxiv.org/abs/2407.10864v2"
+    },
+    {
+      "paper_id": 20,
+      "citation_label": "[Paper 20 - Asatryan 2026]",
+      "title": "Exploring Student Expectations and Confidence in Learning Analytics",
+      "authors": [
+        "Hayk Asatryan",
+        "Basile Tousside",
+        "Janis Mohr"
+      ],
+      "published": "2026-01-08",
+      "url": "http://arxiv.org/abs/2601.05082v1"
+    },
+    {
+      "paper_id": 21,
+      "citation_label": "[Paper 21 - Liu 2021]",
+      "title": "An Open Natural Language Processing Development Framework for EHR-based Clinical Research: A case demonstration using the National COVID Cohort Collaborative (N3C)",
+      "authors": [
+        "Sijia Liu",
+        "Andrew Wen",
+        "Liwei Wang"
+      ],
+      "published": "2021-10-20",
+      "url": "http://arxiv.org/abs/2110.10780v3"
+    },
+    {
+      "paper_id": 22,
+      "citation_label": "[Paper 22 - Espejel 2023]",
+      "title": "A Comprehensive Review of State-of-The-Art Methods for Java Code Generation from Natural Language Text",
+      "authors": [
+        "Jessica L\u00f3pez Espejel",
+        "Mahaman Sanoussi Yahaya Alassan",
+        "El Mehdi Chouham"
+      ],
+      "published": "2023-06-10",
+      "url": "http://arxiv.org/abs/2306.06371v1"
+    },
+    {
+      "paper_id": 23,
+      "citation_label": "[Paper 23 - Shadang 2020]",
+      "title": "Towards the Study of Morphological Processing of the Tangkhul Language",
+      "authors": [
+        "Mirinso Shadang",
+        "Navanath Saharia",
+        "Thoudam Doren Singh"
+      ],
+      "published": "2020-06-29",
+      "url": "http://arxiv.org/abs/2006.16212v1"
+    }
+  ],
+  "generated_at": "2026-02-26T08:14:52.021062",
+  "chroma_db": {
+    "session_id": "d34ab816",
+    "path": "./chroma_db",
+    "papers_collection": "papers_d34ab816",
+    "limitations_collection": "limitations_d34ab816",
+    "total_papers_stored": 39,
+    "total_limitations_stored": 103
+  }
+}

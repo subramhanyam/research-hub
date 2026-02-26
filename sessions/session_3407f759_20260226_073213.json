@@ -1,0 +1,983 @@
+{
+  "session_id": "3407f759",
+  "topic": "mcp protocall",
+  "subtopics": [
+    "MCP Protocol in Network Architecture",
+    "MCP Protocol for Congestion Control",
+    "MCP Protocol Security Analysis",
+    "MCP Protocol Performance Optimization",
+    "MCP Protocol in Wireless Networks"
+  ],
+  "keywords": [
+    "MCP protocol",
+    "Multipath Control Protocol",
+    "network congestion control",
+    "MCP security",
+    "MCP performance optimization",
+    "wireless network protocols",
+    "MCP implementation",
+    "MCP evaluation"
+  ],
+  "papers_found": 17,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "summary": "The Model Context Protocol has emerged as a transformative standard for connecting large language models to external data sources and tools, rapidly gaining adoption across major AI providers and development platforms. However, existing benchmarks are overly simplistic and fail to capture real application challenges such as long-horizon reasoning and large, unfamiliar tool spaces. To address this critical gap, we introduce MCP-Universe, the first comprehensive benchmark specifically designed to evaluate LLMs in realistic and hard tasks through interaction with real-world MCP servers. Our benchmark encompasses 6 core domains spanning 11 different MCP servers: Location Navigation, Repository Management, Financial Analysis, 3D Design, Browser Automation, and Web Searching. To ensure rigorous evaluation, we implement execution-based evaluators, including format evaluators for agent format compliance, static evaluators for time-invariant content matching, and dynamic evaluators that automatically retrieve real-time ground truth for temporally sensitive tasks. Through extensive evaluation of leading LLMs, we find that even SOTA models such as GPT-5 (43.72%), Grok-4 (33.33%) and Claude-4.0-Sonnet (29.44%) exhibit significant performance limitations. In addition, our benchmark poses a significant long-context challenge for LLM agents, as the number of input tokens increases rapidly with the number of interaction steps. Moreover, it introduces an unknown-tools challenge, as LLM agents often lack familiarity with the precise usage of the MCP servers. Notably, enterprise-level agents like Cursor cannot achieve better performance than standard ReAct frameworks. Beyond evaluation, we open-source our extensible evaluation framework with UI support, enabling researchers and practitioners to seamlessly integrate new agents and MCP servers while fostering innovation in the rapidly evolving MCP ecosystem.",
+      "url": "http://arxiv.org/abs/2508.14704v1",
+      "published": "2025-08-20",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "citation_label": "[Paper 1 - Luo 2025]"
+    },
+    {
+      "paper_id": 2,
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "summary": "AI development environments are evolving into observability first platforms that integrate real time telemetry, prompt traces, and evaluation feedback into the developer workflow. This paper introduces telemetry aware integrated development environments (IDEs) enabled by the Model Context Protocol (MCP), a system that connects IDEs with prompt metrics, trace logs, and versioned control for real time refinement. We present design patterns for local prompt iteration, CI based optimization, and autonomous agents that adapt behavior using telemetry. Rather than focusing on a single algorithm, we describe an architecture that supports integration with frameworks like DSPy, PromptWizard, and Prompts as Programs. We demonstrate this through Opik, an open source MCP server for LLM telemetry, and position our approach within the emerging LLMOps ecosystem. This work lays a foundation for future research on prompt optimization, IDE agent tooling, and empirical benchmarking in telemetry rich AI development workflows.",
+      "url": "http://arxiv.org/abs/2506.11019v1",
+      "published": "2025-05-14",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "citation_label": "[Paper 2 - Koc 2025]"
+    },
+    {
+      "paper_id": 3,
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "summary": "Today, SIP is a protocol par Excellence in the field of communication over Internet. But, the fact that it belongs to the application layer constitutes a weakness vis-a-vis the NAT traversal. This weakness is due to the way in which the server replies to the requests of clients on the one hand. On the other, it is caused by the dynamic allocation of UDP ports for emission and reception of packets RTP/RTCP. The TURN Protocol may face this weakness. However, its use requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions and this increase the latent time. In this article, we propose to adapt TURN protocol for applications based on SIP protocol such as telephony over Internet, conference video, etc. This adaptation optimises the establishment of multimedia sessions by integrating a manager of TCP connections and multimedia flow controller into SIP Proxy server.",
+      "url": "http://arxiv.org/abs/1002.1178v1",
+      "published": "2010-02-05",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "citation_label": "[Paper 3 - Guezouri 2010]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Node Disjoint Multipath Routing Considering Link and Node Stability protocol: A characteristic Evaluation",
+      "summary": "Mobile Ad hoc Networks are highly dynamic networks. Quality of Service (QoS) routing in such networks is usually limited by the network breakage due to either node mobility or energy depletion of the mobile nodes. Also, to fulfill certain quality parameters, presence of multiple node-disjoint paths becomes essential. Such paths aid in the optimal traffic distribution and reliability in case of path breakages. Thus, to cater various challenges in QoS routing in Mobile Add hoc Networks, a Node Disjoint Multipath Routing Considering Link and Node Stability (NDMLNR) protocol has been proposed by the authors. The metric used to select the paths takes into account the stability of the nodes and the corresponding links. This paper studies various challenges in the QoS routing and presents the characteristic evaluation of NDMLNR w.r.t various existing protocols in this area.",
+      "url": "http://arxiv.org/abs/1002.1162v1",
+      "published": "2010-02-05",
+      "authors": [
+        "Shuchita Upadhayaya",
+        "Charu Gandhi"
+      ],
+      "citation_label": "[Paper 4 - Upadhayaya 2010]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Online multipath convolutional coding for real-time transmission",
+      "summary": "Most of multipath multimedia streaming proposals use Forward Error Correction (FEC) approach to protect from packet losses. However, FEC does not sustain well burst of losses even when packets from a given FEC block are spread over multiple paths. In this article, we propose an online multipath convolutional coding for real-time multipath streaming based on an on-the-fly coding scheme called Tetrys. We evaluate the benefits brought out by this coding scheme inside an existing FEC multipath load splitting proposal known as Encoded Multipath Streaming (EMS). We demonstrate that Tetrys consistently outperforms FEC in both uniform and burst losses with EMS scheme. We also propose a modification of the standard EMS algorithm that greatly improves the performance in terms of packet recovery. Finally, we analyze different spreading policies of the Tetrys redundancy traffic between available paths and observe that the longer propagation delay path should be preferably used to carry repair packets.",
+      "url": "http://arxiv.org/abs/1204.1428v1",
+      "published": "2012-04-06",
+      "authors": [
+        "Tuan Tran Thai",
+        "Emmanuel Lochin",
+        "Jerome Lacan"
+      ],
+      "citation_label": "[Paper 5 - Thai 2012]"
+    },
+    {
+      "paper_id": 6,
+      "title": "Faster Consensus via a Sparser Controller",
+      "summary": "In this paper, we investigate the architecture of an optimal controller that maximizes the convergence speed of a consensus protocol with single-integrator dynamics. Under the assumption that communication delays increase with the number of hops from which information is allowed to reach each agent, we address the optimal control design under delayed feedback and show that the optimal controller features, in general, a sparsely connected architecture.",
+      "url": "http://arxiv.org/abs/2302.01021v2",
+      "published": "2023-02-02",
+      "authors": [
+        "Luca Ballotta",
+        "Vijay Gupta"
+      ],
+      "citation_label": "[Paper 6 - Ballotta 2023]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Uniqueness Analysis of Controllability Scores and Their Application to Brain Networks",
+      "summary": "Assessing centrality in network systems is critical for understanding node importance and guiding decision-making processes. In dynamic networks, incorporating a controllability perspective is essential for identifying key nodes. In this paper, we study two control theoretic centrality measures -- the Volumetric Controllability Score (VCS) and Average Energy Controllability Score (AECS) -- to quantify node importance in linear time-invariant network systems. We prove the uniqueness of VCS and AECS for almost all specified terminal times, thereby enhancing their applicability beyond previously recognized cases. This ensures their interpretability, comparability, and reproducibility. Our analysis reveals substantial differences between VCS and AECS in linear systems with symmetric and skew-symmetric transition matrices. We also investigate the dependence of VCS and AECS on the terminal time and prove that when this parameter is extremely small, both scores become essentially uniform. Additionally, we prove that a sequence generated by a projected gradient method for computing VCS and AECS converges linearly to both measures under several assumptions. Finally, evaluations on brain networks modeled via Laplacian dynamics using real data reveal contrasting evaluation tendencies and correlations for VCS and AECS, with AECS favoring brain regions associated with cognitive and motor functions, while VCS emphasizes sensory and emotional regions.",
+      "url": "http://arxiv.org/abs/2408.03023v4",
+      "published": "2024-08-06",
+      "authors": [
+        "Kazuhiro Sato",
+        "Ryohei Kawamura"
+      ],
+      "citation_label": "[Paper 7 - Sato 2024]"
+    },
+    {
+      "paper_id": 8,
+      "title": "A Quantum-Compliant Formulation for Network Epidemic Control",
+      "summary": "We deal with controlling the spread of an epidemic disease on a network by isolating one or multiple locations by banning people from leaving them. To this aim, we build on the susceptible-infected-susceptible and the susceptible-infected-removed discrete-time network models, encapsulating a control action that captures mobility bans via removing links from the network. Then, we formulate the problem of optimally devising a control policy based on mobility bans that trades-off the burden on the healthcare system and the social and economic costs associated with interventions. The binary nature of mobility bans hampers the possibility to solve the control problem with standard optimization methods, yielding a NP-hard problem. Here, this is tackled by deriving a Quadratic Unconstrained Binary Optimization (QUBO) formulation of the control problem, and leveraging the growing potentialities of quantum computing to efficiently solve it.",
+      "url": "http://arxiv.org/abs/2509.00337v1",
+      "published": "2025-08-30",
+      "authors": [
+        "Lorenzo Zino",
+        "Mattia Boggio",
+        "Deborah Volpe"
+      ],
+      "citation_label": "[Paper 8 - Zino 2025]"
+    },
+    {
+      "paper_id": 9,
+      "title": "Erasure Coding and Congestion Control for Interactive Real-Time Communication",
+      "summary": "The use of real-time applications over the Internet is a challenging problem that the QoS epoch attempted to solve by proposing the DiffServ architecture. Today, the only existing service provided by the Internet is still best-effort. As a result, multimedia applications often perform on top of a transport layer that provides a variable sending rate. In an obvious manner, this variable sending rate is an issue for these applications with strong delay constraint. In a real-time context where retransmission can not be used to ensure reliability, video quality suffers from any packet losses. In this position paper, we discuss this problem and motivate why we want to bring out a certain class of erasure coding scheme inside multimedia congestion control protocols such as TFRC.",
+      "url": "http://arxiv.org/abs/1207.2863v1",
+      "published": "2012-07-12",
+      "authors": [
+        "Pierre-Ugo Tournoux",
+        "Tuan Tran Thai",
+        "Emmanuel Lochin"
+      ],
+      "citation_label": "[Paper 9 - Tournoux 2012]"
+    },
+    {
+      "paper_id": 10,
+      "title": "The Everyday Security of Living with Conflict",
+      "summary": "When `cyber' is used as a prefix, attention is typically drawn to the technological and spectacular aspects of war and conflict -- and, by extension, security. We offer a different approach to engaging with and understanding security in such contexts, by foregrounding the everyday -- mundane -- experiences of security within communities living with and fleeing from war. We do so through three vignettes from our field research in Colombia, Lebanon and Sweden, respectively, and by highlighting the significance of ethnography for security research with communities living in regions afflicted by war. We conclude by setting out a call to action for security researchers and practitioners to consider such lived experiences in the design of security technology that aims to cater to the needs of communities in `global conflict and disaster regions'.",
+      "url": "http://arxiv.org/abs/2506.09580v1",
+      "published": "2025-06-11",
+      "authors": [
+        "Jessica McClearn",
+        "Reem Talhouk",
+        "Rikke Bjerg Jensen"
+      ],
+      "citation_label": "[Paper 10 - McClearn 2025]"
+    },
+    {
+      "paper_id": 11,
+      "title": "Securing Automated Insulin Delivery Systems: A Review of Security Threats and Protective Strategies",
+      "summary": "Automated Insulin Delivery (AID) systems represent a significant advancement in diabetes care and wearable physiological closed-loop control technologies, integrating continuous glucose monitoring, control algorithms, and insulin pumps to improve blood glucose level control and reduce the burden of patient self-management. However, their increasing dependence on wireless communication and automatic control introduces security risks that may compromise patient privacy or result in life-threatening treatment errors. This paper presents a comprehensive survey of the AID system security landscape, covering technical vulnerabilities, regulatory frameworks, and commercial security measures. In addition, we conduct a systematic review of attack vectors and defence mechanisms proposed in the literature, following the PRISMA framework. Our findings highlight critical gaps, including the lack of specific security evaluation frameworks, insufficient protections in real-world deployments, and the need for comprehensive, lightweight, and adaptive defence mechanisms. We further investigate available research resources and outline open research challenges and future directions to guide the development of more secure and reliable AID systems. By focusing on AID systems, this review offers a representative case study for examining and improving the cybersecurity of safety-critical medical wearable systems.",
+      "url": "http://arxiv.org/abs/2503.14006v2",
+      "published": "2025-03-18",
+      "authors": [
+        "Yuchen Niu",
+        "Siew-Kei Lam"
+      ],
+      "citation_label": "[Paper 11 - Niu 2025]"
+    },
+    {
+      "paper_id": 12,
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "summary": "This paper introduces and investigates a regularity condition in the asymptotic sense for optimization problems whose objective functions are polynomial. Under this regularity condition, the normalization argument in asymptotic analysis enables us to see the solution existence as well as the solution stability of these problems. We prove a Frank-Wolfe type theorem for regular optimization problems and an Eaves type theorem for non-regular pseudoconvex optimization problems. Moreover, we show results on the stability such as upper semicontinuity and local upper-H\u00f6lder stability of the solution map of polynomial optimization problems. At the end of the paper, we discuss the genericity of the regularity condition.",
+      "url": "http://arxiv.org/abs/1808.06100v6",
+      "published": "2018-08-18",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "citation_label": "[Paper 12 - Hieu 2018]"
+    },
+    {
+      "paper_id": 13,
+      "title": "Performance of Genetic Algorithms in the Context of Software Model Refactoring",
+      "summary": "Software systems continuously evolve due to new functionalities, requirements, or maintenance activities. In the context of software evolution, software refactoring has gained a strategic relevance. The space of possible software refactoring is usually very large, as it is given by the combinations of different refactoring actions that can produce software system alternatives. Multi-objective algorithms have shown the ability to discover alternatives by pursuing different objectives simultaneously. Performance of such algorithms in the context of software model refactoring is of paramount importance. Therefore, in this paper, we conduct a performance analysis of three genetic algorithms to compare them in terms of performance and quality of solutions. Our results show that there are significant differences in performance among the algorithms (e.g., PESA2 seems to be the fastest one, while NSGA-II shows the least memory usage).",
+      "url": "http://arxiv.org/abs/2308.13875v1",
+      "published": "2023-08-26",
+      "authors": [
+        "Vittorio Cortellessa",
+        "Daniele Di Pompeo",
+        "Michele Tucci"
+      ],
+      "citation_label": "[Paper 13 - Cortellessa 2023]"
+    },
+    {
+      "paper_id": 14,
+      "title": "Critical Comparative Analysis and Recommendation in MAC Protocols for Wireless Mesh Networks Using Multi-objective Optimization and Statistical Testing",
+      "summary": "Wireless Mesh Network (WMN) is surely one of the prominent networks in the modern era which is widely used in numerous evolving applications, viz. broadband home networking (BHN), community and neighbourhood networks (CNN), coordinated network management (CNM), and intelligent transportation systems (ITS), etc. It is a wireless network (WN) with multi-hop formed by many fixed wireless mesh routers (WMR) that are connected wirelessly with a mesh-alike backbone arrangement. In the IEEE 802.11s network, the node selection, scalability, stability, density of the nodes, mobility of the nodes, transmission power, and routing are major issues that WMN suffers. In this paper, a critical review of MAC protocols and their Quality of Service (QoS) parameters for WMN is presented to attain a better understanding of MAC protocols. Furthermore, the critical comparative analysis and recommendation of MAC procedures for WMN using Multi-objective optimization and statistical testing framework are performed. This framework is used for the analysis and recommendation of different protocols available for QoS parameters.",
+      "url": "http://arxiv.org/abs/2304.12678v1",
+      "published": "2023-04-25",
+      "authors": [
+        "Ankita Singh",
+        "Sudhakar Singh",
+        "Shiv Prakash"
+      ],
+      "citation_label": "[Paper 14 - Singh 2023]"
+    },
+    {
+      "paper_id": 15,
+      "title": "Wireless sensors networks MAC protocols analysis",
+      "summary": "Wireless sensors networks performance are strictly related to the medium access mechanism. An effective one, require non-conventional paradigms for protocol design due to several constraints. An adequate equilibrium between communication improvement and data processing capabilities must be accomplished. To achieve low power operation, several MAC protocols already proposed for WSN. The aim of this paper is to survey and to analyze the most energy efficient MAC protocol in order to categorize them and to compare their performances. Furthermore we have implemented some of WSN MAC protocol under OMNET++ with the purpose to evaluate their performances.",
+      "url": "http://arxiv.org/abs/1004.4600v1",
+      "published": "2010-04-26",
+      "authors": [
+        "Lamia Chaari",
+        "Lotfi Kamoun"
+      ],
+      "citation_label": "[Paper 15 - Chaari 2010]"
+    },
+    {
+      "paper_id": 16,
+      "title": "Comparative Study of MAC Protocols for Wireless Mesh Network",
+      "summary": "Wireless networking is encouraged by the constant enhancement of sensors' ability and wireless communication. To provide service quality support for multimedia viz. audio and video streams, the IEEE 802.11e MAC (Media Access Control) improves basic 802.11 MAC. IEEE 802.11 standard series such as IEEE 802.11a, b, g, n, p, and ac have been promoted and specified in the current communications and connection development. Each standard has functionality that matches the kind of applications for which the standard is intended. IEEE 802.11ac has better performance with fewer interferences and achieves gigabits per second capacity transfer rates. This paper discusses the comparative examination of the IEEE 802.11a, IEEE 802.11b, IEEE 802.11g, IEEE 802.11n, IEEE 802.11p, and IEEE 802.11ac standards which increase accuracy and performance pertaining to the IEEE 802.11 standard. In this paper, we investigate the design requirements for numerous simultaneous peer-to-peer connections. Further, this study offers a systematic review and analysis of the MAC layer in WMN (Wireless Mesh Network) and also highlights their open research issues and challenges. Finally, this paper discusses various potential directions for future research in this area with an emphasis on their strengths and limitations.",
+      "url": "http://arxiv.org/abs/2411.05368v1",
+      "published": "2024-11-08",
+      "authors": [
+        "Ankita Singh",
+        "Shiv Prakash",
+        "Sudhakar Singh"
+      ],
+      "citation_label": "[Paper 16 - Singh 2024]"
+    },
+    {
+      "paper_id": 17,
+      "title": "Evaluation Report on MCP Servers",
+      "summary": "With the rise of LLMs, a large number of Model Context Protocol (MCP) services have emerged since the end of 2024. However, the effectiveness and efficiency of MCP servers have not been well studied. To study these questions, we propose an evaluation framework, called MCPBench. We selected several widely used MCP server and conducted an experimental evaluation on their accuracy, time, and token usage. Our experiments showed that the most effective MCP, Bing Web Search, achieved an accuracy of 64%. Importantly, we found that the accuracy of MCP servers can be substantially enhanced by involving declarative interface. This research paves the way for further investigations into optimized MCP implementations, ultimately leading to better AI-driven applications and data retrieval solutions.",
+      "url": "http://arxiv.org/abs/2504.11094v2",
+      "published": "2025-04-15",
+      "authors": [
+        "Zhiling Luo",
+        "Xiaorong Shi",
+        "Xuanrui Lin"
+      ],
+      "citation_label": "[Paper 17 - Luo 2025]"
+    }
+  ],
+  "limitations_extracted": 38,
+  "limitations": [
+    {
+      "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges",
+      "paper_id": "Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Even SOTA models exhibit significant performance limitations",
+      "paper_id": "Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The number of input tokens increases rapidly with the number of interaction steps, posing a long-context challenge for LLM agents",
+      "paper_id": "Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "LLM agents often lack familiarity with the precise usage of the MCP servers, introducing an unknown-tools challenge",
+      "paper_id": "Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Enterprise-level agents may not achieve better performance than standard ReAct frameworks",
+      "paper_id": "Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The TURN protocol requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions, increasing the latent time",
+      "paper_id": "Guezouri 2010",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "SIP protocol weakness in NAT traversal due to the application layer and dynamic allocation of UDP ports",
+      "paper_id": "Guezouri 2010",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "QoS routing in Mobile Ad hoc Networks is usually limited by the network breakage due to either node mobility or energy depletion of the mobile nodes",
+      "paper_id": "Upadhayaya 2010",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "FEC does not sustain well burst of losses even when packets from a given FEC block are spread over multiple paths",
+      "paper_id": "Thai 2012",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The proposed online multipath convolutional coding scheme may have high computational complexity",
+      "paper_id": "Thai 2012",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Assumes communication delays increase with the number of hops from which information is allowed to reach each agent",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Ballotta 2023]"
+    },
+    {
+      "text": "Limited to linear time-invariant network systems",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Sato 2024]"
+    },
+    {
+      "text": "VCS and AECS become essentially uniform when terminal time is extremely small",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Sato 2024]"
+    },
+    {
+      "text": "Convergence of sequence generated by projected gradient method relies on several assumptions",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Sato 2024]"
+    },
+    {
+      "text": "Binary nature of mobility bans makes control problem NP-hard",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Zino 2025]"
+    },
+    {
+      "text": "Relies on growing potentialities of quantum computing to efficiently solve control problem",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Zino 2025]"
+    },
+    {
+      "text": "Current Internet service is best-effort, which can lead to variable sending rates and packet losses",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Tournoux 2012]"
+    },
+    {
+      "text": "Retransmission cannot be used to ensure reliability in real-time context",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Tournoux 2012]"
+    },
+    {
+      "text": "Limited focus on technological and spectacular aspects of war and conflict",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - McClearn 2025]"
+    },
+    {
+      "text": "Security technology design may not cater to needs of communities in global conflict and disaster regions",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - McClearn 2025]"
+    },
+    {
+      "text": "Lack of specific security evaluation frameworks",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Niu 2025]"
+    },
+    {
+      "text": "Insufficient protections in real-world deployments",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Niu 2025]"
+    },
+    {
+      "text": "Need for comprehensive, lightweight, and adaptive defence mechanisms",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Niu 2025]"
+    },
+    {
+      "text": "Limited analysis of MAC protocols for Wireless Mesh Networks",
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Singh 2023]"
+    },
+    {
+      "text": "No consideration of other optimization techniques for software model refactoring",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Cortellessa 2023]"
+    },
+    {
+      "text": "Performance analysis of genetic algorithms is limited to three algorithms",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Cortellessa 2023]"
+    },
+    {
+      "text": "No evaluation of the proposed framework on real-world Wireless Mesh Networks",
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Singh 2023]"
+    },
+    {
+      "text": "The analysis of MAC protocols is limited to energy efficiency",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Chaari 2010]"
+    },
+    {
+      "text": "No consideration of other performance metrics for Wireless Sensor Networks",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Chaari 2010]"
+    },
+    {
+      "text": "The implementation of WSN MAC protocols is limited to OMNET++",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Chaari 2010]"
+    },
+    {
+      "text": "The regularity condition in polynomial optimization problems may not be generic",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Hieu 2018]"
+    },
+    {
+      "text": "The study only investigates the design requirements for numerous simultaneous peer-to-peer connections in the context of IEEE 802.11 standards and does not consider other wireless networking standards.",
+      "paper_id": "Paper 16 - Singh 2024",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The paper does not provide a comprehensive evaluation of all existing MAC protocols for Wireless Mesh Networks, only focusing on the IEEE 802.11 standard series.",
+      "paper_id": "Paper 16 - Singh 2024",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The study highlights open research issues and challenges but does not provide concrete solutions or recommendations for addressing them.",
+      "paper_id": "Paper 16 - Singh 2024",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The MCPBench evaluation framework may not be comprehensive or representative of all possible MCP server use cases and scenarios.",
+      "paper_id": "Paper 17 - Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The study only evaluated a limited number of widely used MCP servers and the results may not be generalizable to other MCP servers.",
+      "paper_id": "Paper 17 - Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The highest achieved accuracy of 64% by the most effective MCP server, Bing Web Search, may indicate room for improvement in the accuracy of MCP servers.",
+      "paper_id": "Paper 17 - Luo 2025",
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The study suggests that involving declarative interface can enhance the accuracy of MCP servers, but does not provide a detailed analysis of the trade-offs and potential drawbacks of this approach.",
+      "paper_id": "Paper 17 - Luo 2025",
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Real-World Complexity Limitations",
+      "count": 13,
+      "cited_paper_ids": [
+        "Guezouri 2010",
+        6,
+        13,
+        "Paper 17 - Luo 2025",
+        "Luo 2025"
+      ],
+      "limitations": [
+        {
+          "text": "Existing benchmarks are overly simplistic and fail to capture real application challenges",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Even SOTA models exhibit significant performance limitations",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The number of input tokens increases rapidly with the number of interaction steps, posing a long-context challenge for LLM agents",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "LLM agents often lack familiarity with the precise usage of the MCP servers, introducing an unknown-tools challenge",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Enterprise-level agents may not achieve better performance than standard ReAct frameworks",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The TURN protocol requires a certain number of exchanges between the clients and a TURN server before establishing the multimedia sessions, increasing the latent time",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Assumes communication delays increase with the number of hops from which information is allowed to reach each agent",
+          "citation_label": "[Paper 6 - Ballotta 2023]"
+        },
+        {
+          "text": "No consideration of other optimization techniques for software model refactoring",
+          "citation_label": "[Paper 13 - Cortellessa 2023]"
+        },
+        {
+          "text": "Performance analysis of genetic algorithms is limited to three algorithms",
+          "citation_label": "[Paper 13 - Cortellessa 2023]"
+        },
+        {
+          "text": "The MCPBench evaluation framework may not be comprehensive or representative of all possible MCP server use cases and scenarios.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The study only evaluated a limited number of widely used MCP servers and the results may not be generalizable to other MCP servers.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The highest achieved accuracy of 64% by the most effective MCP server, Bing Web Search, may indicate room for improvement in the accuracy of MCP servers.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The study suggests that involving declarative interface can enhance the accuracy of MCP servers, but does not provide a detailed analysis of the trade-offs and potential drawbacks of this approach.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Network Communication Challenges",
+      "count": 11,
+      "cited_paper_ids": [
+        "Thai 2012",
+        "Guezouri 2010",
+        "Paper 16 - Singh 2024",
+        9,
+        14,
+        15,
+        "Upadhayaya 2010"
+      ],
+      "limitations": [
+        {
+          "text": "SIP protocol weakness in NAT traversal due to the application layer and dynamic allocation of UDP ports",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "QoS routing in Mobile Ad hoc Networks is usually limited by the network breakage due to either node mobility or energy depletion of the mobile nodes",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "FEC does not sustain well burst of losses even when packets from a given FEC block are spread over multiple paths",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Current Internet service is best-effort, which can lead to variable sending rates and packet losses",
+          "citation_label": "[Paper 9 - Tournoux 2012]"
+        },
+        {
+          "text": "Limited analysis of MAC protocols for Wireless Mesh Networks",
+          "citation_label": "[Paper 14 - Singh 2023]"
+        },
+        {
+          "text": "No evaluation of the proposed framework on real-world Wireless Mesh Networks",
+          "citation_label": "[Paper 14 - Singh 2023]"
+        },
+        {
+          "text": "The analysis of MAC protocols is limited to energy efficiency",
+          "citation_label": "[Paper 15 - Chaari 2010]"
+        },
+        {
+          "text": "No consideration of other performance metrics for Wireless Sensor Networks",
+          "citation_label": "[Paper 15 - Chaari 2010]"
+        },
+        {
+          "text": "The implementation of WSN MAC protocols is limited to OMNET++",
+          "citation_label": "[Paper 15 - Chaari 2010]"
+        },
+        {
+          "text": "The study only investigates the design requirements for numerous simultaneous peer-to-peer connections in the context of IEEE 802.11 standards and does not consider other wireless networking standards.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The paper does not provide a comprehensive evaluation of all existing MAC protocols for Wireless Mesh Networks, only focusing on the IEEE 802.11 standard series.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Technological War Limitations",
+      "count": 5,
+      "cited_paper_ids": [
+        10,
+        11
+      ],
+      "limitations": [
+        {
+          "text": "Limited focus on technological and spectacular aspects of war and conflict",
+          "citation_label": "[Paper 10 - McClearn 2025]"
+        },
+        {
+          "text": "Security technology design may not cater to needs of communities in global conflict and disaster regions",
+          "citation_label": "[Paper 10 - McClearn 2025]"
+        },
+        {
+          "text": "Lack of specific security evaluation frameworks",
+          "citation_label": "[Paper 11 - Niu 2025]"
+        },
+        {
+          "text": "Insufficient protections in real-world deployments",
+          "citation_label": "[Paper 11 - Niu 2025]"
+        },
+        {
+          "text": "Need for comprehensive, lightweight, and adaptive defence mechanisms",
+          "citation_label": "[Paper 11 - Niu 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "Quantum Control Limitations",
+      "count": 3,
+      "cited_paper_ids": [
+        8,
+        7
+      ],
+      "limitations": [
+        {
+          "text": "Limited to linear time-invariant network systems",
+          "citation_label": "[Paper 7 - Sato 2024]"
+        },
+        {
+          "text": "Binary nature of mobility bans makes control problem NP-hard",
+          "citation_label": "[Paper 8 - Zino 2025]"
+        },
+        {
+          "text": "Relies on growing potentialities of quantum computing to efficiently solve control problem",
+          "citation_label": "[Paper 8 - Zino 2025]"
+        }
+      ]
+    },
+    {
+      "theme": "Real Time Constraints",
+      "count": 2,
+      "cited_paper_ids": [
+        9,
+        7
+      ],
+      "limitations": [
+        {
+          "text": "VCS and AECS become essentially uniform when terminal time is extremely small",
+          "citation_label": "[Paper 7 - Sato 2024]"
+        },
+        {
+          "text": "Retransmission cannot be used to ensure reliability in real-time context",
+          "citation_label": "[Paper 9 - Tournoux 2012]"
+        }
+      ]
+    },
+    {
+      "theme": "Optimization Method Limitations",
+      "count": 2,
+      "cited_paper_ids": [
+        12,
+        7
+      ],
+      "limitations": [
+        {
+          "text": "Convergence of sequence generated by projected gradient method relies on several assumptions",
+          "citation_label": "[Paper 7 - Sato 2024]"
+        },
+        {
+          "text": "The regularity condition in polynomial optimization problems may not be generic",
+          "citation_label": "[Paper 12 - Hieu 2018]"
+        }
+      ]
+    },
+    {
+      "theme": "Computational Complexity Limitation",
+      "count": 1,
+      "cited_paper_ids": [
+        "Thai 2012"
+      ],
+      "limitations": [
+        {
+          "text": "The proposed online multipath convolutional coding scheme may have high computational complexity",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Research Gaps and Challenges",
+      "count": 1,
+      "cited_paper_ids": [
+        "Paper 16 - Singh 2024"
+      ],
+      "limitations": [
+        {
+          "text": "The study highlights open research issues and challenges but does not provide concrete solutions or recommendations for addressing them.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "Existing benchmarks are overly simplistic and fail to capture real application challenges",
+      "supporting_papers": [
+        "Guezouri 2010",
+        "Ballotta 2023",
+        "Cortellessa 2023",
+        "Luo 2025"
+      ]
+    },
+    {
+      "gap": "SIP protocol weakness in NAT traversal due to the application layer and dynamic allocation of UDP ports",
+      "supporting_papers": [
+        "Thai 2012",
+        "Guezouri 2010",
+        "Singh 2024",
+        "Tournoux 2012",
+        "Singh 2023",
+        "Chaari 2010",
+        "Upadhayaya 2010"
+      ]
+    },
+    {
+      "gap": "Limited focus on technological and spectacular aspects of war and conflict",
+      "supporting_papers": [
+        "McClearn 2025",
+        "Niu 2025"
+      ]
+    },
+    {
+      "gap": "The number of input tokens increases rapidly with the number of interaction steps, posing a long-context challenge for LLM agents",
+      "supporting_papers": [
+        "Guezouri 2010",
+        "Ballotta 2023",
+        "Cortellessa 2023",
+        "Luo 2025"
+      ]
+    },
+    {
+      "gap": "QoS routing in Mobile Ad hoc Networks is usually limited by the network breakage due to either node mobility or energy depletion of the mobile nodes",
+      "supporting_papers": [
+        "Thai 2012",
+        "Guezouri 2010",
+        "Singh 2024",
+        "Tournoux 2012",
+        "Singh 2023",
+        "Chaari 2010",
+        "Upadhayaya 2010"
+      ]
+    }
+  ],
+  "research_ideas": [
+    {
+      "title": "Enhanced Benchmarking for Real-World MCP Protocol Applications",
+      "description": "This research proposes the development of complex, real-world benchmarks to evaluate the performance of MCP protocols, addressing the limitations of existing simplistic benchmarks. The approach involves designing benchmarks that capture various application challenges and scenarios. This will provide a more accurate assessment of MCP protocol capabilities.",
+      "addresses_gaps": [
+        "Existing benchmarks are overly simplistic"
+      ],
+      "cited_papers": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "title": "Robust NAT Traversal for SIP Protocol using Dynamic UDP Port Allocation",
+      "description": "This research focuses on improving the SIP protocol's NAT traversal capabilities by developing a robust dynamic UDP port allocation mechanism, addressing the weaknesses in current implementations. The approach involves designing a system that can efficiently allocate and manage UDP ports to ensure reliable NAT traversal. This will enhance the overall performance and reliability of the SIP protocol.",
+      "addresses_gaps": [
+        "SIP protocol weakness in NAT traversal"
+      ],
+      "cited_papers": [
+        5,
+        1,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "title": "Context-Aware QoS Routing for Mobile Ad Hoc Networks",
+      "description": "This research proposes the development of a context-aware QoS routing protocol for Mobile Ad Hoc Networks, addressing the limitations of current QoS routing protocols. The approach involves designing a protocol that can adapt to changing network conditions, such as node mobility and energy depletion, to ensure reliable and efficient data transmission. This will provide a more robust and reliable QoS routing solution for Mobile Ad Hoc Networks.",
+      "addresses_gaps": [
+        "QoS routing in Mobile Ad hoc Networks",
+        "Limited focus on technological aspects"
+      ],
+      "cited_papers": [
+        5,
+        1,
+        6,
+        7,
+        8,
+        11,
+        12
+      ]
+    }
+  ],
+  "novelty_scores": [
+    6,
+    7,
+    8
+  ],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Luo 2025]",
+      "title": "MCP-Universe: Benchmarking Large Language Models with Real-World Model Context Protocol Servers",
+      "authors": [
+        "Ziyang Luo",
+        "Zhiqi Shen",
+        "Wenzhuo Yang"
+      ],
+      "published": "2025-08-20",
+      "url": "http://arxiv.org/abs/2508.14704v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Koc 2025]",
+      "title": "Mind the Metrics: Patterns for Telemetry-Aware In-IDE AI Application Development using the Model Context Protocol (MCP)",
+      "authors": [
+        "Vincent Koc",
+        "Jacques Verre",
+        "Douglas Blank"
+      ],
+      "published": "2025-05-14",
+      "url": "http://arxiv.org/abs/2506.11019v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Guezouri 2010]",
+      "title": "Adaptation of TURN protocol to SIP protocol",
+      "authors": [
+        "Mustapha Guezouri",
+        "Ahmed Blaha",
+        "Mokhtar Keche"
+      ],
+      "published": "2010-02-05",
+      "url": "http://arxiv.org/abs/1002.1178v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Upadhayaya 2010]",
+      "title": "Node Disjoint Multipath Routing Considering Link and Node Stability protocol: A characteristic Evaluation",
+      "authors": [
+        "Shuchita Upadhayaya",
+        "Charu Gandhi"
+      ],
+      "published": "2010-02-05",
+      "url": "http://arxiv.org/abs/1002.1162v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Thai 2012]",
+      "title": "Online multipath convolutional coding for real-time transmission",
+      "authors": [
+        "Tuan Tran Thai",
+        "Emmanuel Lochin",
+        "Jerome Lacan"
+      ],
+      "published": "2012-04-06",
+      "url": "http://arxiv.org/abs/1204.1428v1"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Ballotta 2023]",
+      "title": "Faster Consensus via a Sparser Controller",
+      "authors": [
+        "Luca Ballotta",
+        "Vijay Gupta"
+      ],
+      "published": "2023-02-02",
+      "url": "http://arxiv.org/abs/2302.01021v2"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Sato 2024]",
+      "title": "Uniqueness Analysis of Controllability Scores and Their Application to Brain Networks",
+      "authors": [
+        "Kazuhiro Sato",
+        "Ryohei Kawamura"
+      ],
+      "published": "2024-08-06",
+      "url": "http://arxiv.org/abs/2408.03023v4"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Zino 2025]",
+      "title": "A Quantum-Compliant Formulation for Network Epidemic Control",
+      "authors": [
+        "Lorenzo Zino",
+        "Mattia Boggio",
+        "Deborah Volpe"
+      ],
+      "published": "2025-08-30",
+      "url": "http://arxiv.org/abs/2509.00337v1"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Tournoux 2012]",
+      "title": "Erasure Coding and Congestion Control for Interactive Real-Time Communication",
+      "authors": [
+        "Pierre-Ugo Tournoux",
+        "Tuan Tran Thai",
+        "Emmanuel Lochin"
+      ],
+      "published": "2012-07-12",
+      "url": "http://arxiv.org/abs/1207.2863v1"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - McClearn 2025]",
+      "title": "The Everyday Security of Living with Conflict",
+      "authors": [
+        "Jessica McClearn",
+        "Reem Talhouk",
+        "Rikke Bjerg Jensen"
+      ],
+      "published": "2025-06-11",
+      "url": "http://arxiv.org/abs/2506.09580v1"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Niu 2025]",
+      "title": "Securing Automated Insulin Delivery Systems: A Review of Security Threats and Protective Strategies",
+      "authors": [
+        "Yuchen Niu",
+        "Siew-Kei Lam"
+      ],
+      "published": "2025-03-18",
+      "url": "http://arxiv.org/abs/2503.14006v2"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Hieu 2018]",
+      "title": "On the solution existence and stability of polynomial optimization problems",
+      "authors": [
+        "Vu Trung Hieu"
+      ],
+      "published": "2018-08-18",
+      "url": "http://arxiv.org/abs/1808.06100v6"
+    },
+    {
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Cortellessa 2023]",
+      "title": "Performance of Genetic Algorithms in the Context of Software Model Refactoring",
+      "authors": [
+        "Vittorio Cortellessa",
+        "Daniele Di Pompeo",
+        "Michele Tucci"
+      ],
+      "published": "2023-08-26",
+      "url": "http://arxiv.org/abs/2308.13875v1"
+    },
+    {
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Singh 2023]",
+      "title": "Critical Comparative Analysis and Recommendation in MAC Protocols for Wireless Mesh Networks Using Multi-objective Optimization and Statistical Testing",
+      "authors": [
+        "Ankita Singh",
+        "Sudhakar Singh",
+        "Shiv Prakash"
+      ],
+      "published": "2023-04-25",
+      "url": "http://arxiv.org/abs/2304.12678v1"
+    },
+    {
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Chaari 2010]",
+      "title": "Wireless sensors networks MAC protocols analysis",
+      "authors": [
+        "Lamia Chaari",
+        "Lotfi Kamoun"
+      ],
+      "published": "2010-04-26",
+      "url": "http://arxiv.org/abs/1004.4600v1"
+    },
+    {
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Singh 2024]",
+      "title": "Comparative Study of MAC Protocols for Wireless Mesh Network",
+      "authors": [
+        "Ankita Singh",
+        "Shiv Prakash",
+        "Sudhakar Singh"
+      ],
+      "published": "2024-11-08",
+      "url": "http://arxiv.org/abs/2411.05368v1"
+    },
+    {
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Luo 2025]",
+      "title": "Evaluation Report on MCP Servers",
+      "authors": [
+        "Zhiling Luo",
+        "Xiaorong Shi",
+        "Xuanrui Lin"
+      ],
+      "published": "2025-04-15",
+      "url": "http://arxiv.org/abs/2504.11094v2"
+    }
+  ],
+  "generated_at": "2026-02-26T07:32:13.851923",
+  "chroma_db": {
+    "session_id": "3407f759",
+    "path": "./chroma_db",
+    "papers_collection": "papers_3407f759",
+    "limitations_collection": "limitations_3407f759",
+    "total_papers_stored": 17,
+    "total_limitations_stored": 38
+  }
+}
