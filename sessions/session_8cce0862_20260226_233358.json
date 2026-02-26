@@ -1,0 +1,134 @@
+{
+  "session_id": "8cce0862",
+  "topic": "To accurately predict a protein\u2019s three-dimensional (3D) structure directly from its amino acid sequence using artificial intelligence, eliminating the need for time-consuming and expensive experimental methods.",
+  "subtopics": [
+    "Deep learning architectures for protein structure prediction",
+    "Sequence-based features for protein structure prediction",
+    "Evaluation metrics for protein structure prediction models"
+  ],
+  "keywords": [
+    "protein structure prediction",
+    "deep learning for protein folding",
+    "sequence-based protein structure prediction",
+    "artificial intelligence for protein structure prediction",
+    "ab initio protein structure prediction",
+    "protein structure prediction using machine learning",
+    "three-dimensional protein structure prediction"
+  ],
+  "papers_found": 1,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "s41586-021-03819-2",
+      "summary": "Nature | Vol 596 | 26 August 2021 | 583\nArticleHighly accurate protein structure prediction \nwith AlphaFold\nJohn Jumper1,4\u2009\u2709, Richard Evans1,4, Alexander Pritzel1,4, Tim Green1,4, Michael Figurnov1,4, \nOlaf Ronneberger1,4, Kathryn Tunyasuvunakool1,4, Russ Bates1,4, Augustin \u017d\u00eddek1,4, \nAnna Potapenko1,4, Alex Bridgland1,4, Clemens Meyer1,4, Simon A. A. Kohl1,4, \nAndrew J. Ballard1,4, Andrew Cowie1,4, Bernardino Romera-Paredes1,4, Stanislav Nikolov1,4, \nRishub Jain1,4, Jonas Adler1, Trevor Back1, Stig Petersen1, David Reiman1, Ellen Clancy1, \nMichal Zielinski1, Martin Steinegger2,3, Michalina Pacholska1, Tamas Berghammer1, \nSebastian Bodenstein1, David Silver1, Oriol Vinyals1, Andrew W. Senior1, Koray Kavukcuoglu1, \nPushmeet Kohli1 & Demis Hassabis1,4\u2009\u2709\nProteins are essential to life, and understanding their structure can facilitate a \nmechanistic understanding of their function. Through an enormous experimental \neffort1\u20134, the structures of around 100,000 unique proteins have been determined5, but \nthis represents a small fraction of the billions of known protein sequences6,7. Structural \ncoverage is bottlenecked by the months to years of painstaking effort required to determine a single protein structure. Accurate computational approaches are needed \nto address this gap and to enable large-scale structural bioinformatics. Predicting the \nthree-dimensional structure that a protein will adopt based solely on its amino acid \nsequence\u2014the structure prediction component of the \u2018protein folding problem\u2019\n8\u2014has \nbeen an important open research problem for more than 50\u00a0years9. Despite recent \nprogress10\u201314, existing methods fall far\u00a0short of atomic accuracy, especially when no \nhomologous structure is available. Here we provide the first computational method \nthat can regularly predict protein structures with atomic accuracy even in cases in which \nno similar structure is known. We validated an entirely redesigned version of our neural \nnetwork-based model, AlphaFold, in the challenging 14th Critical Assessment of protein \nStructure Prediction (CASP14)15, demonstrating accuracy competitive with \nexperimental structures in a majority of cases and greatly outperforming other \nmethods. Underpinning the latest version of AlphaFold is a novel machine learning \napproach that incorporates physical and biological knowledge about protein structure, \nleveraging multi-sequence alignments, into the design of the deep learning algorithm.\nThe development of computational methods to predict \nthree-dimensional (3D) protein structures from the protein sequence \nhas proceeded along two complementary paths that focus on either the \nphysical interactions or the evolutionary history. The physical interac-\ntion programme heavily integrates our understanding of molecular \ndriving forces into either thermodynamic or kinetic simulation of pro -\ntein physics16 or statistical approximations thereof17. Although theoreti -\ncally very appealing, this approach has proved highly challenging for \neven moderate-sized proteins due to the computational intractability \nof molecular simulation, the context dependence of protein stability \nand the difficulty of producing sufficiently accurate models of protein \nphysics. The evolutionary programme has provided an alternative in \nrecent years, in which the constraints on protein structure are derived \nfrom bioinformatics analysis of the evolutionary history of proteins, \nhomology to solved structures18,19 and pairwise evolutionary correla-\ntions20\u201324. This bioinformatics approach has benefited greatly from the steady growth of experimental protein structures deposited in \nthe Protein Data Bank (PDB)5, the explosion of genomic sequencing \nand the rapid development of deep learning techniques to interpret \nthese correlations. Despite these advances, contemporary physical \nand evolutionary-history-based approaches produce predictions that \nare far\u00a0short of experimental accuracy in the majority of cases in which \na close homologue has not been solved experimentally and this has \nlimited their utility for many biological applications.\nIn this study, we develop the first, to our knowledge, computational \napproach capable of predicting protein structures to near experimental \naccuracy in a majority of cases. The neural network AlphaFold that we \ndeveloped was entered into the CASP14 assessment (May\u2013July\u00a02020; \nentered under the team name \u2018 AlphaFold2\u2019 and a completely different \nmodel from our CASP13 AlphaFold system10). The CASP assessment is \ncarried out biennially using recently solved structures that have not \nbeen deposited in the PDB or publicly disclosed so that it is a blind test https://doi.org/10.1038/s41586-021-03819-2\nReceived: 11 May 2021\nAccepted: 12 July 2021\nPublished online: 15 July 2021\nOpen access\n Check for updates\n1DeepMind, London, UK. 2School of Biological Sciences, Seoul National University, Seoul, South Korea. 3Artificial Intelligence Institute, Seoul National University, Seoul, South Korea. 4These \nauthors contributed equally: John Jumper, Richard Evans, Alexander Pritzel, Tim Green, Michael Figurnov, Olaf Ronneberger, Kathryn Tunyasuvunakool, Russ Bates, Augustin \u017d\u00eddek, Anna \nPotapenko, Alex Bridgland, Clemens Meyer, Simon A. A. Kohl, Andrew J. Ballard, Andrew Cowie, Bernardino Romera-Paredes, Stanislav Nikolov, Rishub Jain, Demis Hassabis.  \n\u2709e-mail: jumper@deepmind.com; dhcontact@deepmind.com\n584 | Nature  | Vol 596  | 26 August 2021\nArticlefor the participating methods, and has long served as the gold-standard \nassessment for the accuracy of structure prediction25,26.\nIn CASP14, AlphaFold structures were vastly more accurate than \ncompeting methods. AlphaFold structures had a median backbone \naccuracy of 0.96\u00a0\u00c5 r.m.s.d.95 (C\u03b1 root-mean-square deviation at 95% \nresidue coverage) (95% confidence interval\u00a0=\u00a00.85\u20131.16\u00a0\u00c5) whereas \nthe next best performing method had a median backbone accuracy \nof 2.8\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a02.7\u20134.0\u00a0\u00c5) (measured on \nCASP domains; see Fig.\u00a0 1a for backbone accuracy and Supplementary \nFig.\u00a014 for all-atom accuracy). As a comparison point for this accuracy, \nthe width of a carbon atom is approximately 1.4\u00a0\u00c5. In addition to very \naccurate domain structures (Fig.\u00a0 1b), AlphaFold is able to produce \nhighly accurate side chains (Fig.\u00a0 1c) when the backbone is highly accu -\nrate and considerably improves over template-based methods even \nwhen strong templates are available. The all-atom accuracy of Alpha -\nFold was 1.5\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a01.2\u20131.6\u00a0\u00c5) compared \nwith the 3.5\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a03.1\u20134.2\u00a0\u00c5) of the best \nalternative method. Our methods are scalable to very long proteins with \naccurate domains and domain-packing (see Fig.\u00a0 1d for the prediction \nof a 2,180-residue protein with no structural homologues). Finally, the \nmodel is able to provide precise, per-residue estimates of its reliability \nthat should enable the confident use of these predictions.\nWe demonstrate in Fig.\u00a0 2a that the high accuracy that AlphaFold dem -\nonstrated in CASP14 extends to a large sample of recently released PDB structures; in this dataset, all structures were deposited in the PDB after \nour training data cut-off and are analysed as full chains (see\u00a0Methods, \nSupplementary Fig.\u00a015 and Supplementary Table\u00a06 for more details). \nFurthermore, we observe high side-chain accuracy when the back -\nbone prediction is accurate (Fig.\u00a0 2b) and we show that our confidence \nmeasure, the predicted local-distance difference test (pLDDT), reliably \npredicts the C\u03b1 local-distance difference test (lDDT-C\u03b1) accuracy of the \ncorresponding prediction (Fig.\u00a0 2c). We also find that the global super -\nposition metric template modelling score (TM-score)27 can be accu -\nrately estimated (Fig.\u00a0 2d). Overall, these analyses validate that the high \naccuracy and reliability of AlphaFold on CASP14 proteins also transfers \nto an uncurated collection of recent PDB submissions, as would be \nexpecte",
+      "url": "local://ec5a53ea70/s41586-021-03819-2.pdf",
+      "published": "2026-02-26",
+      "authors": [
+        "Local Upload"
+      ],
+      "citation_label": "[Paper 1 - Local 2026]",
+      "source": "local_upload"
+    }
+  ],
+  "limitations_extracted": 5,
+  "limitations": [
+    {
+      "text": "The approach has proved highly challenging for even moderate-sized proteins due to the computational intractability of molecular simulation, the context dependence of protein stability and the difficulty of producing sufficiently accurate models of protein physics.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Contemporary physical and evolutionary-history-based approaches produce predictions that are far short of experimental accuracy in the majority of cases in which a close homologue has not been solved experimentally.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model's performance may not generalize to proteins with unusual or novel structures, as the training data may not have included such cases.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The method relies on the availability of large amounts of training data, including multiple sequence alignments, which may not be available for all protein families.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "The model's confidence measure, while reliable, may not always accurately predict the accuracy of the structure prediction, particularly in cases where the input data is noisy or incomplete.",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Protein Modeling Limitations",
+      "count": 4,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The approach has proved highly challenging for even moderate-sized proteins due to the computational intractability of molecular simulation, the context dependence of protein stability and the difficulty of producing sufficiently accurate models of protein physics.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Contemporary physical and evolutionary-history-based approaches produce predictions that are far short of experimental accuracy in the majority of cases in which a close homologue has not been solved experimentally.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The model's performance may not generalize to proteins with unusual or novel structures, as the training data may not have included such cases.",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "The method relies on the availability of large amounts of training data, including multiple sequence alignments, which may not be available for all protein families.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Prediction Accuracy Limitations",
+      "count": 1,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "The model's confidence measure, while reliable, may not always accurately predict the accuracy of the structure prediction, particularly in cases where the input data is noisy or incomplete.",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [],
+  "weak_research_gaps": [],
+  "evidence_assessment": {
+    "total_papers": 1,
+    "strong_gap_count": 0,
+    "weak_gap_count": 0,
+    "verdict": "insufficient",
+    "rules": {
+      "min_cluster_frequency": 2,
+      "min_supporting_sources_for_idea": 3,
+      "min_confidence_percent": 60.0
+    }
+  },
+  "research_ideas": [],
+  "insufficient_evidence_message": "Insufficient evidence to propose a validated research direction.",
+  "novelty_scores": [],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Local 2026]",
+      "title": "s41586-021-03819-2",
+      "authors": [
+        "Local Upload"
+      ],
+      "published": "2026-02-26",
+      "url": "local://ec5a53ea70/s41586-021-03819-2.pdf"
+    }
+  ],
+  "generated_at": "2026-02-26T23:33:58.042706",
+  "chroma_db": {
+    "session_id": "8cce0862",
+    "path": "./chroma_db",
+    "papers_collection": "papers_8cce0862",
+    "limitations_collection": "limitations_8cce0862",
+    "total_papers_stored": 1,
+    "total_limitations_stored": 10
+  }
+}

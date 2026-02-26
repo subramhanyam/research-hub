@@ -1,0 +1,706 @@
+{
+  "session_id": "1e246949",
+  "topic": "To accurately predict a protein\u2019s three-dimensional (3D) structure directly from its amino acid sequence using artificial intelligence, eliminating the need for time-consuming and expensive experimental methods.",
+  "subtopics": [
+    "Convolutional Neural Networks (CNNs) for Protein Structure Prediction",
+    "Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) Networks for Sequence-Based Predictions",
+    "Generative Models for Protein Structure Prediction",
+    "Transfer Learning and Domain Adaptation in Protein Structure Prediction",
+    "Evaluation Metrics and Benchmarking for Protein Structure Prediction Models"
+  ],
+  "keywords": [
+    "protein structure prediction",
+    "deep learning for protein folding",
+    "artificial intelligence for protein structure prediction",
+    "sequence-based protein structure prediction",
+    "protein structure prediction using CNN",
+    "RNN for protein sequence analysis",
+    "generative models for protein structures",
+    "protein folding prediction with AI"
+  ],
+  "papers_found": 13,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "A Novel Approach for Protein Structure Prediction",
+      "summary": "The idea of this project is to study the protein structure and sequence relationship using the hidden markov model and artificial neural network. In this context we have assumed two hidden markov models. In first model we have taken protein secondary structures as hidden and protein sequences as observed. In second model we have taken protein sequences as hidden and protein structures as observed. The efficiencies for both the hidden markov models have been calculated. The results show that the efficiencies of first model is greater that the second one .These efficiencies are cross validated using artificial neural network. This signifies the importance of protein secondary structures as the main hidden controlling factors due to which we observe a particular amino acid sequence. This also signifies that protein secondary structure is more conserved in comparison to amino acid sequence.",
+      "url": "http://arxiv.org/abs/1206.3509v1",
+      "published": "2012-06-15",
+      "authors": [
+        "Saurabh Sarkar",
+        "Prateek Malhotra",
+        "Virender Guman"
+      ],
+      "citation_label": "[Paper 1 - Sarkar 2012]"
+    },
+    {
+      "paper_id": 2,
+      "title": "AlphaFold predicts the most complex protein knot and composite protein knots",
+      "summary": "The computer artificial intelligence system AlphaFold has recently predicted previously unknown three-dimensional structures of thousands of proteins. Focusing on the subset with high-confidence scores, we algorithmically analyze these predictions for cases where the protein backbone exhibits rare topological complexity, i.e. knotting. Amongst others, we discovered a $7_1$-knot, the most topologically complex knot ever found in a protein, as well several 6-crossing composite knots comprised of two methyltransferase or carbonic anhydrase domains, each containing a simple trefoil knot. These deeply embedded composite knots occur evidently by gene duplication and interconnection of knotted dimers. Finally, we report two new five-crossing knots including the first $5_1$-knot. Our list of analyzed structures forms the basis for future experimental studies to confirm these novel knotted topologies and to explore their complex folding mechanisms.",
+      "url": "http://arxiv.org/abs/2207.07410v1",
+      "published": "2022-07-15",
+      "authors": [
+        "Maarten A. Brems",
+        "Robert Runkel",
+        "Todd O. Yeates"
+      ],
+      "citation_label": "[Paper 2 - Brems 2022]"
+    },
+    {
+      "paper_id": 3,
+      "title": "Mass Balance Approximation of Unfolding Improves Potential-Like Methods for Protein Stability Predictions",
+      "summary": "The prediction of protein stability changes following single-point mutations plays a pivotal role in computational biology, particularly in areas like drug discovery, enzyme reengineering, and genetic disease analysis. Although deep-learning strategies have pushed the field forward, their use in standard workflows remains limited due to resource demands. Conversely, potential-like methods are fast, intuitive, and efficient. Yet, these typically estimate Gibbs free energy shifts without considering the free-energy variations in the unfolded protein state, an omission that may breach mass balance and diminish accuracy. This study shows that incorporating a mass-balance correction (MBC) to account for the unfolded state significantly enhances these methods. While many machine learning models partially model this balance, our analysis suggests that a refined representation of the unfolded state may improve the predictive performance.",
+      "url": "http://arxiv.org/abs/2504.06806v1",
+      "published": "2025-04-09",
+      "authors": [
+        "Ivan Rossi",
+        "Guido Barducci",
+        "Tiziana Sanavia"
+      ],
+      "citation_label": "[Paper 3 - Rossi 2025]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Discrete molecular dynamics studies of the folding of a protein-like model",
+      "summary": "Background: Many attempts have been made to resolve in time the folding of model proteins in computer simulations. Different computational approaches have emerged. Some of these approaches suffer from the insensitivity to the geometrical properties of the proteins (lattice models), while others are computationally heavy (traditional MD).\n  Results: We use a recently-proposed approach of Zhou and Karplus to study the folding of the protein model based on the discrete time molecular dynamics algorithm. We show that this algorithm resolves with respect to time the folding --- unfolding transition. In addition, we demonstrate the ability to study the coreof the model protein.\n  Conclusion: The algorithm along with the model of inter-residue interactions can serve as a tool to study the thermodynamics and kinetics of protein models.",
+      "url": "http://arxiv.org/abs/cond-mat/9812291v1",
+      "published": "1998-12-17",
+      "authors": [
+        "Nikolay V. Dokholyan",
+        "Sergey V. Buldyrev",
+        "H. Eugene Stanley"
+      ],
+      "citation_label": "[Paper 4 - Dokholyan 1998]"
+    },
+    {
+      "paper_id": 5,
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "summary": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncertainty using the learned evidence. To ensure theoretically sound evidential models, the evidence needs to be non-negative, which requires special activation functions for model training and inference. This constraint often leads to inferior predictive performance compared to standard softmax models, making it challenging to extend them to many large-scale datasets. To unveil the real cause of this undesired behavior, we theoretically investigate evidential models and identify a fundamental limitation that explains the inferior performance: existing evidential activation functions create zero evidence regions, which prevent the model to learn from training samples falling into such regions. A deeper analysis of evidential activation functions based on our theoretical underpinning inspires the design of a novel regularizer that effectively alleviates this fundamental limitation. Extensive experiments over many challenging real-world datasets and settings confirm our theoretical findings and demonstrate the effectiveness of our proposed approach.",
+      "url": "http://arxiv.org/abs/2306.11113v2",
+      "published": "2023-06-19",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "citation_label": "[Paper 5 - Pandey 2023]"
+    },
+    {
+      "paper_id": 6,
+      "title": "The Modern Mathematics of Deep Learning",
+      "summary": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalization power of overparametrized neural networks, the role of depth in deep architectures, the apparent absence of the curse of dimensionality, the surprisingly successful optimization performance despite the non-convexity of the problem, understanding what features are learned, why deep architectures perform exceptionally well in physical problems, and which fine aspects of an architecture affect the behavior of a learning task in which way. We present an overview of modern approaches that yield partial answers to these questions. For selected approaches, we describe the main ideas in more detail.",
+      "url": "http://arxiv.org/abs/2105.04026v2",
+      "published": "2021-05-09",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "citation_label": "[Paper 6 - Berner 2021]"
+    },
+    {
+      "paper_id": 7,
+      "title": "The Artificial Scientist: Logicist, Emergentist, and Universalist Approaches to Artificial General Intelligence",
+      "summary": "We attempt to define what is necessary to construct an Artificial Scientist, explore and evaluate several approaches to artificial general intelligence (AGI) which may facilitate this, conclude that a unified or hybrid approach is necessary and explore two theories that satisfy this requirement to some degree.",
+      "url": "http://arxiv.org/abs/2110.01831v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett",
+        "Yoshihiro Maruyama"
+      ],
+      "citation_label": "[Paper 7 - Bennett 2021]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Compression, The Fermi Paradox and Artificial Super-Intelligence",
+      "summary": "The following briefly discusses possible difficulties in communication with and control of an AGI (artificial general intelligence), building upon an explanation of The Fermi Paradox and preceding work on symbol emergence and artificial general intelligence. The latter suggests that to infer what someone means, an agent constructs a rationale for the observed behaviour of others. Communication then requires two agents labour under similar compulsions and have similar experiences (construct similar solutions to similar tasks). Any non-human intelligence may construct solutions such that any rationale for their behaviour (and thus the meaning of their signals) is outside the scope of what a human is inclined to notice or comprehend. Further, the more compressed a signal, the closer it will appear to random noise. Another intelligence may possess the ability to compress information to the extent that, to us, their signals would appear indistinguishable from noise (an explanation for The Fermi Paradox). To facilitate predictive accuracy an AGI would tend to more compressed representations of the world, making any rationale for their behaviour more difficult to comprehend for the same reason. Communication with and control of an AGI may subsequently necessitate not only human-like compulsions and experiences, but imposed cognitive impairment.",
+      "url": "http://arxiv.org/abs/2110.01835v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett"
+      ],
+      "citation_label": "[Paper 8 - Bennett 2021]"
+    },
+    {
+      "paper_id": 9,
+      "title": "Creative Problem Solving in Artificially Intelligent Agents: A Survey and Framework",
+      "summary": "Creative Problem Solving (CPS) is a sub-area within Artificial Intelligence (AI) that focuses on methods for solving off-nominal, or anomalous problems in autonomous systems. Despite many advancements in planning and learning, resolving novel problems or adapting existing knowledge to a new context, especially in cases where the environment may change in unpredictable ways post deployment, remains a limiting factor in the safe and useful integration of intelligent systems. The emergence of increasingly autonomous systems dictates the necessity for AI agents to deal with environmental uncertainty through creativity. To stimulate further research in CPS, we present a definition and a framework of CPS, which we adopt to categorize existing AI methods in this field. Our framework consists of four main components of a CPS problem, namely, 1) problem formulation, 2) knowledge representation, 3) method of knowledge manipulation, and 4) method of evaluation. We conclude our survey with open research questions, and suggested directions for the future.",
+      "url": "http://arxiv.org/abs/2204.10358v1",
+      "published": "2022-04-21",
+      "authors": [
+        "Evana Gizzi",
+        "Lakshmi Nair",
+        "Sonia Chernova"
+      ],
+      "citation_label": "[Paper 9 - Gizzi 2022]"
+    },
+    {
+      "paper_id": 10,
+      "title": "MUST-CNN: A Multilayer Shift-and-Stitch Deep Convolutional Architecture for Sequence-based Protein Structure Prediction",
+      "summary": "Predicting protein properties such as solvent accessibility and secondary structure from its primary amino acid sequence is an important task in bioinformatics. Recently, a few deep learning models have surpassed the traditional window based multilayer perceptron. Taking inspiration from the image classification domain we propose a deep convolutional neural network architecture, MUST-CNN, to predict protein properties. This architecture uses a novel multilayer shift-and-stitch (MUST) technique to generate fully dense per-position predictions on protein sequences. Our model is significantly simpler than the state-of-the-art, yet achieves better results. By combining MUST and the efficient convolution operation, we can consider far more parameters while retaining very fast prediction speeds. We beat the state-of-the-art performance on two large protein property prediction datasets.",
+      "url": "http://arxiv.org/abs/1605.03004v1",
+      "published": "2016-05-10",
+      "authors": [
+        "Zeming Lin",
+        "Jack Lanchantin",
+        "Yanjun Qi"
+      ],
+      "citation_label": "[Paper 10 - Lin 2016]"
+    },
+    {
+      "paper_id": 11,
+      "title": "ISLAND: In-Silico Prediction of Proteins Binding Affinity Using Sequence Descriptors",
+      "summary": "Determination of binding affinity of proteins in the formation of protein complexes requires sophisticated, expensive and time-consuming experimentation which can be replaced with computational methods. Most computational prediction techniques require protein structures which limit their applicability to protein complexes with known structures. In this work, we explore sequence based protein binding affinity prediction using machine learning. Our paper highlights the fact that the generalization performance of even the state of the art sequence-only predictor of binding affinity is far from satisfactory and that the development of effective and practical methods in this domain is still an open problem. We also propose a novel sequence-only predictor of binding affinity called ISLAND which gives better accuracy than existing methods over the same validation set as well as on external independent test dataset. A cloud-based webserver implementation of ISLAND and its Python code are available at the URL: http://faculty.pieas.edu.pk/fayyaz/software.html#island.",
+      "url": "http://arxiv.org/abs/1711.10540v2",
+      "published": "2017-11-22",
+      "authors": [
+        "Wajid Arshad Abbasi",
+        "Fahad Ul Hassan",
+        "Adiba Yaseen"
+      ],
+      "citation_label": "[Paper 11 - Abbasi 2017]"
+    },
+    {
+      "paper_id": 12,
+      "title": "Ranking protein-protein models with large language models and graph neural networks",
+      "summary": "Protein-protein interactions (PPIs) are associated with various diseases, including cancer, infections, and neurodegenerative disorders. Obtaining three-dimensional structural information on these PPIs serves as a foundation to interfere with those or to guide drug design. Various strategies can be followed to model those complexes, all typically resulting in a large number of models. A challenging step in this process is the identification of good models (near-native PPI conformations) from the large pool of generated models. To address this challenge, we previously developed DeepRank-GNN-esm, a graph-based deep learning algorithm for ranking modelled PPI structures harnessing the power of protein language models. Here, we detail the use of our software with examples. DeepRank-GNN-esm is freely available at https://github.com/haddocking/DeepRank-GNN-esm",
+      "url": "http://arxiv.org/abs/2407.16375v1",
+      "published": "2024-07-23",
+      "authors": [
+        "Xiaotong Xu",
+        "Alexandre M. J. J. Bonvin"
+      ],
+      "citation_label": "[Paper 12 - Xu 2024]"
+    },
+    {
+      "paper_id": 13,
+      "title": "Protein Folding: A Perspective From Statistical Physics",
+      "summary": "In this paper, we introduce an approach to the protein folding problem from the point of view of statistical physics. Protein folding is a stochastic process by which a polypeptide folds into its characteristic and functional 3D structure from random coil. The process involves an intricate interplay between global geometry and local structure, and each protein seems to present special problems. We introduce CSAW (conditioned self-avoiding walk), a model of protein folding that combines the features of self-avoiding walk (SAW) and the Monte Carlo method. In this model, the unfolded protein chain is treated as a random coil described by SAW. Folding is induced by hydrophobic forces and other interactions, such as hydrogen bonding, which can be taken into account by imposing conditions on SAW. Conceptually, the mathematical basis is a generalized Langevin equation. To illustrate the flexibility and capabilities of the model, we consider several examples, including helix formation, elastic properties, and the transition in the folding of myoglobin. From the CSAW simulation and physical arguments, we find a universal elastic energy for proteins, which depends only on the radius of gyration $R_{g}$ and the residue number $N$. The elastic energy gives rise to scaling laws $R_{g}\\sim N^\u03bd$ in different regions with exponents $\u03bd=3/5,3/7,2/5$, consistent with the observed unfolded stage, pre-globule, and molten globule, respectively. These results indicate that CSAW can serve as a theoretical laboratory to study universal principles in protein folding.",
+      "url": "http://arxiv.org/abs/1002.5013v1",
+      "published": "2010-02-26",
+      "authors": [
+        "Jinzhi Lei",
+        "Kerson Huang"
+      ],
+      "citation_label": "[Paper 13 - Lei 2010]"
+    }
+  ],
+  "limitations_extracted": 23,
+  "limitations": [
+    {
+      "text": "Protein structure prediction is limited to two hidden markov models and does not consider other factors.",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Sarkar 2012]"
+    },
+    {
+      "text": "The study relies on algorithmic analysis of AlphaFold predictions and lacks experimental confirmation.",
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Brems 2022]"
+    },
+    {
+      "text": "Potential-like methods typically estimate Gibbs free energy shifts without considering the free-energy variations in the unfolded protein state, which may diminish accuracy.",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Rossi 2025]"
+    },
+    {
+      "text": "The discrete molecular dynamics algorithm may be computationally heavy and limited by the model of inter-residue interactions.",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Dokholyan 1998]"
+    },
+    {
+      "text": "Evidential models require special activation functions, which can lead to inferior predictive performance compared to standard softmax models.",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Pandey 2023]"
+    },
+    {
+      "text": "Existing evidential activation functions create zero evidence regions, preventing the model from learning from certain training samples.",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Pandey 2023]"
+    },
+    {
+      "text": "Deep-learning strategies for protein stability predictions have limited use in standard workflows due to high resource demands.",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Rossi 2025]"
+    },
+    {
+      "text": "The outstanding generalization power of overparametrized neural networks is not fully understood.",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Berner 2021]"
+    },
+    {
+      "text": "The role of depth in deep architectures is not well understood.",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Berner 2021]"
+    },
+    {
+      "text": "The curse of dimensionality is not well understood in the context of deep learning.",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Berner 2021]"
+    },
+    {
+      "text": "The non-convexity of the optimization problem in deep learning is not well understood.",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Berner 2021]"
+    },
+    {
+      "text": "A unified or hybrid approach to artificial general intelligence is necessary but not yet developed.",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Bennett 2021]"
+    },
+    {
+      "text": "Communication with and control of an AGI may be difficult due to differences in compulsions and experiences.",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Bennett 2021]"
+    },
+    {
+      "text": "An AGI may possess the ability to compress information to the extent that its signals appear indistinguishable from noise.",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Bennett 2021]"
+    },
+    {
+      "text": "Imposed cognitive impairment may be necessary to facilitate communication with and control of an AGI.",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Bennett 2021]"
+    },
+    {
+      "text": "Current AI systems struggle with resolving novel problems or adapting existing knowledge to new contexts.",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Gizzi 2022]"
+    },
+    {
+      "text": "Dealing with environmental uncertainty through creativity is a limiting factor in the safe and useful integration of intelligent systems.",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Gizzi 2022]"
+    },
+    {
+      "text": "The proposed MUST-CNN architecture may not be applicable to other domains beyond protein structure prediction.",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Lin 2016]"
+    },
+    {
+      "text": "Most computational prediction techniques require protein structures which limit their applicability to protein complexes with known structures.",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Abbasi 2017]"
+    },
+    {
+      "text": "The generalization performance of even the state of the art sequence-only predictor of binding affinity is far from satisfactory",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Abbasi 2017]"
+    },
+    {
+      "text": "Development of effective and practical methods in this domain is still an open problem",
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Abbasi 2017]"
+    },
+    {
+      "text": "Identification of good models (near-native PPI conformations) from the large pool of generated models is a challenging step",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Xu 2024]"
+    },
+    {
+      "text": "The protein folding process involves an intricate interplay between global geometry and local structure, and each protein seems to present special problems",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Lei 2010]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Methodological Limitation Factors",
+      "count": 8,
+      "cited_paper_ids": [
+        1,
+        3,
+        4,
+        10,
+        11,
+        13
+      ],
+      "limitations": [
+        {
+          "text": "Protein structure prediction is limited to two hidden markov models and does not consider other factors.",
+          "citation_label": "[Paper 1 - Sarkar 2012]"
+        },
+        {
+          "text": "Potential-like methods typically estimate Gibbs free energy shifts without considering the free-energy variations in the unfolded protein state, which may diminish accuracy.",
+          "citation_label": "[Paper 3 - Rossi 2025]"
+        },
+        {
+          "text": "The discrete molecular dynamics algorithm may be computationally heavy and limited by the model of inter-residue interactions.",
+          "citation_label": "[Paper 4 - Dokholyan 1998]"
+        },
+        {
+          "text": "Deep-learning strategies for protein stability predictions have limited use in standard workflows due to high resource demands.",
+          "citation_label": "[Paper 3 - Rossi 2025]"
+        },
+        {
+          "text": "The proposed MUST-CNN architecture may not be applicable to other domains beyond protein structure prediction.",
+          "citation_label": "[Paper 10 - Lin 2016]"
+        },
+        {
+          "text": "Most computational prediction techniques require protein structures which limit their applicability to protein complexes with known structures.",
+          "citation_label": "[Paper 11 - Abbasi 2017]"
+        },
+        {
+          "text": "The generalization performance of even the state of the art sequence-only predictor of binding affinity is far from satisfactory",
+          "citation_label": "[Paper 11 - Abbasi 2017]"
+        },
+        {
+          "text": "The protein folding process involves an intricate interplay between global geometry and local structure, and each protein seems to present special problems",
+          "citation_label": "[Paper 13 - Lei 2010]"
+        }
+      ]
+    },
+    {
+      "theme": "Evidential Model Limitations",
+      "count": 6,
+      "cited_paper_ids": [
+        5,
+        6
+      ],
+      "limitations": [
+        {
+          "text": "Evidential models require special activation functions, which can lead to inferior predictive performance compared to standard softmax models.",
+          "citation_label": "[Paper 5 - Pandey 2023]"
+        },
+        {
+          "text": "Existing evidential activation functions create zero evidence regions, preventing the model from learning from certain training samples.",
+          "citation_label": "[Paper 5 - Pandey 2023]"
+        },
+        {
+          "text": "The outstanding generalization power of overparametrized neural networks is not fully understood.",
+          "citation_label": "[Paper 6 - Berner 2021]"
+        },
+        {
+          "text": "The role of depth in deep architectures is not well understood.",
+          "citation_label": "[Paper 6 - Berner 2021]"
+        },
+        {
+          "text": "The curse of dimensionality is not well understood in the context of deep learning.",
+          "citation_label": "[Paper 6 - Berner 2021]"
+        },
+        {
+          "text": "The non-convexity of the optimization problem in deep learning is not well understood.",
+          "citation_label": "[Paper 6 - Berner 2021]"
+        }
+      ]
+    },
+    {
+      "theme": "Current AI Limitations",
+      "count": 3,
+      "cited_paper_ids": [
+        9,
+        7
+      ],
+      "limitations": [
+        {
+          "text": "A unified or hybrid approach to artificial general intelligence is necessary but not yet developed.",
+          "citation_label": "[Paper 7 - Bennett 2021]"
+        },
+        {
+          "text": "Current AI systems struggle with resolving novel problems or adapting existing knowledge to new contexts.",
+          "citation_label": "[Paper 9 - Gizzi 2022]"
+        },
+        {
+          "text": "Dealing with environmental uncertainty through creativity is a limiting factor in the safe and useful integration of intelligent systems.",
+          "citation_label": "[Paper 9 - Gizzi 2022]"
+        }
+      ]
+    },
+    {
+      "theme": "AGI Communication Barriers",
+      "count": 3,
+      "cited_paper_ids": [
+        8
+      ],
+      "limitations": [
+        {
+          "text": "Communication with and control of an AGI may be difficult due to differences in compulsions and experiences.",
+          "citation_label": "[Paper 8 - Bennett 2021]"
+        },
+        {
+          "text": "An AGI may possess the ability to compress information to the extent that its signals appear indistinguishable from noise.",
+          "citation_label": "[Paper 8 - Bennett 2021]"
+        },
+        {
+          "text": "Imposed cognitive impairment may be necessary to facilitate communication with and control of an AGI.",
+          "citation_label": "[Paper 8 - Bennett 2021]"
+        }
+      ]
+    },
+    {
+      "theme": "Methodological Limitation Bias",
+      "count": 1,
+      "cited_paper_ids": [
+        2
+      ],
+      "limitations": [
+        {
+          "text": "The study relies on algorithmic analysis of AlphaFold predictions and lacks experimental confirmation.",
+          "citation_label": "[Paper 2 - Brems 2022]"
+        }
+      ]
+    },
+    {
+      "theme": "Method Development Challenges",
+      "count": 1,
+      "cited_paper_ids": [
+        11
+      ],
+      "limitations": [
+        {
+          "text": "Development of effective and practical methods in this domain is still an open problem",
+          "citation_label": "[Paper 11 - Abbasi 2017]"
+        }
+      ]
+    },
+    {
+      "theme": "Model Quality Assessment",
+      "count": 1,
+      "cited_paper_ids": [
+        12
+      ],
+      "limitations": [
+        {
+          "text": "Identification of good models (near-native PPI conformations) from the large pool of generated models is a challenging step",
+          "citation_label": "[Paper 12 - Xu 2024]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [],
+  "weak_research_gaps": [
+    {
+      "gap": "a comprehensive and efficient method for protein structure prediction and stability analysis",
+      "missing_component": "a comprehensive and efficient method for protein structure prediction and stability analysis",
+      "evidence_summary": "Current methods are limited by oversimplification, high computational demands, and neglect of key factors, indicating a need for a more holistic approach.",
+      "supporting_papers": [
+        1,
+        3,
+        4,
+        10,
+        11,
+        13
+      ],
+      "citations": [
+        "[Paper 1 - Sarkar 2012]",
+        "[Paper 3 - Rossi 2025]",
+        "[Paper 4 - Dokholyan 1998]",
+        "[Paper 10 - Lin 2016]",
+        "[Paper 11 - Abbasi 2017]",
+        "[Paper 13 - Lei 2010]"
+      ],
+      "frequency": 6,
+      "diversity_score": 1.0,
+      "confidence": 46.2,
+      "strength": "weak"
+    },
+    {
+      "gap": "A comprehensive understanding of the interplay between evidential model architecture, activation functions, and depth",
+      "missing_component": "A comprehensive understanding of the interplay between evidential model architecture, activation functions, and depth",
+      "evidence_summary": "The current understanding of evidential models lacks a clear explanation of how to optimize model architecture and activation functions to improve predictive performance and generalize well to new data.",
+      "supporting_papers": [
+        5,
+        6
+      ],
+      "citations": [
+        "[Paper 5 - Pandey 2023]",
+        "[Paper 6 - Berner 2021]"
+      ],
+      "frequency": 2,
+      "diversity_score": 1.0,
+      "confidence": 15.4,
+      "strength": "weak"
+    },
+    {
+      "gap": "A flexible and adaptive framework for integrating multiple AI approaches to handle uncertainty and novelty",
+      "missing_component": "A flexible and adaptive framework for integrating multiple AI approaches to handle uncertainty and novelty",
+      "evidence_summary": "Current AI systems lack a unified framework to effectively adapt to new contexts and resolve complex problems.",
+      "supporting_papers": [
+        7,
+        9
+      ],
+      "citations": [
+        "[Paper 7 - Bennett 2021]",
+        "[Paper 9 - Gizzi 2022]"
+      ],
+      "frequency": 2,
+      "diversity_score": 1.0,
+      "confidence": 15.4,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 13,
+    "strong_gap_count": 0,
+    "weak_gap_count": 3,
+    "verdict": "weak",
+    "rules": {
+      "min_cluster_frequency": 2,
+      "min_supporting_sources_for_idea": 3,
+      "min_confidence_percent": 60.0
+    }
+  },
+  "research_ideas": [],
+  "insufficient_evidence_message": "Insufficient evidence to propose a validated research direction.",
+  "novelty_scores": [],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Sarkar 2012]",
+      "title": "A Novel Approach for Protein Structure Prediction",
+      "authors": [
+        "Saurabh Sarkar",
+        "Prateek Malhotra",
+        "Virender Guman"
+      ],
+      "published": "2012-06-15",
+      "url": "http://arxiv.org/abs/1206.3509v1"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Brems 2022]",
+      "title": "AlphaFold predicts the most complex protein knot and composite protein knots",
+      "authors": [
+        "Maarten A. Brems",
+        "Robert Runkel",
+        "Todd O. Yeates"
+      ],
+      "published": "2022-07-15",
+      "url": "http://arxiv.org/abs/2207.07410v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Rossi 2025]",
+      "title": "Mass Balance Approximation of Unfolding Improves Potential-Like Methods for Protein Stability Predictions",
+      "authors": [
+        "Ivan Rossi",
+        "Guido Barducci",
+        "Tiziana Sanavia"
+      ],
+      "published": "2025-04-09",
+      "url": "http://arxiv.org/abs/2504.06806v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Dokholyan 1998]",
+      "title": "Discrete molecular dynamics studies of the folding of a protein-like model",
+      "authors": [
+        "Nikolay V. Dokholyan",
+        "Sergey V. Buldyrev",
+        "H. Eugene Stanley"
+      ],
+      "published": "1998-12-17",
+      "url": "http://arxiv.org/abs/cond-mat/9812291v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Pandey 2023]",
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "published": "2023-06-19",
+      "url": "http://arxiv.org/abs/2306.11113v2"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Berner 2021]",
+      "title": "The Modern Mathematics of Deep Learning",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "published": "2021-05-09",
+      "url": "http://arxiv.org/abs/2105.04026v2"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Bennett 2021]",
+      "title": "The Artificial Scientist: Logicist, Emergentist, and Universalist Approaches to Artificial General Intelligence",
+      "authors": [
+        "Michael Timothy Bennett",
+        "Yoshihiro Maruyama"
+      ],
+      "published": "2021-10-05",
+      "url": "http://arxiv.org/abs/2110.01831v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Bennett 2021]",
+      "title": "Compression, The Fermi Paradox and Artificial Super-Intelligence",
+      "authors": [
+        "Michael Timothy Bennett"
+      ],
+      "published": "2021-10-05",
+      "url": "http://arxiv.org/abs/2110.01835v1"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Gizzi 2022]",
+      "title": "Creative Problem Solving in Artificially Intelligent Agents: A Survey and Framework",
+      "authors": [
+        "Evana Gizzi",
+        "Lakshmi Nair",
+        "Sonia Chernova"
+      ],
+      "published": "2022-04-21",
+      "url": "http://arxiv.org/abs/2204.10358v1"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Lin 2016]",
+      "title": "MUST-CNN: A Multilayer Shift-and-Stitch Deep Convolutional Architecture for Sequence-based Protein Structure Prediction",
+      "authors": [
+        "Zeming Lin",
+        "Jack Lanchantin",
+        "Yanjun Qi"
+      ],
+      "published": "2016-05-10",
+      "url": "http://arxiv.org/abs/1605.03004v1"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Abbasi 2017]",
+      "title": "ISLAND: In-Silico Prediction of Proteins Binding Affinity Using Sequence Descriptors",
+      "authors": [
+        "Wajid Arshad Abbasi",
+        "Fahad Ul Hassan",
+        "Adiba Yaseen"
+      ],
+      "published": "2017-11-22",
+      "url": "http://arxiv.org/abs/1711.10540v2"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Xu 2024]",
+      "title": "Ranking protein-protein models with large language models and graph neural networks",
+      "authors": [
+        "Xiaotong Xu",
+        "Alexandre M. J. J. Bonvin"
+      ],
+      "published": "2024-07-23",
+      "url": "http://arxiv.org/abs/2407.16375v1"
+    },
+    {
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Lei 2010]",
+      "title": "Protein Folding: A Perspective From Statistical Physics",
+      "authors": [
+        "Jinzhi Lei",
+        "Kerson Huang"
+      ],
+      "published": "2010-02-26",
+      "url": "http://arxiv.org/abs/1002.5013v1"
+    }
+  ],
+  "generated_at": "2026-02-26T23:37:08.381103",
+  "chroma_db": {
+    "session_id": "1e246949",
+    "path": "./chroma_db",
+    "papers_collection": "papers_1e246949",
+    "limitations_collection": "limitations_1e246949",
+    "total_papers_stored": 13,
+    "total_limitations_stored": 23
+  }
+}

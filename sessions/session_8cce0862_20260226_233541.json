@@ -1,0 +1,918 @@
+{
+  "session_id": "8cce0862",
+  "topic": "To accurately predict a protein\u2019s three-dimensional (3D) structure directly from its amino acid sequence using artificial intelligence, eliminating the need for time-consuming and expensive experimental methods.",
+  "subtopics": [
+    "Deep learning models for protein structure prediction",
+    "Sequence-based features for 3D structure prediction",
+    "Evaluation metrics for assessing prediction accuracy",
+    "Comparison of AI-based methods with experimental techniques",
+    "Applications of AI-predicted protein structures in drug discovery"
+  ],
+  "keywords": [
+    "protein structure prediction",
+    "artificial intelligence in biochemistry",
+    "deep learning for protein folding",
+    "sequence-based protein structure prediction",
+    "ab initio protein structure prediction",
+    "machine learning for protein biology",
+    "3D protein structure prediction using AI",
+    "AI-driven protein structure determination"
+  ],
+  "papers_found": 17,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "s41586-021-03819-2",
+      "summary": "Nature | Vol 596 | 26 August 2021 | 583\nArticleHighly accurate protein structure prediction \nwith AlphaFold\nJohn Jumper1,4\u2009\u2709, Richard Evans1,4, Alexander Pritzel1,4, Tim Green1,4, Michael Figurnov1,4, \nOlaf Ronneberger1,4, Kathryn Tunyasuvunakool1,4, Russ Bates1,4, Augustin \u017d\u00eddek1,4, \nAnna Potapenko1,4, Alex Bridgland1,4, Clemens Meyer1,4, Simon A. A. Kohl1,4, \nAndrew J. Ballard1,4, Andrew Cowie1,4, Bernardino Romera-Paredes1,4, Stanislav Nikolov1,4, \nRishub Jain1,4, Jonas Adler1, Trevor Back1, Stig Petersen1, David Reiman1, Ellen Clancy1, \nMichal Zielinski1, Martin Steinegger2,3, Michalina Pacholska1, Tamas Berghammer1, \nSebastian Bodenstein1, David Silver1, Oriol Vinyals1, Andrew W. Senior1, Koray Kavukcuoglu1, \nPushmeet Kohli1 & Demis Hassabis1,4\u2009\u2709\nProteins are essential to life, and understanding their structure can facilitate a \nmechanistic understanding of their function. Through an enormous experimental \neffort1\u20134, the structures of around 100,000 unique proteins have been determined5, but \nthis represents a small fraction of the billions of known protein sequences6,7. Structural \ncoverage is bottlenecked by the months to years of painstaking effort required to determine a single protein structure. Accurate computational approaches are needed \nto address this gap and to enable large-scale structural bioinformatics. Predicting the \nthree-dimensional structure that a protein will adopt based solely on its amino acid \nsequence\u2014the structure prediction component of the \u2018protein folding problem\u2019\n8\u2014has \nbeen an important open research problem for more than 50\u00a0years9. Despite recent \nprogress10\u201314, existing methods fall far\u00a0short of atomic accuracy, especially when no \nhomologous structure is available. Here we provide the first computational method \nthat can regularly predict protein structures with atomic accuracy even in cases in which \nno similar structure is known. We validated an entirely redesigned version of our neural \nnetwork-based model, AlphaFold, in the challenging 14th Critical Assessment of protein \nStructure Prediction (CASP14)15, demonstrating accuracy competitive with \nexperimental structures in a majority of cases and greatly outperforming other \nmethods. Underpinning the latest version of AlphaFold is a novel machine learning \napproach that incorporates physical and biological knowledge about protein structure, \nleveraging multi-sequence alignments, into the design of the deep learning algorithm.\nThe development of computational methods to predict \nthree-dimensional (3D) protein structures from the protein sequence \nhas proceeded along two complementary paths that focus on either the \nphysical interactions or the evolutionary history. The physical interac-\ntion programme heavily integrates our understanding of molecular \ndriving forces into either thermodynamic or kinetic simulation of pro -\ntein physics16 or statistical approximations thereof17. Although theoreti -\ncally very appealing, this approach has proved highly challenging for \neven moderate-sized proteins due to the computational intractability \nof molecular simulation, the context dependence of protein stability \nand the difficulty of producing sufficiently accurate models of protein \nphysics. The evolutionary programme has provided an alternative in \nrecent years, in which the constraints on protein structure are derived \nfrom bioinformatics analysis of the evolutionary history of proteins, \nhomology to solved structures18,19 and pairwise evolutionary correla-\ntions20\u201324. This bioinformatics approach has benefited greatly from the steady growth of experimental protein structures deposited in \nthe Protein Data Bank (PDB)5, the explosion of genomic sequencing \nand the rapid development of deep learning techniques to interpret \nthese correlations. Despite these advances, contemporary physical \nand evolutionary-history-based approaches produce predictions that \nare far\u00a0short of experimental accuracy in the majority of cases in which \na close homologue has not been solved experimentally and this has \nlimited their utility for many biological applications.\nIn this study, we develop the first, to our knowledge, computational \napproach capable of predicting protein structures to near experimental \naccuracy in a majority of cases. The neural network AlphaFold that we \ndeveloped was entered into the CASP14 assessment (May\u2013July\u00a02020; \nentered under the team name \u2018 AlphaFold2\u2019 and a completely different \nmodel from our CASP13 AlphaFold system10). The CASP assessment is \ncarried out biennially using recently solved structures that have not \nbeen deposited in the PDB or publicly disclosed so that it is a blind test https://doi.org/10.1038/s41586-021-03819-2\nReceived: 11 May 2021\nAccepted: 12 July 2021\nPublished online: 15 July 2021\nOpen access\n Check for updates\n1DeepMind, London, UK. 2School of Biological Sciences, Seoul National University, Seoul, South Korea. 3Artificial Intelligence Institute, Seoul National University, Seoul, South Korea. 4These \nauthors contributed equally: John Jumper, Richard Evans, Alexander Pritzel, Tim Green, Michael Figurnov, Olaf Ronneberger, Kathryn Tunyasuvunakool, Russ Bates, Augustin \u017d\u00eddek, Anna \nPotapenko, Alex Bridgland, Clemens Meyer, Simon A. A. Kohl, Andrew J. Ballard, Andrew Cowie, Bernardino Romera-Paredes, Stanislav Nikolov, Rishub Jain, Demis Hassabis.  \n\u2709e-mail: jumper@deepmind.com; dhcontact@deepmind.com\n584 | Nature  | Vol 596  | 26 August 2021\nArticlefor the participating methods, and has long served as the gold-standard \nassessment for the accuracy of structure prediction25,26.\nIn CASP14, AlphaFold structures were vastly more accurate than \ncompeting methods. AlphaFold structures had a median backbone \naccuracy of 0.96\u00a0\u00c5 r.m.s.d.95 (C\u03b1 root-mean-square deviation at 95% \nresidue coverage) (95% confidence interval\u00a0=\u00a00.85\u20131.16\u00a0\u00c5) whereas \nthe next best performing method had a median backbone accuracy \nof 2.8\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a02.7\u20134.0\u00a0\u00c5) (measured on \nCASP domains; see Fig.\u00a0 1a for backbone accuracy and Supplementary \nFig.\u00a014 for all-atom accuracy). As a comparison point for this accuracy, \nthe width of a carbon atom is approximately 1.4\u00a0\u00c5. In addition to very \naccurate domain structures (Fig.\u00a0 1b), AlphaFold is able to produce \nhighly accurate side chains (Fig.\u00a0 1c) when the backbone is highly accu -\nrate and considerably improves over template-based methods even \nwhen strong templates are available. The all-atom accuracy of Alpha -\nFold was 1.5\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a01.2\u20131.6\u00a0\u00c5) compared \nwith the 3.5\u00a0\u00c5 r.m.s.d.95 (95% confidence interval\u00a0=\u00a03.1\u20134.2\u00a0\u00c5) of the best \nalternative method. Our methods are scalable to very long proteins with \naccurate domains and domain-packing (see Fig.\u00a0 1d for the prediction \nof a 2,180-residue protein with no structural homologues). Finally, the \nmodel is able to provide precise, per-residue estimates of its reliability \nthat should enable the confident use of these predictions.\nWe demonstrate in Fig.\u00a0 2a that the high accuracy that AlphaFold dem -\nonstrated in CASP14 extends to a large sample of recently released PDB structures; in this dataset, all structures were deposited in the PDB after \nour training data cut-off and are analysed as full chains (see\u00a0Methods, \nSupplementary Fig.\u00a015 and Supplementary Table\u00a06 for more details). \nFurthermore, we observe high side-chain accuracy when the back -\nbone prediction is accurate (Fig.\u00a0 2b) and we show that our confidence \nmeasure, the predicted local-distance difference test (pLDDT), reliably \npredicts the C\u03b1 local-distance difference test (lDDT-C\u03b1) accuracy of the \ncorresponding prediction (Fig.\u00a0 2c). We also find that the global super -\nposition metric template modelling score (TM-score)27 can be accu -\nrately estimated (Fig.\u00a0 2d). Overall, these analyses validate that the high \naccuracy and reliability of AlphaFold on CASP14 proteins also transfers \nto an uncurated collection of recent PDB submissions, as would be \nexpecte",
+      "url": "local://ec5a53ea70/s41586-021-03819-2.pdf",
+      "published": "2026-02-26",
+      "authors": [
+        "Local Upload"
+      ],
+      "citation_label": "[Paper 1 - Local 2026]",
+      "source": "local_upload"
+    },
+    {
+      "paper_id": 2,
+      "title": "A Novel Approach for Protein Structure Prediction",
+      "summary": "The idea of this project is to study the protein structure and sequence relationship using the hidden markov model and artificial neural network. In this context we have assumed two hidden markov models. In first model we have taken protein secondary structures as hidden and protein sequences as observed. In second model we have taken protein sequences as hidden and protein structures as observed. The efficiencies for both the hidden markov models have been calculated. The results show that the efficiencies of first model is greater that the second one .These efficiencies are cross validated using artificial neural network. This signifies the importance of protein secondary structures as the main hidden controlling factors due to which we observe a particular amino acid sequence. This also signifies that protein secondary structure is more conserved in comparison to amino acid sequence.",
+      "url": "http://arxiv.org/abs/1206.3509v1",
+      "published": "2012-06-15",
+      "authors": [
+        "Saurabh Sarkar",
+        "Prateek Malhotra",
+        "Virender Guman"
+      ],
+      "citation_label": "[Paper 2 - Sarkar 2012]"
+    },
+    {
+      "paper_id": 3,
+      "title": "AlphaFold predicts the most complex protein knot and composite protein knots",
+      "summary": "The computer artificial intelligence system AlphaFold has recently predicted previously unknown three-dimensional structures of thousands of proteins. Focusing on the subset with high-confidence scores, we algorithmically analyze these predictions for cases where the protein backbone exhibits rare topological complexity, i.e. knotting. Amongst others, we discovered a $7_1$-knot, the most topologically complex knot ever found in a protein, as well several 6-crossing composite knots comprised of two methyltransferase or carbonic anhydrase domains, each containing a simple trefoil knot. These deeply embedded composite knots occur evidently by gene duplication and interconnection of knotted dimers. Finally, we report two new five-crossing knots including the first $5_1$-knot. Our list of analyzed structures forms the basis for future experimental studies to confirm these novel knotted topologies and to explore their complex folding mechanisms.",
+      "url": "http://arxiv.org/abs/2207.07410v1",
+      "published": "2022-07-15",
+      "authors": [
+        "Maarten A. Brems",
+        "Robert Runkel",
+        "Todd O. Yeates"
+      ],
+      "citation_label": "[Paper 3 - Brems 2022]"
+    },
+    {
+      "paper_id": 4,
+      "title": "Mass Balance Approximation of Unfolding Improves Potential-Like Methods for Protein Stability Predictions",
+      "summary": "The prediction of protein stability changes following single-point mutations plays a pivotal role in computational biology, particularly in areas like drug discovery, enzyme reengineering, and genetic disease analysis. Although deep-learning strategies have pushed the field forward, their use in standard workflows remains limited due to resource demands. Conversely, potential-like methods are fast, intuitive, and efficient. Yet, these typically estimate Gibbs free energy shifts without considering the free-energy variations in the unfolded protein state, an omission that may breach mass balance and diminish accuracy. This study shows that incorporating a mass-balance correction (MBC) to account for the unfolded state significantly enhances these methods. While many machine learning models partially model this balance, our analysis suggests that a refined representation of the unfolded state may improve the predictive performance.",
+      "url": "http://arxiv.org/abs/2504.06806v1",
+      "published": "2025-04-09",
+      "authors": [
+        "Ivan Rossi",
+        "Guido Barducci",
+        "Tiziana Sanavia"
+      ],
+      "citation_label": "[Paper 4 - Rossi 2025]"
+    },
+    {
+      "paper_id": 5,
+      "title": "The Artificial Scientist: Logicist, Emergentist, and Universalist Approaches to Artificial General Intelligence",
+      "summary": "We attempt to define what is necessary to construct an Artificial Scientist, explore and evaluate several approaches to artificial general intelligence (AGI) which may facilitate this, conclude that a unified or hybrid approach is necessary and explore two theories that satisfy this requirement to some degree.",
+      "url": "http://arxiv.org/abs/2110.01831v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett",
+        "Yoshihiro Maruyama"
+      ],
+      "citation_label": "[Paper 5 - Bennett 2021]"
+    },
+    {
+      "paper_id": 6,
+      "title": "Compression, The Fermi Paradox and Artificial Super-Intelligence",
+      "summary": "The following briefly discusses possible difficulties in communication with and control of an AGI (artificial general intelligence), building upon an explanation of The Fermi Paradox and preceding work on symbol emergence and artificial general intelligence. The latter suggests that to infer what someone means, an agent constructs a rationale for the observed behaviour of others. Communication then requires two agents labour under similar compulsions and have similar experiences (construct similar solutions to similar tasks). Any non-human intelligence may construct solutions such that any rationale for their behaviour (and thus the meaning of their signals) is outside the scope of what a human is inclined to notice or comprehend. Further, the more compressed a signal, the closer it will appear to random noise. Another intelligence may possess the ability to compress information to the extent that, to us, their signals would appear indistinguishable from noise (an explanation for The Fermi Paradox). To facilitate predictive accuracy an AGI would tend to more compressed representations of the world, making any rationale for their behaviour more difficult to comprehend for the same reason. Communication with and control of an AGI may subsequently necessitate not only human-like compulsions and experiences, but imposed cognitive impairment.",
+      "url": "http://arxiv.org/abs/2110.01835v1",
+      "published": "2021-10-05",
+      "authors": [
+        "Michael Timothy Bennett"
+      ],
+      "citation_label": "[Paper 6 - Bennett 2021]"
+    },
+    {
+      "paper_id": 7,
+      "title": "Creative Problem Solving in Artificially Intelligent Agents: A Survey and Framework",
+      "summary": "Creative Problem Solving (CPS) is a sub-area within Artificial Intelligence (AI) that focuses on methods for solving off-nominal, or anomalous problems in autonomous systems. Despite many advancements in planning and learning, resolving novel problems or adapting existing knowledge to a new context, especially in cases where the environment may change in unpredictable ways post deployment, remains a limiting factor in the safe and useful integration of intelligent systems. The emergence of increasingly autonomous systems dictates the necessity for AI agents to deal with environmental uncertainty through creativity. To stimulate further research in CPS, we present a definition and a framework of CPS, which we adopt to categorize existing AI methods in this field. Our framework consists of four main components of a CPS problem, namely, 1) problem formulation, 2) knowledge representation, 3) method of knowledge manipulation, and 4) method of evaluation. We conclude our survey with open research questions, and suggested directions for the future.",
+      "url": "http://arxiv.org/abs/2204.10358v1",
+      "published": "2022-04-21",
+      "authors": [
+        "Evana Gizzi",
+        "Lakshmi Nair",
+        "Sonia Chernova"
+      ],
+      "citation_label": "[Paper 7 - Gizzi 2022]"
+    },
+    {
+      "paper_id": 8,
+      "title": "Discrete molecular dynamics studies of the folding of a protein-like model",
+      "summary": "Background: Many attempts have been made to resolve in time the folding of model proteins in computer simulations. Different computational approaches have emerged. Some of these approaches suffer from the insensitivity to the geometrical properties of the proteins (lattice models), while others are computationally heavy (traditional MD).\n  Results: We use a recently-proposed approach of Zhou and Karplus to study the folding of the protein model based on the discrete time molecular dynamics algorithm. We show that this algorithm resolves with respect to time the folding --- unfolding transition. In addition, we demonstrate the ability to study the coreof the model protein.\n  Conclusion: The algorithm along with the model of inter-residue interactions can serve as a tool to study the thermodynamics and kinetics of protein models.",
+      "url": "http://arxiv.org/abs/cond-mat/9812291v1",
+      "published": "1998-12-17",
+      "authors": [
+        "Nikolay V. Dokholyan",
+        "Sergey V. Buldyrev",
+        "H. Eugene Stanley"
+      ],
+      "citation_label": "[Paper 8 - Dokholyan 1998]"
+    },
+    {
+      "paper_id": 9,
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "summary": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncertainty using the learned evidence. To ensure theoretically sound evidential models, the evidence needs to be non-negative, which requires special activation functions for model training and inference. This constraint often leads to inferior predictive performance compared to standard softmax models, making it challenging to extend them to many large-scale datasets. To unveil the real cause of this undesired behavior, we theoretically investigate evidential models and identify a fundamental limitation that explains the inferior performance: existing evidential activation functions create zero evidence regions, which prevent the model to learn from training samples falling into such regions. A deeper analysis of evidential activation functions based on our theoretical underpinning inspires the design of a novel regularizer that effectively alleviates this fundamental limitation. Extensive experiments over many challenging real-world datasets and settings confirm our theoretical findings and demonstrate the effectiveness of our proposed approach.",
+      "url": "http://arxiv.org/abs/2306.11113v2",
+      "published": "2023-06-19",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "citation_label": "[Paper 9 - Pandey 2023]"
+    },
+    {
+      "paper_id": 10,
+      "title": "The Modern Mathematics of Deep Learning",
+      "summary": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalization power of overparametrized neural networks, the role of depth in deep architectures, the apparent absence of the curse of dimensionality, the surprisingly successful optimization performance despite the non-convexity of the problem, understanding what features are learned, why deep architectures perform exceptionally well in physical problems, and which fine aspects of an architecture affect the behavior of a learning task in which way. We present an overview of modern approaches that yield partial answers to these questions. For selected approaches, we describe the main ideas in more detail.",
+      "url": "http://arxiv.org/abs/2105.04026v2",
+      "published": "2021-05-09",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "paper_id": 11,
+      "title": "MUST-CNN: A Multilayer Shift-and-Stitch Deep Convolutional Architecture for Sequence-based Protein Structure Prediction",
+      "summary": "Predicting protein properties such as solvent accessibility and secondary structure from its primary amino acid sequence is an important task in bioinformatics. Recently, a few deep learning models have surpassed the traditional window based multilayer perceptron. Taking inspiration from the image classification domain we propose a deep convolutional neural network architecture, MUST-CNN, to predict protein properties. This architecture uses a novel multilayer shift-and-stitch (MUST) technique to generate fully dense per-position predictions on protein sequences. Our model is significantly simpler than the state-of-the-art, yet achieves better results. By combining MUST and the efficient convolution operation, we can consider far more parameters while retaining very fast prediction speeds. We beat the state-of-the-art performance on two large protein property prediction datasets.",
+      "url": "http://arxiv.org/abs/1605.03004v1",
+      "published": "2016-05-10",
+      "authors": [
+        "Zeming Lin",
+        "Jack Lanchantin",
+        "Yanjun Qi"
+      ],
+      "citation_label": "[Paper 11 - Lin 2016]"
+    },
+    {
+      "paper_id": 12,
+      "title": "ISLAND: In-Silico Prediction of Proteins Binding Affinity Using Sequence Descriptors",
+      "summary": "Determination of binding affinity of proteins in the formation of protein complexes requires sophisticated, expensive and time-consuming experimentation which can be replaced with computational methods. Most computational prediction techniques require protein structures which limit their applicability to protein complexes with known structures. In this work, we explore sequence based protein binding affinity prediction using machine learning. Our paper highlights the fact that the generalization performance of even the state of the art sequence-only predictor of binding affinity is far from satisfactory and that the development of effective and practical methods in this domain is still an open problem. We also propose a novel sequence-only predictor of binding affinity called ISLAND which gives better accuracy than existing methods over the same validation set as well as on external independent test dataset. A cloud-based webserver implementation of ISLAND and its Python code are available at the URL: http://faculty.pieas.edu.pk/fayyaz/software.html#island.",
+      "url": "http://arxiv.org/abs/1711.10540v2",
+      "published": "2017-11-22",
+      "authors": [
+        "Wajid Arshad Abbasi",
+        "Fahad Ul Hassan",
+        "Adiba Yaseen"
+      ],
+      "citation_label": "[Paper 12 - Abbasi 2017]"
+    },
+    {
+      "paper_id": 13,
+      "title": "Ab-initio simulation and experimental validation of beta-titanium alloys",
+      "summary": "In this progress report we present a new approach to the ab-initio guided bottom up design of beta-Ti alloys for biomedical applications using a quantum mechanical simulation method in conjunction with experiments. Parameter-free density functional theory calculations are used to provide theoretical guidance in selecting and optimizing Ti-based alloys with respect to three constraints: (i) the use of non-toxic alloy elements; (ii) the stabilization of the body centered cubic beta phase at room temperature; (iii) the reduction of the elastic stiffness compared to existing Ti-based alloys. Following the theoretical predictions, the alloys of interest are cast and characterized with respect to their crystallographic structure, microstructure, texture, and elastic stiffness. Due to the complexity of the ab initio calculations, the simulations have been focused on a set of binary systems of Ti with two different high melting bcc metals, namely, Nb and Mo. Various levels of model approximations to describe mechanical and thermodynamic properties are tested and critically evaluated. The experiments are conducted both, on some of the binary alloys and on two more complex engineering alloy variants, namely, Ti-35wt.%Nb-7wt.%Zr-5wt.%Ta and a Ti-20wt.%Mo-7wt.%Zr-5wt.%Ta.",
+      "url": "http://arxiv.org/abs/0811.0157v1",
+      "published": "2008-11-02",
+      "authors": [
+        "D. Raabe",
+        "B. Sander",
+        "M. Friak"
+      ],
+      "citation_label": "[Paper 13 - Raabe 2008]"
+    },
+    {
+      "paper_id": 14,
+      "title": "DOME: Recommendations for supervised machine learning validation in biology",
+      "summary": "Modern biology frequently relies on machine learning to provide predictions and improve decision processes. There have been recent calls for more scrutiny on machine learning performance and possible limitations. Here we present a set of community-wide recommendations aiming to help establish standards of supervised machine learning validation in biology. Adopting a structured methods description for machine learning based on data, optimization, model, evaluation (DOME) will aim to help both reviewers and readers to better understand and assess the performance and limitations of a method or outcome. The recommendations are formulated as questions to anyone wishing to pursue implementation of a machine learning algorithm. Answers to these questions can be easily included in the supplementary material of published papers.",
+      "url": "http://arxiv.org/abs/2006.16189v4",
+      "published": "2020-06-25",
+      "authors": [
+        "Ian Walsh",
+        "Dmytro Fishman",
+        "Dario Garcia-Gasulla"
+      ],
+      "citation_label": "[Paper 14 - Walsh 2020]"
+    },
+    {
+      "paper_id": 15,
+      "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+      "summary": "Data science has become increasingly essential for the production of official statistics, as it enables the automated collection, processing, and analysis of large amounts of data. With such data science practices in place, it enables more timely, more insightful and more flexible reporting. However, the quality and integrity of data-science-driven statistics rely on the accuracy and reliability of the data sources and the machine learning techniques that support them. In particular, changes in data sources are inevitable to occur and pose significant risks that are crucial to address in the context of machine learning for official statistics.\n  This paper gives an overview of the main risks, liabilities, and uncertainties associated with changing data sources in the context of machine learning for official statistics. We provide a checklist of the most prevalent origins and causes of changing data sources; not only on a technical level but also regarding ownership, ethics, regulation, and public perception. Next, we highlight the repercussions of changing data sources on statistical reporting. These include technical effects such as concept drift, bias, availability, validity, accuracy and completeness, but also the neutrality and potential discontinuation of the statistical offering. We offer a few important precautionary measures, such as enhancing robustness in both data sourcing and statistical techniques, and thorough monitoring. In doing so, machine learning-based official statistics can maintain integrity, reliability, consistency, and relevance in policy-making, decision-making, and public discourse.",
+      "url": "http://arxiv.org/abs/2306.04338v1",
+      "published": "2023-06-07",
+      "authors": [
+        "Cedric De Boom",
+        "Michael Reusens"
+      ],
+      "citation_label": "[Paper 15 - Boom 2023]"
+    },
+    {
+      "paper_id": 16,
+      "title": "Learning Curves for Decision Making in Supervised Machine Learning: A Survey",
+      "summary": "Learning curves are a concept from social sciences that has been adopted in the context of machine learning to assess the performance of a learning algorithm with respect to a certain resource, e.g., the number of training examples or the number of training iterations. Learning curves have important applications in several machine learning contexts, most notably in data acquisition, early stopping of model training, and model selection. For instance, learning curves can be used to model the performance of the combination of an algorithm and its hyperparameter configuration, providing insights into their potential suitability at an early stage and often expediting the algorithm selection process. Various learning curve models have been proposed to use learning curves for decision making. Some of these models answer the binary decision question of whether a given algorithm at a certain budget will outperform a certain reference performance, whereas more complex models predict the entire learning curve of an algorithm. We contribute a framework that categorises learning curve approaches using three criteria: the decision-making situation they address, the intrinsic learning curve question they answer and the type of resources they use. We survey papers from the literature and classify them into this framework.",
+      "url": "http://arxiv.org/abs/2201.12150v2",
+      "published": "2022-01-28",
+      "authors": [
+        "Felix Mohr",
+        "Jan N. van Rijn"
+      ],
+      "citation_label": "[Paper 16 - Mohr 2022]"
+    },
+    {
+      "paper_id": 17,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 17 - Ai 2025]"
+    }
+  ],
+  "limitations_extracted": 34,
+  "limitations": [
+    {
+      "text": "The physical interaction programme has proved highly challenging for even moderate-sized proteins due to the computational intractability of molecular simulation, the context dependence of protein stability and the difficulty of producing sufficiently accurate models of protein physics.",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Local 2026]"
+    },
+    {
+      "text": "Contemporary physical and evolutionary-history-based approaches produce predictions that are far short of experimental accuracy in the majority of cases in which a close homologue has not been solved experimentally.",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Local 2026]"
+    },
+    {
+      "text": "The unfolded state of proteins is not well-represented in potential-like methods, which may breach mass balance and diminish accuracy.",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Rossi 2025]"
+    },
+    {
+      "text": "Deep-learning strategies have high resource demands, limiting their use in standard workflows.",
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Rossi 2025]"
+    },
+    {
+      "text": "The method relies on the quality of the training data and the availability of structural homologues.",
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Local 2026]"
+    },
+    {
+      "text": "The approach may not be applicable to all types of proteins, particularly those with complex topological features.",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Brems 2022]"
+    },
+    {
+      "text": "Experimental confirmation of the predicted knotted topologies is needed to validate the results.",
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Brems 2022]"
+    },
+    {
+      "text": "The development of a unified or hybrid approach to artificial general intelligence is necessary to construct an Artificial Scientist.",
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Bennett 2021]"
+    },
+    {
+      "text": "Non-human intelligence may construct solutions such that any rationale for their behaviour is outside the scope of what a human is inclined to notice or comprehend",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2021]"
+    },
+    {
+      "text": "The more compressed a signal, the closer it will appear to random noise",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2021]"
+    },
+    {
+      "text": "Imposed cognitive impairment may be necessary for communication with and control of an AGI",
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2021]"
+    },
+    {
+      "text": "Existing methods for solving off-nominal problems in autonomous systems are limited",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Gizzi 2022]"
+    },
+    {
+      "text": "Resolving novel problems or adapting existing knowledge to a new context remains a limiting factor in the safe and useful integration of intelligent systems",
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Gizzi 2022]"
+    },
+    {
+      "text": "Some computational approaches suffer from insensitivity to geometrical properties of proteins (lattice models), while others are computationally heavy (traditional MD)",
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Dokholyan 1998]"
+    },
+    {
+      "text": "Evidential models can have inferior predictive performance compared to standard softmax models due to the constraint of non-negative evidence",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Pandey 2023]"
+    },
+    {
+      "text": "Existing evidential activation functions create zero evidence regions, which prevent the model from learning from training samples falling into such regions",
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Pandey 2023]"
+    },
+    {
+      "text": "The classical framework of learning theory does not provide answers to certain research questions in deep learning",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "text": "The outstanding generalization power of overparametrized neural networks is not fully understood",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "text": "The role of depth in deep architectures is not well understood",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "text": "The apparent absence of the curse of dimensionality in deep learning is not fully explained",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "text": "The surprisingly successful optimization performance despite the non-convexity of the problem is not well understood",
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]"
+    },
+    {
+      "text": "Limited to protein sequences with known structures",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Abbasi 2017]"
+    },
+    {
+      "text": "Generalization performance of sequence-only predictors is far from satisfactory",
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Abbasi 2017]"
+    },
+    {
+      "text": "Ab-initio simulations are complex and limited to a set of binary systems",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Raabe 2008]"
+    },
+    {
+      "text": "Model approximations to describe mechanical and thermodynamic properties may not be accurate",
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Raabe 2008]"
+    },
+    {
+      "text": "Lack of standards for supervised machine learning validation in biology",
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Walsh 2020]"
+    },
+    {
+      "text": "Changes in data sources can pose significant risks to machine learning for official statistics",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Boom 2023]"
+    },
+    {
+      "text": "Concept drift, bias, availability, validity, accuracy, and completeness can be affected by changing data sources",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Boom 2023]"
+    },
+    {
+      "text": "Neutrality and potential discontinuation of statistical offering can be affected by changing data sources",
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Boom 2023]"
+    },
+    {
+      "text": "No explicit limitations mentioned, but potential biases in learning curve models and their applications may exist",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Model hallucination in generative AI models",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Scalability and training challenges for large-scale generative AI models",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Need for further studies on retrieval-augmented generation paradigm and corpus modeling",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    },
+    {
+      "text": "Potential challenges in applying generative AI to information access systems, such as precision and external knowledge requirements",
+      "paper_id": null,
+      "citation_label": "[Unknown]"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "Model Resource Limitations",
+      "count": 11,
+      "cited_paper_ids": [
+        4,
+        9,
+        10,
+        12,
+        14
+      ],
+      "limitations": [
+        {
+          "text": "Deep-learning strategies have high resource demands, limiting their use in standard workflows.",
+          "citation_label": "[Paper 4 - Rossi 2025]"
+        },
+        {
+          "text": "Evidential models can have inferior predictive performance compared to standard softmax models due to the constraint of non-negative evidence",
+          "citation_label": "[Paper 9 - Pandey 2023]"
+        },
+        {
+          "text": "Existing evidential activation functions create zero evidence regions, which prevent the model from learning from training samples falling into such regions",
+          "citation_label": "[Paper 9 - Pandey 2023]"
+        },
+        {
+          "text": "The classical framework of learning theory does not provide answers to certain research questions in deep learning",
+          "citation_label": "[Paper 10 - Berner 2021]"
+        },
+        {
+          "text": "The outstanding generalization power of overparametrized neural networks is not fully understood",
+          "citation_label": "[Paper 10 - Berner 2021]"
+        },
+        {
+          "text": "The role of depth in deep architectures is not well understood",
+          "citation_label": "[Paper 10 - Berner 2021]"
+        },
+        {
+          "text": "The apparent absence of the curse of dimensionality in deep learning is not fully explained",
+          "citation_label": "[Paper 10 - Berner 2021]"
+        },
+        {
+          "text": "The surprisingly successful optimization performance despite the non-convexity of the problem is not well understood",
+          "citation_label": "[Paper 10 - Berner 2021]"
+        },
+        {
+          "text": "Generalization performance of sequence-only predictors is far from satisfactory",
+          "citation_label": "[Paper 12 - Abbasi 2017]"
+        },
+        {
+          "text": "Lack of standards for supervised machine learning validation in biology",
+          "citation_label": "[Paper 14 - Walsh 2020]"
+        },
+        {
+          "text": "No explicit limitations mentioned, but potential biases in learning curve models and their applications may exist",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Protein Prediction Limitations",
+      "count": 8,
+      "cited_paper_ids": [
+        1,
+        3,
+        4,
+        8,
+        12
+      ],
+      "limitations": [
+        {
+          "text": "The physical interaction programme has proved highly challenging for even moderate-sized proteins due to the computational intractability of molecular simulation, the context dependence of protein stability and the difficulty of producing sufficiently accurate models of protein physics.",
+          "citation_label": "[Paper 1 - Local 2026]"
+        },
+        {
+          "text": "Contemporary physical and evolutionary-history-based approaches produce predictions that are far short of experimental accuracy in the majority of cases in which a close homologue has not been solved experimentally.",
+          "citation_label": "[Paper 1 - Local 2026]"
+        },
+        {
+          "text": "The unfolded state of proteins is not well-represented in potential-like methods, which may breach mass balance and diminish accuracy.",
+          "citation_label": "[Paper 4 - Rossi 2025]"
+        },
+        {
+          "text": "The method relies on the quality of the training data and the availability of structural homologues.",
+          "citation_label": "[Paper 1 - Local 2026]"
+        },
+        {
+          "text": "The approach may not be applicable to all types of proteins, particularly those with complex topological features.",
+          "citation_label": "[Paper 3 - Brems 2022]"
+        },
+        {
+          "text": "Experimental confirmation of the predicted knotted topologies is needed to validate the results.",
+          "citation_label": "[Paper 3 - Brems 2022]"
+        },
+        {
+          "text": "Some computational approaches suffer from insensitivity to geometrical properties of proteins (lattice models), while others are computationally heavy (traditional MD)",
+          "citation_label": "[Paper 8 - Dokholyan 1998]"
+        },
+        {
+          "text": "Limited to protein sequences with known structures",
+          "citation_label": "[Paper 12 - Abbasi 2017]"
+        }
+      ]
+    },
+    {
+      "theme": "AI Development Limitations",
+      "count": 4,
+      "cited_paper_ids": [
+        5,
+        6,
+        7
+      ],
+      "limitations": [
+        {
+          "text": "The development of a unified or hybrid approach to artificial general intelligence is necessary to construct an Artificial Scientist.",
+          "citation_label": "[Paper 5 - Bennett 2021]"
+        },
+        {
+          "text": "Non-human intelligence may construct solutions such that any rationale for their behaviour is outside the scope of what a human is inclined to notice or comprehend",
+          "citation_label": "[Paper 6 - Bennett 2021]"
+        },
+        {
+          "text": "Existing methods for solving off-nominal problems in autonomous systems are limited",
+          "citation_label": "[Paper 7 - Gizzi 2022]"
+        },
+        {
+          "text": "Resolving novel problems or adapting existing knowledge to a new context remains a limiting factor in the safe and useful integration of intelligent systems",
+          "citation_label": "[Paper 7 - Gizzi 2022]"
+        }
+      ]
+    },
+    {
+      "theme": "Generative AI Challenges",
+      "count": 4,
+      "cited_paper_ids": [],
+      "limitations": [
+        {
+          "text": "Model hallucination in generative AI models",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Scalability and training challenges for large-scale generative AI models",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Need for further studies on retrieval-augmented generation paradigm and corpus modeling",
+          "citation_label": "[Unknown]"
+        },
+        {
+          "text": "Potential challenges in applying generative AI to information access systems, such as precision and external knowledge requirements",
+          "citation_label": "[Unknown]"
+        }
+      ]
+    },
+    {
+      "theme": "Data Source Limitations",
+      "count": 3,
+      "cited_paper_ids": [
+        15
+      ],
+      "limitations": [
+        {
+          "text": "Changes in data sources can pose significant risks to machine learning for official statistics",
+          "citation_label": "[Paper 15 - Boom 2023]"
+        },
+        {
+          "text": "Concept drift, bias, availability, validity, accuracy, and completeness can be affected by changing data sources",
+          "citation_label": "[Paper 15 - Boom 2023]"
+        },
+        {
+          "text": "Neutrality and potential discontinuation of statistical offering can be affected by changing data sources",
+          "citation_label": "[Paper 15 - Boom 2023]"
+        }
+      ]
+    },
+    {
+      "theme": "Simulation Method Limitations",
+      "count": 2,
+      "cited_paper_ids": [
+        13
+      ],
+      "limitations": [
+        {
+          "text": "Ab-initio simulations are complex and limited to a set of binary systems",
+          "citation_label": "[Paper 13 - Raabe 2008]"
+        },
+        {
+          "text": "Model approximations to describe mechanical and thermodynamic properties may not be accurate",
+          "citation_label": "[Paper 13 - Raabe 2008]"
+        }
+      ]
+    },
+    {
+      "theme": "Data Compression Limitations",
+      "count": 1,
+      "cited_paper_ids": [
+        6
+      ],
+      "limitations": [
+        {
+          "text": "The more compressed a signal, the closer it will appear to random noise",
+          "citation_label": "[Paper 6 - Bennett 2021]"
+        }
+      ]
+    },
+    {
+      "theme": "Cognitive Limitation Protocol",
+      "count": 1,
+      "cited_paper_ids": [
+        6
+      ],
+      "limitations": [
+        {
+          "text": "Imposed cognitive impairment may be necessary for communication with and control of an AGI",
+          "citation_label": "[Paper 6 - Bennett 2021]"
+        }
+      ]
+    }
+  ],
+  "research_gaps": [],
+  "weak_research_gaps": [
+    {
+      "gap": "A flexible and efficient resource allocation framework",
+      "missing_component": "A flexible and efficient resource allocation framework",
+      "evidence_summary": "Current models lack a component that balances resource demands with predictive performance, hindering their effectiveness in various applications.",
+      "supporting_papers": [
+        4,
+        9,
+        10,
+        12,
+        14
+      ],
+      "citations": [
+        "[Paper 4 - Rossi 2025]",
+        "[Paper 9 - Pandey 2023]",
+        "[Paper 10 - Berner 2021]",
+        "[Paper 12 - Abbasi 2017]",
+        "[Paper 14 - Walsh 2020]"
+      ],
+      "frequency": 5,
+      "diversity_score": 1.0,
+      "confidence": 29.4,
+      "strength": "weak"
+    },
+    {
+      "gap": "Robust and accurate protein physics models that account for context dependence and unfolded states",
+      "missing_component": "Robust and accurate protein physics models that account for context dependence and unfolded states",
+      "evidence_summary": "Current methods lack sufficiently accurate models of protein physics, which is a crucial component for improving protein prediction accuracy.",
+      "supporting_papers": [
+        1,
+        3,
+        4,
+        8,
+        12
+      ],
+      "citations": [
+        "[Paper 1 - Local 2026]",
+        "[Paper 3 - Brems 2022]",
+        "[Paper 4 - Rossi 2025]",
+        "[Paper 8 - Dokholyan 1998]",
+        "[Paper 12 - Abbasi 2017]"
+      ],
+      "frequency": 5,
+      "diversity_score": 1.0,
+      "confidence": 29.4,
+      "strength": "weak"
+    },
+    {
+      "gap": "A universal framework for integrating human and non-human intelligence to address complex, dynamic problems",
+      "missing_component": "A universal framework for integrating human and non-human intelligence to address complex, dynamic problems",
+      "evidence_summary": "The existing limitations highlight the need for a unified approach to artificial general intelligence and autonomous systems that can effectively integrate human and non-human intelligence to resolve novel problems.",
+      "supporting_papers": [
+        5,
+        6,
+        7
+      ],
+      "citations": [
+        "[Paper 5 - Bennett 2021]",
+        "[Paper 6 - Bennett 2021]",
+        "[Paper 7 - Gizzi 2022]"
+      ],
+      "frequency": 3,
+      "diversity_score": 0.667,
+      "confidence": 11.8,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 17,
+    "strong_gap_count": 0,
+    "weak_gap_count": 3,
+    "verdict": "weak",
+    "rules": {
+      "min_cluster_frequency": 2,
+      "min_supporting_sources_for_idea": 3,
+      "min_confidence_percent": 60.0
+    }
+  },
+  "research_ideas": [],
+  "insufficient_evidence_message": "Insufficient evidence to propose a validated research direction.",
+  "novelty_scores": [],
+  "references": [
+    {
+      "paper_id": 1,
+      "citation_label": "[Paper 1 - Local 2026]",
+      "title": "s41586-021-03819-2",
+      "authors": [
+        "Local Upload"
+      ],
+      "published": "2026-02-26",
+      "url": "local://ec5a53ea70/s41586-021-03819-2.pdf"
+    },
+    {
+      "paper_id": 2,
+      "citation_label": "[Paper 2 - Sarkar 2012]",
+      "title": "A Novel Approach for Protein Structure Prediction",
+      "authors": [
+        "Saurabh Sarkar",
+        "Prateek Malhotra",
+        "Virender Guman"
+      ],
+      "published": "2012-06-15",
+      "url": "http://arxiv.org/abs/1206.3509v1"
+    },
+    {
+      "paper_id": 3,
+      "citation_label": "[Paper 3 - Brems 2022]",
+      "title": "AlphaFold predicts the most complex protein knot and composite protein knots",
+      "authors": [
+        "Maarten A. Brems",
+        "Robert Runkel",
+        "Todd O. Yeates"
+      ],
+      "published": "2022-07-15",
+      "url": "http://arxiv.org/abs/2207.07410v1"
+    },
+    {
+      "paper_id": 4,
+      "citation_label": "[Paper 4 - Rossi 2025]",
+      "title": "Mass Balance Approximation of Unfolding Improves Potential-Like Methods for Protein Stability Predictions",
+      "authors": [
+        "Ivan Rossi",
+        "Guido Barducci",
+        "Tiziana Sanavia"
+      ],
+      "published": "2025-04-09",
+      "url": "http://arxiv.org/abs/2504.06806v1"
+    },
+    {
+      "paper_id": 5,
+      "citation_label": "[Paper 5 - Bennett 2021]",
+      "title": "The Artificial Scientist: Logicist, Emergentist, and Universalist Approaches to Artificial General Intelligence",
+      "authors": [
+        "Michael Timothy Bennett",
+        "Yoshihiro Maruyama"
+      ],
+      "published": "2021-10-05",
+      "url": "http://arxiv.org/abs/2110.01831v1"
+    },
+    {
+      "paper_id": 6,
+      "citation_label": "[Paper 6 - Bennett 2021]",
+      "title": "Compression, The Fermi Paradox and Artificial Super-Intelligence",
+      "authors": [
+        "Michael Timothy Bennett"
+      ],
+      "published": "2021-10-05",
+      "url": "http://arxiv.org/abs/2110.01835v1"
+    },
+    {
+      "paper_id": 7,
+      "citation_label": "[Paper 7 - Gizzi 2022]",
+      "title": "Creative Problem Solving in Artificially Intelligent Agents: A Survey and Framework",
+      "authors": [
+        "Evana Gizzi",
+        "Lakshmi Nair",
+        "Sonia Chernova"
+      ],
+      "published": "2022-04-21",
+      "url": "http://arxiv.org/abs/2204.10358v1"
+    },
+    {
+      "paper_id": 8,
+      "citation_label": "[Paper 8 - Dokholyan 1998]",
+      "title": "Discrete molecular dynamics studies of the folding of a protein-like model",
+      "authors": [
+        "Nikolay V. Dokholyan",
+        "Sergey V. Buldyrev",
+        "H. Eugene Stanley"
+      ],
+      "published": "1998-12-17",
+      "url": "http://arxiv.org/abs/cond-mat/9812291v1"
+    },
+    {
+      "paper_id": 9,
+      "citation_label": "[Paper 9 - Pandey 2023]",
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "authors": [
+        "Deep Pandey",
+        "Qi Yu"
+      ],
+      "published": "2023-06-19",
+      "url": "http://arxiv.org/abs/2306.11113v2"
+    },
+    {
+      "paper_id": 10,
+      "citation_label": "[Paper 10 - Berner 2021]",
+      "title": "The Modern Mathematics of Deep Learning",
+      "authors": [
+        "Julius Berner",
+        "Philipp Grohs",
+        "Gitta Kutyniok"
+      ],
+      "published": "2021-05-09",
+      "url": "http://arxiv.org/abs/2105.04026v2"
+    },
+    {
+      "paper_id": 11,
+      "citation_label": "[Paper 11 - Lin 2016]",
+      "title": "MUST-CNN: A Multilayer Shift-and-Stitch Deep Convolutional Architecture for Sequence-based Protein Structure Prediction",
+      "authors": [
+        "Zeming Lin",
+        "Jack Lanchantin",
+        "Yanjun Qi"
+      ],
+      "published": "2016-05-10",
+      "url": "http://arxiv.org/abs/1605.03004v1"
+    },
+    {
+      "paper_id": 12,
+      "citation_label": "[Paper 12 - Abbasi 2017]",
+      "title": "ISLAND: In-Silico Prediction of Proteins Binding Affinity Using Sequence Descriptors",
+      "authors": [
+        "Wajid Arshad Abbasi",
+        "Fahad Ul Hassan",
+        "Adiba Yaseen"
+      ],
+      "published": "2017-11-22",
+      "url": "http://arxiv.org/abs/1711.10540v2"
+    },
+    {
+      "paper_id": 13,
+      "citation_label": "[Paper 13 - Raabe 2008]",
+      "title": "Ab-initio simulation and experimental validation of beta-titanium alloys",
+      "authors": [
+        "D. Raabe",
+        "B. Sander",
+        "M. Friak"
+      ],
+      "published": "2008-11-02",
+      "url": "http://arxiv.org/abs/0811.0157v1"
+    },
+    {
+      "paper_id": 14,
+      "citation_label": "[Paper 14 - Walsh 2020]",
+      "title": "DOME: Recommendations for supervised machine learning validation in biology",
+      "authors": [
+        "Ian Walsh",
+        "Dmytro Fishman",
+        "Dario Garcia-Gasulla"
+      ],
+      "published": "2020-06-25",
+      "url": "http://arxiv.org/abs/2006.16189v4"
+    },
+    {
+      "paper_id": 15,
+      "citation_label": "[Paper 15 - Boom 2023]",
+      "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+      "authors": [
+        "Cedric De Boom",
+        "Michael Reusens"
+      ],
+      "published": "2023-06-07",
+      "url": "http://arxiv.org/abs/2306.04338v1"
+    },
+    {
+      "paper_id": 16,
+      "citation_label": "[Paper 16 - Mohr 2022]",
+      "title": "Learning Curves for Decision Making in Supervised Machine Learning: A Survey",
+      "authors": [
+        "Felix Mohr",
+        "Jan N. van Rijn"
+      ],
+      "published": "2022-01-28",
+      "url": "http://arxiv.org/abs/2201.12150v2"
+    },
+    {
+      "paper_id": 17,
+      "citation_label": "[Paper 17 - Ai 2025]",
+      "title": "Foundations of GenIR",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "published": "2025-01-06",
+      "url": "http://arxiv.org/abs/2501.02842v1"
+    }
+  ],
+  "generated_at": "2026-02-26T23:35:41.260431",
+  "chroma_db": {
+    "session_id": "8cce0862",
+    "path": "./chroma_db",
+    "papers_collection": "papers_8cce0862",
+    "limitations_collection": "limitations_8cce0862",
+    "total_papers_stored": 17,
+    "total_limitations_stored": 44
+  }
+}

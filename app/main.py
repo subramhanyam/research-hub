@@ -6,11 +6,13 @@ Workspace-based autonomous research workflow engine.
 import asyncio
 import json
 import os
+import io
 import threading
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from PyPDF2 import PdfReader
 
 from .agent import (
     create_new_session,
@@ -27,6 +29,7 @@ from .agent import (
     generate_report,
     arxiv_search,
     add_paper_to_workspace,
+    add_local_paper_to_workspace,
     semantic_search_workspace,
     get_workspace_stats,
     list_all_sessions,
@@ -67,6 +70,10 @@ async def create_workspace(req: Request):
         "limitations": [],
         "clusters": [],
         "gaps": [],
+        "weak_gaps": [],
+        "evidence_assessment": {},
+        "insufficient_evidence_message": "",
+        "mission_mode": "autonomous_search",
         "ideas": [],
         "novelty_scores": [],
         "missions": [],
@@ -88,6 +95,7 @@ async def get_workspace(session_id: str):
         "session_id": session_id,
         "name": state.get("name", ""),
         "topic": state.get("topic", ""),
+        "mission_mode": state.get("mission_mode", "autonomous_search"),
         "total_papers": len(papers),
         "total_papers_embedded": db_stats["total_papers"],
         "total_limitations": db_stats["total_limitations"],
@@ -105,6 +113,9 @@ async def get_workspace(session_id: str):
             for p in papers
         ],
         "gaps": state.get("gaps", []),
+        "weak_gaps": state.get("weak_gaps", []),
+        "evidence_assessment": state.get("evidence_assessment", {}),
+        "insufficient_evidence_message": state.get("insufficient_evidence_message", ""),
         "ideas": state.get("ideas", []),
         "novelty_scores": state.get("novelty_scores", []),
         "missions": state.get("missions", []),
@@ -158,6 +169,43 @@ async def add_paper(session_id: str, req: AddPaperRequest):
     return {"paper": enriched, "total_papers": len(state["papers"])}
 
 
+@app.post("/api/workspace/{session_id}/papers/upload")
+async def upload_local_paper(session_id: str, file: UploadFile = File(...)):
+    state = workspaces.get(session_id)
+    if not state:
+        return JSONResponse({"error": "Workspace not found"}, status_code=404)
+
+    filename = file.filename or "uploaded_paper"
+    ext = os.path.splitext(filename)[1].lower()
+    allowed = {".pdf", ".txt", ".md"}
+    if ext not in allowed:
+        return JSONResponse({"error": "Unsupported file type. Use PDF, TXT, or MD."}, status_code=400)
+
+    content_bytes = await file.read()
+    if not content_bytes:
+        return JSONResponse({"error": "Uploaded file is empty"}, status_code=400)
+
+    extracted_text = ""
+    try:
+        if ext == ".pdf":
+            reader = PdfReader(io.BytesIO(content_bytes))
+            extracted_text = "\n".join((page.extract_text() or "") for page in reader.pages)
+        else:
+            extracted_text = content_bytes.decode("utf-8", errors="ignore")
+    except Exception as e:
+        return JSONResponse({"error": f"Failed to parse file: {str(e)}"}, status_code=400)
+
+    if not extracted_text.strip():
+        return JSONResponse({"error": "No extractable text found in file."}, status_code=400)
+
+    loop = asyncio.get_event_loop()
+    enriched = await loop.run_in_executor(
+        None, add_local_paper_to_workspace, session_id, filename, extracted_text, state.get("papers", [])
+    )
+    state.setdefault("papers", []).append(enriched)
+    return {"paper": enriched, "total_papers": len(state["papers"])}
+
+
 # ===== SEMANTIC SEARCH =====
 
 @app.post("/api/workspace/{session_id}/search")
@@ -179,20 +227,30 @@ async def workspace_search(session_id: str, req: SemanticSearchRequest):
 async def start_mission(session_id: str, req: Request):
     body = await req.json()
     topic = body.get("topic", "")
+    mission_mode = body.get("mission_mode", "autonomous_search")
+    if mission_mode not in {"autonomous_search", "workspace_only"}:
+        return JSONResponse({"error": "Invalid mission_mode"}, status_code=400)
     state = workspaces.get(session_id)
     if not state:
         return JSONResponse({"error": "Workspace not found"}, status_code=404)
+    if mission_mode == "workspace_only" and not state.get("papers"):
+        return JSONResponse(
+            {"error": "Workspace-only mode requires at least one paper in the workspace."},
+            status_code=400,
+        )
 
     state["topic"] = topic
+    state["mission_mode"] = mission_mode
     mission_id = len(state.get("missions", [])) + 1
     state.setdefault("missions", []).append({
         "mission_id": mission_id,
         "goal": topic,
+        "mode": mission_mode,
         "status": "running",
         "date": __import__("datetime").datetime.now().isoformat(),
     })
     workspaces[session_id] = state
-    return {"session_id": session_id, "mission_id": mission_id, "topic": topic}
+    return {"session_id": session_id, "mission_id": mission_id, "topic": topic, "mission_mode": mission_mode}
 
 
 @app.get("/api/workspace/{session_id}/mission/stream")
@@ -359,6 +417,10 @@ async def resume_workspace(request: Request):
         "limitations": session_data.get("limitations", []),
         "clusters": session_data.get("clusters", []),
         "gaps": session_data.get("research_gaps", []),
+        "weak_gaps": session_data.get("weak_research_gaps", []),
+        "evidence_assessment": session_data.get("evidence_assessment", {}),
+        "insufficient_evidence_message": session_data.get("insufficient_evidence_message", ""),
+        "mission_mode": session_data.get("mission_mode", "autonomous_search"),
         "ideas": session_data.get("research_ideas", []),
         "novelty_scores": session_data.get("novelty_scores", []),
         "reflection_attempts": 0,

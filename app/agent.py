@@ -8,6 +8,7 @@ import os
 import re
 import json
 import uuid
+import hashlib
 import arxiv
 import numpy as np
 from datetime import datetime
@@ -35,6 +36,11 @@ llm_streaming = ChatGroq(
     temperature=0.7,
     streaming=True,
 )
+
+MIN_GAP_CLUSTER_FREQUENCY = 2
+MIN_SUPPORTING_SOURCES_FOR_IDEA = 3
+MIN_GAP_CONFIDENCE = 60.0
+MAX_NOVELTY_SIMILARITY = 0.85
 
 
 def llm_stream(prompt: str, on_token: Optional[Callable[[str], None]] = None) -> str:
@@ -135,6 +141,44 @@ def _parse_json(text: str):
     raise json.JSONDecodeError(f"Could not parse LLM response as JSON", text, 0)
 
 
+def _first_author_lastname(paper: dict) -> str:
+    authors = paper.get("authors", [])
+    if not authors:
+        return "Unknown"
+    return authors[0].split()[-1]
+
+
+def _compute_gap_confidence(supporting_paper_ids: list[int], papers: list[dict]) -> tuple[float, float]:
+    total_papers = max(len(papers), 1)
+    support_count = len(set(supporting_paper_ids))
+    if support_count == 0:
+        return 0.0, 0.0
+
+    paper_lookup = {p["paper_id"]: p for p in papers}
+    supporting = [paper_lookup[pid] for pid in set(supporting_paper_ids) if pid in paper_lookup]
+    if not supporting:
+        return 0.0, 0.0
+
+    unique_authors = {_first_author_lastname(p).lower() for p in supporting}
+    diversity_score = len(unique_authors) / max(len(supporting), 1)
+    confidence = min(100.0, ((support_count / total_papers) * diversity_score) * 100.0)
+    return round(confidence, 1), round(diversity_score, 3)
+
+
+def _embedding_novelty_similarity(text: str, papers: list[dict]) -> float:
+    corpus = [p.get("summary", "") for p in papers if p.get("summary")]
+    if not text.strip() or not corpus:
+        return 0.0
+
+    try:
+        idea_embedding = np.array(embedding_fn([text])[0]).reshape(1, -1)
+        paper_embeddings = np.array(embedding_fn(corpus))
+        sims = cosine_similarity(idea_embedding, paper_embeddings)[0]
+        return float(np.max(sims)) if sims.size else 0.0
+    except Exception:
+        return 0.0
+
+
 # ======================================================================
 #  NODE FUNCTIONS — each returns (state_update_dict, sse_event_dict)
 # ======================================================================
@@ -168,11 +212,37 @@ Return ONLY valid JSON in this format:
 def search_papers(state: dict, on_token: Optional[Callable] = None) -> tuple:
     keywords = state["keywords"]
     session_id = state["session_id"]
+    mission_mode = state.get("mission_mode", "autonomous_search")
     papers_col, _ = get_session_collections(session_id)
 
-    all_papers = []
-    seen_ids = set()
-    paper_id_counter = 1
+    existing_papers = state.get("papers", [])
+    all_papers = list(existing_papers)
+    seen_ids = set(p.get("url") for p in existing_papers if p.get("url"))
+    paper_id_counter = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
+
+    if mission_mode == "workspace_only":
+        if on_token:
+            on_token("\n[Mission mode: workspace_only. Skipping arXiv search and using workspace papers only.]\n")
+        state_update = {"papers": all_papers}
+        event = {
+            "step": "search_papers",
+            "status": "complete",
+            "summary": f"Workspace-only mode: using {len(all_papers)} existing papers",
+            "data": {
+                "papers": [
+                    {
+                        "paper_id": p.get("paper_id"),
+                        "title": p.get("title", ""),
+                        "citation_label": p.get("citation_label", ""),
+                        "url": p.get("url", ""),
+                        "published": p.get("published", ""),
+                        "authors": p.get("authors", []),
+                    }
+                    for p in all_papers
+                ]
+            },
+        }
+        return state_update, event
 
     client = arxiv.Client()
 
@@ -407,54 +477,94 @@ def identify_gaps(state: dict, on_token: Optional[Callable] = None) -> tuple:
     papers = state["papers"]
 
     paper_lookup = {p["paper_id"]: p["citation_label"] for p in papers}
-
-    cluster_summary = ""
-    for c in clusters:
-        cited = ", ".join(paper_lookup.get(pid, f"[Paper {pid}]") for pid in c.get("cited_paper_ids", []))
-        cluster_summary += f"\nCluster '{c['theme']}' ({c.get('count', len(c['limitations']))} papers, cited by: {cited}):\n"
-        for lim in c["limitations"][:3]:
-            lim_text = lim["text"] if isinstance(lim, dict) else lim
-            lim_cite = lim.get("citation_label", "") if isinstance(lim, dict) else ""
-            cluster_summary += f"  - {lim_cite} {lim_text}\n"
-
-    prompt = f"""Based on these clustered research limitations (with paper citations), identify the top 3-5 most
-significant and recurring research gaps. For each gap, list which paper numbers support it.
-
-{cluster_summary}
-
-Return ONLY a JSON array:
-[
-  {{"gap": "description of the gap", "supporting_papers": [1, 3, 5]}}
-]"""
-
-    response_text = llm_stream(prompt, on_token)
-    gaps_data = _parse_json(response_text)
+    if on_token:
+        on_token("\n[Scoring limitation clusters and extracting evidence-grounded missing components...]\n")
 
     gaps = []
-    for g in gaps_data:
-        if isinstance(g, str):
-            gaps.append({"gap": g, "supporting_papers": []})
-        else:
-            gaps.append({
-                "gap": g.get("gap", str(g)),
-                "supporting_papers": [int(x) for x in g.get("supporting_papers", []) if str(x).isdigit()],
-            })
+    weak_gaps = []
 
-    state_update = {"gaps": gaps}
+    for c in clusters:
+        supporting_ids = sorted(set(c.get("cited_paper_ids", [])))
+        frequency = len(supporting_ids)
+        if frequency < MIN_GAP_CLUSTER_FREQUENCY:
+            continue
+
+        sample_limitations = []
+        for lim in c.get("limitations", [])[:4]:
+            if isinstance(lim, dict):
+                sample_limitations.append(lim.get("text", ""))
+            else:
+                sample_limitations.append(str(lim))
+
+        prompt = f"""You are an evidence-bound research analyst.
+Given this cluster of recurring limitations, produce ONE missing component statement.
+Do not speculate beyond the provided limitations.
+
+Theme: {c.get('theme', 'General')}
+Sample limitations:
+{json.dumps(sample_limitations, indent=2)}
+
+Return ONLY valid JSON:
+{{
+  "gap": "single concise missing component statement",
+  "evidence_summary": "one sentence stating what is missing"
+}}"""
+        try:
+            parsed = _parse_json(llm_stream(prompt, on_token))
+            gap_text = parsed.get("gap", c.get("theme", "Unspecified missing component"))
+            evidence_summary = parsed.get("evidence_summary", "")
+        except Exception:
+            gap_text = c.get("theme", "Unspecified missing component")
+            evidence_summary = "Derived from clustered recurring limitations."
+
+        confidence, diversity_score = _compute_gap_confidence(supporting_ids, papers)
+        gap_obj = {
+            "gap": gap_text,
+            "missing_component": gap_text,
+            "evidence_summary": evidence_summary,
+            "supporting_papers": supporting_ids,
+            "citations": [paper_lookup.get(pid, f"[Paper {pid}]") for pid in supporting_ids],
+            "frequency": frequency,
+            "diversity_score": diversity_score,
+            "confidence": confidence,
+            "strength": "strong" if (frequency >= MIN_SUPPORTING_SOURCES_FOR_IDEA and confidence >= MIN_GAP_CONFIDENCE) else "weak",
+        }
+        if gap_obj["strength"] == "strong":
+            gaps.append(gap_obj)
+        else:
+            weak_gaps.append(gap_obj)
+
+    total_papers = len(papers)
+    evidence_verdict = "insufficient"
+    if gaps:
+        evidence_verdict = "strong"
+    elif weak_gaps:
+        evidence_verdict = "weak"
+
+    state_update = {
+        "gaps": gaps,
+        "weak_gaps": weak_gaps,
+        "evidence_assessment": {
+            "total_papers": total_papers,
+            "strong_gap_count": len(gaps),
+            "weak_gap_count": len(weak_gaps),
+            "verdict": evidence_verdict,
+            "rules": {
+                "min_cluster_frequency": MIN_GAP_CLUSTER_FREQUENCY,
+                "min_supporting_sources_for_idea": MIN_SUPPORTING_SOURCES_FOR_IDEA,
+                "min_confidence_percent": MIN_GAP_CONFIDENCE,
+            },
+        },
+    }
     event = {
         "step": "identify_gaps",
         "status": "complete",
-        "summary": f"Identified {len(gaps)} key research gaps",
+        "summary": f"Evidence verdict: {evidence_verdict}. Strong gaps: {len(gaps)}, weak gaps: {len(weak_gaps)}",
         "data": {
-            "gaps": [
-                {
-                    "gap": g["gap"],
-                    "supporting_papers": g["supporting_papers"],
-                    "citations": [paper_lookup.get(pid, f"[Paper {pid}]") for pid in g["supporting_papers"]],
-                }
-                for g in gaps
-            ]
-        },
+            "gaps": gaps,
+            "weak_gaps": weak_gaps,
+            "evidence_assessment": state_update["evidence_assessment"],
+        }
     }
     return state_update, event
 
@@ -463,70 +573,101 @@ def generate_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
     gaps = state["gaps"]
     topic = state["topic"]
     papers = state["papers"]
+    evidence_assessment = state.get("evidence_assessment", {})
+    if not gaps:
+        message = "Insufficient evidence to propose a validated research direction."
+        if on_token:
+            on_token(f"\n[{message}]\n")
+        state_update = {
+            "ideas": [],
+            "reflection_attempts": 0,
+            "novelty_scores": [],
+            "insufficient_evidence_message": message,
+        }
+        event = {
+            "step": "generate_ideas",
+            "status": "complete",
+            "summary": message,
+            "data": {
+                "ideas": [],
+                "message": message,
+                "evidence_assessment": evidence_assessment,
+            },
+        }
+        return state_update, event
 
     paper_lookup = {p["paper_id"]: p for p in papers}
-
-    gaps_text = ""
-    all_cited_ids = set()
+    gap_payload = []
     for g in gaps:
-        gap_str = g["gap"] if isinstance(g, dict) else g
-        supporting = g.get("supporting_papers", []) if isinstance(g, dict) else []
-        cited = ", ".join(f"[Paper {pid}]" for pid in supporting)
-        gaps_text += f"- {gap_str} (supported by: {cited})\n"
-        all_cited_ids.update(supporting)
+        gap_payload.append({
+            "missing_component": g.get("missing_component", g.get("gap", "")),
+            "supporting_papers": g.get("supporting_papers", []),
+            "confidence": g.get("confidence", 0),
+            "evidence_summary": g.get("evidence_summary", ""),
+        })
 
-    ref_context = "\n--- Reference Papers ---\n"
-    for pid in sorted(all_cited_ids, key=lambda x: int(x) if str(x).isdigit() else 0):
-        p = paper_lookup.get(pid)
-        if p:
-            ref_context += f"{p['citation_label']}: \"{p['title']}\" by {', '.join(p['authors'])}\n"
+    prompt = f"""You are an evidence-grounded research designer.
+You must ONLY use the provided gaps and citations.
+For each strong missing component, propose one novelty solution that directly addresses that missing component.
+Do not introduce unrelated innovations.
 
-    prompt = f"""You are a creative research scientist. Based on these recurring research
-gaps in the field of \"{topic}\":
+Topic: {topic}
+Strong missing components:
+{json.dumps(gap_payload, indent=2)}
 
-{gaps_text}
-
-{ref_context}
-
-Propose 3 novel research ideas. For each idea:
-- Provide a clear title
-- A 2-3 sentence description of the approach
-- Which gap(s) it addresses
-- Cite the relevant paper numbers that inform this idea
-
-Return ONLY a JSON array:
+Return ONLY valid JSON array:
 [
   {{
+    "missing_component": "...",
     "title": "...",
-    "description": "...",
-    "addresses_gaps": ["gap1", ...],
-    "cited_papers": [1, 3]
+    "description": "2-3 sentences",
+    "novelty_justification": "why this is different from existing workspace papers",
+    "addresses_gaps": ["..."],
+    "cited_papers": [1,2,3]
   }}
 ]"""
+    ideas_raw = _parse_json(llm_stream(prompt, on_token))
 
-    response_text = llm_stream(prompt, on_token)
-    ideas = _parse_json(response_text)
+    ideas = []
+    novelty_scores = []
+    for idea in ideas_raw:
+        if not isinstance(idea, dict):
+            continue
+        desc = idea.get("description", "")
+        max_similarity = _embedding_novelty_similarity(desc, papers)
+        novelty_score_10 = round(max(1.0, (1.0 - max_similarity) * 10.0), 1)
+        novelty_scores.append(novelty_score_10)
+        ideas.append({
+            "missing_component": idea.get("missing_component", ""),
+            "title": idea.get("title", "Untitled idea"),
+            "description": desc,
+            "novelty_justification": idea.get("novelty_justification", ""),
+            "addresses_gaps": idea.get("addresses_gaps", []),
+            "cited_papers": [int(x) for x in idea.get("cited_papers", []) if str(x).isdigit()],
+            "max_similarity_to_workspace": round(max_similarity, 3),
+            "novelty_status": "low" if max_similarity > MAX_NOVELTY_SIMILARITY else "accepted",
+            "novelty_score": novelty_score_10,
+        })
 
-    state_update = {"ideas": ideas, "reflection_attempts": 0}
+    state_update = {
+        "ideas": ideas,
+        "reflection_attempts": 0,
+        "novelty_scores": novelty_scores,
+    }
     event = {
         "step": "generate_ideas",
         "status": "complete",
         "summary": f"Generated {len(ideas)} research ideas",
         "data": {
-            "ideas": [
-                {
-                    "title": idea["title"],
-                    "description": idea["description"],
-                    "addresses_gaps": idea.get("addresses_gaps", []),
-                    "cited_papers": idea.get("cited_papers", []),
-                    "citations": [
-                        paper_lookup[pid]["citation_label"]
-                        for pid in idea.get("cited_papers", [])
-                        if pid in paper_lookup
-                    ],
-                }
-                for idea in ideas
-            ]
+            "ideas": [{
+                **idea,
+                "citations": [
+                    paper_lookup[pid]["citation_label"]
+                    for pid in idea.get("cited_papers", [])
+                    if pid in paper_lookup
+                ],
+            } for idea in ideas],
+            "evidence_assessment": evidence_assessment,
         },
     }
     return state_update, event
@@ -535,6 +676,15 @@ Return ONLY a JSON array:
 def reflect_on_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
     ideas = state["ideas"]
     attempts = state.get("reflection_attempts", 0)
+    if not ideas:
+        state_update = {"novelty_scores": [], "reflection_attempts": attempts + 1}
+        event = {
+            "step": "reflect",
+            "status": "complete",
+            "summary": "No ideas generated due to insufficient evidence.",
+            "data": {"scores": [], "average": 0, "attempt": attempts + 1},
+        }
+        return state_update, event
 
     ideas_text = json.dumps(ideas, indent=2)
 
@@ -574,6 +724,8 @@ Return ONLY a JSON array of objects:
 
 def should_regenerate(state: dict) -> bool:
     scores = state.get("novelty_scores", [])
+    if not state.get("ideas"):
+        return False
     attempts = state.get("reflection_attempts", 0)
     avg_score = sum(scores) / len(scores) if scores else 0
     return avg_score < 7 and attempts < 3
@@ -623,7 +775,10 @@ def save_results(state: dict, on_token: Optional[Callable] = None) -> tuple:
             for c in state.get("clusters", [])
         ],
         "research_gaps": state.get("gaps", []),
+        "weak_research_gaps": state.get("weak_gaps", []),
+        "evidence_assessment": state.get("evidence_assessment", {}),
         "research_ideas": state.get("ideas", []),
+        "insufficient_evidence_message": state.get("insufficient_evidence_message", ""),
         "novelty_scores": state.get("novelty_scores", []),
         "references": references,
         "generated_at": datetime.now().isoformat(),
@@ -658,6 +813,7 @@ def generate_report(state: dict) -> str:
     ideas = state.get("ideas", [])
     scores = state.get("novelty_scores", [])
     clusters = state.get("clusters", [])
+    evidence_assessment = state.get("evidence_assessment", {})
 
     paper_lookup = {p["paper_id"]: p for p in papers}
 
@@ -674,6 +830,7 @@ Research Ideas:
 {json.dumps(ideas, indent=2)}
 
 Novelty Scores: {scores}
+Evidence Assessment: {json.dumps(evidence_assessment, indent=2)}
 
 Write the report in this format:
 # Research Brief: {{topic}}
@@ -793,6 +950,46 @@ def add_paper_to_workspace(session_id: str, paper: dict, existing_papers: list) 
     except Exception:
         pass  # duplicate id — paper already in workspace
 
+    return enriched
+
+
+def add_local_paper_to_workspace(session_id: str, file_name: str, extracted_text: str, existing_papers: list) -> dict:
+    """Add a local uploaded paper (pdf/txt/md) into workspace and ChromaDB."""
+    papers_col, _ = get_session_collections(session_id)
+
+    next_id = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
+    title = os.path.splitext(os.path.basename(file_name))[0].replace("_", " ").strip() or "Local Upload"
+    year = datetime.now().year
+    content = (extracted_text or "").strip()
+    summary = content[:8000] if content else ""
+
+    digest = hashlib.md5(f"{file_name}:{len(content)}".encode("utf-8")).hexdigest()[:10]
+    local_url = f"local://{digest}/{os.path.basename(file_name)}"
+
+    enriched = {
+        "paper_id": next_id,
+        "title": title,
+        "summary": summary,
+        "url": local_url,
+        "published": str(datetime.now().date()),
+        "authors": ["Local Upload"],
+        "citation_label": f"[Paper {next_id} - Local {year}]",
+        "source": "local_upload",
+    }
+
+    safe_id = f"local_{digest}_{next_id}"
+    papers_col.add(
+        documents=[summary or title],
+        metadatas=[{
+            "paper_id": next_id,
+            "title": enriched["title"],
+            "url": enriched["url"],
+            "published": enriched["published"],
+            "authors": ", ".join(enriched["authors"]),
+            "citation_label": enriched["citation_label"],
+        }],
+        ids=[safe_id],
+    )
     return enriched
 
 

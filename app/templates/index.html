@@ -98,6 +98,13 @@
             <!-- Run Mission -->
             <div class="panel mission-launch">
                 <div class="panel-header"><h3>&#9889; Run Autonomous Research</h3></div>
+                <div class="mission-mode-row">
+                    <label for="mission-mode">Mission Mode</label>
+                    <select id="mission-mode">
+                        <option value="autonomous_search">Autonomous search (arXiv + workspace)</option>
+                        <option value="workspace_only">Search only in workspace</option>
+                    </select>
+                </div>
                 <div class="mission-input-row">
                     <input type="text" id="mission-topic" placeholder="Define research goal... e.g. AI in Agriculture">
                     <button id="run-mission-btn" onclick="runMission()">Execute Mission</button>
@@ -164,6 +171,10 @@
                     <option value="year">Sort by Year</option>
                     <option value="title">Sort by Title</option>
                 </select>
+                <label class="upload-btn">
+                    Upload Local Paper
+                    <input type="file" id="upload-paper-file" accept=".pdf,.txt,.md" onchange="uploadLocalPaper()" hidden>
+                </label>
             </div>
             <div class="panel">
                 <div class="panel-header">

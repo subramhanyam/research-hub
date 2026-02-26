@@ -2,7 +2,16 @@
 
 let sessionId = null;
 let evtSource = null;
-let workspaceData = { papers: [], gaps: [], ideas: [], novelty_scores: [], missions: [] };
+let workspaceData = {
+    papers: [],
+    gaps: [],
+    weak_gaps: [],
+    ideas: [],
+    novelty_scores: [],
+    missions: [],
+    evidence_assessment: {},
+    insufficient_evidence_message: ''
+};
 
 // Activity log state
 let currentActivityStep = null;
@@ -58,7 +67,16 @@ async function createWorkspace() {
     });
     const data = await resp.json();
     sessionId = data.session_id;
-    workspaceData = { papers: [], gaps: [], ideas: [], novelty_scores: [], missions: [] };
+    workspaceData = {
+        papers: [],
+        gaps: [],
+        weak_gaps: [],
+        ideas: [],
+        novelty_scores: [],
+        missions: [],
+        evidence_assessment: {},
+        insufficient_evidence_message: ''
+    };
 
     document.getElementById('ws-name').textContent = name;
     document.getElementById('ws-id').textContent = sessionId;
@@ -73,9 +91,14 @@ async function refreshWorkspace() {
         const data = await resp.json();
         workspaceData.papers = data.papers || [];
         workspaceData.gaps = data.gaps || [];
+        workspaceData.weak_gaps = data.weak_gaps || [];
         workspaceData.ideas = data.ideas || [];
         workspaceData.novelty_scores = data.novelty_scores || [];
         workspaceData.missions = data.missions || [];
+        workspaceData.evidence_assessment = data.evidence_assessment || {};
+        workspaceData.insufficient_evidence_message = data.insufficient_evidence_message || '';
+        const modeSel = document.getElementById('mission-mode');
+        if (modeSel && data.mission_mode) modeSel.value = data.mission_mode;
         updateOverview();
     } catch (e) { /* ignore */ }
 }
@@ -83,10 +106,15 @@ async function refreshWorkspace() {
 function updateOverview() {
     document.getElementById('ov-papers').textContent = workspaceData.papers.length;
     document.getElementById('ov-missions').textContent = workspaceData.missions.length;
-    document.getElementById('ov-gaps').textContent = workspaceData.gaps.length;
+    document.getElementById('ov-gaps').textContent = (workspaceData.gaps.length + (workspaceData.weak_gaps || []).length);
     document.getElementById('ov-ideas').textContent = workspaceData.ideas.length;
 
-    const hasResults = workspaceData.gaps.length > 0;
+    const hasResults =
+        workspaceData.gaps.length > 0 ||
+        (workspaceData.weak_gaps || []).length > 0 ||
+        workspaceData.ideas.length > 0 ||
+        (workspaceData.evidence_assessment && Object.keys(workspaceData.evidence_assessment).length > 0) ||
+        workspaceData.missions.length > 0;
     document.getElementById('gen-report-btn').disabled = !hasResults;
     document.getElementById('download-btn').disabled = !hasResults;
 }
@@ -95,6 +123,7 @@ function updateOverview() {
 async function runMission() {
     const input = document.getElementById('mission-topic');
     const topic = input.value.trim();
+    const missionMode = document.getElementById('mission-mode')?.value || 'autonomous_search';
     if (!topic) { input.focus(); return; }
 
     if (!sessionId) {
@@ -108,7 +137,7 @@ async function runMission() {
     await fetch(`/api/workspace/${sessionId}/mission/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic }),
+        body: JSON.stringify({ topic, mission_mode: missionMode }),
     });
 
     resetTimeline();
@@ -124,7 +153,16 @@ async function createWorkspaceAuto(name) {
     });
     const data = await resp.json();
     sessionId = data.session_id;
-    workspaceData = { papers: [], gaps: [], ideas: [], novelty_scores: [], missions: [] };
+    workspaceData = {
+        papers: [],
+        gaps: [],
+        weak_gaps: [],
+        ideas: [],
+        novelty_scores: [],
+        missions: [],
+        evidence_assessment: {},
+        insufficient_evidence_message: ''
+    };
     document.getElementById('ws-name').textContent = name;
     document.getElementById('ws-id').textContent = sessionId;
 }
@@ -412,11 +450,14 @@ function onClusters(data) { /* stored via refreshWorkspace */ }
 
 function onGaps(data) {
     if (data.gaps) workspaceData.gaps = data.gaps;
+    if (data.weak_gaps) workspaceData.weak_gaps = data.weak_gaps;
+    if (data.evidence_assessment) workspaceData.evidence_assessment = data.evidence_assessment;
     updateOverview();
 }
 
 function onIdeas(data) {
     if (data.ideas) workspaceData.ideas = data.ideas;
+    if (data.message) workspaceData.insufficient_evidence_message = data.message;
     updateOverview();
 }
 
@@ -441,9 +482,9 @@ function renderPapersList() {
         <div class="paper-row" data-paper-id="${p.paper_id || ''}">
             <div class="paper-row-body">
                 <div class="paper-row-cite">${esc(p.citation_label || '')}</div>
-                <div class="paper-row-title"><a href="${esc(p.url)}" target="_blank">${esc(p.title)}</a></div>
+                <div class="paper-row-title">${p.url && p.url.startsWith('local://') ? esc(p.title) : `<a href="${esc(p.url)}" target="_blank">${esc(p.title)}</a>`}</div>
                 <div class="paper-row-meta">${esc((p.authors||[]).join(', '))} &middot; ${esc(p.published || '')}
-                    <span class="paper-row-source ${p.source === 'arxiv_search' ? 'source-manual' : 'source-mission'}">${p.source === 'arxiv_search' ? 'Added' : 'Mission'}</span>
+                    <span class="paper-row-source ${p.source === 'arxiv_search' || p.source === 'local_upload' ? 'source-manual' : 'source-mission'}">${p.source === 'local_upload' ? 'Upload' : (p.source === 'arxiv_search' ? 'Added' : 'Mission')}</span>
                 </div>
             </div>
             <div class="paper-row-actions">
@@ -451,6 +492,42 @@ function renderPapersList() {
             </div>
         </div>
     `).join('');
+}
+
+async function uploadLocalPaper() {
+    const input = document.getElementById('upload-paper-file');
+    if (!input || !input.files || !input.files.length) return;
+    const file = input.files[0];
+
+    if (!sessionId) {
+        await createWorkspaceAuto('Research Workspace');
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    setStatus('running', 'Uploading local paper...');
+    try {
+        const resp = await fetch(`/api/workspace/${sessionId}/papers/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            setStatus('error', data.error || 'Upload failed');
+            input.value = '';
+            return;
+        }
+        data.paper.source = 'local_upload';
+        if (!workspaceData.papers.find(p => p.url === data.paper.url)) {
+            workspaceData.papers.push(data.paper);
+        }
+        updateOverview();
+        renderPapersList();
+        setStatus('complete', 'Local paper added to workspace');
+    } catch (e) {
+        setStatus('error', 'Upload failed');
+    }
+    input.value = '';
 }
 
 function getFilteredPapers() {
@@ -619,6 +696,7 @@ function renderMissionsList() {
             </div>
             <div class="mission-row-goal">Goal: "${esc(m.goal)}"</div>
             <div class="mission-row-stats">
+                <span>Mode: ${m.mode === 'workspace_only' ? 'Workspace only' : 'Autonomous'}</span>
                 <span>Gaps: ${m.gaps_found || 0}</span>
                 <span>Ideas: ${m.ideas_generated || 0}</span>
                 ${m.novelty_avg ? `<span>Novelty: ${m.novelty_avg}/10</span>` : ''}
@@ -633,18 +711,26 @@ function renderGapsList() {
     const container = document.getElementById('gaps-list');
     const empty = document.getElementById('gaps-empty');
     const badge = document.getElementById('gaps-badge');
-    const gaps = workspaceData.gaps || [];
+    const strongGaps = workspaceData.gaps || [];
+    const weakGaps = workspaceData.weak_gaps || [];
+    const gaps = [...strongGaps, ...weakGaps];
 
     badge.textContent = gaps.length;
     if (!gaps.length) { container.innerHTML = ''; empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
 
-    container.innerHTML = gaps.map((g, i) => {
+    const evidence = workspaceData.evidence_assessment || {};
+    const verdict = evidence.verdict ? `<div class="gap-verdict"><strong>Evidence verdict:</strong> ${esc(evidence.verdict)}</div>` : '';
+    container.innerHTML = verdict + gaps.map((g, i) => {
         const gap = typeof g === 'string' ? g : g.gap;
         const cites = g.citations || (g.supporting_papers || []).map(pid => `[Paper ${pid}]`);
+        const strength = g.strength || 'unknown';
+        const conf = (typeof g.confidence === 'number') ? `${g.confidence}%` : 'n/a';
+        const freq = g.frequency ?? (g.supporting_papers || []).length;
         return `
             <div class="gap-card">
                 <div class="gap-card-text"><strong>${i + 1}.</strong> ${esc(gap)}</div>
+                <div class="gap-card-papers">Strength: <span>${esc(strength)}</span> | Frequency: <span>${esc(String(freq))}</span> | Confidence: <span>${esc(conf)}</span></div>
                 ${cites.length ? `<div class="gap-card-papers">Sources: ${cites.map(c => `<span>${esc(c)}</span>`).join(', ')}</div>` : ''}
             </div>
         `;
@@ -658,7 +744,13 @@ function renderIdeasList() {
     const ideas = workspaceData.ideas || [];
     const scores = workspaceData.novelty_scores || [];
 
-    if (!ideas.length) { container.innerHTML = ''; empty.classList.remove('hidden'); return; }
+    if (!ideas.length) {
+        const msg = workspaceData.insufficient_evidence_message || 'No ideas generated yet. Run a research mission first.';
+        empty.textContent = msg;
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+    }
     empty.classList.add('hidden');
 
     container.innerHTML = ideas.map((idea, i) => {
@@ -675,8 +767,11 @@ function renderIdeasList() {
                     <div class="idea-card-title">${esc(idea.title)}</div>
                     ${scoreVal ? `<span class="novelty-badge ${cls}">${scoreVal}/10</span>` : ''}
                 </div>
+                ${idea.missing_component ? `<div class="idea-card-gaps"><strong>Missing component:</strong> ${esc(idea.missing_component)}</div>` : ''}
                 <div class="idea-card-desc">${esc(idea.description)}</div>
                 ${idea.addresses_gaps?.length ? `<div class="idea-card-gaps">Addresses: ${idea.addresses_gaps.map(g => esc(g)).join('; ')}</div>` : ''}
+                ${idea.novelty_justification ? `<div class="idea-card-gaps">Novelty basis: ${esc(idea.novelty_justification)}</div>` : ''}
+                ${idea.max_similarity_to_workspace !== undefined ? `<div class="idea-card-gaps">Max similarity vs workspace: ${(idea.max_similarity_to_workspace * 100).toFixed(1)}%</div>` : ''}
                 ${cites.length ? `<div class="idea-card-cites">${cites.map(c => esc(c)).join(', ')}</div>` : ''}
                 ${scoreVal ? `<span class="idea-card-confidence ${confCls}">Confidence: ${confLabel}</span>` : ''}
             </div>
@@ -748,8 +843,11 @@ async function resumeSession() {
         // Populate workspace data from JSON
         workspaceData.papers = (sessionData.papers || []).map(p => ({ ...p, source: 'mission' }));
         workspaceData.gaps = sessionData.research_gaps || [];
+        workspaceData.weak_gaps = sessionData.weak_research_gaps || [];
         workspaceData.ideas = sessionData.research_ideas || [];
         workspaceData.novelty_scores = sessionData.novelty_scores || [];
+        workspaceData.evidence_assessment = sessionData.evidence_assessment || {};
+        workspaceData.insufficient_evidence_message = sessionData.insufficient_evidence_message || '';
         workspaceData.missions = [{
             mission_id: 1,
             goal: sessionData.topic || '',
