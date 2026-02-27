@@ -14,4 +14,4 @@ arxiv
 scikit-learn
 numpy
 chromadb
-sentence-transformers
+openai
