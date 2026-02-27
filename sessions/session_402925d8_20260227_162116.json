@@ -1,0 +1,186 @@
+{
+  "session_id": "402925d8",
+  "topic": "To develop a new neural network architecture that can process and understand sequences more efficiently and accurately than existing methods like RNNs and CNNs.",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 1,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "NIPS-2017-attention-is-all-you-need-Paper",
+      "summary": "Attention Is All You Need\nAshish Vaswani\u0003\nGoogle Brain\navaswani@google.comNoam Shazeer\u0003\nGoogle Brain\nnoam@google.comNiki Parmar\u0003\nGoogle Research\nnikip@google.comJakob Uszkoreit\u0003\nGoogle Research\nusz@google.com\nLlion Jones\u0003\nGoogle Research\nllion@google.comAidan N. Gomez\u0003y\nUniversity of Toronto\naidan@cs.toronto.edu\u0141ukasz Kaiser\u0003\nGoogle Brain\nlukaszkaiser@google.com\nIllia Polosukhin\u0003z\nillia.polosukhin@gmail.com\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or\nconvolutional neural networks that include an encoder and a decoder. The best\nperforming models also connect the encoder and decoder through an attention\nmechanism. We propose a new simple network architecture, the Transformer,\nbased solely on attention mechanisms, dispensing with recurrence and convolutions\nentirely. Experiments on two machine translation tasks show these models to\nbe superior in quality while being more parallelizable and requiring signi\ufb01cantly\nless time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-\nto-German translation task, improving over the existing best results, including\nensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task,\nour model establishes a new single-model state-of-the-art BLEU score of 41.0 after\ntraining for 3.5 days on eight GPUs, a small fraction of the training costs of the\nbest models from the literature.\n1 Introduction\nRecurrent neural networks, long short-term memory [ 12] and gated recurrent [ 7] neural networks\nin particular, have been \ufb01rmly established as state of the art approaches in sequence modeling and\ntransduction problems such as language modeling and machine translation [ 29,2,5]. Numerous\nefforts have since continued to push the boundaries of recurrent language models and encoder-decoder\narchitectures [31, 21, 13].\n\u0003Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started\nthe effort to evaluate this idea. Ashish, with Illia, designed and implemented the \ufb01rst Transformer models and\nhas been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head\nattention and the parameter-free position representation and became the other person involved in nearly every\ndetail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and\ntensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and\nef\ufb01cient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and\nimplementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating\nour research.\nyWork performed while at Google Brain.\nzWork performed while at Google Research.\n31st Conference on Neural Information Processing Systems (NIPS 2017), Long Beach, CA, USA.\nRecurrent models typically factor computation along the symbol positions of the input and output\nsequences. Aligning the positions to steps in computation time, they generate a sequence of hidden\nstatesht, as a function of the previous hidden state ht\u00001and the input for position t. This inherently\nsequential nature precludes parallelization within training examples, which becomes critical at longer\nsequence lengths, as memory constraints limit batching across examples. Recent work has achieved\nsigni\ufb01cant improvements in computational ef\ufb01ciency through factorization tricks [ 18] and conditional\ncomputation [ 26], while also improving model performance in case of the latter. The fundamental\nconstraint of sequential computation, however, remains.\nAttention mechanisms have become an integral part of compelling sequence modeling and transduc-\ntion models in various tasks, allowing modeling of dependencies without regard to their distance in\nthe input or output sequences [ 2,16]. In all but a few cases [ 22], however, such attention mechanisms\nare used in conjunction with a recurrent network.\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead\nrelying entirely on an attention mechanism to draw global dependencies between input and output.\nThe Transformer allows for signi\ufb01cantly more parallelization and can reach a new state of the art in\ntranslation quality after being trained for as little as twelve hours on eight P100 GPUs.\n2 Background\nThe goal of reducing sequential computation also forms the foundation of the Extended Neural GPU\n[20], ByteNet [ 15] and ConvS2S [ 8], all of which use convolutional neural networks as basic building\nblock, computing hidden representations in parallel for all input and output positions. In these models,\nthe number of operations required to relate signals from two arbitrary input or output positions grows\nin the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes\nit more dif\ufb01cult to learn dependencies between distant positions [ 11]. In the Transformer this is\nreduced to a constant number of operations, albeit at the cost of reduced effective resolution due\nto averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as\ndescribed in section 3.2.\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions\nof a single sequence in order to compute a representation of the sequence. Self-attention has been\nused successfully in a variety of tasks including reading comprehension, abstractive summarization,\ntextual entailment and learning task-independent sentence representations [4, 22, 23, 19].\nEnd-to-end memory networks are based on a recurrent attention mechanism instead of sequence-\naligned recurrence and have been shown to perform well on simple-language question answering and\nlanguage modeling tasks [28].\nTo the best of our knowledge, however, the Transformer is the \ufb01rst transduction model relying\nentirely on self-attention to compute representations of its input and output without using sequence-\naligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate\nself-attention and discuss its advantages over models such as [14, 15] and [8].\n3 Model Architecture\nMost competitive neural sequence transduction models have an encoder-decoder structure [ 5,2,29].\nHere, the encoder maps an input sequence of symbol representations (x1;:::;x n)to a sequence\nof continuous representations z= (z1;:::;z n). Given z, the decoder then generates an output\nsequence (y1;:::;y m)of symbols one element at a time. At each step the model is auto-regressive\n[9], consuming the previously generated symbols as additional input when generating the next.\nThe Transformer follows this overall architecture using stacked self-attention and point-wise, fully\nconnected layers for both the encoder and decoder, shown in the left and right halves of Figure 1,\nrespectively.\n3.1 Encoder and Decoder Stacks\nEncoder: The encoder is composed of a stack of N= 6 identical layers. Each layer has two\nsub-layers. The \ufb01rst is a multi-head self-attention mechanism, and the second is a simple, position-\n2\nFigure 1: The Transformer - model architecture.\nwise fully connected feed-forward network. We employ a residual connection [ 10] around each of\nthe two sub-layers, followed by layer normalization [ 1]. That is, the output of each sub-layer is\nLayerNorm( x+ Sublayer( x)), where Sublayer(x)is the function implemented by the sub-layer\nitself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding\nlayers, produce outputs of dimension dmodel = 512 .\nDecoder: The decoder is also composed of a stack of N= 6identical layers. In addition to the two\nsub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head\nattention over the output of the encoder stack. Similar to the encoder, we employ residual connections\naround each of the sub-layers, followed by layer normaliz",
+      "url": "local://b9dd3545de/NIPS-2017-attention-is-all-you-need-Paper.pdf",
+      "published": "2026-02-27",
+      "authors": [
+        "Local Upload"
+      ],
+      "citation_label": "[Paper 1 - Local 2026]",
+      "source": "local_upload"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+      "missing_component": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "absence of theoretical justification for the proposed architecture",
+      "missing_component": "absence of theoretical justification for the proposed architecture",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+      "missing_component": "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no description of datasets or evaluation metrics used",
+      "missing_component": "no description of datasets or evaluation metrics used",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no comparison with baseline methods",
+      "missing_component": "no comparison with baseline methods",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no details on model architecture, training procedure, or hyperparameters",
+      "missing_component": "no details on model architecture, training procedure, or hyperparameters",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+      "missing_component": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "absence of theoretical justification for the proposed architecture",
+      "missing_component": "absence of theoretical justification for the proposed architecture",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+      "missing_component": "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no description of datasets or evaluation metrics used",
+      "missing_component": "no description of datasets or evaluation metrics used",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no comparison with baseline methods",
+      "missing_component": "no comparison with baseline methods",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "no details on model architecture, training procedure, or hyperparameters",
+      "missing_component": "no details on model architecture, training procedure, or hyperparameters",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 6,
+    "verdict": "insufficient",
+    "confidence": 0.2
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "Hierarchical Temporal Graph Neural Network (HTGNN): A graph\u2011based architecture that hierarchically pools temporal nodes to capture long\u2011range dependencies with O(n\u202flog\u202fn) complexity. The model combines a lightweight GNN encoder with a multi\u2011scale temporal pooling module, theoretically justified by spectral graph analysis showing reduced parameter count and improved expressiveness compared to self\u2011attention. Experimental plan: benchmark on PTB, WikiText\u2011103, and enwik8, measuring perplexity, training time, and GPU memory, and compare against LSTM, GRU, Transformer\u2011XL, and GPT\u20112 baselines.",
+      "missing_component": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.), absence of theoretical justification for the proposed architecture, no experimental results or benchmarks to demonstrate efficiency or accuracy gains, no description of datasets or evaluation metrics used, no comparison with baseline methods, no details on model architecture, training procedure, or hyperparameters",
+      "addresses_gaps": [
+        "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+        "absence of theoretical justification for the proposed architecture",
+        "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+        "no description of datasets or evaluation metrics used",
+        "no comparison with baseline methods",
+        "no details on model architecture, training procedure, or hyperparameters"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "Adaptive Recurrent Convolutional Network (ARCN): A hybrid architecture that merges 1\u2011D convolutional layers with adaptive gating mechanisms, enabling dynamic receptive field adjustment per time step. Theoretical support comes from the information bottleneck principle and dynamic receptive field theory, demonstrating efficient gradient flow and reduced vanishing gradients. Experiments will be conducted on LibriSpeech (speech recognition) and MAESTRO (music generation), evaluating WER/accuracy, training speed, and parameter efficiency against CNN, RNN, and Transformer baselines.",
+      "missing_component": "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.), absence of theoretical justification for the proposed architecture, no experimental results or benchmarks to demonstrate efficiency or accuracy gains, no description of datasets or evaluation metrics used, no comparison with baseline methods, no details on model architecture, training procedure, or hyperparameters",
+      "addresses_gaps": [
+        "lack of literature review on existing sequence models (RNNs, CNNs, Transformers, etc.)",
+        "absence of theoretical justification for the proposed architecture",
+        "no experimental results or benchmarks to demonstrate efficiency or accuracy gains",
+        "no description of datasets or evaluation metrics used",
+        "no comparison with baseline methods",
+        "no details on model architecture, training procedure, or hyperparameters"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "Workspace mode is active, but no indexed evidence was found. Add local PDFs under /workspaces/research-hub/agent_workspace/papers_local or switch mission mode.",
+  "novelty_scores": [
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> END"
+  ],
+  "generated_at": "2026-02-27T16:21:16.402414"
+}

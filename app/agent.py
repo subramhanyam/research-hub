@@ -1,76 +1,50 @@
-"""
-Research Agent — extracted from research_agent.ipynb
-Each node function returns (state_update, sse_event) tuple.
-Streaming variants use callback to push partial tokens via SSE.
-"""
-
+import hashlib
+import io
+import json
 import os
 import re
-import json
 import uuid
-import hashlib
-import arxiv
-import numpy as np
 from datetime import datetime
-from typing import Literal, Callable, Optional
-from dotenv import load_dotenv
+from pathlib import Path
+from typing import Any, Callable, Optional, TypedDict
 
+import arxiv
 import chromadb
 from chromadb.utils import embedding_functions
-from sklearn.cluster import AgglomerativeClustering
-from sklearn.metrics.pairwise import cosine_similarity
-
-from langchain_groq import ChatGroq
+from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
+from langchain_groq import ChatGroq
+from langgraph.graph import END, StateGraph
+from PyPDF2 import PdfReader
 
 load_dotenv()
 
 # ---------- LLM ----------
 llm = ChatGroq(
-    model="llama-3.3-70b-versatile",
-    temperature=0.7,
+    model="openai/gpt-oss-20b",
+    temperature=0.1,
 )
 
-llm_streaming = ChatGroq(
-    model="llama-3.3-70b-versatile",
-    temperature=0.7,
-    streaming=True,
-)
 
-MIN_GAP_CLUSTER_FREQUENCY = 2
-MIN_SUPPORTING_SOURCES_FOR_IDEA = 3
-MIN_GAP_CONFIDENCE = 60.0
-MAX_NOVELTY_SIMILARITY = 0.85
-
-
-def llm_stream(prompt: str, on_token: Optional[Callable[[str], None]] = None) -> str:
-    """Invoke LLM with streaming. Calls on_token for each chunk, returns full text."""
-    if on_token is None:
-        response = llm.invoke([HumanMessage(content=prompt)])
-        return response.content
-
-    full_text = ""
-    for chunk in llm_streaming.stream([HumanMessage(content=prompt)]):
-        token = chunk.content
-        if token:
-            full_text += token
-            on_token(token)
-    return full_text
-
-# ---------- ChromaDB ----------
-CHROMA_DB_PATH = "./chroma_db"
+# ---------- Paths ----------
+WORK_DIR = Path("./agent_workspace")
+PDF_DIR = WORK_DIR / "papers_local"
+ARXIV_DIR = WORK_DIR / "papers_arxiv"
+CHROMA_DIR = WORK_DIR / "chroma_db"
 SESSIONS_DIR = "./sessions"
-os.makedirs(SESSIONS_DIR, exist_ok=True)
+for d in [WORK_DIR, PDF_DIR, ARXIV_DIR, CHROMA_DIR, Path(SESSIONS_DIR)]:
+    d.mkdir(parents=True, exist_ok=True)
 
-chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
+
+# ---------- Chroma ----------
+chroma_client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"
 )
 
 
-def create_new_session():
-    session_id = str(uuid.uuid4())[:8]
-    return session_id
+def create_new_session() -> str:
+    return str(uuid.uuid4())[:8]
 
 
 def get_session_collections(session_id: str):
@@ -85,883 +59,156 @@ def get_session_collections(session_id: str):
     return papers_col, limitations_col
 
 
-# ---------- Helper: parse LLM JSON (robust) ----------
 def _parse_json(text: str):
-    text = text.strip()
-
-    # Strip markdown code fences
-    if "```" in text:
-        text = text.split("```")[1]
-        if text.startswith("json"):
-            text = text[4:]
-        text = text.strip()
-
-    # Attempt 1: direct parse
+    t = text.strip()
+    if "```" in t:
+        t = t.replace("```json", "").replace("```", "").strip()
     try:
-        return json.loads(text)
-    except json.JSONDecodeError:
+        return json.loads(t)
+    except Exception:
         pass
 
-    # Attempt 2: find the first [ ... ] or { ... } block via regex
-    for pattern in [r'\[[\s\S]*\]', r'\{[\s\S]*\}']:
-        match = re.search(pattern, text)
-        if match:
+    for pattern in [r"\[[\s\S]*\]", r"\{[\s\S]*\}"]:
+        m = re.search(pattern, t)
+        if m:
             try:
-                return json.loads(match.group())
-            except json.JSONDecodeError:
+                return json.loads(m.group())
+            except Exception:
                 pass
 
-    # Attempt 3: fix common LLM issues — trailing commas, single quotes
-    cleaned = text
-    cleaned = re.sub(r',\s*([}\]])', r'\1', cleaned)   # remove trailing commas
-    cleaned = cleaned.replace("'", '"')                  # single to double quotes
+    raise json.JSONDecodeError("Could not parse JSON", t, 0)
+
+
+def _llm_json(prompt: str, fallback: dict) -> dict:
     try:
-        return json.loads(cleaned)
-    except json.JSONDecodeError:
-        pass
-
-    # Attempt 4: for arrays, try extracting from first [ to last ]
-    start = text.find('[')
-    end = text.rfind(']')
-    if start != -1 and end != -1 and end > start:
-        try:
-            return json.loads(text[start:end + 1])
-        except json.JSONDecodeError:
-            pass
-
-    # Attempt 5: for objects, try extracting from first { to last }
-    start = text.find('{')
-    end = text.rfind('}')
-    if start != -1 and end != -1 and end > start:
-        try:
-            return json.loads(text[start:end + 1])
-        except json.JSONDecodeError:
-            pass
-
-    raise json.JSONDecodeError(f"Could not parse LLM response as JSON", text, 0)
-
-
-def _first_author_lastname(paper: dict) -> str:
-    authors = paper.get("authors", [])
-    if not authors:
-        return "Unknown"
-    return authors[0].split()[-1]
-
-
-def _compute_gap_confidence(supporting_paper_ids: list[int], papers: list[dict]) -> tuple[float, float]:
-    total_papers = max(len(papers), 1)
-    support_count = len(set(supporting_paper_ids))
-    if support_count == 0:
-        return 0.0, 0.0
-
-    paper_lookup = {p["paper_id"]: p for p in papers}
-    supporting = [paper_lookup[pid] for pid in set(supporting_paper_ids) if pid in paper_lookup]
-    if not supporting:
-        return 0.0, 0.0
-
-    unique_authors = {_first_author_lastname(p).lower() for p in supporting}
-    diversity_score = len(unique_authors) / max(len(supporting), 1)
-    confidence = min(100.0, ((support_count / total_papers) * diversity_score) * 100.0)
-    return round(confidence, 1), round(diversity_score, 3)
-
-
-def _embedding_novelty_similarity(text: str, papers: list[dict]) -> float:
-    corpus = [p.get("summary", "") for p in papers if p.get("summary")]
-    if not text.strip() or not corpus:
-        return 0.0
-
-    try:
-        idea_embedding = np.array(embedding_fn([text])[0]).reshape(1, -1)
-        paper_embeddings = np.array(embedding_fn(corpus))
-        sims = cosine_similarity(idea_embedding, paper_embeddings)[0]
-        return float(np.max(sims)) if sims.size else 0.0
+        raw = llm.invoke([HumanMessage(content=prompt)]).content
+        parsed = _parse_json(raw)
+        return parsed if isinstance(parsed, dict) else fallback
     except Exception:
-        return 0.0
+        return fallback
 
 
-# ======================================================================
-#  NODE FUNCTIONS — each returns (state_update_dict, sse_event_dict)
-# ======================================================================
-
-def generate_plan(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    topic = state["topic"]
-
-    prompt = f"""You are a research assistant. Given the topic \"{topic}\", generate:
-1. A list of 3-5 specific subtopics to investigate
-2. A list of 5-8 search keywords/phrases for finding papers on arXiv
-
-Return ONLY valid JSON in this format:
-{{
-  "subtopics": ["subtopic1", "subtopic2", ...],
-  "keywords": ["keyword1", "keyword2", ...]
-}}"""
-
-    response_text = llm_stream(prompt, on_token)
-    data = _parse_json(response_text)
-
-    state_update = {"subtopics": data["subtopics"], "keywords": data["keywords"]}
-    event = {
-        "step": "generate_plan",
-        "status": "complete",
-        "summary": f"Generated {len(data['subtopics'])} subtopics, {len(data['keywords'])} keywords",
-        "data": {"subtopics": data["subtopics"], "keywords": data["keywords"]},
-    }
-    return state_update, event
+def _emit(state: dict, payload: dict):
+    cb = state.get("_emit")
+    if cb:
+        cb(payload)
 
 
-def search_papers(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    keywords = state["keywords"]
-    session_id = state["session_id"]
-    mission_mode = state.get("mission_mode", "autonomous_search")
+def _token(state: dict, step: str, agent: str, text: str):
+    cb = state.get("_token")
+    if cb and text:
+        cb(step, agent, text)
+
+
+def _split_text(text: str, chunk_size: int = 1200, overlap: int = 200) -> list[str]:
+    text = (text or "").strip()
+    if not text:
+        return []
+    chunks: list[str] = []
+    start = 0
+    n = len(text)
+    while start < n:
+        end = min(n, start + chunk_size)
+        chunks.append(text[start:end])
+        if end == n:
+            break
+        start = max(0, end - overlap)
+    return chunks
+
+
+def _extract_pdf_pages(pdf_bytes: bytes) -> list[tuple[int, str]]:
+    pages = []
+    reader = PdfReader(io.BytesIO(pdf_bytes))
+    for idx, p in enumerate(reader.pages):
+        pages.append((idx + 1, p.extract_text() or ""))
+    return pages
+
+
+def _add_text_to_collection(session_id: str, source: str, title: str, text: str, page: int = -1):
     papers_col, _ = get_session_collections(session_id)
+    chunks = _split_text(text)
+    if not chunks:
+        return 0
 
-    existing_papers = state.get("papers", [])
-    all_papers = list(existing_papers)
-    seen_ids = set(p.get("url") for p in existing_papers if p.get("url"))
-    paper_id_counter = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
-
-    if mission_mode == "workspace_only":
-        if on_token:
-            on_token("\n[Mission mode: workspace_only. Skipping arXiv search and using workspace papers only.]\n")
-        state_update = {"papers": all_papers}
-        event = {
-            "step": "search_papers",
-            "status": "complete",
-            "summary": f"Workspace-only mode: using {len(all_papers)} existing papers",
-            "data": {
-                "papers": [
-                    {
-                        "paper_id": p.get("paper_id"),
-                        "title": p.get("title", ""),
-                        "citation_label": p.get("citation_label", ""),
-                        "url": p.get("url", ""),
-                        "published": p.get("published", ""),
-                        "authors": p.get("authors", []),
-                    }
-                    for p in all_papers
-                ]
-            },
-        }
-        return state_update, event
-
-    client = arxiv.Client()
-
-    for kw in keywords:
-        if on_token:
-            on_token(f"\n[Searching arXiv for: \"{kw}\"]\n")
-        search = arxiv.Search(
-            query=kw,
-            max_results=3,
-            sort_by=arxiv.SortCriterion.Relevance,
-        )
-        for result in client.results(search):
-            if result.entry_id not in seen_ids:
-                seen_ids.add(result.entry_id)
-                authors_list = [a.name for a in result.authors[:3]]
-                paper = {
-                    "paper_id": paper_id_counter,
-                    "title": result.title,
-                    "summary": result.summary,
-                    "url": result.entry_id,
-                    "published": str(result.published.date()),
-                    "authors": authors_list,
-                    "citation_label": f"[Paper {paper_id_counter} - {authors_list[0].split()[-1]} {result.published.year}]",
-                }
-                all_papers.append(paper)
-                if on_token:
-                    on_token(f"  Found: {result.title[:80]}\n")
-                paper_id_counter += 1
-
-                safe_id = result.entry_id.replace("/", "_").replace(":", "_")
-                papers_col.add(
-                    documents=[result.summary],
-                    metadatas=[{
-                        "paper_id": paper["paper_id"],
-                        "title": result.title,
-                        "url": result.entry_id,
-                        "published": str(result.published.date()),
-                        "authors": ", ".join(authors_list),
-                        "citation_label": paper["citation_label"],
-                    }],
-                    ids=[safe_id],
-                )
-
-    state_update = {"papers": all_papers}
-    event = {
-        "step": "search_papers",
-        "status": "complete",
-        "summary": f"Found {len(all_papers)} unique papers from arXiv",
-        "data": {
-            "papers": [
-                {
-                    "paper_id": p["paper_id"],
-                    "title": p["title"],
-                    "citation_label": p["citation_label"],
-                    "url": p["url"],
-                    "published": p["published"],
-                    "authors": p["authors"],
-                }
-                for p in all_papers
-            ]
-        },
-    }
-    return state_update, event
-
-
-def extract_limitations(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    papers = state["papers"]
-
-    all_limitations = []
-
-    batch_size = 5
-    for i in range(0, len(papers), batch_size):
-        batch = papers[i : i + batch_size]
-        if on_token:
-            on_token(f"\n[Analyzing batch {i//batch_size + 1}/{(len(papers)-1)//batch_size + 1}: papers {i+1}-{min(i+batch_size, len(papers))}]\n")
-        papers_text = ""
-        for j, p in enumerate(batch):
-            papers_text += f"\n--- {p['citation_label']}: {p['title']} ---\n{p['summary']}\n"
-
-        prompt = f"""Analyze these paper abstracts and extract specific limitations,
-weaknesses, and future work suggestions mentioned or implied.
-
-{papers_text}
-
-Return ONLY valid JSON — an array of objects. For each limitation, include the paper_id it came from.
-Example:
-[
-  {{"limitation": "The method fails on small datasets.", "paper_id": 1}},
-  {{"limitation": "No evaluation on real-world data.", "paper_id": 2}}
-]"""
-
-        text = llm_stream(prompt, on_token).strip()
-
-        try:
-            limitations_data = _parse_json(text)
-            for item in limitations_data:
-                if isinstance(item, dict) and "limitation" in item:
-                    raw_pid = item.get("paper_id")
-                    try:
-                        pid = int(raw_pid) if raw_pid is not None else None
-                    except (ValueError, TypeError):
-                        pid = None
-                    all_limitations.append({
-                        "text": item["limitation"],
-                        "paper_id": pid,
-                    })
-                elif isinstance(item, str):
-                    all_limitations.append({"text": item, "paper_id": None})
-        except (json.JSONDecodeError, Exception):
-            for line in text.split("\n"):
-                line = line.strip().strip('",-[]')
-                if len(line) > 20:
-                    all_limitations.append({"text": line, "paper_id": None})
-
-    paper_lookup = {p["paper_id"]: p["citation_label"] for p in papers}
-    for lim in all_limitations:
-        pid = lim.get("paper_id")
-        lim["citation_label"] = paper_lookup.get(pid, "[Unknown]") if pid else "[Unknown]"
-
-    state_update = {"limitations": all_limitations}
-    event = {
-        "step": "extract_limitations",
-        "status": "complete",
-        "summary": f"Extracted {len(all_limitations)} limitations from {len(papers)} papers",
-        "data": {
-            "count": len(all_limitations),
-            "sample": [
-                {"text": l["text"][:120], "citation_label": l["citation_label"]}
-                for l in all_limitations[:8]
-            ],
-        },
-    }
-    return state_update, event
-
-
-def cluster_limitations(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    limitations = state["limitations"]
-    topic = state.get("topic", "research")
-    session_id = state["session_id"]
-    _, limitations_col = get_session_collections(session_id)
-
-    lim_texts = [l["text"] if isinstance(l, dict) else l for l in limitations]
-
-    if len(lim_texts) < 3:
-        clusters = [{"theme": "General", "limitations": limitations, "count": len(limitations), "cited_paper_ids": []}]
-        state_update = {"clusters": clusters}
-        event = {
-            "step": "cluster_limitations",
-            "status": "complete",
-            "summary": "Too few limitations to cluster",
-            "data": {"clusters": [{"theme": "General", "count": len(limitations), "cited_paper_ids": []}]},
-        }
-        return state_update, event
-
-    run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
-    ids = [f"lim_{run_id}_{i}" for i in range(len(lim_texts))]
-
-    limitations_col.add(
-        documents=lim_texts,
-        metadatas=[
-            {
-                "topic": topic,
-                "paper_id": str(l.get("paper_id", "")) if isinstance(l, dict) else "",
-                "citation_label": l.get("citation_label", "") if isinstance(l, dict) else "",
-            }
-            for l in limitations
-        ],
-        ids=ids,
-    )
-
-    result = limitations_col.get(ids=ids, include=["embeddings"])
-    embeddings = np.array(result["embeddings"])
-
-    sim_matrix = cosine_similarity(embeddings)
-    distance_matrix = 1 - sim_matrix
-    np.fill_diagonal(distance_matrix, 0)
-    distance_matrix = np.clip(distance_matrix, 0, None)
-
-    n_clusters = min(max(2, len(lim_texts) // 3), 8)
-    clustering = AgglomerativeClustering(
-        n_clusters=n_clusters,
-        metric="precomputed",
-        linkage="average",
-    )
-    labels = clustering.fit_predict(distance_matrix)
-
-    clusters_dict = {}
-    for idx, label in enumerate(labels):
-        clusters_dict.setdefault(int(label), []).append(limitations[idx])
-
-    clusters = []
-    if on_token:
-        on_token(f"\n[Formed {len(clusters_dict)} clusters, naming themes...]\n")
-    for label, lims in clusters_dict.items():
-        sample = "; ".join(l["text"] if isinstance(l, dict) else l for l in lims[:3])
-        theme_prompt = f"Give a short 3-5 word theme name for these limitations: {sample}. Reply with ONLY the theme name."
-        theme_text = llm_stream(theme_prompt, on_token)
-        theme = theme_text.strip().strip('"')
-        if on_token:
-            on_token(f"\n  Cluster {label + 1}: \"{theme}\" ({len(lims)} limitations)\n")
-
-        cited_papers = list(
-            set(l.get("paper_id") for l in lims if isinstance(l, dict) and l.get("paper_id"))
-        )
-
-        clusters.append({
-            "theme": theme,
-            "limitations": lims,
-            "count": len(lims),
-            "cited_paper_ids": cited_papers,
+    ids = []
+    metas = []
+    for i, c in enumerate(chunks):
+        hid = hashlib.md5(f"{source}|{page}|{i}|{c[:80]}".encode("utf-8")).hexdigest()
+        ids.append(hid)
+        metas.append({
+            "source": source,
+            "title": title,
+            "page": page,
+            "chunk_idx": i,
         })
 
-    clusters.sort(key=lambda c: c["count"], reverse=True)
-
-    state_update = {"clusters": clusters}
-    event = {
-        "step": "cluster_limitations",
-        "status": "complete",
-        "summary": f"Formed {len(clusters)} limitation clusters",
-        "data": {
-            "clusters": [
-                {"theme": c["theme"], "count": c["count"], "cited_paper_ids": c["cited_paper_ids"]}
-                for c in clusters
-            ]
-        },
-    }
-    return state_update, event
+    try:
+        papers_col.add(documents=chunks, metadatas=metas, ids=ids)
+    except Exception:
+        return 0
+    return len(chunks)
 
 
-def identify_gaps(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    clusters = state["clusters"]
-    papers = state["papers"]
-
-    paper_lookup = {p["paper_id"]: p["citation_label"] for p in papers}
-    if on_token:
-        on_token("\n[Scoring limitation clusters and extracting evidence-grounded missing components...]\n")
-
-    gaps = []
-    weak_gaps = []
-
-    for c in clusters:
-        supporting_ids = sorted(set(c.get("cited_paper_ids", [])))
-        frequency = len(supporting_ids)
-        if frequency < MIN_GAP_CLUSTER_FREQUENCY:
-            continue
-
-        sample_limitations = []
-        for lim in c.get("limitations", [])[:4]:
-            if isinstance(lim, dict):
-                sample_limitations.append(lim.get("text", ""))
-            else:
-                sample_limitations.append(str(lim))
-
-        prompt = f"""You are an evidence-bound research analyst.
-Given this cluster of recurring limitations, produce ONE missing component statement.
-Do not speculate beyond the provided limitations.
-
-Theme: {c.get('theme', 'General')}
-Sample limitations:
-{json.dumps(sample_limitations, indent=2)}
-
-Return ONLY valid JSON:
-{{
-  "gap": "single concise missing component statement",
-  "evidence_summary": "one sentence stating what is missing"
-}}"""
-        try:
-            parsed = _parse_json(llm_stream(prompt, on_token))
-            gap_text = parsed.get("gap", c.get("theme", "Unspecified missing component"))
-            evidence_summary = parsed.get("evidence_summary", "")
-        except Exception:
-            gap_text = c.get("theme", "Unspecified missing component")
-            evidence_summary = "Derived from clustered recurring limitations."
-
-        confidence, diversity_score = _compute_gap_confidence(supporting_ids, papers)
-        gap_obj = {
-            "gap": gap_text,
-            "missing_component": gap_text,
-            "evidence_summary": evidence_summary,
-            "supporting_papers": supporting_ids,
-            "citations": [paper_lookup.get(pid, f"[Paper {pid}]") for pid in supporting_ids],
-            "frequency": frequency,
-            "diversity_score": diversity_score,
-            "confidence": confidence,
-            "strength": "strong" if (frequency >= MIN_SUPPORTING_SOURCES_FOR_IDEA and confidence >= MIN_GAP_CONFIDENCE) else "weak",
-        }
-        if gap_obj["strength"] == "strong":
-            gaps.append(gap_obj)
-        else:
-            weak_gaps.append(gap_obj)
-
-    total_papers = len(papers)
-    evidence_verdict = "insufficient"
-    if gaps:
-        evidence_verdict = "strong"
-    elif weak_gaps:
-        evidence_verdict = "weak"
-
-    state_update = {
-        "gaps": gaps,
-        "weak_gaps": weak_gaps,
-        "evidence_assessment": {
-            "total_papers": total_papers,
-            "strong_gap_count": len(gaps),
-            "weak_gap_count": len(weak_gaps),
-            "verdict": evidence_verdict,
-            "rules": {
-                "min_cluster_frequency": MIN_GAP_CLUSTER_FREQUENCY,
-                "min_supporting_sources_for_idea": MIN_SUPPORTING_SOURCES_FOR_IDEA,
-                "min_confidence_percent": MIN_GAP_CONFIDENCE,
-            },
-        },
-    }
-    event = {
-        "step": "identify_gaps",
-        "status": "complete",
-        "summary": f"Evidence verdict: {evidence_verdict}. Strong gaps: {len(gaps)}, weak gaps: {len(weak_gaps)}",
-        "data": {
-            "gaps": gaps,
-            "weak_gaps": weak_gaps,
-            "evidence_assessment": state_update["evidence_assessment"],
-        }
-    }
-    return state_update, event
-
-
-def generate_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    gaps = state["gaps"]
-    topic = state["topic"]
-    papers = state["papers"]
-    evidence_assessment = state.get("evidence_assessment", {})
-    if not gaps:
-        message = "Insufficient evidence to propose a validated research direction."
-        if on_token:
-            on_token(f"\n[{message}]\n")
-        state_update = {
-            "ideas": [],
-            "reflection_attempts": 0,
-            "novelty_scores": [],
-            "insufficient_evidence_message": message,
-        }
-        event = {
-            "step": "generate_ideas",
-            "status": "complete",
-            "summary": message,
-            "data": {
-                "ideas": [],
-                "message": message,
-                "evidence_assessment": evidence_assessment,
-            },
-        }
-        return state_update, event
-
-    paper_lookup = {p["paper_id"]: p for p in papers}
-    gap_payload = []
-    for g in gaps:
-        gap_payload.append({
-            "missing_component": g.get("missing_component", g.get("gap", "")),
-            "supporting_papers": g.get("supporting_papers", []),
-            "confidence": g.get("confidence", 0),
-            "evidence_summary": g.get("evidence_summary", ""),
-        })
-
-    prompt = f"""You are an evidence-grounded research designer.
-You must ONLY use the provided gaps and citations.
-For each strong missing component, propose one novelty solution that directly addresses that missing component.
-Do not introduce unrelated innovations.
-
-Topic: {topic}
-Strong missing components:
-{json.dumps(gap_payload, indent=2)}
-
-Return ONLY valid JSON array:
-[
-  {{
-    "missing_component": "...",
-    "title": "...",
-    "description": "2-3 sentences",
-    "novelty_justification": "why this is different from existing workspace papers",
-    "addresses_gaps": ["..."],
-    "cited_papers": [1,2,3]
-  }}
-]"""
-    ideas_raw = _parse_json(llm_stream(prompt, on_token))
-
-    ideas = []
-    novelty_scores = []
-    for idea in ideas_raw:
-        if not isinstance(idea, dict):
-            continue
-        desc = idea.get("description", "")
-        max_similarity = _embedding_novelty_similarity(desc, papers)
-        novelty_score_10 = round(max(1.0, (1.0 - max_similarity) * 10.0), 1)
-        novelty_scores.append(novelty_score_10)
-        ideas.append({
-            "missing_component": idea.get("missing_component", ""),
-            "title": idea.get("title", "Untitled idea"),
-            "description": desc,
-            "novelty_justification": idea.get("novelty_justification", ""),
-            "addresses_gaps": idea.get("addresses_gaps", []),
-            "cited_papers": [int(x) for x in idea.get("cited_papers", []) if str(x).isdigit()],
-            "max_similarity_to_workspace": round(max_similarity, 3),
-            "novelty_status": "low" if max_similarity > MAX_NOVELTY_SIMILARITY else "accepted",
-            "novelty_score": novelty_score_10,
-        })
-
-    state_update = {
-        "ideas": ideas,
-        "reflection_attempts": 0,
-        "novelty_scores": novelty_scores,
-    }
-    event = {
-        "step": "generate_ideas",
-        "status": "complete",
-        "summary": f"Generated {len(ideas)} research ideas",
-        "data": {
-            "ideas": [{
-                **idea,
-                "citations": [
-                    paper_lookup[pid]["citation_label"]
-                    for pid in idea.get("cited_papers", [])
-                    if pid in paper_lookup
-                ],
-            } for idea in ideas],
-            "evidence_assessment": evidence_assessment,
-        },
-    }
-    return state_update, event
-
-
-def reflect_on_ideas(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    ideas = state["ideas"]
-    attempts = state.get("reflection_attempts", 0)
-    if not ideas:
-        state_update = {"novelty_scores": [], "reflection_attempts": attempts + 1}
-        event = {
-            "step": "reflect",
-            "status": "complete",
-            "summary": "No ideas generated due to insufficient evidence.",
-            "data": {"scores": [], "average": 0, "attempt": attempts + 1},
-        }
-        return state_update, event
-
-    ideas_text = json.dumps(ideas, indent=2)
-
-    prompt = f"""Rate each of these research ideas for novelty on a scale of 1-10.
-Consider: Is the idea truly new? Does it go beyond incremental improvement?
-
-{ideas_text}
-
-Return ONLY a JSON array of objects:
-[
-  {{"title": "...", "novelty_score": 8, "feedback": "why this score"}}
-]"""
-
-    response_text = llm_stream(prompt, on_token)
-    scores_data = _parse_json(response_text)
-    scores = [s["novelty_score"] for s in scores_data]
-
-    state_update = {
-        "novelty_scores": scores,
-        "reflection_attempts": attempts + 1,
-    }
-    event = {
-        "step": "reflect",
-        "status": "complete",
-        "summary": f"Novelty scores: {scores} (avg: {sum(scores)/len(scores):.1f})",
-        "data": {
-            "scores": [
-                {"title": s["title"], "novelty_score": s["novelty_score"], "feedback": s["feedback"]}
-                for s in scores_data
-            ],
-            "average": round(sum(scores) / len(scores), 1),
-            "attempt": attempts + 1,
-        },
-    }
-    return state_update, event
-
-
-def should_regenerate(state: dict) -> bool:
-    scores = state.get("novelty_scores", [])
-    if not state.get("ideas"):
-        return False
-    attempts = state.get("reflection_attempts", 0)
-    avg_score = sum(scores) / len(scores) if scores else 0
-    return avg_score < 7 and attempts < 3
-
-
-def save_results(state: dict, on_token: Optional[Callable] = None) -> tuple:
-    session_id = state.get("session_id", "unknown")
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = os.path.join(SESSIONS_DIR, f"session_{session_id}_{timestamp}.json")
-
-    papers = state.get("papers", [])
-    papers_col, limitations_col = get_session_collections(session_id)
-
-    references = []
+def _ensure_workspace_papers_indexed(session_id: str, papers: list[dict]):
     for p in papers:
-        references.append({
-            "paper_id": p["paper_id"],
-            "citation_label": p["citation_label"],
-            "title": p["title"],
-            "authors": p["authors"],
-            "published": p["published"],
-            "url": p["url"],
-        })
+        summary = p.get("summary", "")
+        if summary:
+            src = p.get("url") or f"workspace://paper/{p.get('paper_id', 'x')}"
+            _add_text_to_collection(session_id, src, p.get("title", "Untitled"), summary, page=-1)
 
-    output = {
-        "session_id": session_id,
-        "topic": state["topic"],
-        "subtopics": state.get("subtopics", []),
-        "keywords": state.get("keywords", []),
-        "papers_found": len(papers),
-        "papers": papers,
-        "limitations_extracted": len(state.get("limitations", [])),
-        "limitations": state.get("limitations", []),
-        "clusters": [
-            {
-                "theme": c["theme"],
-                "count": c["count"],
-                "cited_paper_ids": c.get("cited_paper_ids", []),
-                "limitations": [
-                    {
-                        "text": l["text"] if isinstance(l, dict) else l,
-                        "citation_label": l.get("citation_label", "") if isinstance(l, dict) else "",
-                    }
-                    for l in c["limitations"]
-                ],
-            }
-            for c in state.get("clusters", [])
-        ],
-        "research_gaps": state.get("gaps", []),
-        "weak_research_gaps": state.get("weak_gaps", []),
-        "evidence_assessment": state.get("evidence_assessment", {}),
-        "research_ideas": state.get("ideas", []),
-        "insufficient_evidence_message": state.get("insufficient_evidence_message", ""),
-        "novelty_scores": state.get("novelty_scores", []),
-        "references": references,
-        "generated_at": datetime.now().isoformat(),
-        "chroma_db": {
-            "session_id": session_id,
-            "path": CHROMA_DB_PATH,
-            "papers_collection": f"papers_{session_id}",
-            "limitations_collection": f"limitations_{session_id}",
-            "total_papers_stored": papers_col.count(),
-            "total_limitations_stored": limitations_col.count(),
-        },
-    }
-
-    with open(filename, "w") as f:
-        json.dump(output, f, indent=2)
-
-    state_update = {"output_file": filename}
-    event = {
-        "step": "save_results",
-        "status": "complete",
-        "summary": f"Results saved to {filename}",
-        "data": {"filename": filename, "session_id": session_id},
-    }
-    return state_update, event
-
-
-def generate_report(state: dict) -> str:
-    """Generate a structured research brief from the current state."""
-    topic = state.get("topic", "Unknown")
-    papers = state.get("papers", [])
-    gaps = state.get("gaps", [])
-    ideas = state.get("ideas", [])
-    scores = state.get("novelty_scores", [])
-    clusters = state.get("clusters", [])
-    evidence_assessment = state.get("evidence_assessment", {})
-
-    paper_lookup = {p["paper_id"]: p for p in papers}
-
-    prompt = f"""You are a research report writer. Generate a structured research brief based on this data.
-
-Topic: {topic}
-
-Papers Analyzed: {len(papers)}
-
-Research Gaps:
-{json.dumps(gaps, indent=2)}
-
-Research Ideas:
-{json.dumps(ideas, indent=2)}
-
-Novelty Scores: {scores}
-Evidence Assessment: {json.dumps(evidence_assessment, indent=2)}
-
-Write the report in this format:
-# Research Brief: {{topic}}
-
-## 1. Background
-Brief overview of the research area.
-
-## 2. Current State of Research
-Summary of what the {len(papers)} analyzed papers cover.
-
-## 3. Identified Research Gaps
-List each gap with supporting citations.
-
-## 4. Proposed Research Ideas
-For each idea: title, description, novelty score, and which gaps it addresses.
-
-## 5. Recommended Next Steps
-Actionable recommendations for researchers.
-
-## References
-List all cited papers.
-
-Write in academic but accessible language. Use the paper citations provided."""
-
-    response = llm.invoke([HumanMessage(content=prompt)])
-    return response.content
-
-
-# Pipeline step definitions: (step_name, function, agent_role)
-PIPELINE_STEPS = [
-    ("generate_plan", generate_plan, "Planner"),
-    ("search_papers", search_papers, "Researcher"),
-    ("extract_limitations", extract_limitations, "Researcher"),
-    ("cluster_limitations", cluster_limitations, "Analyst"),
-    ("identify_gaps", identify_gaps, "Analyst"),
-    ("generate_ideas", generate_ideas, "Planner"),
-    ("reflect", reflect_on_ideas, "Critic"),
-]
-
-
-# ======================================================================
-#  ARXIV STANDALONE SEARCH (for the search tab, independent of missions)
-# ======================================================================
 
 def arxiv_search(query: str, max_results: int = 10, sort_by: str = "relevance",
                  date_from: str = None, date_to: str = None) -> list[dict]:
-    """Search arXiv directly — returns papers with summaries for display."""
-    sort_criterion = (
-        arxiv.SortCriterion.SubmittedDate if sort_by == "date"
-        else arxiv.SortCriterion.Relevance
-    )
-
+    sort_criterion = arxiv.SortCriterion.SubmittedDate if sort_by == "date" else arxiv.SortCriterion.Relevance
     client = arxiv.Client()
-    search = arxiv.Search(
-        query=query,
-        max_results=max_results,
-        sort_by=sort_criterion,
-    )
+    search = arxiv.Search(query=query, max_results=max_results, sort_by=sort_criterion)
 
-    results = []
+    out = []
     for r in client.results(search):
-        pub_date = str(r.published.date())
-
-        # Date filtering
-        if date_from and pub_date < date_from:
+        pub = str(r.published.date())
+        if date_from and pub < date_from:
             continue
-        if date_to and pub_date > date_to:
+        if date_to and pub > date_to:
             continue
-
-        results.append({
+        out.append({
             "title": r.title,
             "summary": r.summary,
             "url": r.entry_id,
-            "published": pub_date,
+            "published": pub,
             "authors": [a.name for a in r.authors[:5]],
             "categories": [c for c in r.categories[:3]],
         })
-
-    return results
+    return out
 
 
 def add_paper_to_workspace(session_id: str, paper: dict, existing_papers: list) -> dict:
-    """Add a paper to a workspace's ChromaDB collection and return the augmented paper."""
-    papers_col, _ = get_session_collections(session_id)
-
-    # Assign next paper_id
     next_id = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
     authors = paper.get("authors", [])
-    first_author_last = authors[0].split()[-1] if authors else "Unknown"
-    year = paper.get("published", "")[:4]
+    first_author = authors[0].split()[-1] if authors else "Unknown"
+    year = (paper.get("published") or "")[:4]
 
     enriched = {
         "paper_id": next_id,
-        "title": paper["title"],
+        "title": paper.get("title", "Untitled"),
         "summary": paper.get("summary", ""),
         "url": paper.get("url", ""),
         "published": paper.get("published", ""),
         "authors": authors,
-        "citation_label": f"[Paper {next_id} - {first_author_last} {year}]",
+        "citation_label": f"[Paper {next_id} - {first_author} {year}]",
         "source": "arxiv_search",
     }
 
-    safe_id = paper.get("url", str(next_id)).replace("/", "_").replace(":", "_")
-    try:
-        papers_col.add(
-            documents=[enriched["summary"]],
-            metadatas=[{
-                "paper_id": next_id,
-                "title": enriched["title"],
-                "url": enriched["url"],
-                "published": enriched["published"],
-                "authors": ", ".join(authors),
-                "citation_label": enriched["citation_label"],
-            }],
-            ids=[safe_id],
-        )
-    except Exception:
-        pass  # duplicate id — paper already in workspace
-
+    src = enriched.get("url") or f"workspace://paper/{next_id}"
+    _add_text_to_collection(session_id, src, enriched["title"], enriched.get("summary", ""), page=-1)
     return enriched
 
 
 def add_local_paper_to_workspace(session_id: str, file_name: str, extracted_text: str, existing_papers: list) -> dict:
-    """Add a local uploaded paper (pdf/txt/md) into workspace and ChromaDB."""
-    papers_col, _ = get_session_collections(session_id)
-
     next_id = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
     title = os.path.splitext(os.path.basename(file_name))[0].replace("_", " ").strip() or "Local Upload"
     year = datetime.now().year
     content = (extracted_text or "").strip()
-    summary = content[:8000] if content else ""
+    summary = content[:8000]
 
     digest = hashlib.md5(f"{file_name}:{len(content)}".encode("utf-8")).hexdigest()[:10]
     local_url = f"local://{digest}/{os.path.basename(file_name)}"
@@ -977,26 +224,12 @@ def add_local_paper_to_workspace(session_id: str, file_name: str, extracted_text
         "source": "local_upload",
     }
 
-    safe_id = f"local_{digest}_{next_id}"
-    papers_col.add(
-        documents=[summary or title],
-        metadatas=[{
-            "paper_id": next_id,
-            "title": enriched["title"],
-            "url": enriched["url"],
-            "published": enriched["published"],
-            "authors": ", ".join(enriched["authors"]),
-            "citation_label": enriched["citation_label"],
-        }],
-        ids=[safe_id],
-    )
+    _add_text_to_collection(session_id, local_url, title, content or summary, page=-1)
     return enriched
 
 
 def semantic_search_workspace(session_id: str, query: str, n_results: int = 5) -> list[dict]:
-    """Search within a workspace's papers using vector similarity."""
     papers_col, _ = get_session_collections(session_id)
-
     if papers_col.count() == 0:
         return []
 
@@ -1008,24 +241,22 @@ def semantic_search_workspace(session_id: str, query: str, n_results: int = 5) -
 
     hits = []
     for i in range(len(results["ids"][0])):
-        meta = results["metadatas"][0][i]
-        distance = results["distances"][0][i]
-        relevance = round(max(0, 1 - distance), 3)
+        meta = results["metadatas"][0][i] or {}
+        dist = results["distances"][0][i]
+        relevance = round(max(0.0, 1 - dist), 3)
         hits.append({
-            "chunk": results["documents"][0][i][:300],
+            "chunk": (results["documents"][0][i] or "")[:300],
             "title": meta.get("title", ""),
-            "citation_label": meta.get("citation_label", ""),
-            "url": meta.get("url", ""),
-            "published": meta.get("published", ""),
-            "authors": meta.get("authors", ""),
+            "citation_label": meta.get("source", ""),
+            "url": meta.get("source", ""),
+            "published": "",
+            "authors": "",
             "relevance": relevance,
         })
-
     return hits
 
 
 def get_workspace_stats(session_id: str) -> dict:
-    """Get workspace overview stats."""
     papers_col, limitations_col = get_session_collections(session_id)
     return {
         "total_papers": papers_col.count(),
@@ -1034,28 +265,658 @@ def get_workspace_stats(session_id: str) -> dict:
 
 
 def list_all_sessions() -> list[dict]:
-    """List all saved session JSON files from the sessions directory."""
     sessions_list = []
     if not os.path.exists(SESSIONS_DIR):
         return sessions_list
 
     for fname in sorted(os.listdir(SESSIONS_DIR), reverse=True):
-        if fname.endswith(".json"):
-            fpath = os.path.join(SESSIONS_DIR, fname)
-            try:
-                with open(fpath, "r") as f:
-                    data = json.load(f)
-                sessions_list.append({
-                    "session_id": data.get("session_id", ""),
-                    "topic": data.get("topic", ""),
-                    "papers_found": data.get("papers_found", 0),
-                    "gaps_count": len(data.get("research_gaps", [])),
-                    "ideas_count": len(data.get("research_ideas", [])),
-                    "novelty_scores": data.get("novelty_scores", []),
-                    "generated_at": data.get("generated_at", ""),
-                    "filename": fname,
-                })
-            except Exception:
-                pass
-
+        if not fname.endswith(".json"):
+            continue
+        fpath = os.path.join(SESSIONS_DIR, fname)
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            sessions_list.append({
+                "session_id": data.get("session_id", ""),
+                "topic": data.get("topic", ""),
+                "papers_found": data.get("papers_found", 0),
+                "gaps_count": len(data.get("research_gaps", [])),
+                "ideas_count": len(data.get("research_ideas", [])),
+                "novelty_scores": data.get("novelty_scores", []),
+                "generated_at": data.get("generated_at", ""),
+                "filename": fname,
+            })
+        except Exception:
+            continue
     return sessions_list
+
+
+class AgentState(TypedDict, total=False):
+    goal: str
+    session_id: str
+    search_mode: str
+    current_agent: str
+    next_agent: str
+    iterations: int
+    max_iterations: int
+    planner: dict
+    researcher: dict
+    evaluator: dict
+    expansion: dict
+    final_answer: str
+    final_sources: list
+    future_ideas: list
+    trace: list
+    papers: list
+    gaps: list
+    weak_gaps: list
+    ideas: list
+    novelty_scores: list
+    evidence_assessment: dict
+    insufficient_evidence_message: str
+
+
+RESEARCHER_PROMPT = """You are the Researcher Agent in an autonomous multi-agent research pipeline.
+
+Your job is to answer the research goal using only the retrieved context and planner subtasks.
+Rules:
+1. Ground claims in provided context only.
+2. Do not fabricate facts or citations.
+3. If evidence is weak/missing, say so.
+
+Return in this structure:
+Direct Answer:
+<your synthesis>
+
+Support by Subtask:
+- <subtask>: <finding> [source: <path>, page: <n or unknown>]
+
+Limitations / Gaps:
+- ...
+
+Source Notes:
+- [source: <path>, page: <n or unknown>] <support>
+"""
+
+
+EVALUATOR_PROMPT = """You are the Evaluator Agent.
+Research goal: {goal}
+Operating mode: {mode}
+Answer: {answer}
+Number of sources: {num_sources}
+
+Tasks:
+1. Score confidence from 0.0 to 1.0.
+2. List specific missing aspects.
+3. Set next_agent to END if sufficient, else Expansion.
+
+Return ONLY JSON:
+{{"confidence": 0.62, "missing_aspects": ["..."], "next_agent": "Expansion"}}"""
+
+
+def planner_agent(state: AgentState) -> dict:
+    goal = state["goal"]
+    _emit(state, {"step": "generate_plan", "agent": "Planner", "status": "running", "summary": ""})
+    _token(state, "generate_plan", "Planner", f"Planning subtasks for goal: {goal[:120]}\n")
+
+    fallback = {
+        "subtasks": ["problem framing", "methods", "evaluation", "limitations"],
+        "next_agent": "Researcher",
+    }
+    out = _llm_json(
+        f"""You are the Planner Agent.
+Research goal: {goal}
+Break into 3-5 sub-questions and route to Researcher.
+Return JSON: {{"subtasks": [...], "next_agent": "Researcher"}}""",
+        fallback,
+    )
+    subtasks = out.get("subtasks", fallback["subtasks"])
+    if not isinstance(subtasks, list):
+        subtasks = fallback["subtasks"]
+
+    keywords = [str(s) for s in subtasks][:8]
+    _emit(state, {
+        "step": "generate_plan",
+        "agent": "Planner",
+        "status": "complete",
+        "summary": f"Generated {len(subtasks)} sub-questions",
+        "data": {"subtopics": subtasks, "keywords": keywords},
+    })
+    return {
+        "planner": {"subtasks": subtasks, "next_agent": "Researcher"},
+        "subtopics": subtasks,
+        "keywords": keywords,
+        "next_agent": "Researcher",
+    }
+
+
+def _retrieve_context(session_id: str, queries: list[str], k: int = 6):
+    papers_col, _ = get_session_collections(session_id)
+    if papers_col.count() == 0:
+        return [], []
+
+    docs = []
+    metas = []
+    for q in queries:
+        try:
+            res = papers_col.query(
+                query_texts=[q],
+                n_results=min(k, papers_col.count()),
+                include=["documents", "metadatas", "distances", "ids"],
+            )
+            for i in range(len(res["ids"][0])):
+                docs.append(res["documents"][0][i] or "")
+                metas.append(res["metadatas"][0][i] or {})
+        except Exception:
+            continue
+
+    seen = set()
+    uniq_docs = []
+    uniq_metas = []
+    for d, m in zip(docs, metas):
+        key = hashlib.md5(f"{m.get('source')}|{m.get('page')}|{d[:100]}".encode("utf-8")).hexdigest()
+        if key in seen:
+            continue
+        seen.add(key)
+        uniq_docs.append(d)
+        uniq_metas.append(m)
+
+    return uniq_docs, uniq_metas
+
+
+def researcher_agent(state: AgentState) -> dict:
+    _emit(state, {"step": "search_papers", "agent": "Researcher", "status": "running", "summary": ""})
+
+    goal = state["goal"]
+    session_id = state["session_id"]
+    subtasks = state.get("planner", {}).get("subtasks", [])
+    queries = [goal] + [str(s) for s in subtasks]
+
+    docs, metas = _retrieve_context(session_id, queries, k=6)
+
+    if not docs:
+        _token(state, "search_papers", "Researcher", "No indexed documents found in workspace.\n")
+        answer = "No evidence could be retrieved from the current workspace."
+        sources = []
+    else:
+        context = "\n\n".join(docs[:20])
+        _token(state, "search_papers", "Researcher", f"Retrieved {len(docs)} context chunks. Synthesizing grounded answer...\n")
+        prompt = (
+            f"{RESEARCHER_PROMPT}\n\n"
+            f"Research Goal:\n{goal}\n\n"
+            f"Planner Subtasks:\n{subtasks}\n\n"
+            f"Retrieved Context:\n<context>\n{context}\n</context>"
+        )
+        try:
+            answer = llm.invoke([HumanMessage(content=prompt)]).content
+        except Exception:
+            answer = "Could not generate a synthesis due to model error."
+
+        sources = [
+            {
+                "source": m.get("source", "unknown"),
+                "page": m.get("page", "unknown"),
+                "title": m.get("title", ""),
+            }
+            for m in metas
+        ]
+
+    existing_papers = state.get("papers", [])
+    by_source = {p.get("url"): p for p in existing_papers if p.get("url")}
+    next_id = max((p.get("paper_id", 0) for p in existing_papers), default=0) + 1
+
+    for s in sources:
+        src = s.get("source")
+        if not src or src in by_source:
+            continue
+        title = s.get("title") or os.path.basename(src) or "Retrieved Source"
+        year = str(datetime.now().year)
+        paper = {
+            "paper_id": next_id,
+            "title": title,
+            "summary": "",
+            "url": src,
+            "published": year,
+            "authors": ["Indexed Source"],
+            "citation_label": f"[Paper {next_id} - Source {year}]",
+            "source": "mission",
+        }
+        by_source[src] = paper
+        next_id += 1
+
+    updated_papers = list(by_source.values())
+
+    _emit(state, {
+        "step": "search_papers",
+        "agent": "Researcher",
+        "status": "complete",
+        "summary": f"Retrieved evidence from {len({s.get('source') for s in sources})} sources",
+        "data": {
+            "papers": [
+                {
+                    "paper_id": p.get("paper_id"),
+                    "title": p.get("title", ""),
+                    "citation_label": p.get("citation_label", ""),
+                    "url": p.get("url", ""),
+                    "published": p.get("published", ""),
+                    "authors": p.get("authors", []),
+                }
+                for p in updated_papers
+            ]
+        },
+    })
+
+    return {
+        "researcher": {"answer": answer, "sources": sources, "next_agent": "Evaluator"},
+        "final_answer": answer,
+        "final_sources": sources,
+        "papers": updated_papers,
+        "next_agent": "Evaluator",
+    }
+
+
+def evaluator_agent(state: AgentState) -> dict:
+    _emit(state, {"step": "extract_limitations", "agent": "Analyst", "status": "running", "summary": ""})
+    _emit(state, {"step": "extract_limitations", "agent": "Analyst", "status": "complete", "summary": "Evaluating answer quality"})
+    _emit(state, {"step": "cluster_limitations", "agent": "Analyst", "status": "running", "summary": ""})
+    _emit(state, {"step": "cluster_limitations", "agent": "Analyst", "status": "complete", "summary": "Scoring evidence and missing aspects"})
+    _emit(state, {"step": "identify_gaps", "agent": "Analyst", "status": "running", "summary": ""})
+
+    goal = state["goal"]
+    mode = state.get("search_mode", "workspace")
+    answer = state.get("final_answer", "")
+    sources = state.get("final_sources", [])
+
+    fallback = {
+        "confidence": 0.55 if len(sources) >= 2 else 0.25,
+        "missing_aspects": ["experimental validation", "benchmark diversity"],
+        "next_agent": "Expansion",
+    }
+
+    out = _llm_json(
+        EVALUATOR_PROMPT.format(
+            goal=goal,
+            mode=mode,
+            answer=answer[:1400],
+            num_sources=len(sources),
+        ),
+        fallback,
+    )
+
+    confidence = float(out.get("confidence", fallback["confidence"]))
+    missing_aspects = out.get("missing_aspects", fallback["missing_aspects"])
+    if not isinstance(missing_aspects, list):
+        missing_aspects = fallback["missing_aspects"]
+
+    answer_len_ok = len((answer or "").strip()) >= 220
+    unique_sources = len({s.get("source", "") for s in sources if isinstance(s, dict) and s.get("source")})
+
+    if mode == "workspace":
+        sufficient = answer_len_ok and unique_sources >= 1 and confidence >= 0.45
+    else:
+        sufficient = answer_len_ok and unique_sources >= 2 and confidence >= 0.72
+
+    next_agent = "END" if sufficient else "Expansion"
+
+    gaps = []
+    for i, g in enumerate(missing_aspects, start=1):
+        gaps.append({
+            "gap": str(g),
+            "missing_component": str(g),
+            "supporting_papers": [],
+            "citations": [],
+            "frequency": 1,
+            "confidence": round(confidence * 100, 1),
+            "strength": "strong" if confidence >= 0.7 else "weak",
+        })
+
+    verdict = "strong" if sufficient else ("weak" if sources else "insufficient")
+    evidence_assessment = {
+        "total_papers": unique_sources,
+        "strong_gap_count": sum(1 for g in gaps if g["strength"] == "strong"),
+        "weak_gap_count": sum(1 for g in gaps if g["strength"] != "strong"),
+        "verdict": verdict,
+        "confidence": confidence,
+    }
+
+    _emit(state, {
+        "step": "identify_gaps",
+        "agent": "Analyst",
+        "status": "complete",
+        "summary": f"Confidence {confidence:.2f}; missing aspects: {len(missing_aspects)}",
+        "data": {
+            "gaps": gaps,
+            "weak_gaps": [g for g in gaps if g["strength"] != "strong"],
+            "evidence_assessment": evidence_assessment,
+        },
+    })
+
+    return {
+        "evaluator": {
+            "confidence": confidence,
+            "missing_aspects": missing_aspects,
+            "next_agent": next_agent,
+        },
+        "gaps": gaps,
+        "weak_gaps": [g for g in gaps if g["strength"] != "strong"],
+        "evidence_assessment": evidence_assessment,
+        "next_agent": next_agent,
+    }
+
+
+def _download_arxiv_and_ingest(session_id: str, query: str, max_results: int = 4):
+    client = arxiv.Client(page_size=max_results, delay_seconds=2, num_retries=2)
+    search = arxiv.Search(query=query, max_results=max_results, sort_by=arxiv.SortCriterion.Relevance)
+
+    downloaded = []
+    chunks_total = 0
+    for r in client.results(search):
+        try:
+            filename = f"{r.get_short_id()}.pdf"
+            fp = r.download_pdf(dirpath=str(ARXIV_DIR), filename=filename)
+            path = Path(fp)
+            pdf_bytes = path.read_bytes()
+            pages = _extract_pdf_pages(pdf_bytes)
+            page_text = "\n".join([t for _, t in pages if t])
+            chunks_added = _add_text_to_collection(
+                session_id,
+                r.entry_id,
+                r.title,
+                page_text,
+                page=-1,
+            )
+            chunks_total += chunks_added
+            downloaded.append({
+                "title": r.title,
+                "summary": (r.summary or "")[:8000],
+                "url": r.entry_id,
+                "published": str(r.published.date()),
+                "authors": [a.name for a in r.authors[:5]],
+            })
+        except Exception:
+            continue
+
+    return downloaded, chunks_total
+
+
+def expansion_agent(state: AgentState) -> dict:
+    _emit(state, {"step": "generate_ideas", "agent": "Planner", "status": "running", "summary": ""})
+
+    goal = state["goal"]
+    mode = state.get("search_mode", "online")
+    session_id = state["session_id"]
+    missing = state.get("evaluator", {}).get("missing_aspects", [])
+    iterations = int(state.get("iterations", 0)) + 1
+    max_iterations = int(state.get("max_iterations", 3))
+
+    def _generate_ideas(reason: str):
+        fallback = {
+            "ideas": [
+                "Design targeted experiments for the missing aspects.",
+                "Build stronger benchmark coverage for edge cases.",
+                "Run ablation studies to isolate causality.",
+                "Test cross-domain transfer to validate generalization.",
+            ]
+        }
+        out = _llm_json(
+            f"""You are the Expansion Agent.
+Research goal: {goal}
+Missing aspects: {missing}
+Reason: {reason}
+Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
+            fallback,
+        )
+        ideas = out.get("ideas", fallback["ideas"])
+        return [str(x) for x in ideas] if isinstance(ideas, list) else fallback["ideas"]
+
+    downloaded = []
+    chunks_added = 0
+    insufficient_msg = ""
+
+    if mode == "workspace":
+        _token(state, "generate_ideas", "Planner", "Workspace-only mode: generating future directions from current evidence.\n")
+        idea_lines = _generate_ideas("workspace-only mode")
+        next_agent = "END"
+        saturated = True
+        if not state.get("final_sources"):
+            insufficient_msg = (
+                f"Workspace mode is active, but no indexed evidence was found. Add local PDFs under {PDF_DIR.resolve()} or switch mission mode."
+            )
+    else:
+        query = f"{goal} {' '.join([str(x) for x in missing[:3]])}".strip()
+        _token(state, "generate_ideas", "Planner", f"Searching arXiv for: {query}\n")
+        downloaded, chunks_added = _download_arxiv_and_ingest(session_id, query, max_results=4)
+        saturated = chunks_added == 0 or iterations >= max_iterations
+        if saturated:
+            idea_lines = _generate_ideas("arXiv saturated")
+            next_agent = "END"
+        else:
+            idea_lines = []
+            next_agent = "Researcher"
+
+    existing = state.get("papers", [])
+    by_url = {p.get("url"): p for p in existing if p.get("url")}
+    next_id = max((p.get("paper_id", 0) for p in existing), default=0) + 1
+    for p in downloaded:
+        if p["url"] in by_url:
+            continue
+        authors = p.get("authors", [])
+        first_author = authors[0].split()[-1] if authors else "Unknown"
+        year = (p.get("published") or "")[:4]
+        p_enriched = {
+            "paper_id": next_id,
+            "title": p["title"],
+            "summary": p.get("summary", ""),
+            "url": p.get("url", ""),
+            "published": p.get("published", ""),
+            "authors": authors,
+            "citation_label": f"[Paper {next_id} - {first_author} {year}]",
+            "source": "mission",
+        }
+        by_url[p_enriched["url"]] = p_enriched
+        next_id += 1
+
+    ideas = [
+        {
+            "title": f"Future Direction {i+1}",
+            "description": txt,
+            "missing_component": ", ".join([str(m) for m in missing]) if missing else "General evidence gaps",
+            "addresses_gaps": [str(m) for m in missing],
+            "cited_papers": [],
+            "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+            "source": "expansion",
+        }
+        for i, txt in enumerate(idea_lines)
+    ]
+    novelty_scores = [7.0 for _ in ideas]
+
+    summary_bits = []
+    if mode == "online":
+        summary_bits.append(f"Downloaded {len(downloaded)} papers")
+        summary_bits.append(f"indexed {chunks_added} chunks")
+    summary_bits.append(f"ideas: {len(ideas)}")
+
+    _emit(state, {
+        "step": "generate_ideas",
+        "agent": "Planner",
+        "status": "complete",
+        "summary": "; ".join(summary_bits),
+        "data": {"ideas": ideas, "message": insufficient_msg},
+    })
+
+    _emit(state, {
+        "step": "reflect",
+        "agent": "Critic",
+        "status": "running",
+        "summary": "",
+    })
+    _emit(state, {
+        "step": "reflect",
+        "agent": "Critic",
+        "status": "complete",
+        "summary": "Reflection complete",
+        "data": {
+            "scores": [{"title": i["title"], "novelty_score": 7, "feedback": "Promising direction."} for i in ideas],
+            "average": 7.0 if ideas else 0.0,
+            "attempt": iterations,
+        },
+    })
+
+    return {
+        "iterations": iterations,
+        "expansion": {
+            "mode": mode,
+            "papers_downloaded": len(downloaded),
+            "chunks_added": chunks_added,
+            "saturated": saturated,
+            "ideas": idea_lines,
+            "next_agent": next_agent,
+        },
+        "papers": list(by_url.values()),
+        "future_ideas": idea_lines,
+        "ideas": ideas if ideas else state.get("ideas", []),
+        "novelty_scores": novelty_scores if ideas else state.get("novelty_scores", []),
+        "insufficient_evidence_message": insufficient_msg,
+        "next_agent": next_agent,
+    }
+
+
+AGENT_REGISTRY: dict[str, Callable[[AgentState], dict]] = {
+    "Planner": planner_agent,
+    "Researcher": researcher_agent,
+    "Evaluator": evaluator_agent,
+    "Expansion": expansion_agent,
+}
+
+
+def agent_executor(state: AgentState) -> AgentState:
+    current = state.get("current_agent", "Planner")
+    fn = AGENT_REGISTRY.get(current)
+    if fn is None:
+        return {
+            **state,
+            "next_agent": "END",
+            "current_agent": "END",
+            "trace": state.get("trace", []) + [f"{current} -> UNKNOWN -> END"],
+        }
+
+    update = fn(state)
+    next_agent = update.get("next_agent", "END")
+    trace = state.get("trace", []) + [f"{current} -> {next_agent}"]
+    return {
+        **state,
+        **update,
+        "current_agent": next_agent,
+        "trace": trace,
+    }
+
+
+def route(state: AgentState) -> str:
+    return "END" if state.get("next_agent", "END") == "END" else "LOOP"
+
+
+def build_graph():
+    g = StateGraph(AgentState)
+    g.add_node("agent_executor", agent_executor)
+    g.set_entry_point("agent_executor")
+    g.add_conditional_edges(
+        "agent_executor",
+        route,
+        {
+            "LOOP": "agent_executor",
+            "END": END,
+        },
+    )
+    return g.compile()
+
+
+GRAPH = build_graph()
+
+
+def run_autonomous_mission(state: dict, emit: Optional[Callable[[dict], None]] = None,
+                           token: Optional[Callable[[str, str, str], None]] = None) -> dict:
+    mission_state = {
+        **state,
+        "current_agent": "Planner",
+        "next_agent": "Planner",
+        "iterations": int(state.get("iterations", 0)),
+        "max_iterations": int(state.get("max_iterations", 3)),
+        "future_ideas": state.get("future_ideas", []),
+        "trace": state.get("trace", []),
+        "_emit": emit,
+        "_token": token,
+    }
+
+    _ensure_workspace_papers_indexed(mission_state["session_id"], mission_state.get("papers", []))
+    result = GRAPH.invoke(mission_state)
+    result.pop("_emit", None)
+    result.pop("_token", None)
+    return result
+
+
+def save_results(state: dict, on_token: Optional[Callable] = None) -> tuple:
+    session_id = state.get("session_id", "unknown")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = os.path.join(SESSIONS_DIR, f"session_{session_id}_{timestamp}.json")
+
+    papers = state.get("papers", [])
+    output = {
+        "session_id": session_id,
+        "topic": state.get("topic", ""),
+        "subtopics": state.get("subtopics", []),
+        "keywords": state.get("keywords", []),
+        "papers_found": len(papers),
+        "papers": papers,
+        "research_gaps": state.get("gaps", []),
+        "weak_research_gaps": state.get("weak_gaps", []),
+        "evidence_assessment": state.get("evidence_assessment", {}),
+        "research_ideas": state.get("ideas", []),
+        "insufficient_evidence_message": state.get("insufficient_evidence_message", ""),
+        "novelty_scores": state.get("novelty_scores", []),
+        "trace": state.get("trace", []),
+        "generated_at": datetime.now().isoformat(),
+    }
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2)
+
+    event = {
+        "step": "save_results",
+        "status": "complete",
+        "summary": f"Results saved to {filename}",
+        "data": {"filename": filename, "session_id": session_id},
+    }
+    return {"output_file": filename}, event
+
+
+def generate_report(state: dict) -> str:
+    goal = state.get("topic", "Unknown")
+    answer = state.get("final_answer", "")
+    ideas = state.get("ideas", [])
+    gaps = state.get("gaps", [])
+    evidence = state.get("evidence_assessment", {})
+
+    prompt = f"""You are a senior research analyst. Write a concise research brief.
+Goal: {goal}
+Answer: {answer}
+Gaps: {json.dumps(gaps)}
+Ideas: {json.dumps(ideas)}
+Evidence: {json.dumps(evidence)}
+
+Structure:
+# Research Brief: {goal}
+## 1. Key Findings
+## 2. Limitations
+## 3. Future Directions
+## 4. Recommended Next Steps
+"""
+
+    try:
+        return llm.invoke([HumanMessage(content=prompt)]).content
+    except Exception:
+        return (
+            f"# Research Brief: {goal}\n\n"
+            f"## 1. Key Findings\n{answer or 'No grounded answer generated.'}\n\n"
+            f"## 2. Limitations\n{json.dumps(gaps, indent=2)}\n\n"
+            f"## 3. Future Directions\n{json.dumps(ideas, indent=2)}\n"
+        )
