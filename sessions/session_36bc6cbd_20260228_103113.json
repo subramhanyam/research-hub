@@ -1,0 +1,297 @@
+{
+  "session_id": "36bc6cbd",
+  "topic": "ai in agriculture",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 6,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "citation_label": "[Paper 1 - Wilfley 2026]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 2,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 2 - Ai 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 3,
+      "title": "One For All: LLM-based Heterogeneous Mission Planning in Precision Agriculture",
+      "summary": "Artificial intelligence is transforming precision agriculture, offering farmers new tools to streamline their daily operations. While these technological advances promise increased efficiency, they often introduce additional complexity and steep learning curves that are particularly challenging for non-technical users who must balance tech adoption with existing workloads. In this paper, we present a natural language (NL) robotic mission planner that enables non-specialists to control heterogeneous robots through a common interface. By leveraging large language models (LLMs) and predefined primitives, our architecture seamlessly translates human language into intermediate descriptions that can be executed by different robotic platforms. With this system, users can formulate complex agricultural missions without writing any code. In the work presented in this paper, we extend our previous system tailored for wheeled robot mission planning through a new class of experiments involving robotic manipulation and computer vision tasks. Our results demonstrate that the architecture is both general enough to support a diverse set of robots and powerful enough to execute complex mission requests. This work represents a significant step toward making robotic automation in precision agriculture more accessible to non-technical users.",
+      "url": "http://arxiv.org/abs/2506.10106v1",
+      "published": "2025-06-11",
+      "authors": [
+        "Marcos Abel Zuzu\u00e1rregui",
+        "Mustafa Melih Toslak",
+        "Stefano Carpin"
+      ],
+      "citation_label": "[Paper 3 - Zuzu\u00e1rregui 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+      "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successfully simulates the creation of a new improved model, called GPT$^4$, which combines the concepts of GPT in AI (generative pretrained transformer) and GPT in physics (generalized probabilistic theory). We show that GPT$^4$ can use its built-in mathematical and statistical capabilities to simulate and analyze physical laws and phenomena. As a demonstration of its language capabilities, GPT$^4$ also generates a limerick about itself. Overall, our results demonstrate the promising potential for human-AI collaboration in scientific discovery, as well as the importance of designing systems that effectively integrate AI's capabilities with human intelligence.",
+      "url": "http://arxiv.org/abs/2308.12400v1",
+      "published": "2023-07-08",
+      "authors": [
+        "Gerardo Adesso"
+      ],
+      "citation_label": "[Paper 4 - Adesso 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "Designing and Implementing Data Warehouse for Agricultural Big Data",
+      "summary": "In recent years, precision agriculture that uses modern information and communication technologies is becoming very popular. Raw and semi-processed agricultural data are usually collected through various sources, such as: Internet of Thing (IoT), sensors, satellites, weather stations, robots, farm equipment, farmers and agribusinesses, etc. Besides, agricultural datasets are very large, complex, unstructured, heterogeneous, non-standardized, and inconsistent. Hence, the agricultural data mining is considered as Big Data application in terms of volume, variety, velocity and veracity. It is a key foundation to establishing a crop intelligence platform, which will enable resource efficient agronomy decision making and recommendations. In this paper, we designed and implemented a continental level agricultural data warehouse by combining Hive, MongoDB and Cassandra. Our data warehouse capabilities: (1) flexible schema; (2) data integration from real agricultural multi datasets; (3) data science and business intelligent support; (4) high performance; (5) high storage; (6) security; (7) governance and monitoring; (8) replication and recovery; (9) consistency, availability and partition tolerant; (10) distributed and cloud deployment. We also evaluate the performance of our data warehouse.",
+      "url": "http://arxiv.org/abs/1905.12411v1",
+      "published": "2019-05-29",
+      "authors": [
+        "Vuong M. Ngo",
+        "Nhien-An Le-Khac",
+        "M-Tahar Kechadi"
+      ],
+      "citation_label": "[Paper 5 - Ngo 2019]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "Misconfiguration in O-RAN: Analysis of the impact of AI/ML",
+      "summary": "User demand on network communication infrastructure has never been greater with applications such as extended reality, holographic telepresence, and wireless brain-computer interfaces challenging current networking capabilities. Open RAN (O-RAN) is critical to supporting new and anticipated uses of 6G and beyond. It promotes openness and standardisation, increased flexibility through the disaggregation of Radio Access Network (RAN) components, supports programmability, flexibility, and scalability with technologies such as Software-Defined Networking (SDN), Network Function Virtualization (NFV), and cloud, and brings automation through the RAN Intelligent Controller (RIC). Furthermore, the use of xApps, rApps, and Artificial Intelligence/Machine Learning (AI/ML) within the RIC enables efficient management of complex RAN operations. However, due to the open nature of O-RAN and its support for heterogeneous systems, the possibility of misconfiguration problems becomes critical. In this paper, we present a thorough analysis of the potential misconfiguration issues in O-RAN with respect to integration and operation, the use of SDN and NFV, and, specifically, the use of AI/ML. The opportunity for AI/ML to be used to identify these misconfigurations is investigated. A case study is presented to illustrate the direct impact on the end user of conflicting policies amongst xApps along with a potential AI/ML-based solution to this problem. This research presents a first analysis of the impact of AI/ML on misconfiguration challenges in O-RAN.",
+      "url": "http://arxiv.org/abs/2403.01180v2",
+      "published": "2024-03-02",
+      "authors": [
+        "Noe Yungaicela-Naula",
+        "Vishal Sharma",
+        "Sandra Scott-Hayward"
+      ],
+      "citation_label": "[Paper 6 - Yungaicela-Naula 2024]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No sources found",
+      "missing_component": "No sources found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence retrieved",
+      "missing_component": "No evidence retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No supporting references",
+      "missing_component": "No supporting references",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No detailed analysis",
+      "missing_component": "No detailed analysis",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No sources found",
+      "missing_component": "No sources found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence retrieved",
+      "missing_component": "No evidence retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No supporting references",
+      "missing_component": "No supporting references",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No detailed analysis",
+      "missing_component": "No detailed analysis",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 4,
+    "verdict": "insufficient",
+    "confidence": 0.6
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] Deploying swarm-enabled autonomous drones equipped with multimodal sensors for real-time, high-resolution crop health mapping, potentially reducing manual scouting time by up to 30% (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[SPECULATION] Integrating edge AI modules into irrigation valves to enable predictive, soil-moisture-aware water distribution, which could lower water usage by an estimated 20% in arid regions (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[HYPOTHESIS] Leveraging federated learning across distributed farm equipment to collaboratively train pest-detection models while preserving data privacy, possibly improving detection accuracy by 15% over centralized models (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[SPECULATION] Developing AI-driven phenotyping platforms that use computer vision to assess plant traits under variable lighting, aiming to accelerate breeding cycles by 25% (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 5",
+      "description": "[HYPOTHESIS] Implementing reinforcement learning agents to optimize fertilizer application schedules based on real-time nutrient flux predictions, potentially enhancing yield by 10% while cutting input costs (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 6",
+      "description": "[SPECULATION] Creating AI-powered decision support systems that synthesize satellite imagery, weather forecasts, and local farm data to recommend crop rotation plans, which might improve soil health indicators by 12% over five years (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 7",
+      "description": "[HYPOTHESIS] Utilizing generative AI to design novel, climate-resilient crop varieties by simulating genetic modifications, with the goal of achieving drought tolerance in 3\u20135 years (unverified).",
+      "missing_component": "No sources found, No evidence retrieved, No supporting references, No detailed analysis",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No supporting references",
+        "No detailed analysis"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> END"
+  ],
+  "generated_at": "2026-02-28T10:31:13.223094"
+}

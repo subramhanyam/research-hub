@@ -80,6 +80,140 @@
             border-color: #16a34a;
             background: rgba(22, 163, 74, 0.08);
         }
+        .test-activity-log {
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .test-activity-placeholder {
+            text-align: center;
+            color: rgb(100 116 139);
+            font-size: 13px;
+            padding: 28px 16px;
+            border: 1px dashed rgb(203 213 225);
+            border-radius: 12px;
+            background: rgb(248 250 252);
+        }
+        .dark .test-activity-placeholder {
+            color: rgb(148 163 184);
+            border-color: rgb(51 65 85);
+            background: rgba(15, 23, 42, 0.4);
+        }
+        .test-activity-step {
+            border-left: 2px solid #14532d;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            background: rgb(248 250 252);
+            border-radius: 10px;
+        }
+        .dark .test-activity-step {
+            background: rgba(15, 23, 42, 0.35);
+        }
+        .test-activity-step.completed {
+            border-left-color: #16a34a;
+        }
+        .test-activity-step-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .test-activity-agent {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+        .test-activity-agent.agent-planner {
+            background: rgba(20, 83, 45, 0.12);
+            color: #14532d;
+        }
+        .test-activity-agent.agent-researcher {
+            background: rgba(2, 132, 199, 0.12);
+            color: #0369a1;
+        }
+        .test-activity-agent.agent-analyst {
+            background: rgba(217, 119, 6, 0.14);
+            color: #b45309;
+        }
+        .test-activity-agent.agent-critic {
+            background: rgba(225, 29, 72, 0.12);
+            color: #be123c;
+        }
+        .test-activity-spinner {
+            margin-left: auto;
+            color: #14532d;
+            animation: spin 1s linear infinite;
+        }
+        .test-activity-step.completed .test-activity-spinner {
+            color: #16a34a;
+            animation: none;
+        }
+        .test-activity-stream {
+            color: rgb(71 85 105);
+            font-size: 11px;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .dark .test-activity-stream {
+            color: rgb(148 163 184);
+        }
+        .test-activity-summary {
+            margin-top: 6px;
+            color: rgb(15 23 42);
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .dark .test-activity-summary {
+            color: rgb(226 232 240);
+        }
+        .test-activity-plan-detail {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(20, 83, 45, 0.08);
+            font-size: 11px;
+            line-height: 1.45;
+        }
+        .dark .test-activity-plan-detail {
+            background: rgba(20, 83, 45, 0.16);
+        }
+        .test-plan-keyword {
+            display: inline-block;
+            margin-right: 4px;
+            margin-top: 4px;
+            padding: 1px 6px;
+            border-radius: 999px;
+            font-size: 10px;
+            background: rgba(20, 83, 45, 0.12);
+            color: #14532d;
+            font-weight: 600;
+        }
+        .dark .test-plan-keyword {
+            background: rgba(187, 247, 208, 0.18);
+            color: #bbf7d0;
+        }
+        .test-activity-done {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #16a34a;
+            font-weight: 600;
+        }
+        .test-activity-error {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #dc2626;
+            font-weight: 600;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-200">
@@ -97,76 +231,40 @@
 <p class="text-sm text-slate-500 dark:text-slate-400">Variant 3: Multi-Agent Synthesis</p>
 </div>
 <div class="flex gap-2">
-<div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+<div class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
 <span class="material-icons-outlined text-sm text-slate-500">tune</span>
-<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" for="test-research-mission-mode">Mission Mode</label>
-<select class="bg-transparent border-none text-sm font-medium focus:ring-0 p-0 pr-6 cursor-pointer" id="test-research-mission-mode">
-<option value="autonomous_search">Autonomous search (arXiv + workspace)</option>
-<option value="workspace_only">Search only in workspace</option>
+<select class="bg-transparent border-none text-xs font-semibold focus:ring-0 p-0 pr-5 cursor-pointer max-w-[160px]" id="test-research-mission-mode">
+<option value="autonomous_search">Autonomous Search</option>
+<option value="workspace_only">Workspace</option>
 </select>
 </div>
-<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-medium text-sm transition-all hover:opacity-90 shadow-lg shadow-primary/20">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-medium text-sm transition-all hover:opacity-90 shadow-lg shadow-primary/20" id="test-research-run-btn" type="button">
 <span class="material-icons-outlined text-sm">play_arrow</span>
                             Resume Run
                         </button>
 </div>
 </div>
-<div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
-<label class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 block">Active Research Goal</label>
-<p class="text-lg font-medium text-slate-800 dark:text-slate-200">Identify hardware limitations in superconducting qubits for fault-tolerant scaling between 2024-2026.</p>
+<div class="mt-2">
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all" id="test-research-topic" placeholder="Define research goal... e.g. AI in Agriculture" type="text"/>
+<p class="text-xs text-slate-500 mt-2 min-h-4" id="test-research-run-status"></p>
 </div>
 </section>
 <section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
 <div class="flex items-center justify-between mb-6">
 <h3 class="font-bold flex items-center gap-2">
 <span class="material-icons-outlined text-primary">hub</span>
-                        Agent Activity Feed
+                        ▷ Live Agent Activity
                     </h3>
-<div class="flex items-center gap-2 text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-3 py-1 rounded-full uppercase">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Active Synthesis
-                    </div>
-</div>
-<div class="space-y-6">
-<div class="agent-line flex gap-4">
-<div class="z-10 w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white">
-<span class="material-icons-outlined text-sm">search</span>
-</div>
-<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-<div class="flex justify-between items-center mb-1">
-<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Literature Scraper Agent</span>
-<span class="text-[10px] text-slate-400">09:42 AM</span>
-</div>
-<p class="text-sm text-slate-600 dark:text-slate-400">Extracted 142 papers from ArXiv and Nature. Filtering for "cross-resonance gate noise"...</p>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-2 text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-full uppercase" id="test-activity-badge-wrap">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400" id="test-activity-badge-dot"></span>
+<span id="test-activity-badge">IDLE</span>
+</span>
+<button class="text-[10px] font-semibold text-slate-500 hover:text-rose-600 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1" id="test-activity-clear-btn" type="button">Clear</button>
 </div>
 </div>
-<div class="agent-line flex gap-4">
-<div class="z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] text-white">
-<span class="material-icons-outlined text-sm">psychology</span>
-</div>
-<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-<div class="flex justify-between items-center mb-1">
-<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Synthesizer Agent</span>
-<span class="text-[10px] text-slate-400">09:45 AM</span>
-</div>
-<p class="text-sm text-slate-600 dark:text-slate-400">Identified contradiction in thermal decoherence rates between IBM and Rigetti's 2023 reports.</p>
-</div>
-</div>
-<div class="agent-line flex gap-4">
-<div class="z-10 w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center text-[10px] text-white">
-<span class="material-icons-outlined text-sm">edit_note</span>
-</div>
-<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800 ring-1 ring-amber-200 dark:ring-amber-900/30">
-<div class="flex justify-between items-center mb-1">
-<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Strategy Planner Agent</span>
-<span class="text-[10px] text-amber-500 font-bold uppercase">Processing...</span>
-</div>
-<p class="text-sm text-slate-600 dark:text-slate-400">Drafting technical gap analysis for cryogenic interconnect density bottlenecks.</p>
-<div class="mt-2 h-1 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-<div class="h-full bg-amber-500 w-[65%] transition-all duration-1000"></div>
-</div>
-</div>
-</div>
+<div class="test-activity-log custom-scrollbar" id="test-activity-log">
+<div class="test-activity-placeholder">Agent activity will appear here when a mission is running...</div>
 </div>
 </section>
 <section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
@@ -220,7 +318,7 @@
 <div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Planner">
 <div class="flex items-center justify-between mb-2">
 <span class="material-icons-outlined text-primary text-base">settings</span>
-<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 agent-dot"></span>
 </div>
 <p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Planner</p>
 <p class="text-[10px] text-slate-500 agent-status">Idle</p>
@@ -228,7 +326,7 @@
 <div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Researcher">
 <div class="flex items-center justify-between mb-2">
 <span class="material-icons-outlined text-sky-600 dark:text-sky-400 text-base">travel_explore</span>
-<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 agent-dot"></span>
 </div>
 <p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Researcher</p>
 <p class="text-[10px] text-slate-500 agent-status">Idle</p>
@@ -236,7 +334,7 @@
 <div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Analyst">
 <div class="flex items-center justify-between mb-2">
 <span class="material-icons-outlined text-amber-600 dark:text-amber-400 text-base">insights</span>
-<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 agent-dot"></span>
 </div>
 <p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Analyst</p>
 <p class="text-[10px] text-slate-500 agent-status">Idle</p>
@@ -244,7 +342,7 @@
 <div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Critic">
 <div class="flex items-center justify-between mb-2">
 <span class="material-icons-outlined text-rose-600 dark:text-rose-400 text-base">gavel</span>
-<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 agent-dot"></span>
 </div>
 <p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Critic</p>
 <p class="text-[10px] text-slate-500 agent-status">Idle</p>
@@ -285,4 +383,3 @@
 
 <script src="/static/test_ui.js"></script>
 </body></html>
-

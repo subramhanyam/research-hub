@@ -935,6 +935,380 @@ function initTestSearch() {
     }
 }
 
+let testResearchEvtSource = null;
+let testActivityStepCounter = 0;
+
+const RESEARCH_AGENT_ICON = {
+    Planner: "settings",
+    Researcher: "travel_explore",
+    Analyst: "insights",
+    Critic: "gavel",
+};
+
+function resetResearchAgentCards() {
+    const cards = document.querySelectorAll(".rhx-agent-card");
+    if (!cards.length) return;
+    cards.forEach((card) => {
+        card.classList.remove("active", "done");
+        const statusEl = card.querySelector(".agent-status");
+        if (statusEl) statusEl.textContent = "Idle";
+        const dot = card.querySelector(".agent-dot");
+        if (dot) {
+            dot.classList.remove("bg-primary", "bg-emerald-500", "bg-rose-500", "animate-pulse");
+            dot.classList.add("bg-slate-300");
+        }
+    });
+}
+
+function updateResearchAgentCard(agent, status) {
+    if (status === "running") {
+        document.querySelectorAll(".rhx-agent-card").forEach((card) => {
+            if (card.id !== `agent-${agent}`) card.classList.remove("active");
+        });
+    }
+
+    const card = document.getElementById(`agent-${agent}`);
+    if (!card) return;
+
+    const statusEl = card.querySelector(".agent-status");
+    const dot = card.querySelector(".agent-dot");
+
+    if (status === "running") {
+        card.classList.add("active");
+        card.classList.remove("done");
+        if (statusEl) statusEl.textContent = "Working...";
+        if (dot) {
+            dot.classList.remove("bg-slate-300", "bg-emerald-500", "bg-rose-500");
+            dot.classList.add("bg-primary", "animate-pulse");
+        }
+    } else if (status === "complete") {
+        card.classList.remove("active");
+        card.classList.add("done");
+        if (statusEl) statusEl.textContent = "Done";
+        if (dot) {
+            dot.classList.remove("bg-slate-300", "bg-primary", "bg-rose-500", "animate-pulse");
+            dot.classList.add("bg-emerald-500");
+        }
+    } else if (status === "error") {
+        card.classList.remove("active");
+        card.classList.remove("done");
+        if (statusEl) statusEl.textContent = "Error";
+        if (dot) {
+            dot.classList.remove("bg-slate-300", "bg-primary", "bg-emerald-500", "animate-pulse");
+            dot.classList.add("bg-rose-500");
+        }
+    }
+}
+
+function closeResearchMissionStream() {
+    if (testResearchEvtSource) {
+        testResearchEvtSource.close();
+        testResearchEvtSource = null;
+    }
+}
+
+function getResearchActivityLog() {
+    return document.getElementById("test-activity-log");
+}
+
+function setResearchActivityBadge(label) {
+    const badge = document.getElementById("test-activity-badge");
+    const dot = document.getElementById("test-activity-badge-dot");
+    if (badge) badge.textContent = label;
+    if (dot) {
+        dot.classList.remove("bg-slate-400", "bg-emerald-500", "bg-rose-500", "animate-pulse");
+        if (label === "LIVE") dot.classList.add("bg-emerald-500", "animate-pulse");
+        else if (label === "ERROR") dot.classList.add("bg-rose-500");
+        else dot.classList.add("bg-slate-400");
+    }
+}
+
+function researchStepLabel(step) {
+    return {
+        generate_plan: "Planning",
+        search_papers: "Searching",
+        extract_limitations: "Extracting",
+        cluster_limitations: "Clustering",
+        identify_gaps: "Analyzing",
+        generate_ideas: "Ideating",
+        reflect: "Reflecting",
+        save_results: "Saving",
+    }[step] || step;
+}
+
+function resetResearchActivityFeed() {
+    const log = getResearchActivityLog();
+    if (!log) return;
+    testActivityStepCounter = 0;
+    log.innerHTML = '<div class="test-activity-placeholder">Agent activity will appear here when a mission is running...</div>';
+    setResearchActivityBadge("IDLE");
+}
+
+function getLatestResearchActivityStream(step) {
+    const steps = document.querySelectorAll(`.test-activity-step[data-step="${step}"]`);
+    if (!steps.length) return null;
+    return steps[steps.length - 1].querySelector(".test-activity-stream");
+}
+
+function startResearchActivityStep(step, agent) {
+    const log = getResearchActivityLog();
+    if (!log) return;
+    const placeholder = log.querySelector(".test-activity-placeholder");
+    if (placeholder) placeholder.remove();
+
+    testActivityStepCounter += 1;
+    const entryId = `test-activity-step-${step}-${testActivityStepCounter}`;
+    const agentKey = String(agent || "Planner");
+    const icon = RESEARCH_AGENT_ICON[agentKey] || "smart_toy";
+    const tagClass = `agent-${agentKey.toLowerCase()}`;
+
+    const stepEl = document.createElement("div");
+    stepEl.className = "test-activity-step";
+    stepEl.dataset.step = step;
+    stepEl.id = entryId;
+    stepEl.innerHTML = `
+        <div class="test-activity-step-header">
+            <span class="test-activity-agent ${tagClass}">
+                <span class="material-icons-outlined text-[12px]">${icon}</span>
+                ${rhxEsc(agentKey)}
+            </span>
+            <span>${rhxEsc(researchStepLabel(step))}</span>
+            <span class="test-activity-spinner material-icons-outlined text-sm">autorenew</span>
+        </div>
+        <div class="test-activity-stream"></div>
+    `;
+    log.appendChild(stepEl);
+    log.scrollTop = log.scrollHeight;
+    setResearchActivityBadge("LIVE");
+}
+
+function appendResearchActivityToken(step, agent, token) {
+    let streamEl = getLatestResearchActivityStream(step);
+    if (!streamEl) {
+        startResearchActivityStep(step, agent);
+        streamEl = getLatestResearchActivityStream(step);
+    }
+    if (!streamEl) return;
+
+    const text = String(token ?? "");
+    if (text.includes("\n")) {
+        const parts = text.split("\n");
+        parts.forEach((part, idx) => {
+            if (idx > 0) streamEl.appendChild(document.createElement("br"));
+            if (part) streamEl.appendChild(document.createTextNode(part));
+        });
+    } else {
+        streamEl.appendChild(document.createTextNode(text));
+    }
+
+    const log = getResearchActivityLog();
+    if (log) log.scrollTop = log.scrollHeight;
+}
+
+function completeResearchActivityStep(step, summary) {
+    const steps = document.querySelectorAll(`.test-activity-step[data-step="${step}"]`);
+    if (!steps.length) return;
+    const stepEl = steps[steps.length - 1];
+    stepEl.classList.add("completed");
+    const spinner = stepEl.querySelector(".test-activity-spinner");
+    if (spinner) spinner.textContent = "check_circle";
+
+    if (summary) {
+        const streamEl = stepEl.querySelector(".test-activity-stream");
+        if (streamEl) {
+            const summaryEl = document.createElement("div");
+            summaryEl.className = "test-activity-summary";
+            summaryEl.textContent = summary;
+            streamEl.appendChild(summaryEl);
+        }
+    }
+
+    const log = getResearchActivityLog();
+    if (log) log.scrollTop = log.scrollHeight;
+}
+
+function appendResearchPlanDetails(data) {
+    if (!data || !Array.isArray(data.subtopics) || !data.subtopics.length) return;
+    const streamEl = getLatestResearchActivityStream("generate_plan");
+    if (!streamEl) return;
+
+    const keywords = Array.isArray(data.keywords) ? data.keywords : [];
+    const detailEl = document.createElement("div");
+    detailEl.className = "test-activity-plan-detail";
+    detailEl.innerHTML = `
+        <div><strong>Subtopics:</strong> ${data.subtopics.map((s) => rhxEsc(s)).join(" | ")}</div>
+        <div class="mt-1"><strong>Keywords:</strong> ${keywords.map((k) => `<span class="test-plan-keyword">${rhxEsc(k)}</span>`).join("")}</div>
+    `;
+    streamEl.appendChild(detailEl);
+
+    const log = getResearchActivityLog();
+    if (log) log.scrollTop = log.scrollHeight;
+}
+
+function appendResearchActivityError(message) {
+    const log = getResearchActivityLog();
+    if (!log) return;
+    const placeholder = log.querySelector(".test-activity-placeholder");
+    if (placeholder) placeholder.remove();
+
+    const errEl = document.createElement("div");
+    errEl.className = "test-activity-error";
+    errEl.textContent = message || "Mission failed.";
+    log.appendChild(errEl);
+    log.scrollTop = log.scrollHeight;
+    setResearchActivityBadge("ERROR");
+}
+
+function finalizeResearchActivityFeed() {
+    const log = getResearchActivityLog();
+    if (!log) return;
+    const doneEl = document.createElement("div");
+    doneEl.className = "test-activity-done";
+    doneEl.textContent = "Mission completed successfully.";
+    log.appendChild(doneEl);
+    log.scrollTop = log.scrollHeight;
+    setResearchActivityBadge("DONE");
+}
+
+function initResearchAIRun() {
+    const topicEl = document.getElementById("test-research-topic");
+    const modeEl = document.getElementById("test-research-mission-mode");
+    const runBtn = document.getElementById("test-research-run-btn");
+    const statusEl = document.getElementById("test-research-run-status");
+    const clearBtn = document.getElementById("test-activity-clear-btn");
+    if (!topicEl || !modeEl || !runBtn) return;
+
+    if (clearBtn && !clearBtn.dataset.bound) {
+        clearBtn.dataset.bound = "1";
+        clearBtn.addEventListener("click", () => {
+            resetResearchActivityFeed();
+        });
+    }
+
+    const setRunStatus = (text, isError = false) => {
+        if (!statusEl) return;
+        statusEl.textContent = text || "";
+        statusEl.classList.toggle("text-red-600", !!isError);
+        statusEl.classList.toggle("dark:text-red-400", !!isError);
+        statusEl.classList.toggle("text-slate-500", !isError);
+    };
+
+    const finishRun = async (msg, isError = false) => {
+        runBtn.disabled = false;
+        runBtn.innerHTML = '<span class="material-icons-outlined text-sm">play_arrow</span>Resume Run';
+        setRunStatus(msg, isError);
+        await initRecentPapers();
+        await initTestPapersTable();
+        if (typeof window.syncTestKpis === "function") {
+            await window.syncTestKpis();
+        }
+    };
+
+    runBtn.addEventListener("click", async () => {
+        const topic = (topicEl.value || "").trim();
+        if (!topic) {
+            topicEl.focus();
+            setRunStatus("Enter a research topic to start.", true);
+            return;
+        }
+
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<span class="material-icons-outlined text-sm">autorenew</span>Starting...';
+        setRunStatus("Starting mission...");
+        resetResearchAgentCards();
+        resetResearchActivityFeed();
+
+        let sessionId = await rhxGetOrCreateSessionId();
+        closeResearchMissionStream();
+
+        try {
+            let startResp = await fetch(`/api/workspace/${sessionId}/mission/start`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    topic,
+                    mission_mode: modeEl.value || "autonomous_search",
+                }),
+            });
+
+            if (startResp.status === 404) {
+                sessionId = await rhxGetOrCreateSessionId();
+                startResp = await fetch(`/api/workspace/${sessionId}/mission/start`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        topic,
+                        mission_mode: modeEl.value || "autonomous_search",
+                    }),
+                });
+            }
+
+            if (!startResp.ok) {
+                throw new Error("Failed to start mission");
+            }
+
+            runBtn.innerHTML = '<span class="material-icons-outlined text-sm animate-spin">autorenew</span>Running...';
+            setRunStatus("Mission running...");
+
+            testResearchEvtSource = new EventSource(`/api/workspace/${sessionId}/mission/stream`);
+            testResearchEvtSource.onmessage = async (event) => {
+                let payload = null;
+                try {
+                    payload = JSON.parse(event.data);
+                } catch (e) {
+                    return;
+                }
+
+                if (payload?.type === "token") {
+                    appendResearchActivityToken(payload.step, payload.agent, payload.token);
+                    return;
+                }
+
+                if (payload?.agent && payload?.status) {
+                    updateResearchAgentCard(payload.agent, payload.status);
+                }
+
+                if (payload?.status === "running" && payload?.step && payload?.agent) {
+                    startResearchActivityStep(payload.step, payload.agent);
+                }
+
+                if (payload?.status === "complete" && payload?.step) {
+                    completeResearchActivityStep(payload.step, payload.summary || "");
+                    if (payload.step === "generate_plan" && payload.data) {
+                        appendResearchPlanDetails(payload.data);
+                    }
+                }
+
+                if (payload?.status === "error") {
+                    appendResearchActivityError(payload.summary || "Mission failed.");
+                    await finishRun(payload.summary || "Mission failed.", true);
+                    closeResearchMissionStream();
+                    return;
+                }
+
+                if (payload?.step === "done") {
+                    finalizeResearchActivityFeed();
+                    await finishRun("Mission complete.");
+                    closeResearchMissionStream();
+                }
+            };
+
+            testResearchEvtSource.onerror = async () => {
+                if (!testResearchEvtSource) return;
+                await finishRun("Mission stream disconnected.", true);
+                closeResearchMissionStream();
+            };
+        } catch (e) {
+            await finishRun("Failed to start mission.", true);
+            closeResearchMissionStream();
+        }
+    });
+
+    topicEl.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") runBtn.click();
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     initWorkspaceDropdown();
     initPapersControls();
@@ -943,5 +1317,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initPaperRemoveActions();
     initRecentPapers();
     initTestSearch();
+    initResearchAIRun();
 });
 
