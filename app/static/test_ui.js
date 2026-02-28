@@ -397,9 +397,18 @@ function renderUploadedPaperRow(paper) {
         : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
     const leftMeta = authors || (paper.source === "arxiv_search" ? "arXiv" : "Local Upload");
     const authorMeta = `${leftMeta}${published ? ` • ${published}` : ""}`;
+    const categories = Array.isArray(paper.categories) ? paper.categories.filter(Boolean) : [];
+    const primaryCategory = (paper.primary_category || categories[0] || "").trim();
+    const metadataTooltip = [
+        `Title: ${title}`,
+        `Author(s): ${authors || "N/A"}`,
+        `Paper ID: ${paper.paper_id || "N/A"}`,
+        `Categories: ${categories.length ? categories.join(", ") : "N/A"}`,
+        `Primary Category: ${primaryCategory || "N/A"}`,
+    ].join("\n");
 
     return `
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" data-paper-id="${paper.paper_id || ""}">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" data-paper-id="${paper.paper_id || ""}" title="${rhxEsc(metadataTooltip)}">
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
 <div class="w-8 h-8 bg-red-50 dark:bg-red-900/20 rounded flex items-center justify-center text-red-600">
@@ -925,7 +934,7 @@ function ensurePaperSummaryModal() {
     return modal;
 }
 
-function openPaperSummaryModalById(paperId) {
+async function openPaperSummaryModalById(paperId) {
     const modal = ensurePaperSummaryModal();
     const titleEl = document.getElementById("test-paper-summary-title");
     const bodyEl = document.getElementById("test-paper-summary-body");
@@ -935,10 +944,32 @@ function openPaperSummaryModalById(paperId) {
     if (!paper) return;
 
     titleEl.textContent = paper.title || "Paper Summary";
-    bodyEl.textContent = (paper.summary || "").trim() || "Summary not available for this paper.";
     modal.classList.remove("hidden");
     modal.classList.add("flex");
     document.body.classList.add("overflow-hidden");
+
+    bodyEl.textContent = "Loading summary...";
+    let summary = (paper.summary || "").trim();
+
+    if (!summary && paper.source === "arxiv_search") {
+        const sessionId = rhxGetStoredSessionId();
+        if (sessionId && paper.paper_id) {
+            try {
+                const resp = await fetch(`/api/workspace/${sessionId}/papers/${paper.paper_id}/summary/refresh`, {
+                    method: "POST",
+                });
+                const data = await resp.json();
+                if (resp.ok && data.summary) {
+                    summary = String(data.summary).trim();
+                    paper.summary = summary;
+                }
+            } catch (e) {
+                // no-op
+            }
+        }
+    }
+
+    bodyEl.textContent = summary || "Summary not available for this paper.";
 }
 
 function closePaperSummaryModal() {
@@ -956,7 +987,7 @@ function initPaperRemoveActions() {
     tbody.addEventListener("click", async (event) => {
         const summaryButton = event.target.closest(".test-view-summary-btn");
         if (summaryButton) {
-            openPaperSummaryModalById(summaryButton.dataset.paperId || "");
+            await openPaperSummaryModalById(summaryButton.dataset.paperId || "");
             return;
         }
 
@@ -986,7 +1017,7 @@ function renderSearchResultCard(item, index = -1) {
     return `
 <article class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/40 transition-colors">
 <div class="flex items-start justify-between gap-3">
-<a class="text-base font-semibold text-slate-900 dark:text-slate-100 hover:text-primary transition-colors" href="${url}" rel="noopener noreferrer" target="_blank">${title}</a>
+<a class="inline-flex items-center gap-1 text-base font-semibold text-slate-900 dark:text-slate-100 hover:text-primary transition-colors" href="${url}" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-sm">open_in_new</span>${title}</a>
 ${addBtn}
 </div>
 <p class="text-xs text-slate-500 mt-1">${authors}${authors && published ? " â€¢ " : ""}${published}</p>

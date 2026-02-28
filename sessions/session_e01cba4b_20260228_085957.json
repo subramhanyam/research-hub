@@ -1,0 +1,281 @@
+{
+  "session_id": "e01cba4b",
+  "topic": "ai to find diseases",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 9,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "categories": [
+        "cs.CY"
+      ],
+      "primary_category": "cs.CY",
+      "citation_label": "[Paper 1 - Wilfley 2026]",
+      "source": "arxiv_search",
+      "arxiv_file_name": "2601.16513v1.pdf",
+      "arxiv_file_path": "/workspaces/research-hub/agent_workspace/papers_arxiv/2601.16513v1.pdf"
+    },
+    {
+      "paper_id": 2,
+      "title": "How reproducible are data-driven subtypes of Alzheimer's disease atrophy?",
+      "summary": "Alzheimer's disease (AD) exhibits substantial clinical and biological heterogeneity, complicating efforts in treatment and intervention development. While new computational methods offer insights into AD progression, the reproducibility of these subtypes across datasets remains understudied, particularly concerning the robustness of subtype definitions when validated on diverse databases. This study evaluates the consistency of AD progression subtypes identified by the Subtype and Stage Inference (SuStaIn) algorithm using T1-weighted MRI data across 5,444 subjects from ANMerge, OASIS, and ADNI datasets, forming four independent cohorts. Each cohort was analyzed under two conditions: one using the full cohort, including cognitively normal controls, and another excluding controls to test subtype robustness. Results confirm the three primary atrophy subtypes identified in earlier studies: Typical, Cortical, and Subcortical, as well as the emergence of rare and atypical AD variants such as posterior cortical atrophy (PCA). Notably, each subtype displayed varying robustness to the inclusion of controls, with certain subtypes, like Subcortical, more influenced by cohort composition. This investigation underscores SuStaIn's reliability for defining stable AD subtypes and suggests its utility in clinical stratification for trials and diagnosis. However, our findings also highlight the need for improved dataset diversity, particularly in terms of ethnic representation, to enhance generalizability and support broader clinical application.",
+      "url": "http://arxiv.org/abs/2412.00160v1",
+      "published": "2024-11-29",
+      "authors": [
+        "Emma Prevot",
+        "Cameron Shand",
+        "Neil Oxtoby",
+        "for Alzheimer's Disease Neuroimaging Initiative"
+      ],
+      "citation_label": "[Paper 2 - Prevot 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 3,
+      "title": "Deep learning for comprehensive forecasting of Alzheimer's Disease progression",
+      "summary": "Most approaches to machine learning from electronic health data can only predict a single endpoint. Here, we present an alternative that uses unsupervised deep learning to simulate detailed patient trajectories. We use data comprising 18-month trajectories of 44 clinical variables from 1908 patients with Mild Cognitive Impairment or Alzheimer's Disease to train a model for personalized forecasting of disease progression. We simulate synthetic patient data including the evolution of each sub-component of cognitive exams, laboratory tests, and their associations with baseline clinical characteristics, generating both predictions and their confidence intervals. Our unsupervised model predicts changes in total ADAS-Cog scores with the same accuracy as specifically trained supervised models and identifies sub-components associated with word recall as predictive of progression. The ability to simultaneously simulate dozens of patient characteristics is a crucial step towards personalized medicine for Alzheimer's Disease.",
+      "url": "http://arxiv.org/abs/1807.03876v2",
+      "published": "2018-07-10",
+      "authors": [
+        "Charles K. Fisher",
+        "Aaron M. Smith",
+        "Jonathan R. Walsh",
+        "the Coalition Against Major Diseases"
+      ],
+      "citation_label": "[Paper 3 - Fisher 2018]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "Data-driven approaches for predicting spread of infectious diseases through DINNs: Disease Informed Neural Networks",
+      "summary": "In this work, we present an approach called Disease Informed Neural Networks (DINNs) that can be employed to effectively predict the spread of infectious diseases. This approach builds on a successful physics informed neural network approaches that have been applied to a variety of applications that can be modeled by linear and non-linear ordinary and partial differential equations. Specifically, we build on the application of PINNs to SIR compartmental models and expand it a scaffolded family of mathematical models describing various infectious diseases. We show how the neural networks are capable of learning how diseases spread, forecasting their progression, and finding their unique parameters (e.g. death rate). To demonstrate the robustness and efficacy of DINNs, we apply the approach to eleven highly infectious diseases that have been modeled in increasing levels of complexity. Our computational experiments suggest that DINNs is a reliable candidate for effectively learn about the dynamics of spread and forecast its progression into the future from available real-world data.",
+      "url": "http://arxiv.org/abs/2110.05445v3",
+      "published": "2021-10-11",
+      "authors": [
+        "Sagi Shaier",
+        "Maziar Raissi",
+        "Padmanabhan Seshaiyer"
+      ],
+      "citation_label": "[Paper 4 - Shaier 2021]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "GREGoR: Accelerating Genomics for Rare Diseases",
+      "summary": "Rare diseases are collectively common, affecting approximately one in twenty individuals worldwide. In recent years, rapid progress has been made in rare disease diagnostics due to advances in DNA sequencing, development of new computational and experimental approaches to prioritize genes and genetic variants, and increased global exchange of clinical and genetic data. However, more than half of individuals suspected to have a rare disease lack a genetic diagnosis. The Genomics Research to Elucidate the Genetics of Rare Diseases (GREGoR) Consortium was initiated to study thousands of challenging rare disease cases and families and apply, standardize, and evaluate emerging genomics technologies and analytics to accelerate their adoption in clinical practice. Further, all data generated, currently representing ~7500 individuals from ~3000 families, is rapidly made available to researchers worldwide via the Genomic Data Science Analysis, Visualization, and Informatics Lab-space (AnVIL) to catalyze global efforts to develop approaches for genetic diagnoses in rare diseases (https://gregorconsortium.org/data). The majority of these families have undergone prior clinical genetic testing but remained unsolved, with most being exome-negative. Here, we describe the collaborative research framework, datasets, and discoveries comprising GREGoR that will provide foundational resources and substrates for the future of rare disease genomics.",
+      "url": "http://arxiv.org/abs/2412.14338v1",
+      "published": "2024-12-18",
+      "authors": [
+        "Moez Dawood",
+        "Ben Heavner",
+        "Marsha M. Wheeler",
+        "Rachel A. Ungar",
+        "Jonathan LoTempio"
+      ],
+      "citation_label": "[Paper 5 - Dawood 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "Finding All Global Minimum Cuts In Practice",
+      "summary": "We present a practically efficient algorithm that finds all global minimum cuts in huge undirected graphs. Our algorithm uses a multitude of kernelization rules to reduce the graph to a small equivalent instance and then finds all minimum cuts using an optimized version of the algorithm of Nagamochi, Nakao and Ibaraki. In shared memory we are able to find all minimum cuts of graphs with up to billions of edges and millions of minimum cuts in a few minutes. We also give a new linear time algorithm to find the most balanced minimum cuts given as input the representation of all minimum cuts.",
+      "url": "http://arxiv.org/abs/2002.06948v1",
+      "published": "2020-02-17",
+      "authors": [
+        "Monika Henzinger",
+        "Alexander Noe",
+        "Christian Schulz",
+        "Darren Strash"
+      ],
+      "citation_label": "[Paper 6 - Henzinger 2020]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 7,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 7 - Ai 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 8,
+      "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+      "summary": "This paper presents a novel approach to scientific discovery using an artificial intelligence (AI) environment known as ChatGPT, developed by OpenAI. This is the first paper entirely generated with outputs from ChatGPT. We demonstrate how ChatGPT can be instructed through a gamification environment to define and benchmark hypothetical physical theories. Through this environment, ChatGPT successfully simulates the creation of a new improved model, called GPT$^4$, which combines the concepts of GPT in AI (generative pretrained transformer) and GPT in physics (generalized probabilistic theory). We show that GPT$^4$ can use its built-in mathematical and statistical capabilities to simulate and analyze physical laws and phenomena. As a demonstration of its language capabilities, GPT$^4$ also generates a limerick about itself. Overall, our results demonstrate the promising potential for human-AI collaboration in scientific discovery, as well as the importance of designing systems that effectively integrate AI's capabilities with human intelligence.",
+      "url": "http://arxiv.org/abs/2308.12400v1",
+      "published": "2023-07-08",
+      "authors": [
+        "Gerardo Adesso"
+      ],
+      "citation_label": "[Paper 8 - Adesso 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 9,
+      "title": "Need of AI in Modern Education: in the Eyes of Explainable AI (xAI)",
+      "summary": "Modern Education is not \\textit{Modern} without AI. However, AI's complex nature makes understanding and fixing problems challenging. Research worldwide shows that a parent's income greatly influences a child's education. This led us to explore how AI, especially complex models, makes important decisions using Explainable AI tools. Our research uncovered many complexities linked to parental income and offered reasonable explanations for these decisions. However, we also found biases in AI that go against what we want from AI in education: clear transparency and equal access for everyone. These biases can impact families and children's schooling, highlighting the need for better AI solutions that offer fair opportunities to all. This chapter tries to shed light on the complex ways AI operates, especially concerning biases. These are the foundational steps towards better educational policies, which include using AI in ways that are more reliable, accountable, and beneficial for everyone involved.",
+      "url": "http://arxiv.org/abs/2408.00025v3",
+      "published": "2024-07-31",
+      "authors": [
+        "Supriya Manna",
+        "Niladri Sett"
+      ],
+      "citation_label": "[Paper 9 - Manna 2024]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No sources provided",
+      "missing_component": "No sources provided",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation of methodology",
+      "missing_component": "No explanation of methodology",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence of AI approach",
+      "missing_component": "No evidence of AI approach",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No details on diseases targeted",
+      "missing_component": "No details on diseases targeted",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evaluation metrics",
+      "missing_component": "No evaluation metrics",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No sources provided",
+      "missing_component": "No sources provided",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation of methodology",
+      "missing_component": "No explanation of methodology",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence of AI approach",
+      "missing_component": "No evidence of AI approach",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No details on diseases targeted",
+      "missing_component": "No details on diseases targeted",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evaluation metrics",
+      "missing_component": "No evaluation metrics",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 5,
+    "verdict": "insufficient",
+    "confidence": 0.2,
+    "goal_coverage": 0.0
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] Develop a multimodal AI framework that integrates patient electronic health records, imaging data, and genomic sequences to predict the onset of rare autoimmune disorders, potentially reducing diagnostic delay by an unverified 30%.\n[HYPOTHESIS] Create a reinforcement\u2011learning\u2011based triage system that learns from clinician feedback to prioritize patients for rapid diagnostic testing, aiming to improve throughput by an unverified 25%.\n[SPECULATION] Employ generative adversarial networks to synthesize synthetic patient data for under\u2011represented disease cohorts, thereby expanding training sets for downstream diagnostic models.\n[SPECULATION] Leverage transfer learning from large, publicly available disease corpora to fine\u2011tune models for emerging infectious diseases, with the expectation of achieving comparable accuracy to disease\u2011specific models after minimal fine\u2011tuning.\n[HYPOTHESIS] Integrate real\u2011time wearable sensor streams with deep learning anomaly detection to flag early physiological deviations indicative of metabolic disorders, potentially enabling pre\u2011symptomatic intervention.",
+      "missing_component": "No sources provided, No explanation of methodology, No evidence of AI approach, No details on diseases targeted, No evaluation metrics",
+      "addresses_gaps": [
+        "No sources provided",
+        "No explanation of methodology",
+        "No evidence of AI approach",
+        "No details on diseases targeted",
+        "No evaluation metrics"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "insufficient_data": false,
+  "insufficiency_reason": "",
+  "novelty_scores": [
+    7.0
+  ],
+  "trace": [
+    "Planner \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 END"
+  ],
+  "generated_at": "2026-02-28T08:59:57.200841"
+}

@@ -20,6 +20,7 @@ from .agent import (
     save_results,
     generate_report,
     arxiv_search,
+    fetch_arxiv_summary,
     add_paper_to_workspace,
     add_local_paper_to_workspace,
     semantic_search_workspace,
@@ -166,6 +167,8 @@ async def get_workspace(session_id: str):
                 "paper_id": p.get("paper_id"),
                 "title": p["title"],
                 "authors": p.get("authors", []),
+                "categories": p.get("categories", []),
+                "primary_category": p.get("primary_category", ""),
                 "published": p.get("published", ""),
                 "url": p.get("url", ""),
                 "citation_label": p.get("citation_label", ""),
@@ -275,6 +278,17 @@ async def search_arxiv(req: ArxivSearchRequest):
     return {"results": results, "count": len(results)}
 
 
+@app.get("/api/arxiv/summary")
+async def get_arxiv_summary(url: str):
+    loop = asyncio.get_event_loop()
+    summary = await loop.run_in_executor(
+        None, fetch_arxiv_summary, url, os.getenv("ARXIV_API_KEY", "")
+    )
+    if not summary:
+        return JSONResponse({"error": "Summary not found for arXiv paper"}, status_code=404)
+    return {"summary": summary}
+
+
 @app.post("/api/workspace/{session_id}/papers/add")
 async def add_paper(session_id: str, req: AddPaperRequest):
     state = workspaces.get(session_id)
@@ -301,6 +315,35 @@ async def add_paper(session_id: str, req: AddPaperRequest):
     enriched["arxiv_file_path"] = arxiv_file_path
     state.setdefault("papers", []).append(enriched)
     return {"paper": enriched, "total_papers": len(state["papers"])}
+
+
+@app.post("/api/workspace/{session_id}/papers/{paper_id}/summary/refresh")
+async def refresh_paper_summary(session_id: str, paper_id: int):
+    state = workspaces.get(session_id)
+    if not state:
+        return JSONResponse({"error": "Workspace not found"}, status_code=404)
+
+    papers = state.get("papers", [])
+    target = next((p for p in papers if p.get("paper_id") == paper_id), None)
+    if not target:
+        return JSONResponse({"error": "Paper not found"}, status_code=404)
+
+    existing = (target.get("summary") or "").strip()
+    if existing:
+        return {"summary": existing, "updated": False}
+
+    if target.get("source") != "arxiv_search":
+        return JSONResponse({"error": "Summary refresh is only available for arXiv papers"}, status_code=400)
+
+    loop = asyncio.get_event_loop()
+    summary = await loop.run_in_executor(
+        None, fetch_arxiv_summary, target.get("url", ""), os.getenv("ARXIV_API_KEY", "")
+    )
+    if not summary:
+        return JSONResponse({"error": "Failed to fetch summary from arXiv"}, status_code=502)
+
+    target["summary"] = summary
+    return {"summary": summary, "updated": True}
 
 
 @app.post("/api/workspace/{session_id}/papers/upload")

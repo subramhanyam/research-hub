@@ -3,7 +3,10 @@ import io
 import json
 import os
 import re
+import urllib.parse
+import urllib.request
 import uuid
+import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Optional, TypedDict
@@ -177,8 +180,58 @@ def arxiv_search(query: str, max_results: int = 10, sort_by: str = "relevance",
             "published": pub,
             "authors": [a.name for a in r.authors[:5]],
             "categories": [c for c in r.categories[:3]],
+            "primary_category": getattr(r, "primary_category", "") or (r.categories[0] if getattr(r, "categories", None) else ""),
         })
     return out
+
+
+def _extract_arxiv_identifier(url_or_id: str) -> str:
+    raw = (url_or_id or "").strip()
+    if not raw:
+        return ""
+
+    # Accept direct identifier values (e.g., 2301.12345v2)
+    if "/" not in raw and "." in raw:
+        return raw
+
+    clean = raw.split("?")[0].strip().rstrip("/")
+    if clean.endswith(".pdf"):
+        clean = clean[:-4]
+
+    if "/abs/" in clean:
+        return clean.split("/abs/")[-1]
+    if "/pdf/" in clean:
+        return clean.split("/pdf/")[-1]
+
+    return clean.split("/")[-1]
+
+
+def fetch_arxiv_summary(url_or_id: str, api_key: str | None = None) -> str:
+    arxiv_id = _extract_arxiv_identifier(url_or_id)
+    if not arxiv_id:
+        return ""
+
+    query = urllib.parse.urlencode({"id_list": arxiv_id})
+    endpoint = f"https://export.arxiv.org/api/query?{query}"
+    headers = {"User-Agent": "ResearchPilot/1.0 (arxiv summary fetch)"}
+    if api_key:
+        # arXiv API does not require keys, but we forward one if provided.
+        headers["X-API-Key"] = api_key
+
+    req = urllib.request.Request(endpoint, headers=headers)
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        payload = resp.read()
+    if not payload:
+        return ""
+
+    root = ET.fromstring(payload)
+    ns = {"atom": "http://www.w3.org/2005/Atom"}
+    summary_node = root.find("./atom:entry/atom:summary", ns)
+    if summary_node is None:
+        return ""
+
+    summary = (summary_node.text or "").strip()
+    return re.sub(r"\s+", " ", summary)
 
 
 def add_paper_to_workspace(session_id: str, paper: dict, existing_papers: list) -> dict:
@@ -194,6 +247,8 @@ def add_paper_to_workspace(session_id: str, paper: dict, existing_papers: list) 
         "url": paper.get("url", ""),
         "published": paper.get("published", ""),
         "authors": authors,
+        "categories": paper.get("categories", []),
+        "primary_category": paper.get("primary_category", "") or ((paper.get("categories") or [""])[0]),
         "citation_label": f"[Paper {next_id} - {first_author} {year}]",
         "source": "arxiv_search",
     }
@@ -478,6 +533,66 @@ def researcher_agent(state: AgentState) -> dict:
     queries = [goal] + [str(s) for s in subtasks]
 
     docs, metas = _retrieve_context(session_id, queries, k=6)
+    from langchain_core.prompts import ChatPromptTemplate
+    from langchain_core.messages import HumanMessage,SystemMessage
+
+    # Simple grounded RAG prompt
+    researcher_prompt = ChatPromptTemplate.from_messages([
+        ("system", """You are the Researcher Agent in an autonomous multi-agent research pipeline.
+
+    Your job is to answer the research goal using only the retrieved <context> documents and the planner’s subtasks.
+    Rules:
+    1. Ground every important claim in the provided context. Do not use outside knowledge.
+    2. Do not fabricate facts, sources, page numbers, or certainty.
+    3. If evidence is weak, incomplete, or missing, explicitly say so.
+    4. Prioritize relevance to the goal and subtasks; avoid generic commentary.
+    5. Be specific and technical, but concise.
+
+    Output format (plain text, no JSON):
+    - Direct Answer: A clear, integrated answer to the goal (at least 2 solid paragraphs).
+    - Evidence by Subtask: Bullet points mapping key findings to subtasks.
+    - Limitations / Gaps: What the context does not establish yet.
+    - Source Notes: Inline citations in the form [source: <path>, page: <n or unknown>] using only retrieved documents.
+
+    Success criteria:
+    - Accurate, context-grounded, goal-focused synthesis.
+    - Honest uncertainty handling when data is insufficient.
+    """),
+        ("human", """
+    Research Goal:
+    {goal}
+
+    Planner Subtasks:
+    {subtasks}
+
+    Retrieved Context (only evidence you may use):
+    <context>
+    {context}
+    </context>
+
+    Instructions:
+    - Answer the goal directly using only the context above.
+    - Cover the subtasks where evidence exists.
+    - If Supported content is missing or weak, say that explicitly.
+    - Do not use outside knowledge.
+
+    Return in this exact structure:
+
+    Direct Answer:
+    <your synthesis>
+
+    Support by Subtask:
+    - <subtask>: <source-grounded finding> [source: <path>, page: <n or unknown>]
+    - ...
+
+    Limitations / Gaps:
+    - ...
+
+    Source Notes:
+    - [source: <path>, page: <n or unknown>] <what it supports>
+    - ...
+    """),
+    ])
 
     if not docs:
         _token(state, "search_papers", "Researcher", "No indexed documents found in workspace.\n")
@@ -487,14 +602,16 @@ def researcher_agent(state: AgentState) -> dict:
     else:
         context = "\n\n".join(docs[:20])
         _token(state, "search_papers", "Researcher", f"Retrieved {len(docs)} context chunks. Synthesizing grounded answer...\n")
-        prompt = (
-            f"{RESEARCHER_PROMPT}\n\n"
-            f"Research Goal:\n{goal}\n\n"
-            f"Planner Subtasks:\n{subtasks}\n\n"
-            f"Retrieved Context:\n<context>\n{context}\n</context>"
-        )
+        prompt = researcher_prompt
+        # (
+        #     f"{RESEARCHER_PROMPT}\n\n"
+        #     f"Research Goal:\n{goal}\n\n"
+        #     f"Planner Subtasks:\n{subtasks}\n\n"
+        #     f"Retrieved Context:\n<context>\n{context}\n</context>"
+        # )
+        chain = prompt | llm
         try:
-            answer = llm.invoke([HumanMessage(content=prompt)]).content
+            answer = chain.invoke([HumanMessage(content=prompt)]).content
             answer = _enforce_claim_discipline(
                 answer=answer,
                 goal=goal,
