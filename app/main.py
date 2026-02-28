@@ -7,6 +7,7 @@ import asyncio
 import json
 import os
 import io
+import urllib.request
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -37,6 +38,54 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 workspaces: dict[str, dict] = {}
 
 
+def _local_papers_dir() -> str:
+    return os.path.join(os.path.dirname(BASE_DIR), "agent_workspace", "papers_local")
+
+
+def _arxiv_papers_dir() -> str:
+    return os.path.join(os.path.dirname(BASE_DIR), "agent_workspace", "papers_arxiv")
+
+
+def _safe_filename(name: str, default: str = "file.pdf") -> str:
+    cleaned = "".join(ch for ch in (name or "").strip() if ch not in '<>:"/\\|?*').strip()
+    return cleaned or default
+
+
+def _resolve_pdf_url(arxiv_url: str) -> str:
+    url = (arxiv_url or "").strip()
+    if not url:
+        return ""
+    if "/abs/" in url:
+        base = url.replace("/abs/", "/pdf/")
+        return base if base.endswith(".pdf") else f"{base}.pdf"
+    if url.endswith(".pdf"):
+        return url
+    tail = os.path.basename(url.rstrip("/"))
+    return f"https://arxiv.org/pdf/{tail}.pdf" if tail else ""
+
+
+def _download_arxiv_pdf_to_disk(arxiv_url: str) -> tuple[str, str]:
+    pdf_url = _resolve_pdf_url(arxiv_url)
+    if not pdf_url:
+        raise ValueError("Invalid arXiv URL")
+
+    arxiv_dir = _arxiv_papers_dir()
+    os.makedirs(arxiv_dir, exist_ok=True)
+    tail = os.path.basename(pdf_url.split("?")[0]) or "paper.pdf"
+    filename = _safe_filename(tail, default="paper.pdf")
+    save_path = os.path.join(arxiv_dir, filename)
+
+    if not os.path.exists(save_path):
+        with urllib.request.urlopen(pdf_url, timeout=30) as resp:
+            content = resp.read()
+        if not content:
+            raise ValueError("Downloaded arXiv PDF is empty")
+        with open(save_path, "wb") as f:
+            f.write(content)
+
+    return filename, save_path
+
+
 # ===== PAGES =====
 
 @app.get("/", response_class=HTMLResponse)
@@ -46,6 +95,14 @@ async def index(request: Request):
 @app.get("/test", response_class=HTMLResponse)
 async def test_page(request: Request):
     return templates.TemplateResponse("test.html", {"request": request})
+
+@app.get("/test/papers", response_class=HTMLResponse)
+async def test_papers_page(request: Request):
+    return templates.TemplateResponse("test_papers.html", {"request": request})
+
+@app.get("/test/search", response_class=HTMLResponse)
+async def test_search_page(request: Request):
+    return templates.TemplateResponse("test_search.html", {"request": request})
 
 
 # ===== WORKSPACE MANAGEMENT =====
@@ -133,7 +190,64 @@ async def delete_paper(session_id: str, paper_id: int):
     state = workspaces.get(session_id)
     if not state:
         return JSONResponse({"error": "Workspace not found"}, status_code=404)
-    state["papers"] = [p for p in state["papers"] if p.get("paper_id") != paper_id]
+
+    papers = state.get("papers", [])
+    target = next((p for p in papers if p.get("paper_id") == paper_id), None)
+    if not target:
+        return JSONResponse({"error": "Paper not found"}, status_code=404)
+
+    # Remove persisted local/arXiv file when deleting uploaded records.
+    if target.get("source") in {"local_upload", "arxiv_search"}:
+        source = target.get("source")
+        base_dir = _local_papers_dir() if source == "local_upload" else _arxiv_papers_dir()
+        candidates: list[str] = []
+
+        direct_path = target.get("local_file_path" if source == "local_upload" else "arxiv_file_path")
+        if isinstance(direct_path, str) and direct_path.strip():
+            candidates.append(direct_path)
+
+        file_name = target.get("local_file_name" if source == "local_upload" else "arxiv_file_name")
+        if isinstance(file_name, str) and file_name.strip():
+            candidates.append(os.path.join(base_dir, os.path.basename(file_name)))
+
+        url = target.get("url", "")
+        url_name = ""
+        if (
+            (source == "local_upload" and isinstance(url, str) and url.startswith("local://"))
+            or (source == "arxiv_search" and isinstance(url, str))
+        ):
+            url_name = os.path.basename(url)
+            if url_name:
+                candidates.append(os.path.join(base_dir, url_name))
+                if source == "arxiv_search" and not url_name.lower().endswith(".pdf"):
+                    candidates.append(os.path.join(base_dir, f"{url_name}.pdf"))
+
+        # Fallback: match suffixed variants like "<name>_1.pdf" for older records.
+        if url_name:
+            stem, ext = os.path.splitext(url_name)
+            try:
+                pattern_hits = []
+                for fname in os.listdir(base_dir):
+                    if not fname.lower().endswith(ext.lower()):
+                        continue
+                    fstem = os.path.splitext(fname)[0]
+                    if fstem == stem or fstem.startswith(f"{stem}_"):
+                        pattern_hits.append(os.path.join(base_dir, fname))
+                if len(pattern_hits) == 1:
+                    candidates.append(pattern_hits[0])
+            except Exception:
+                pass
+
+        for path in candidates:
+            try:
+                if os.path.exists(path):
+                    os.remove(path)
+                    break
+            except Exception:
+                # Do not fail paper deletion if file delete fails unexpectedly.
+                pass
+
+    state["papers"] = [p for p in papers if p.get("paper_id") != paper_id]
     return {"ok": True, "remaining": len(state["papers"])}
 
 
@@ -163,6 +277,15 @@ async def add_paper(session_id: str, req: AddPaperRequest):
     enriched = await loop.run_in_executor(
         None, add_paper_to_workspace, session_id, req.paper, state.get("papers", [])
     )
+    # Persist a local copy of added arXiv papers for parity with local uploads.
+    try:
+        arxiv_file_name, arxiv_file_path = await loop.run_in_executor(
+            None, _download_arxiv_pdf_to_disk, enriched.get("url", "")
+        )
+    except Exception as e:
+        return JSONResponse({"error": f"Failed to save arXiv paper locally: {str(e)}"}, status_code=502)
+    enriched["arxiv_file_name"] = arxiv_file_name
+    enriched["arxiv_file_path"] = arxiv_file_path
     state.setdefault("papers", []).append(enriched)
     return {"paper": enriched, "total_papers": len(state["papers"])}
 
@@ -183,6 +306,23 @@ async def upload_local_paper(session_id: str, file: UploadFile = File(...)):
     if not content_bytes:
         return JSONResponse({"error": "Uploaded file is empty"}, status_code=400)
 
+    # Persist raw uploaded files under agent_workspace/papers_local as requested.
+    local_papers_dir = _local_papers_dir()
+    os.makedirs(local_papers_dir, exist_ok=True)
+    safe_name = os.path.basename(filename).strip() or f"uploaded_paper{ext}"
+    base_name, ext_name = os.path.splitext(safe_name)
+    saved_name = safe_name
+    idx = 1
+    while os.path.exists(os.path.join(local_papers_dir, saved_name)):
+        saved_name = f"{base_name}_{idx}{ext_name}"
+        idx += 1
+    save_path = os.path.join(local_papers_dir, saved_name)
+    try:
+        with open(save_path, "wb") as f:
+            f.write(content_bytes)
+    except Exception as e:
+        return JSONResponse({"error": f"Failed to save uploaded file: {str(e)}"}, status_code=500)
+
     extracted_text = ""
     try:
         if ext == ".pdf":
@@ -198,8 +338,10 @@ async def upload_local_paper(session_id: str, file: UploadFile = File(...)):
 
     loop = asyncio.get_event_loop()
     enriched = await loop.run_in_executor(
-        None, add_local_paper_to_workspace, session_id, filename, extracted_text, state.get("papers", [])
+        None, add_local_paper_to_workspace, session_id, saved_name, extracted_text, state.get("papers", [])
     )
+    enriched["local_file_name"] = saved_name
+    enriched["local_file_path"] = save_path
     state.setdefault("papers", []).append(enriched)
     return {"paper": enriched, "total_papers": len(state["papers"])}
 

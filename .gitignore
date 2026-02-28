@@ -20,3 +20,4 @@ chroma_db/
 
 # Agent workspace PDFs
 agent_workspace/papers_arxiv/
+agent_workspace/papers_local/
