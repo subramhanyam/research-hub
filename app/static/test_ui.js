@@ -7,6 +7,158 @@ let papersFilterMode = "all";
 let papersSortMode = "newest";
 const RHX_WORKSPACE_NAME_KEY = "researchhubx.active_workspace_name";
 const RHX_WORKSPACES_KEY = "researchhubx.workspaces";
+const RHX_DEEP_READ_KEY = "researchpilot.deep_read_timer_state";
+const RHX_DEEP_READ_TARGET_MS = 2 * 60 * 60 * 1000;
+let rhxDeepReadTicker = null;
+
+function loadDeepReadState() {
+    const fallback = { elapsed_ms: 0, is_running: false, started_at: null };
+    try {
+        const raw = localStorage.getItem(RHX_DEEP_READ_KEY);
+        if (!raw) return fallback;
+        const parsed = JSON.parse(raw);
+        const elapsed = Number(parsed?.elapsed_ms);
+        const running = Boolean(parsed?.is_running);
+        const startedAt = Number(parsed?.started_at);
+        return {
+            elapsed_ms: Number.isFinite(elapsed) && elapsed >= 0 ? elapsed : 0,
+            is_running: running,
+            started_at: running && Number.isFinite(startedAt) && startedAt > 0 ? startedAt : null,
+        };
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function saveDeepReadState(state) {
+    try {
+        localStorage.setItem(RHX_DEEP_READ_KEY, JSON.stringify(state));
+    } catch (e) {
+        // ignore storage issues
+    }
+}
+
+function getDeepReadElapsedMs(state) {
+    if (!state.is_running || !state.started_at) return state.elapsed_ms;
+    return state.elapsed_ms + Math.max(0, Date.now() - state.started_at);
+}
+
+function startDeepReadSession(reset = false) {
+    const state = loadDeepReadState();
+    const next = reset
+        ? { elapsed_ms: 0, is_running: true, started_at: Date.now() }
+        : {
+            elapsed_ms: state.is_running ? getDeepReadElapsedMs(state) : state.elapsed_ms,
+            is_running: true,
+            started_at: Date.now(),
+        };
+    saveDeepReadState(next);
+    return next;
+}
+
+function pauseDeepReadSession() {
+    const state = loadDeepReadState();
+    if (!state.is_running) return state;
+    const next = {
+        elapsed_ms: getDeepReadElapsedMs(state),
+        is_running: false,
+        started_at: null,
+    };
+    saveDeepReadState(next);
+    return next;
+}
+
+function stopDeepReadSession() {
+    const next = { elapsed_ms: 0, is_running: false, started_at: null };
+    saveDeepReadState(next);
+    return next;
+}
+
+function formatClockTime(ms) {
+    const totalSeconds = Math.floor(Math.max(0, ms) / 1000);
+    const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, "0");
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, "0");
+    const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+function renderDeepReadTimer(state) {
+    const timerEl = document.getElementById("test-deepread-timer");
+    const statusEl = document.getElementById("test-deepread-status");
+    const progressEl = document.getElementById("test-deepread-progress");
+    const toggleIconEl = document.getElementById("test-deepread-toggle-icon");
+    if (!timerEl || !statusEl || !progressEl || !toggleIconEl) return;
+
+    const elapsedMs = getDeepReadElapsedMs(state);
+    timerEl.textContent = formatClockTime(elapsedMs);
+    statusEl.textContent = state.is_running ? "Running" : (elapsedMs > 0 ? "Paused" : "Stopped");
+    toggleIconEl.textContent = state.is_running ? "pause" : "play_arrow";
+
+    const pct = Math.max(0, Math.min(100, (elapsedMs / RHX_DEEP_READ_TARGET_MS) * 100));
+    progressEl.style.width = `${pct}%`;
+}
+
+function stopDeepReadTicker() {
+    if (!rhxDeepReadTicker) return;
+    clearInterval(rhxDeepReadTicker);
+    rhxDeepReadTicker = null;
+}
+
+function startDeepReadTicker() {
+    stopDeepReadTicker();
+    if (!loadDeepReadState().is_running) return;
+    rhxDeepReadTicker = setInterval(() => {
+        renderDeepReadTimer(loadDeepReadState());
+        updateResearchRunDurationDisplay();
+    }, 1000);
+}
+
+function initDeepReadSessionTimer() {
+    const timerEl = document.getElementById("test-deepread-timer");
+    const toggleBtn = document.getElementById("test-deepread-toggle");
+    const stopBtn = document.getElementById("test-deepread-stop");
+    if (!timerEl || !toggleBtn || !stopBtn) return;
+
+    let state = loadDeepReadState();
+    renderDeepReadTimer(state);
+    startDeepReadTicker();
+
+    toggleBtn.addEventListener("click", () => {
+        state = loadDeepReadState();
+        if (state.is_running) {
+            state = pauseDeepReadSession();
+            renderDeepReadTimer(state);
+            stopDeepReadTicker();
+            updateResearchRunDurationDisplay();
+            return;
+        }
+
+        state = startDeepReadSession(false);
+        renderDeepReadTimer(state);
+        startDeepReadTicker();
+        updateResearchRunDurationDisplay();
+    });
+
+    stopBtn.addEventListener("click", () => {
+        state = stopDeepReadSession();
+        renderDeepReadTimer(state);
+        stopDeepReadTicker();
+        updateResearchRunDurationDisplay();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        renderDeepReadTimer(loadDeepReadState());
+    });
+
+    window.addEventListener("storage", (event) => {
+        if (event.key !== RHX_DEEP_READ_KEY) return;
+        const next = loadDeepReadState();
+        renderDeepReadTimer(next);
+        updateResearchRunDurationDisplay();
+        if (next.is_running) startDeepReadTicker();
+        else stopDeepReadTicker();
+    });
+}
 
 function normalizeWorkspaces(list) {
     if (!Array.isArray(list)) return [];
@@ -499,6 +651,9 @@ function initWorkspaceDropdown() {
         }
         await initRecentPapers();
         await initTestPapersTable();
+        if (typeof window.syncResearchAISynthesis === "function") {
+            await window.syncResearchAISynthesis();
+        }
     };
 
     const initializeWorkspaceState = () => {
@@ -937,6 +1092,15 @@ function initTestSearch() {
 
 let testResearchEvtSource = null;
 let testActivityStepCounter = 0;
+let testRunDurationTicker = null;
+let testResearchMissionRunning = false;
+let testResearchWorkspaceData = {
+    gaps: [],
+    weak_gaps: [],
+    ideas: [],
+    evidence_assessment: {},
+    insufficient_evidence_message: "",
+};
 
 const RESEARCH_AGENT_ICON = {
     Planner: "settings",
@@ -1170,12 +1334,241 @@ function finalizeResearchActivityFeed() {
     setResearchActivityBadge("DONE");
 }
 
+function formatResearchDuration(ms) {
+    const totalSec = Math.max(0, Math.floor(ms / 1000));
+    const hours = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+    const seconds = String(totalSec % 60).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+function updateResearchRunDurationDisplay() {
+    const el = document.getElementById("test-run-duration-value");
+    if (!el) return;
+    const state = loadDeepReadState();
+    el.textContent = formatResearchDuration(getDeepReadElapsedMs(state));
+}
+
+function startResearchRunDurationTicker() {
+    if (testRunDurationTicker) clearInterval(testRunDurationTicker);
+    updateResearchRunDurationDisplay();
+    testRunDurationTicker = setInterval(updateResearchRunDurationDisplay, 1000);
+}
+
+function startResearchRunTimer(reset = false) {
+    startDeepReadSession(reset);
+    startResearchRunDurationTicker();
+    startDeepReadTicker();
+}
+
+function pauseResearchRunTimer() {
+    const state = pauseDeepReadSession();
+    if (!state.is_running) stopDeepReadTicker();
+    updateResearchRunDurationDisplay();
+}
+
+function stopResearchRunTimer() {
+    const state = pauseDeepReadSession();
+    if (!state.is_running) stopDeepReadTicker();
+    updateResearchRunDurationDisplay();
+}
+
+function renderResearchSynthesisTabs(activeTab = "ideas") {
+    const tabs = document.querySelectorAll("[data-synthesis-tab]");
+    const panels = document.querySelectorAll("[data-synthesis-panel]");
+    if (!tabs.length || !panels.length) return;
+
+    tabs.forEach((tabEl) => {
+        const tab = tabEl.getAttribute("data-synthesis-tab");
+        const isActive = tab === activeTab;
+        tabEl.classList.toggle("bg-white", isActive);
+        tabEl.classList.toggle("dark:bg-slate-700", isActive);
+        tabEl.classList.toggle("text-primary", isActive);
+        tabEl.classList.toggle("text-slate-500", !isActive);
+        tabEl.classList.toggle("dark:text-slate-300", !isActive);
+    });
+
+    panels.forEach((panelEl) => {
+        const tab = panelEl.getAttribute("data-synthesis-panel");
+        panelEl.classList.toggle("hidden", tab !== activeTab);
+    });
+}
+
+function initResearchSynthesisTabs() {
+    const tabs = document.querySelectorAll("[data-synthesis-tab]");
+    if (!tabs.length) return;
+    tabs.forEach((tabEl) => {
+        tabEl.addEventListener("click", () => {
+            renderResearchSynthesisTabs(tabEl.getAttribute("data-synthesis-tab") || "ideas");
+        });
+    });
+    renderResearchSynthesisTabs("ideas");
+}
+
+function researchMarkdownToHtml(md) {
+    let html = rhxEsc(md || "");
+    html = html.replace(/^### (.+)$/gm, "<h3>$1</h3>");
+    html = html.replace(/^## (.+)$/gm, "<h2>$1</h2>");
+    html = html.replace(/^# (.+)$/gm, "<h1>$1</h1>");
+    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/\n/g, "<br>");
+    return html;
+}
+
+function renderResearchIdeasSynthesis() {
+    const listEl = document.getElementById("test-synthesis-ideas-list");
+    if (!listEl) return;
+
+    const ideas = Array.isArray(testResearchWorkspaceData.ideas) ? testResearchWorkspaceData.ideas : [];
+    if (!ideas.length) {
+        const message = testResearchWorkspaceData.insufficient_evidence_message
+            || "No ideas generated yet. Run a mission to populate ideas.";
+        listEl.innerHTML = `<li class="text-sm text-slate-500 dark:text-slate-400">${rhxEsc(message)}</li>`;
+        return;
+    }
+
+    listEl.innerHTML = ideas.map((idea) => {
+        const title = rhxEsc(idea.title || "Untitled idea");
+        const description = rhxEsc(idea.description || "");
+        return `
+            <li class="text-sm flex gap-2">
+                <span class="material-icons-outlined text-emerald-500 text-sm">lightbulb</span>
+                <span><strong>${title}</strong>${description ? `: ${description}` : ""}</span>
+            </li>
+        `;
+    }).join("");
+}
+
+function renderResearchGapsSynthesis() {
+    const listEl = document.getElementById("test-synthesis-gaps-list");
+    if (!listEl) return;
+
+    const strong = Array.isArray(testResearchWorkspaceData.gaps) ? testResearchWorkspaceData.gaps : [];
+    const weak = Array.isArray(testResearchWorkspaceData.weak_gaps) ? testResearchWorkspaceData.weak_gaps : [];
+    const gaps = [...strong, ...weak];
+    if (!gaps.length) {
+        listEl.innerHTML = '<li class="text-sm text-slate-500 dark:text-slate-400">No research gaps identified yet. Run a mission first.</li>';
+        return;
+    }
+
+    listEl.innerHTML = gaps.map((gap) => {
+        const text = typeof gap === "string" ? gap : (gap.gap || "");
+        return `
+            <li class="text-sm flex gap-2">
+                <span class="material-icons-outlined text-rose-400 text-sm">warning</span>
+                <span>${rhxEsc(text)}</span>
+            </li>
+        `;
+    }).join("");
+}
+
+function renderResearchSynthesisFromWorkspace() {
+    renderResearchIdeasSynthesis();
+    renderResearchGapsSynthesis();
+}
+
+async function syncResearchAISynthesis() {
+    const listIdeas = document.getElementById("test-synthesis-ideas-list");
+    const listGaps = document.getElementById("test-synthesis-gaps-list");
+    if (!listIdeas && !listGaps) return;
+
+    const sessionId = rhxGetStoredSessionId();
+    if (!sessionId) {
+        testResearchWorkspaceData = {
+            gaps: [],
+            weak_gaps: [],
+            ideas: [],
+            evidence_assessment: {},
+            insufficient_evidence_message: "",
+        };
+        renderResearchSynthesisFromWorkspace();
+        return;
+    }
+
+    try {
+        const resp = await fetch(`/api/workspace/${sessionId}`);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        testResearchWorkspaceData = {
+            gaps: data.gaps || [],
+            weak_gaps: data.weak_gaps || [],
+            ideas: data.ideas || [],
+            evidence_assessment: data.evidence_assessment || {},
+            insufficient_evidence_message: data.insufficient_evidence_message || "",
+        };
+        renderResearchSynthesisFromWorkspace();
+    } catch (e) {
+        // Keep current UI if refresh fails.
+    }
+}
+
+function updateSynthesisFromMissionEvent(payload) {
+    if (!payload || !payload.step || !payload.data) return;
+
+    if (payload.step === "identify_gaps") {
+        if (Array.isArray(payload.data.gaps)) testResearchWorkspaceData.gaps = payload.data.gaps;
+        if (Array.isArray(payload.data.weak_gaps)) testResearchWorkspaceData.weak_gaps = payload.data.weak_gaps;
+    }
+    if (payload.step === "generate_ideas") {
+        if (Array.isArray(payload.data.ideas)) testResearchWorkspaceData.ideas = payload.data.ideas;
+        if (typeof payload.data.message === "string") {
+            testResearchWorkspaceData.insufficient_evidence_message = payload.data.message;
+        }
+    }
+    renderResearchSynthesisFromWorkspace();
+}
+
+function initResearchBriefGeneration() {
+    const btn = document.getElementById("test-generate-brief-btn");
+    const wrap = document.getElementById("test-brief-wrap");
+    const content = document.getElementById("test-brief-content");
+    const status = document.getElementById("test-brief-status");
+    if (!btn || !wrap || !content || !status) return;
+
+    btn.addEventListener("click", async () => {
+        const sessionId = rhxGetStoredSessionId();
+        if (!sessionId) {
+            wrap.classList.remove("hidden");
+            status.textContent = "No workspace selected";
+            content.innerHTML = "<p>Create/select a workspace and run a mission first.</p>";
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-icons-outlined text-sm animate-spin">autorenew</span>Generating...';
+        wrap.classList.remove("hidden");
+        status.textContent = "Generating brief...";
+
+        try {
+            const resp = await fetch(`/api/workspace/${sessionId}/report`, { method: "POST" });
+            const data = await resp.json();
+            if (!resp.ok || !data.report) {
+                throw new Error("Failed to generate brief");
+            }
+            content.innerHTML = researchMarkdownToHtml(data.report);
+            status.textContent = "Brief ready";
+        } catch (e) {
+            content.innerHTML = "<p>Could not generate research brief.</p>";
+            status.textContent = "Failed";
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<span class="material-icons-outlined text-sm">description</span>Generate Brief';
+        }
+    });
+}
+
+window.syncResearchAISynthesis = syncResearchAISynthesis;
+
 function initResearchAIRun() {
     const topicEl = document.getElementById("test-research-topic");
     const modeEl = document.getElementById("test-research-mission-mode");
     const runBtn = document.getElementById("test-research-run-btn");
     const statusEl = document.getElementById("test-research-run-status");
     const clearBtn = document.getElementById("test-activity-clear-btn");
+    const pauseBtn = document.getElementById("test-run-pause-btn");
+    const pauseIcon = document.getElementById("test-run-pause-icon");
+    const pauseLabel = document.getElementById("test-run-pause-label");
+    const abortBtn = document.getElementById("test-run-abort-btn");
     if (!topicEl || !modeEl || !runBtn) return;
 
     if (clearBtn && !clearBtn.dataset.bound) {
@@ -1193,7 +1586,21 @@ function initResearchAIRun() {
         statusEl.classList.toggle("text-slate-500", !isError);
     };
 
+    const setPauseUi = (paused) => {
+        if (!pauseIcon || !pauseLabel) return;
+        pauseIcon.textContent = paused ? "play_arrow" : "pause";
+        pauseLabel.textContent = paused ? "Resume" : "Pause";
+    };
+
+    const syncPauseUiFromTimer = () => {
+        const state = loadDeepReadState();
+        setPauseUi(!state.is_running);
+    };
+
     const finishRun = async (msg, isError = false) => {
+        testResearchMissionRunning = false;
+        stopResearchRunTimer();
+        setPauseUi(false);
         runBtn.disabled = false;
         runBtn.innerHTML = '<span class="material-icons-outlined text-sm">play_arrow</span>Resume Run';
         setRunStatus(msg, isError);
@@ -1217,6 +1624,9 @@ function initResearchAIRun() {
         setRunStatus("Starting mission...");
         resetResearchAgentCards();
         resetResearchActivityFeed();
+        startResearchRunTimer(true);
+        testResearchMissionRunning = true;
+        setPauseUi(false);
 
         let sessionId = await rhxGetOrCreateSessionId();
         closeResearchMissionStream();
@@ -1277,6 +1687,7 @@ function initResearchAIRun() {
                     if (payload.step === "generate_plan" && payload.data) {
                         appendResearchPlanDetails(payload.data);
                     }
+                    updateSynthesisFromMissionEvent(payload);
                 }
 
                 if (payload?.status === "error") {
@@ -1288,6 +1699,7 @@ function initResearchAIRun() {
 
                 if (payload?.step === "done") {
                     finalizeResearchActivityFeed();
+                    await syncResearchAISynthesis();
                     await finishRun("Mission complete.");
                     closeResearchMissionStream();
                 }
@@ -1307,16 +1719,53 @@ function initResearchAIRun() {
     topicEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter") runBtn.click();
     });
+
+    if (pauseBtn && !pauseBtn.dataset.bound) {
+        pauseBtn.dataset.bound = "1";
+        pauseBtn.addEventListener("click", () => {
+            if (!testResearchMissionRunning) return;
+            const state = loadDeepReadState();
+            if (state.is_running) {
+                pauseResearchRunTimer();
+                setPauseUi(true);
+            } else {
+                startResearchRunTimer(false);
+                setPauseUi(false);
+            }
+        });
+    }
+
+    if (abortBtn && !abortBtn.dataset.bound) {
+        abortBtn.dataset.bound = "1";
+        abortBtn.addEventListener("click", async () => {
+            if (!testResearchMissionRunning && !testResearchEvtSource) return;
+            closeResearchMissionStream();
+            appendResearchActivityError("Mission aborted from UI.");
+            await finishRun("Mission aborted.", true);
+        });
+    }
+
+    startResearchRunDurationTicker();
+    syncPauseUiFromTimer();
+
+    window.addEventListener("storage", (event) => {
+        if (event.key !== RHX_DEEP_READ_KEY) return;
+        updateResearchRunDurationDisplay();
+        syncPauseUiFromTimer();
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     initWorkspaceDropdown();
+    initDeepReadSessionTimer();
     initPapersControls();
     initTestUpload();
     initTestPapersTable();
     initPaperRemoveActions();
     initRecentPapers();
     initTestSearch();
+    initResearchSynthesisTabs();
+    initResearchBriefGeneration();
     initResearchAIRun();
+    syncResearchAISynthesis();
 });
-

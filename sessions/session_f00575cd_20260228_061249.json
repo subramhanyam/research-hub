@@ -1,0 +1,330 @@
+{
+  "session_id": "f00575cd",
+  "topic": "\u2714 Late disease detection \u2714 Diagnostic human errors \u2714 Slow medical data analysis \u2714 Limited healthcare accessibility",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 9,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 1 - Ai 2025]",
+      "source": "arxiv_search",
+      "arxiv_file_name": "2501.02842v1.pdf",
+      "arxiv_file_path": "/workspaces/research-hub/agent_workspace/papers_arxiv/2501.02842v1.pdf"
+    },
+    {
+      "paper_id": 2,
+      "title": "AI Early Disease Detection Research Paper 2",
+      "summary": "Using Artificial Intelligence to Improve Early\nDisease Detection\nAbstract: Early detection of diseases such as cancer and diabetes significantly improves patient\nsurvival rates. Traditional diagnostic systems often rely on manual analysis, which can be slow and\nprone to human error. This research explores how Artificial Intelligence (AI) can assist in early\ndisease detection using machine learning models.\nIntroduction: Healthcare systems generate large volumes of medical data daily. Analyzing this data\nmanually is challenging and time-consuming. AI systems can process complex datasets efficiently\nand identify patterns that may not be visible to human experts.\nProblem Statement: Many diseases are detected at later stages due to slow diagnostic procedures,\nhuman error, and limited access to medical specialists. Late diagnosis increases treatment costs\nand reduces survival probability.\nObjective: The objective of this research is to develop an AI-based predictive system that improves\nearly detection accuracy and reduces diagnostic time.\nMethodology: Medical datasets are collected and preprocessed. Machine learning algorithms are\ntrained on the data to identify disease-related patterns. Model performance is evaluated using\naccuracy and recall metrics.\nResults: The AI model demonstrated improved diagnostic accuracy and faster analysis compared\nto traditional methods.\nConclusion: AI-based early detection systems can support healthcare professionals by improving\nspeed and accuracy of diagnosis. These systems act as decision-support tools rather than\nreplacements for doctors.",
+      "url": "local://b8ee7a1e13/AI_Early_Disease_Detection_Research_Paper_2.pdf",
+      "published": "2026-02-28",
+      "authors": [
+        "Local Upload"
+      ],
+      "citation_label": "[Paper 2 - Local 2026]",
+      "source": "local_upload",
+      "local_file_name": "AI_Early_Disease_Detection_Research_Paper_2.pdf",
+      "local_file_path": "/workspaces/research-hub/agent_workspace/papers_local/AI_Early_Disease_Detection_Research_Paper_2.pdf"
+    },
+    {
+      "paper_id": 3,
+      "title": "Early Detection of Late Blight Tomato Disease using Histogram Oriented Gradient based Support Vector Machine",
+      "summary": "The tomato is one of the most important fruits on earth. It plays an important and useful role in the agricultural production of any country. This research propose a novel smart technique for early detection of late blight diseases in tomatoes. This work improve the dataset with an increase in images from the field (the Plant Village dataset) and proposed a hybrid algorithm composed of support vector machines (SVM) and histogram-oriented gradients (HOG) for real-time detection of late blight tomato disease. To propose a HOG-based SVM model for early detection of late blight tomato leaf disease. To check the performance of the proposed model in terms of MSE, accuracy, precision, and recall as compared to Decision Tree and KNN. The integration of advanced technology in agriculture has the potential to revolutionize the industry, making it more efficient, sustainable, and profitable. This research work on the early detection of tomato diseases contributes to the growing importance of smart farming, the need for climate-smart agriculture, the rising need to more efficiently utilize natural resources, and the demand for higher crop yields. The proposed hybrid algorithm of SVM and HOG has significant potential for the early detection of late blight disease in tomato plants. The performance of the proposed model against decision tree and KNN algorithms and the results may assist in selecting the best algorithm for future applications. The research work can help farmers make data-driven decisions to optimize crop yield and quality while also reducing the environmental impact of farming practices.",
+      "url": "http://arxiv.org/abs/2306.08326v3",
+      "published": "2023-06-14",
+      "authors": [
+        "Yousef Alhwaiti",
+        "Muhammad Ishaq",
+        "Muhammad Hameed Siddiqi",
+        "Muhammad Waqas",
+        "Madallah Alruwaili"
+      ],
+      "citation_label": "[Paper 3 - Alhwaiti 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "How reproducible are data-driven subtypes of Alzheimer's disease atrophy?",
+      "summary": "Alzheimer's disease (AD) exhibits substantial clinical and biological heterogeneity, complicating efforts in treatment and intervention development. While new computational methods offer insights into AD progression, the reproducibility of these subtypes across datasets remains understudied, particularly concerning the robustness of subtype definitions when validated on diverse databases. This study evaluates the consistency of AD progression subtypes identified by the Subtype and Stage Inference (SuStaIn) algorithm using T1-weighted MRI data across 5,444 subjects from ANMerge, OASIS, and ADNI datasets, forming four independent cohorts. Each cohort was analyzed under two conditions: one using the full cohort, including cognitively normal controls, and another excluding controls to test subtype robustness. Results confirm the three primary atrophy subtypes identified in earlier studies: Typical, Cortical, and Subcortical, as well as the emergence of rare and atypical AD variants such as posterior cortical atrophy (PCA). Notably, each subtype displayed varying robustness to the inclusion of controls, with certain subtypes, like Subcortical, more influenced by cohort composition. This investigation underscores SuStaIn's reliability for defining stable AD subtypes and suggests its utility in clinical stratification for trials and diagnosis. However, our findings also highlight the need for improved dataset diversity, particularly in terms of ethnic representation, to enhance generalizability and support broader clinical application.",
+      "url": "http://arxiv.org/abs/2412.00160v1",
+      "published": "2024-11-29",
+      "authors": [
+        "Emma Prevot",
+        "Cameron Shand",
+        "Neil Oxtoby",
+        "for Alzheimer's Disease Neuroimaging Initiative"
+      ],
+      "citation_label": "[Paper 4 - Prevot 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "Self-organized clustering, prediction, and superposition of long-term cognitive decline from short-term individual cognitive test scores in Alzheimer's disease",
+      "summary": "Progressive cognitive decline spanning across decades is characteristic of Alzheimer's disease (AD). Various predictive models have been designed to realize its early onset and study the long-term trajectories of cognitive test scores across populations of interest. Research efforts have been geared towards superimposing patients' cognitive test scores with the long-term trajectory denoting gradual cognitive decline, while considering the heterogeneity of AD. Multiple trajectories representing cognitive assessment for the long-term have been developed based on various parameters, highlighting the importance of classifying several groups based on disease progression patterns. In this study, a novel method capable of self-organized prediction, classification, and the overlay of long-term cognitive trajectories based on short-term individual data was developed, based on statistical and differential equation modeling. We validated the predictive accuracy of the proposed method for the long-term trajectory of cognitive test score results on two cohorts: the Alzheimer's Disease Neuroimaging Initiative (ADNI) study and the Japanese ADNI study. We also presented two practical illustrations of the simultaneous evaluation of risk factor associated with both the onset and the longitudinal progression of AD, and an innovative randomized controlled trial design for AD that standardizes the heterogeneity of patients enrolled in a clinical trial. These resources would improve the power of statistical hypothesis testing and help evaluate the therapeutic effect. The application of predicting the trajectory of longitudinal disease progression goes beyond AD, and is especially relevant for progressive and neurodegenerative disorders.",
+      "url": "http://arxiv.org/abs/2402.12205v1",
+      "published": "2024-02-19",
+      "authors": [
+        "Hiroyuki Sato",
+        "Keisuke Suzuki",
+        "Atsushi Hashizume",
+        "Ryoichi Hanazawa",
+        "Masanao Sasaki"
+      ],
+      "citation_label": "[Paper 5 - Sato 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "Bayesian inference and role of astrocytes in amyloid-beta dynamics with modelling of Alzheimer's disease using clinical data",
+      "summary": "Alzheimer's disease (AD) is a prominent, worldwide, age-related neurodegenerative disease that currently has no systemic treatment. Strong evidence suggests that permeable amyloid-beta peptide (Abeta) oligomers, astrogliosis and reactive astrocytosis cause neuronal damage in AD. A large amount of Abeta is secreted by astrocytes, which contributes to the total Abeta deposition in the brain. This suggests that astrocytes may also play a role in AD, leading to increased attention to their dynamics and associated mechanisms. Therefore, in the present study, we developed and evaluated novel stochastic models for Abeta growth using ADNI data to predict the effect of astrocytes on AD progression in a clinical trial. In the AD case, accurate prediction is required for a successful clinical treatment plan. Given that AD studies are observational in nature and involve routine patient visits, stochastic models provide a suitable framework for modelling AD. Using the approximate Bayesian computation (ABC) approach, the AD etiology may be modelled as a multi-state disease process. As a result, we use this approach to examine the weak and strong influence of astrocytes at multiple disease progression stages using ADNI data from the baseline to 2-year visits for AD patients whose ages ranged from 50 to 90 years. Based on ADNI data, we discovered that the strong astrocyte effect (i.e., a higher concentration of astrocytes as compared to Abeta) could help to lower or clear the growth of Abeta, which is a key to slowing down AD progression.",
+      "url": "http://arxiv.org/abs/2306.12520v1",
+      "published": "2023-06-21",
+      "authors": [
+        "Hina Shaheen",
+        "Roderick Melnik",
+        "The Alzheimer's Disease Neuroimaging Initiative"
+      ],
+      "citation_label": "[Paper 6 - Shaheen 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 7,
+      "title": "A Survey on Active Learning and Human-in-the-Loop Deep Learning for Medical Image Analysis",
+      "summary": "Fully automatic deep learning has become the state-of-the-art technique for many tasks including image acquisition, analysis and interpretation, and for the extraction of clinically useful information for computer-aided detection, diagnosis, treatment planning, intervention and therapy. However, the unique challenges posed by medical image analysis suggest that retaining a human end user in any deep learning enabled system will be beneficial. In this review we investigate the role that humans might play in the development and deployment of deep learning enabled diagnostic applications and focus on techniques that will retain a significant input from a human end user. Human-in-the-Loop computing is an area that we see as increasingly important in future research due to the safety-critical nature of working in the medical domain. We evaluate four key areas that we consider vital for deep learning in the clinical practice: (1) Active Learning to choose the best data to annotate for optimal model performance; (2) Interaction with model outputs - using iterative feedback to steer models to optima for a given prediction and offering meaningful ways to interpret and respond to predictions; (3) Practical considerations - developing full scale applications and the key considerations that need to be made before deployment; (4) Future Prospective and Unanswered Questions - knowledge gaps and related research fields that will benefit human-in-the-loop computing as they evolve. We offer our opinions on the most promising directions of research and how various aspects of each area might be unified towards common goals.",
+      "url": "http://arxiv.org/abs/1910.02923v2",
+      "published": "2019-10-07",
+      "authors": [
+        "Samuel Budd",
+        "Emma C Robinson",
+        "Bernhard Kainz"
+      ],
+      "citation_label": "[Paper 7 - Budd 2019]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 8,
+      "title": "Multi-Point Detection of the Powerful Gamma Ray Burst GRB221009A Propagation through the Heliosphere on October 9, 2022",
+      "summary": "We present the results of processing the effects of the powerful Gamma Ray Burst GRB221009A captured by the charged particle detectors (electrostatic analyzers and solid-state detectors) onboard spacecraft at different points in the heliosphere on October 9, 2022. To follow the GRB221009A propagation through the heliosphere we used the electron and proton flux measurements from solar missions Solar Orbiter and STEREO-A; Earth magnetosphere and the solar wind missions THEMIS and Wind; meteorological satellites POES15, POES19, MetOp3; and MAVEN - a NASA mission orbiting Mars. GRB221009A had a structure of four bursts: less intense Pulse 1 - the triggering impulse - was detected by gamma-ray observatories at 131659 UT (near the Earth); the most intense Pulses 2 and 3 were detected on board all the spacecraft from the list, and Pulse 4 detected in more than 500 s after Pulse 1. Due to their different scientific objectives, the spacecraft, which data was used in this study, were separated by more than 1 AU (Solar Orbiter and MAVEN). This enabled tracking GRB221009A as it was propagating across the heliosphere. STEREO-A was the first to register Pulse 2 and 3 of the GRB, almost 100 seconds before their detection by spacecraft in the vicinity of Earth. MAVEN detected GRB221009A Pulses 2, 3, and 4 at the orbit of Mars about 237 seconds after their detection near Earth. By processing the time delays observed we show that the source location of the GRB221009A was at RA 288.5 degrees, Dec 18.5 degrees (J2000) with an error cone of 2 degrees",
+      "url": "http://arxiv.org/abs/2309.05856v1",
+      "published": "2023-09-11",
+      "authors": [
+        "Andrii Voshchepynets",
+        "Oleksiy Agapitov",
+        "Lynn Wilson",
+        "Vassilis Angelopoulos",
+        "Samer T. Alnussirat"
+      ],
+      "citation_label": "[Paper 8 - Voshchepynets 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 9,
+      "title": "Building medical image classifiers with very limited data using segmentation networks",
+      "summary": "Deep learning has shown promising results in medical image analysis, however, the lack of very large annotated datasets confines its full potential. Although transfer learning with ImageNet pre-trained classification models can alleviate the problem, constrained image sizes and model complexities can lead to unnecessary increase in computational cost and decrease in performance. As many common morphological features are usually shared by different classification tasks of an organ, it is greatly beneficial if we can extract such features to improve classification with limited samples. Therefore, inspired by the idea of curriculum learning, we propose a strategy for building medical image classifiers using features from segmentation networks. By using a segmentation network pre-trained on similar data as the classification task, the machine can first learn the simpler shape and structural concepts before tackling the actual classification problem which usually involves more complicated concepts. Using our proposed framework on a 3D three-class brain tumor type classification problem, we achieved 82% accuracy on 191 testing samples with 91 training samples. When applying to a 2D nine-class cardiac semantic level classification problem, we achieved 86% accuracy on 263 testing samples with 108 training samples. Comparisons with ImageNet pre-trained classifiers and classifiers trained from scratch are presented.",
+      "url": "http://arxiv.org/abs/1808.05205v1",
+      "published": "2018-08-15",
+      "authors": [
+        "Ken C. L. Wong",
+        "Tanveer Syeda-Mahmood",
+        "Mehdi Moradi"
+      ],
+      "citation_label": "[Paper 9 - Wong 2018]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No sources cited",
+      "missing_component": "No sources cited",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation of findings",
+      "missing_component": "No explanation of findings",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence supporting claims",
+      "missing_component": "No evidence supporting claims",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+      "missing_component": "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No detail on how the answer addresses each goal",
+      "missing_component": "No detail on how the answer addresses each goal",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No sources cited",
+      "missing_component": "No sources cited",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation of findings",
+      "missing_component": "No explanation of findings",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence supporting claims",
+      "missing_component": "No evidence supporting claims",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+      "missing_component": "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No detail on how the answer addresses each goal",
+      "missing_component": "No detail on how the answer addresses each goal",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 5,
+    "verdict": "insufficient",
+    "confidence": 0.2,
+    "goal_coverage": 0.0
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] Develop a federated learning framework that aggregates anonymized patient data from disparate hospitals to train disease progression models, potentially improving early detection of conditions like Alzheimer's and pancreatic cancer.",
+      "missing_component": "No sources cited, No explanation of findings, No evidence supporting claims, No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility), No detail on how the answer addresses each goal",
+      "addresses_gaps": [
+        "No sources cited",
+        "No explanation of findings",
+        "No evidence supporting claims",
+        "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+        "No detail on how the answer addresses each goal"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[SPECULATION] Integrate multimodal AI assistants into radiology workflows to flag ambiguous imaging findings, aiming to reduce diagnostic human errors without guaranteeing a specific error rate reduction.",
+      "missing_component": "No sources cited, No explanation of findings, No evidence supporting claims, No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility), No detail on how the answer addresses each goal",
+      "addresses_gaps": [
+        "No sources cited",
+        "No explanation of findings",
+        "No evidence supporting claims",
+        "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+        "No detail on how the answer addresses each goal"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[HYPOTHESIS] Create a cloud\u2011based, real\u2011time analytics pipeline that streams wearable sensor data to predictive models, which could accelerate the identification of sepsis onset in outpatient settings.",
+      "missing_component": "No sources cited, No explanation of findings, No evidence supporting claims, No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility), No detail on how the answer addresses each goal",
+      "addresses_gaps": [
+        "No sources cited",
+        "No explanation of findings",
+        "No evidence supporting claims",
+        "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+        "No detail on how the answer addresses each goal"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[SPECULATION] Deploy low\u2011cost, portable diagnostic kiosks powered by AI in rural clinics to extend access to basic screening tests, with the expectation of increasing screening coverage but without proven impact on outcomes.",
+      "missing_component": "No sources cited, No explanation of findings, No evidence supporting claims, No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility), No detail on how the answer addresses each goal",
+      "addresses_gaps": [
+        "No sources cited",
+        "No explanation of findings",
+        "No evidence supporting claims",
+        "No coverage of research goals (late disease detection, diagnostic human errors, slow medical data analysis, limited healthcare accessibility)",
+        "No detail on how the answer addresses each goal"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "insufficient_data": false,
+  "insufficiency_reason": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 END"
+  ],
+  "generated_at": "2026-02-28T06:12:49.542444"
+}

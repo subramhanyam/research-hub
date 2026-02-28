@@ -1,0 +1,293 @@
+{
+  "session_id": "adf602e7",
+  "topic": "ec2",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 6,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "A study of the link between cosmic rays and clouds with a cloud chamber at the CERN PS",
+      "summary": "Recent satellite data have revealed a surprising correlation between galactic cosmic ray (GCR) intensity and the fraction of the Earth covered by clouds. If this correlation were to be established by a causal mechanism, it could provide a crucial step in understanding the long-sought mechanism connecting solar and climate variability. The Earth's climate seems to be remarkably sensitive to solar activity, but variations of the Sun's electromagnetic radiation appear to be too small to account for the observed climate variability. However, since the GCR intensity is strongly modulated by the solar wind, a GCR-cloud link may provide a sufficient amplifying mechanism. Moreover if this connection were to be confirmed, it could have profound consequences for our understanding of the solar contributions to the current global warming. The CLOUD (Cosmics Leaving OUtdoor Droplets) project proposes to test experimentally the existence a link between cosmic rays and cloud formation, and to understand the microphysical mechanism. CLOUD plans to perform detailed laboratory measurements in a particle beam at CERN, where all the parameters can be precisely controlled and measured. The beam will pass through an expansion cloud chamber and a reactor chamber where the atmosphere is to be duplicated by moist air charged with selected aerosols and trace condensable vapours. An array of external detectors and mass spectrometers is used to analyse the physical and chemical characteristics of the aerosols and trace gases during beam exposure. Where beam effects are found, the experiment will seek to evaluate their significance in the atmosphere by incorporating them into aerosol and cloud models.",
+      "url": "http://arxiv.org/abs/physics/0104048v1",
+      "published": "2001-04-16",
+      "authors": [
+        "The Cloud Collaboration"
+      ],
+      "citation_label": "[Paper 1 - Collaboration 2001]",
+      "source": "arxiv_search",
+      "arxiv_file_name": "0104048v1.pdf",
+      "arxiv_file_path": "/workspaces/research-hub/agent_workspace/papers_arxiv/0104048v1.pdf"
+    },
+    {
+      "paper_id": 2,
+      "title": "CLOUD: an atmospheric research facility at CERN",
+      "summary": "This report is the second of two addenda to the CLOUD proposal at CERN (physics/0104048), which aims to test experimentally the existence a link between cosmic rays and cloud formation, and to understand the microphysical mechanism. The document places CLOUD in the framework of a CERN facility for atmospheric research, and provides further details on the particle beam requirements.",
+      "url": "http://arxiv.org/abs/physics/0104076v1",
+      "published": "2001-04-24",
+      "authors": [
+        "The Cloud Collaboration"
+      ],
+      "citation_label": "[Paper 2 - Collaboration 2001]",
+      "source": "arxiv_search",
+      "arxiv_file_name": "0104076v1.pdf",
+      "arxiv_file_path": "/workspaces/research-hub/agent_workspace/papers_arxiv/0104076v1.pdf"
+    },
+    {
+      "paper_id": 3,
+      "title": "Location, Location, Location: Exploring Amazon EC2 Spot Instance Pricing Across Geographical Regions - Extended Version",
+      "summary": "Cloud computing is becoming an almost ubiquitous part of the computing landscape. For many companies today, moving their entire infrastructure and workloads to the cloud reduces complexity, time to deployment, and saves money. Spot Instances, a subset of Amazon's cloud computing infrastructure (EC2), expands on this. They allow a user to bid on spare compute capacity in Amazon's data centres at heavily discounted prices. If demand was ever to increase such that the user's maximum bid is exceeded, their instance is terminated.\n  In this paper, we conduct one of the first detailed analyses of how location affects the overall cost of deployment of a spot instance. We analyse pricing data across all available Amazon Web Services regions for 60 days for a variety of spot instance types. We relate the data we find to the overall AWS region as well as to the Availability Zone within that region.\n  We conclude that location does play a critical role in spot instance pricing and also that pricing differs depending on the granularity of that location - from a more coarse-grained AWS region to a more fine-grained Availability Zone within a region. We relate the pricing differences we find to the price's reliability, confirming whether one can be confident in the prices reported and subsequently, in the ensuing bids one makes.\n  We conclude by showing that it is possible to run workloads on Spot Instances achieving both a very low risk of termination as well as paying very low amounts per hour.",
+      "url": "http://arxiv.org/abs/1807.10507v1",
+      "published": "2018-07-27",
+      "authors": [
+        "Nnamdi Ekwe-Ekwe",
+        "Adam Barker"
+      ],
+      "citation_label": "[Paper 3 - Ekwe-Ekwe 2018]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "Data Sharing Options for Scientific Workflows on Amazon EC2",
+      "summary": "Efficient data management is a key component in achieving good performance for scientific workflows in distributed environments. Workflow applications typically communicate data between tasks using files. When tasks are distributed, these files are either transferred from one computational node to another, or accessed through a shared storage system. In grids and clusters, workflow data is often stored on network and parallel file systems. In this paper we investigate some of the ways in which data can be managed for workflows in the cloud. We ran experiments using three typical workflow applications on Amazon's EC2. We discuss the various storage and file systems we used, describe the issues and problems we encountered deploying them on EC2, and analyze the resulting performance and cost of the workflows.",
+      "url": "http://arxiv.org/abs/1010.4822v1",
+      "published": "2010-10-22",
+      "authors": [
+        "Gideon Juve",
+        "Ewa Deelman",
+        "Karan Vahi",
+        "Gaurang Mehta",
+        "Bruce Berriman"
+      ],
+      "citation_label": "[Paper 4 - Juve 2010]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "Application-centric Resource Provisioning for Amazon EC2 Spot Instances",
+      "summary": "In late 2009, Amazon introduced spot instances to offer their unused resources at lower cost with reduced reliability. Amazon's spot instances allow customers to bid on unused Amazon EC2 capacity and run those instances for as long as their bid exceeds the current spot price. The spot price changes periodically based on supply and demand, and customers whose bids exceed it gain access to the available spot instances. Customers may expect their services at lower cost with spot instances compared to on-demand or reserved. However the reliability is compromised since the instances(IaaS) providing the service(SaaS) may become unavailable at any time without any notice to the customer. Checkpointing and migration schemes are of great use to cope with such situation. In this paper we study various checkpointing schemes that can be used with spot instances. Also we device some algorithms for checkpointing scheme on top of application-centric resource provisioning framework that increase the reliability while reducing the cost significantly.",
+      "url": "http://arxiv.org/abs/1211.1279v1",
+      "published": "2012-11-06",
+      "authors": [
+        "Sunirmal Khatua",
+        "Nandini Mukherjee"
+      ],
+      "citation_label": "[Paper 5 - Khatua 2012]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "Where to Encode: A Performance Analysis of x86 and Arm-based Amazon EC2 Instances",
+      "summary": "Video streaming became an undivided part of the Internet. To efficiently utilize the limited network bandwidth it is essential to encode the video content. However, encoding is a computationally intensive task, involving high-performance resources provided by private infrastructures or public clouds. Public clouds, such as Amazon EC2, provide a large portfolio of services and instances optimized for specific purposes and budgets. The majority of Amazon instances use x86 processors, such as Intel Xeon or AMD EPYC. However, following the recent trends in computer architecture, Amazon introduced Arm-based instances that promise up to 40% better cost-performance ratio than comparable x86 instances for specific workloads. We evaluate in this paper the video encoding performance of x86 and Arm instances of four instance families using the latest FFmpeg version and two video codecs. We examine the impact of the encoding parameters, such as different presets and bitrates, on the time and cost for encoding. Our experiments reveal that Arm instances show high time and cost-saving potential of up to 33.63% for specific bitrates and presets, especially for the x264 codec. However, the x86 instances are more general and achieve low encoding times, regardless of the codec.",
+      "url": "http://arxiv.org/abs/2106.06242v2",
+      "published": "2021-06-11",
+      "authors": [
+        "Roland Math\u00e1",
+        "Dragi Kimovski",
+        "Anatoliy Zabrovskiy",
+        "Christian Timmerer",
+        "Radu Prodan"
+      ],
+      "citation_label": "[Paper 6 - Math\u00e1 2021]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No content about EC2",
+      "missing_component": "No content about EC2",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No sources cited",
+      "missing_component": "No sources cited",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation or details provided",
+      "missing_component": "No explanation or details provided",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No content about EC2",
+      "missing_component": "No content about EC2",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No sources cited",
+      "missing_component": "No sources cited",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No explanation or details provided",
+      "missing_component": "No explanation or details provided",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 10.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 3,
+    "verdict": "insufficient",
+    "confidence": 0.1,
+    "goal_coverage": 0.0
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] EC2 instances could be augmented with a lightweight, on\u2011demand GPU passthrough layer that activates only when a workload\u2019s memory access patterns exceed a predefined threshold, potentially reducing idle GPU power consumption by up to 30% (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[SPECULATION] Introducing a serverless\u2011style EC2 launch mode where instances spin up from a pre\u2011warmed image cache could cut cold\u2011start latency by 50\u201370% for bursty workloads (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[HYPOTHESIS] Leveraging edge\u2011computing principles, EC2 could offer a \u201cmicro\u2011instance\u201d tier that runs on local, low\u2011power hardware in remote data centers, enabling near\u2011real\u2011time analytics for IoT devices with a projected cost reduction of 20% (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[SPECULATION] A future EC2 feature might allow users to specify a \u201cresource elasticity budget\u201d that automatically reallocates CPU and memory across instances in a cluster to maintain a target performance\u2011to\u2011cost ratio, potentially improving overall cluster efficiency by 15% (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 5",
+      "description": "[HYPOTHESIS] Integrating a quantum\u2011inspired scheduler could enable EC2 to predict and pre\u2011allocate resources for workloads with highly variable I/O patterns, reducing average queue times by 25% (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 6",
+      "description": "[SPECULATION] EC2 could expose a \u201cpredictive scaling API\u201d that uses machine learning to forecast demand spikes and pre\u2011provision instances, thereby minimizing downtime during peak events (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 7",
+      "description": "[HYPOTHESIS] A future EC2 enhancement might support \u201cinstance\u2011level\u201d network isolation via software\u2011defined networking, allowing tenants to enforce zero\u2011trust segmentation without additional VPC overhead, potentially lowering network security incidents by 10% (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 8",
+      "description": "[SPECULATION] EC2 could offer a \u201ccost\u2011aware\u201d auto\u2011termination policy that automatically shuts down idle instances based on a user\u2011defined cost threshold, which might reduce overall spend by 12% for sporadic workloads (unverified).",
+      "missing_component": "No content about EC2, No sources cited, No explanation or details provided",
+      "addresses_gaps": [
+        "No content about EC2",
+        "No sources cited",
+        "No explanation or details provided"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "insufficient_data": false,
+  "insufficiency_reason": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 Researcher",
+    "Researcher \u2192 Evaluator",
+    "Evaluator \u2192 Expansion",
+    "Expansion \u2192 END"
+  ],
+  "generated_at": "2026-02-28T06:35:43.323354"
+}

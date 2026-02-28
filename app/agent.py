@@ -314,6 +314,8 @@ class AgentState(TypedDict, total=False):
     novelty_scores: list
     evidence_assessment: dict
     insufficient_evidence_message: str
+    insufficient_data: bool
+    insufficiency_reason: str
     _emit: Callable[[dict], None]
     _token: Callable[[str, str, str], None]
 
@@ -479,7 +481,8 @@ def researcher_agent(state: AgentState) -> dict:
 
     if not docs:
         _token(state, "search_papers", "Researcher", "No indexed documents found in workspace.\n")
-        answer = "No evidence could be retrieved from the current workspace."
+        # Keep blank answer when nothing is retrieved so Expansion can flag true insufficiency.
+        answer = ""
         sources = []
     else:
         context = "\n\n".join(docs[:20])
@@ -577,8 +580,8 @@ def evaluator_agent(state: AgentState) -> dict:
     sources = state.get("final_sources", [])
 
     fallback = {
-        "confidence": 0.55 if len(sources) >= 2 else 0.25,
-        "missing_aspects": ["experimental validation", "benchmark diversity"],
+        "confidence": 0.55 if len(sources) >= 3 else 0.30,
+        "missing_aspects": ["experimental validation", "ablation studies"],
         "next_agent": "Expansion",
     }
 
@@ -597,13 +600,47 @@ def evaluator_agent(state: AgentState) -> dict:
     if not isinstance(missing_aspects, list):
         missing_aspects = fallback["missing_aspects"]
 
-    answer_len_ok = len((answer or "").strip()) >= 220
+    answer_clean = (answer or "").strip()
+    answer_len_ok = len(answer_clean) >= 220
     unique_sources = len({s.get("source", "") for s in sources if isinstance(s, dict) and s.get("source")})
 
-    if mode == "workspace":
-        sufficient = answer_len_ok and unique_sources >= 1 and confidence >= 0.45
+    stopwords = {
+        "what", "which", "with", "from", "into", "that", "this", "those", "these",
+        "their", "there", "about", "have", "been", "being", "were", "when", "where",
+        "how", "can", "for", "and", "the", "are", "key", "overcome", "using", "than",
+    }
+    goal_terms = [
+        w for w in "".join(ch.lower() if ch.isalnum() else " " for ch in goal).split()
+        if len(w) >= 5 and w not in stopwords
+    ]
+    if goal_terms:
+        matches = sum(1 for t in goal_terms if t in answer_clean.lower())
+        goal_coverage = matches / len(goal_terms)
     else:
-        sufficient = answer_len_ok and unique_sources >= 2 and confidence >= 0.72
+        goal_coverage = 0.0
+
+    if not answer_clean or len(sources) == 0:
+        confidence = min(confidence, 0.30)
+    elif goal_coverage < 0.25 or unique_sources < 1:
+        confidence = min(confidence, 0.55)
+    elif unique_sources < 2:
+        confidence = min(confidence, 0.70)
+
+    if mode == "workspace":
+        sufficient = (
+            answer_len_ok
+            and len(sources) >= 1
+            and goal_coverage >= 0.30
+            and confidence >= 0.45
+        )
+    else:
+        sufficient = (
+            answer_len_ok
+            and len(sources) >= 3
+            and unique_sources >= 2
+            and goal_coverage >= 0.40
+            and confidence >= 0.72
+        )
 
     next_agent = "END" if sufficient else "Expansion"
 
@@ -626,6 +663,7 @@ def evaluator_agent(state: AgentState) -> dict:
         "weak_gap_count": sum(1 for g in gaps if g["strength"] != "strong"),
         "verdict": verdict,
         "confidence": confidence,
+        "goal_coverage": round(goal_coverage, 3),
     }
 
     _emit(state, {
@@ -697,6 +735,8 @@ def expansion_agent(state: AgentState) -> dict:
     missing = state.get("evaluator", {}).get("missing_aspects", [])
     iterations = int(state.get("iterations", 0)) + 1
     max_iterations = int(state.get("max_iterations", 3))
+    prev_answer = (state.get("final_answer") or "").strip()
+    prev_sources = state.get("final_sources", [])
 
     def _generate_ideas(reason: str):
         fallback = {
@@ -732,9 +772,11 @@ Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
         idea_lines = _generate_ideas("workspace-only mode")
         next_agent = "END"
         saturated = True
-        if not state.get("final_sources"):
+        truly_insufficient = (len(prev_sources) == 0 and prev_answer == "")
+        if truly_insufficient:
             insufficient_msg = (
-                f"Workspace mode is active, but no indexed evidence was found. Add local PDFs under {PDF_DIR.resolve()} or switch mission mode."
+                f"Workspace mode is active but the vector DB contains no documents. "
+                f"Add PDFs to {PDF_DIR.resolve()} and run the mission again."
             )
     else:
         query = f"{goal} {' '.join([str(x) for x in missing[:3]])}".strip()
@@ -747,6 +789,18 @@ Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
         else:
             idea_lines = []
             next_agent = "Researcher"
+
+        truly_insufficient = (
+            saturated
+            and iterations == 1
+            and len(downloaded) == 0
+            and len(prev_sources) == 0
+        )
+        if truly_insufficient:
+            insufficient_msg = (
+                f"arXiv returned no papers for query: '{query}'. "
+                "Try rephrasing the goal or adding local PDFs."
+            )
 
     existing = state.get("papers", [])
     by_url = {p.get("url"): p for p in existing if p.get("url")}
@@ -820,6 +874,7 @@ Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
         "iterations": iterations,
         "expansion": {
             "mode": mode,
+            "query": query if mode == "online" else None,
             "papers_downloaded": len(downloaded),
             "chunks_added": chunks_added,
             "saturated": saturated,
@@ -830,6 +885,8 @@ Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
         "future_ideas": idea_lines,
         "ideas": ideas if ideas else state.get("ideas", []),
         "novelty_scores": novelty_scores if ideas else state.get("novelty_scores", []),
+        "insufficient_data": bool(insufficient_msg),
+        "insufficiency_reason": insufficient_msg,
         "insufficient_evidence_message": insufficient_msg,
         "next_agent": next_agent,
     }
@@ -851,12 +908,12 @@ def agent_executor(state: AgentState) -> AgentState:
             **state,
             "next_agent": "END",
             "current_agent": "END",
-            "trace": state.get("trace", []) + [f"{current} -> UNKNOWN -> END"],
+            "trace": state.get("trace", []) + [f"{current} → UNKNOWN → END"],
         }
 
     update = fn(state)
     next_agent = update.get("next_agent", "END")
-    trace = state.get("trace", []) + [f"{current} -> {next_agent}"]
+    trace = state.get("trace", []) + [f"{current} → {next_agent}"]
     return {
         **state,
         **update,
@@ -926,6 +983,8 @@ def save_results(state: dict, on_token: Optional[Callable] = None) -> tuple:
         "evidence_assessment": state.get("evidence_assessment", {}),
         "research_ideas": state.get("ideas", []),
         "insufficient_evidence_message": state.get("insufficient_evidence_message", ""),
+        "insufficient_data": bool(state.get("insufficient_data", False)),
+        "insufficiency_reason": state.get("insufficiency_reason", ""),
         "novelty_scores": state.get("novelty_scores", []),
         "trace": state.get("trace", []),
         "generated_at": datetime.now().isoformat(),

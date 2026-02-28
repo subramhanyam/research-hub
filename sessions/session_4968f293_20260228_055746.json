@@ -1,0 +1,329 @@
+{
+  "session_id": "4968f293",
+  "topic": "\u2714 Late disease detection \u2714 Diagnostic human errors \u2714 Slow medical data analysis \u2714 Limited healthcare accessibility",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 5,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "AI Early Disease Detection Research Paper",
+      "summary": "Using Artificial Intelligence to Improve Early\nDisease Detection\nAbstract: Early detection of diseases such as cancer and diabetes significantly improves patient\nsurvival rates. Traditional diagnostic systems often rely on manual analysis, which can be slow and\nprone to human error. This research explores how Artificial Intelligence (AI) can assist in early\ndisease detection using machine learning models.\nIntroduction: Healthcare systems generate large volumes of medical data daily. Analyzing this data\nmanually is challenging and time-consuming. AI systems can process complex datasets efficiently\nand identify patterns that may not be visible to human experts.\nProblem Statement: Many diseases are detected at later stages due to slow diagnostic procedures,\nhuman error, and limited access to medical specialists. Late diagnosis increases treatment costs\nand reduces survival probability.\nObjective: The objective of this research is to develop an AI-based predictive system that improves\nearly detection accuracy and reduces diagnostic time.\nMethodology: Medical datasets are collected and preprocessed. Machine learning algorithms are\ntrained on the data to identify disease-related patterns. Model performance is evaluated using\naccuracy and recall metrics.\nResults: The AI model demonstrated improved diagnostic accuracy and faster analysis compared\nto traditional methods.\nConclusion: AI-based early detection systems can support healthcare professionals by improving\nspeed and accuracy of diagnosis. These systems act as decision-support tools rather than\nreplacements for doctors.",
+      "url": "local://f37b45f95a/AI_Early_Disease_Detection_Research_Paper.pdf",
+      "published": "2026-02-28",
+      "authors": [
+        "Local Upload"
+      ],
+      "citation_label": "[Paper 1 - Local 2026]",
+      "source": "local_upload",
+      "local_file_name": "AI_Early_Disease_Detection_Research_Paper.pdf",
+      "local_file_path": "/workspaces/research-hub/agent_workspace/papers_local/AI_Early_Disease_Detection_Research_Paper.pdf"
+    },
+    {
+      "paper_id": 2,
+      "title": "A Survey on Active Learning and Human-in-the-Loop Deep Learning for Medical Image Analysis",
+      "summary": "Fully automatic deep learning has become the state-of-the-art technique for many tasks including image acquisition, analysis and interpretation, and for the extraction of clinically useful information for computer-aided detection, diagnosis, treatment planning, intervention and therapy. However, the unique challenges posed by medical image analysis suggest that retaining a human end user in any deep learning enabled system will be beneficial. In this review we investigate the role that humans might play in the development and deployment of deep learning enabled diagnostic applications and focus on techniques that will retain a significant input from a human end user. Human-in-the-Loop computing is an area that we see as increasingly important in future research due to the safety-critical nature of working in the medical domain. We evaluate four key areas that we consider vital for deep learning in the clinical practice: (1) Active Learning to choose the best data to annotate for optimal model performance; (2) Interaction with model outputs - using iterative feedback to steer models to optima for a given prediction and offering meaningful ways to interpret and respond to predictions; (3) Practical considerations - developing full scale applications and the key considerations that need to be made before deployment; (4) Future Prospective and Unanswered Questions - knowledge gaps and related research fields that will benefit human-in-the-loop computing as they evolve. We offer our opinions on the most promising directions of research and how various aspects of each area might be unified towards common goals.",
+      "url": "http://arxiv.org/abs/1910.02923v2",
+      "published": "2019-10-07",
+      "authors": [
+        "Samuel Budd",
+        "Emma C Robinson",
+        "Bernhard Kainz"
+      ],
+      "citation_label": "[Paper 2 - Budd 2019]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 3,
+      "title": "Early Detection of Late Blight Tomato Disease using Histogram Oriented Gradient based Support Vector Machine",
+      "summary": "The tomato is one of the most important fruits on earth. It plays an important and useful role in the agricultural production of any country. This research propose a novel smart technique for early detection of late blight diseases in tomatoes. This work improve the dataset with an increase in images from the field (the Plant Village dataset) and proposed a hybrid algorithm composed of support vector machines (SVM) and histogram-oriented gradients (HOG) for real-time detection of late blight tomato disease. To propose a HOG-based SVM model for early detection of late blight tomato leaf disease. To check the performance of the proposed model in terms of MSE, accuracy, precision, and recall as compared to Decision Tree and KNN. The integration of advanced technology in agriculture has the potential to revolutionize the industry, making it more efficient, sustainable, and profitable. This research work on the early detection of tomato diseases contributes to the growing importance of smart farming, the need for climate-smart agriculture, the rising need to more efficiently utilize natural resources, and the demand for higher crop yields. The proposed hybrid algorithm of SVM and HOG has significant potential for the early detection of late blight disease in tomato plants. The performance of the proposed model against decision tree and KNN algorithms and the results may assist in selecting the best algorithm for future applications. The research work can help farmers make data-driven decisions to optimize crop yield and quality while also reducing the environmental impact of farming practices.",
+      "url": "http://arxiv.org/abs/2306.08326v3",
+      "published": "2023-06-14",
+      "authors": [
+        "Yousef Alhwaiti",
+        "Muhammad Ishaq",
+        "Muhammad Hameed Siddiqi",
+        "Muhammad Waqas",
+        "Madallah Alruwaili"
+      ],
+      "citation_label": "[Paper 3 - Alhwaiti 2023]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "How reproducible are data-driven subtypes of Alzheimer's disease atrophy?",
+      "summary": "Alzheimer's disease (AD) exhibits substantial clinical and biological heterogeneity, complicating efforts in treatment and intervention development. While new computational methods offer insights into AD progression, the reproducibility of these subtypes across datasets remains understudied, particularly concerning the robustness of subtype definitions when validated on diverse databases. This study evaluates the consistency of AD progression subtypes identified by the Subtype and Stage Inference (SuStaIn) algorithm using T1-weighted MRI data across 5,444 subjects from ANMerge, OASIS, and ADNI datasets, forming four independent cohorts. Each cohort was analyzed under two conditions: one using the full cohort, including cognitively normal controls, and another excluding controls to test subtype robustness. Results confirm the three primary atrophy subtypes identified in earlier studies: Typical, Cortical, and Subcortical, as well as the emergence of rare and atypical AD variants such as posterior cortical atrophy (PCA). Notably, each subtype displayed varying robustness to the inclusion of controls, with certain subtypes, like Subcortical, more influenced by cohort composition. This investigation underscores SuStaIn's reliability for defining stable AD subtypes and suggests its utility in clinical stratification for trials and diagnosis. However, our findings also highlight the need for improved dataset diversity, particularly in terms of ethnic representation, to enhance generalizability and support broader clinical application.",
+      "url": "http://arxiv.org/abs/2412.00160v1",
+      "published": "2024-11-29",
+      "authors": [
+        "Emma Prevot",
+        "Cameron Shand",
+        "Neil Oxtoby",
+        "for Alzheimer's Disease Neuroimaging Initiative"
+      ],
+      "citation_label": "[Paper 4 - Prevot 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "Building medical image classifiers with very limited data using segmentation networks",
+      "summary": "Deep learning has shown promising results in medical image analysis, however, the lack of very large annotated datasets confines its full potential. Although transfer learning with ImageNet pre-trained classification models can alleviate the problem, constrained image sizes and model complexities can lead to unnecessary increase in computational cost and decrease in performance. As many common morphological features are usually shared by different classification tasks of an organ, it is greatly beneficial if we can extract such features to improve classification with limited samples. Therefore, inspired by the idea of curriculum learning, we propose a strategy for building medical image classifiers using features from segmentation networks. By using a segmentation network pre-trained on similar data as the classification task, the machine can first learn the simpler shape and structural concepts before tackling the actual classification problem which usually involves more complicated concepts. Using our proposed framework on a 3D three-class brain tumor type classification problem, we achieved 82% accuracy on 191 testing samples with 91 training samples. When applying to a 2D nine-class cardiac semantic level classification problem, we achieved 86% accuracy on 263 testing samples with 108 training samples. Comparisons with ImageNet pre-trained classifiers and classifiers trained from scratch are presented.",
+      "url": "http://arxiv.org/abs/1808.05205v1",
+      "published": "2018-08-15",
+      "authors": [
+        "Ken C. L. Wong",
+        "Tanveer Syeda-Mahmood",
+        "Mehdi Moradi"
+      ],
+      "citation_label": "[Paper 5 - Wong 2018]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "Evidence for late disease detection",
+      "missing_component": "Evidence for late disease detection",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for diagnostic human errors",
+      "missing_component": "Evidence for diagnostic human errors",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for slow medical data analysis",
+      "missing_component": "Evidence for slow medical data analysis",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for limited healthcare accessibility",
+      "missing_component": "Evidence for limited healthcare accessibility",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Relevant studies or data sources",
+      "missing_component": "Relevant studies or data sources",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "Evidence for late disease detection",
+      "missing_component": "Evidence for late disease detection",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for diagnostic human errors",
+      "missing_component": "Evidence for diagnostic human errors",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for slow medical data analysis",
+      "missing_component": "Evidence for slow medical data analysis",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Evidence for limited healthcare accessibility",
+      "missing_component": "Evidence for limited healthcare accessibility",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "Relevant studies or data sources",
+      "missing_component": "Relevant studies or data sources",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 20.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 5,
+    "verdict": "insufficient",
+    "confidence": 0.2
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] Develop a federated learning framework that aggregates anonymized patient data from multiple hospitals to train disease\u2011prediction models, potentially improving early detection of conditions such as cancer and cardiovascular disease while preserving privacy.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[SPECULATION] Investigate the use of multimodal AI systems that combine imaging, genomics, and wearable sensor data to flag subtle early\u2011stage disease markers that clinicians might miss, thereby reducing diagnostic latency.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[HYPOTHESIS] Create a real\u2011time decision\u2011support dashboard that overlays AI\u2011generated risk scores onto electronic health records, aiming to surface potential diagnostic errors before they affect patient care.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[SPECULATION] Explore the integration of natural\u2011language\u2011processing tools to automatically summarize and highlight critical findings in pathology reports, reducing the cognitive load on pathologists and mitigating human error.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 5",
+      "description": "[HYPOTHESIS] Pilot a cloud\u2011based, low\u2011latency data analytics pipeline that processes high\u2011volume imaging and lab data streams, with the goal of shortening the time from data acquisition to actionable insights.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 6",
+      "description": "[SPECULATION] Design a mobile tele\u2011medicine platform that leverages AI triage algorithms to prioritize patients in underserved regions, potentially expanding access to specialist care without requiring physical travel.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 7",
+      "description": "[HYPOTHESIS] Conduct a comparative study of AI\u2011augmented diagnostic workflows versus traditional workflows in rural clinics to quantify differences in diagnostic accuracy and turnaround time, acknowledging that any observed improvements are unverified until validated in controlled trials.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 8",
+      "description": "[SPECULATION] Evaluate the feasibility of deploying edge\u2011computing devices in community health centers to perform preliminary data analysis locally, thereby reducing dependence on centralized servers and improving data analysis speed in bandwidth\u2011constrained settings.",
+      "missing_component": "Evidence for late disease detection, Evidence for diagnostic human errors, Evidence for slow medical data analysis, Evidence for limited healthcare accessibility, Relevant studies or data sources",
+      "addresses_gaps": [
+        "Evidence for late disease detection",
+        "Evidence for diagnostic human errors",
+        "Evidence for slow medical data analysis",
+        "Evidence for limited healthcare accessibility",
+        "Relevant studies or data sources"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> END"
+  ],
+  "generated_at": "2026-02-28T05:57:46.396974"
+}

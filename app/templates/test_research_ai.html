@@ -273,38 +273,39 @@
 <span class="material-icons-outlined text-primary">auto_awesome</span>
                         Real-time Synthesis Output
                     </h3>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:opacity-90 transition-all" id="test-generate-brief-btn" type="button">
+<span class="material-icons-outlined text-sm">description</span>
+                            Generate Brief
+                        </button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-4">
+</div>
+<div class="mb-4 inline-flex items-center rounded-xl bg-slate-100 dark:bg-slate-800 p-1">
+<button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white dark:bg-slate-700 text-primary" data-synthesis-tab="ideas" id="test-synthesis-tab-ideas" type="button">Ideas</button>
+<button class="px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-300" data-synthesis-tab="gaps" id="test-synthesis-tab-gaps" type="button">Gaps</button>
+</div>
+<div class="space-y-4" data-synthesis-panel="ideas">
 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800">
-<h4 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">Key Conclusions</h4>
-<ul class="space-y-3">
-<li class="text-sm flex gap-2">
-<span class="material-icons-outlined text-emerald-500 text-sm">check_circle</span>
-<span>Transmon qubits face critical scalability limit at ~1,000 physical qubits due to 3D wiring density.</span>
-</li>
-<li class="text-sm flex gap-2">
-<span class="material-icons-outlined text-emerald-500 text-sm">check_circle</span>
-<span>Error correction overhead remains the primary barrier for logical qubit survival beyond 1ms.</span>
-</li>
+<h4 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">Generated Ideas</h4>
+<ul class="space-y-3" id="test-synthesis-ideas-list">
+<li class="text-sm text-slate-500 dark:text-slate-400">No ideas generated yet. Run a mission to populate ideas.</li>
 </ul>
 </div>
 </div>
-<div class="space-y-4">
+<div class="space-y-4 hidden" data-synthesis-panel="gaps">
 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800">
 <h4 class="text-xs font-bold text-rose-500 uppercase tracking-widest mb-3">Identified Research Gaps</h4>
-<ul class="space-y-3">
-<li class="text-sm flex gap-2">
-<span class="material-icons-outlined text-rose-400 text-sm">warning</span>
-<span>Lack of standardized benchmarking for cryogenic microwave attenuator thermal leakage.</span>
-</li>
-<li class="text-sm flex gap-2">
-<span class="material-icons-outlined text-rose-400 text-sm">warning</span>
-<span>Material science bottleneck in Silicon-Germanium (SiGe) heterostructures for 4K controllers.</span>
-</li>
+<ul class="space-y-3" id="test-synthesis-gaps-list">
+<li class="text-sm text-slate-500 dark:text-slate-400">No research gaps identified yet. Run a mission first.</li>
 </ul>
 </div>
 </div>
+<div class="hidden p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 mt-4" id="test-brief-wrap">
+<div class="flex items-center justify-between gap-3 mb-3">
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest">Research Brief</h4>
+<span class="text-[10px] text-slate-500" id="test-brief-status"></span>
+</div>
+<div class="prose prose-sm max-w-none dark:prose-invert text-slate-700 dark:text-slate-200" id="test-brief-content"></div>
 </div>
 </section>
 </div>
@@ -354,14 +355,14 @@
 <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-2xl"></div>
 <h3 class="text-sm font-bold opacity-70 uppercase tracking-widest mb-4">Run Duration</h3>
 <div class="flex items-center gap-4 mb-6">
-<span class="text-4xl font-mono font-bold">04:12:08</span>
+<span class="text-4xl font-mono font-bold" id="test-run-duration-value">00:00:00</span>
 </div>
 <div class="flex gap-3">
-<button class="flex-1 bg-white/20 backdrop-blur-md hover:bg-white/30 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
-<span class="material-icons-outlined">pause</span>
-                        Pause
+<button class="flex-1 bg-white/20 backdrop-blur-md hover:bg-white/30 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all" id="test-run-pause-btn" type="button">
+<span class="material-icons-outlined" id="test-run-pause-icon">pause</span>
+<span id="test-run-pause-label">Pause</span>
                     </button>
-<button class="flex-1 bg-rose-500 hover:bg-rose-600 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
+<button class="flex-1 bg-rose-500 hover:bg-rose-600 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all" id="test-run-abort-btn" type="button">
 <span class="material-icons-outlined">stop</span>
                         Abort
                     </button>
