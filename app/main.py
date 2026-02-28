@@ -108,6 +108,11 @@ async def get_workspace(session_id: str):
         "ideas": state.get("ideas", []),
         "novelty_scores": state.get("novelty_scores", []),
         "missions": state.get("missions", []),
+        "final_answer": state.get("final_answer", ""),
+        "final_sources": state.get("final_sources", []),
+        "trace": state.get("trace", []),
+        "iterations": state.get("iterations", 0),
+        "expansion": state.get("expansion", {}),
     }
 
 
@@ -248,6 +253,7 @@ async def stream_mission(session_id: str):
         loop = asyncio.get_event_loop()
         token_queue: asyncio.Queue = asyncio.Queue()
         result_box: dict = {}
+        yield f"data: {json.dumps({'step': 'generate_plan', 'agent': 'Planner', 'status': 'running', 'summary': ''})}\n\n"
 
         def emit(payload: dict):
             loop.call_soon_threadsafe(token_queue.put_nowait, {"type": "event", "payload": payload})

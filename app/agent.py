@@ -314,6 +314,8 @@ class AgentState(TypedDict, total=False):
     novelty_scores: list
     evidence_assessment: dict
     insufficient_evidence_message: str
+    _emit: Callable[[dict], None]
+    _token: Callable[[str, str, str], None]
 
 
 RESEARCHER_PROMPT = """You are the Researcher Agent in an autonomous multi-agent research pipeline.
@@ -323,16 +325,23 @@ Rules:
 1. Ground claims in provided context only.
 2. Do not fabricate facts or citations.
 3. If evidence is weak/missing, say so.
+4. Explicitly separate facts from hypotheses and speculation.
+5. Never claim hard quantitative gains unless directly supported by retrieved evidence.
 
 Return in this structure:
 Direct Answer:
 <your synthesis>
 
 Support by Subtask:
-- <subtask>: <finding> [source: <path>, page: <n or unknown>]
+- <subtask>: [FACT|HYPOTHESIS|SPECULATION] <finding> [source: <path>, page: <n or unknown>]
 
 Limitations / Gaps:
 - ...
+
+Claim Register:
+- Fact: <statement grounded in retrieved context>
+- Hypothesis: <testable but unverified claim>
+- Speculation: <idea with weak/no direct evidence>
 
 Source Notes:
 - [source: <path>, page: <n or unknown>] <support>
@@ -352,6 +361,40 @@ Tasks:
 
 Return ONLY JSON:
 {{"confidence": 0.62, "missing_aspects": ["..."], "next_agent": "Expansion"}}"""
+
+
+def _enforce_claim_discipline(answer: str, goal: str, context: str, num_sources: int) -> str:
+    """Rewrite answer to separate fact/hypothesis/speculation and remove overclaims."""
+    if not answer.strip():
+        return answer
+
+    prompt = f"""You are a strict scientific editor.
+Research goal: {goal}
+Number of sources: {num_sources}
+
+Rewrite the draft answer below with these constraints:
+1. Preserve only content supported by context.
+2. Label uncertain claims as [HYPOTHESIS] or [SPECULATION].
+3. Keep verified claims as [FACT].
+4. Do not assert hard performance numbers (e.g., speedup %, perplexity drop, complexity reduction) unless explicitly evidenced in context.
+5. If quantitative claims are not evidenced, rewrite with cautious language: "may", "hypothesized", "requires validation".
+6. Keep the same high-level structure and keep it concise.
+
+Context:
+<context>
+{context[:7000]}
+</context>
+
+Draft answer:
+<draft>
+{answer[:7000]}
+</draft>
+"""
+    try:
+        rewritten = llm.invoke([HumanMessage(content=prompt)]).content
+        return rewritten or answer
+    except Exception:
+        return answer
 
 
 def planner_agent(state: AgentState) -> dict:
@@ -449,6 +492,12 @@ def researcher_agent(state: AgentState) -> dict:
         )
         try:
             answer = llm.invoke([HumanMessage(content=prompt)]).content
+            answer = _enforce_claim_discipline(
+                answer=answer,
+                goal=goal,
+                context=context,
+                num_sources=len(metas),
+            )
         except Exception:
             answer = "Could not generate a synthesis due to model error."
 
@@ -652,10 +701,10 @@ def expansion_agent(state: AgentState) -> dict:
     def _generate_ideas(reason: str):
         fallback = {
             "ideas": [
-                "Design targeted experiments for the missing aspects.",
-                "Build stronger benchmark coverage for edge cases.",
-                "Run ablation studies to isolate causality.",
-                "Test cross-domain transfer to validate generalization.",
+                "[HYPOTHESIS] Design targeted experiments for the missing aspects.",
+                "[HYPOTHESIS] Build stronger benchmark coverage for edge cases.",
+                "[HYPOTHESIS] Run ablation studies to isolate causality.",
+                "[SPECULATION] Test cross-domain transfer to validate generalization.",
             ]
         }
         out = _llm_json(
@@ -663,6 +712,11 @@ def expansion_agent(state: AgentState) -> dict:
 Research goal: {goal}
 Missing aspects: {missing}
 Reason: {reason}
+Generate future directions, not verified findings.
+Rules:
+1. Prefix every idea with [HYPOTHESIS] or [SPECULATION].
+2. Do NOT claim guaranteed complexity/performance gains.
+3. If giving any quantitative expectation, mark it explicitly as unverified.
 Return JSON: {{"ideas": ["idea1", "idea2"]}}""",
             fallback,
         )
@@ -902,6 +956,12 @@ Answer: {answer}
 Gaps: {json.dumps(gaps)}
 Ideas: {json.dumps(ideas)}
 Evidence: {json.dumps(evidence)}
+
+Critical rules:
+1. Distinguish verified findings from hypotheses/speculation.
+2. Do not present unverified claims as facts.
+3. Do not assert performance numbers or complexity improvements unless explicitly supported by evidence.
+4. If evidence is weak, explicitly state uncertainty.
 
 Structure:
 # Research Brief: {goal}
