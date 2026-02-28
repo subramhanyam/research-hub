@@ -495,20 +495,27 @@ function renderPapersList() {
     if (!papers.length) { container.innerHTML = ''; empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
 
-    container.innerHTML = papers.map(p => `
+    container.innerHTML = papers.map(p => {
+        const isExternalLink = p.url && !String(p.url).startsWith('local://');
+        const linkedTitle = isExternalLink
+            ? `<a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer"><span class="paper-open-link-icon" aria-hidden="true">&#8599;</span>${esc(p.title)}</a>`
+            : esc(p.title);
+        return `
         <div class="paper-row" data-paper-id="${p.paper_id || ''}">
             <div class="paper-row-body">
                 <div class="paper-row-cite">${esc(p.citation_label || '')}</div>
-                <div class="paper-row-title">${p.url && p.url.startsWith('local://') ? esc(p.title) : `<a href="${esc(p.url)}" target="_blank">${esc(p.title)}</a>`}</div>
+                <div class="paper-row-title">${linkedTitle}</div>
                 <div class="paper-row-meta">${esc((p.authors||[]).join(', '))} &middot; ${esc(p.published || '')}
                     <span class="paper-row-source ${p.source === 'arxiv_search' || p.source === 'local_upload' ? 'source-manual' : 'source-mission'}">${p.source === 'local_upload' ? 'Upload' : (p.source === 'arxiv_search' ? 'Added' : 'Mission')}</span>
                 </div>
             </div>
             <div class="paper-row-actions">
+                <button class="paper-summary-btn" onclick="openPaperSummaryModal(${p.paper_id || 0})">View Summary</button>
                 <button onclick="deletePaper(${p.paper_id})">Remove</button>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 async function uploadLocalPaper() {
@@ -567,6 +574,29 @@ async function deletePaper(paperId) {
     workspaceData.papers = workspaceData.papers.filter(p => p.paper_id !== paperId);
     updateOverview();
     renderPapersList();
+}
+
+function openPaperSummaryModal(paperId) {
+    const modal = document.getElementById('paper-summary-modal');
+    const titleEl = document.getElementById('paper-summary-title');
+    const bodyEl = document.getElementById('paper-summary-body');
+    if (!modal || !titleEl || !bodyEl) return;
+
+    const paper = workspaceData.papers.find(p => String(p.paper_id || '') === String(paperId || ''));
+    if (!paper) return;
+
+    titleEl.textContent = paper.title || 'Paper Summary';
+    bodyEl.textContent = (paper.summary || '').trim() || 'Summary not available for this paper.';
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePaperSummaryModal() {
+    const modal = document.getElementById('paper-summary-modal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
 }
 
 // ===== ARXIV SEARCH =====
@@ -895,9 +925,17 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.target.id === 'mission-topic') runMission();
     if (e.key === 'Enter' && e.target.id === 'arxiv-query') searchArxiv();
     if (e.key === 'Enter' && e.target.id === 'sem-search-input') semanticSearch();
+    if (e.key === 'Escape') closePaperSummaryModal();
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const summaryModal = document.getElementById('paper-summary-modal');
+    if (summaryModal) {
+        summaryModal.addEventListener('click', (event) => {
+            if (event.target === summaryModal) closePaperSummaryModal();
+        });
+    }
+
     const restoredSessionId = loadActiveSessionId();
     if (!restoredSessionId) return;
     sessionId = restoredSessionId;

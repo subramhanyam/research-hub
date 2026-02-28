@@ -9,7 +9,7 @@ import os
 import io
 import urllib.request
 from fastapi import FastAPI, Request, UploadFile, File
-from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from PyPDF2 import PdfReader
@@ -90,6 +90,11 @@ def _download_arxiv_pdf_to_disk(arxiv_url: str) -> tuple[str, str]:
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
+    return RedirectResponse(url="/test", status_code=307)
+
+
+@app.get("/main", response_class=HTMLResponse)
+async def main_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/test", response_class=HTMLResponse)

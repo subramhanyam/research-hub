@@ -387,6 +387,8 @@ function initTestUpload() {
 
 function renderUploadedPaperRow(paper) {
     const title = paper.title || "Untitled";
+    const url = typeof paper.url === "string" ? paper.url : "";
+    const hasExternalLink = Boolean(url && !url.startsWith("local://"));
     const published = paper.published || "";
     const authors = Array.isArray(paper.authors) ? paper.authors.join(", ") : "";
     const source = paper.source === "arxiv_search" ? "arXiv" : "Local";
@@ -404,7 +406,9 @@ function renderUploadedPaperRow(paper) {
 <span class="material-symbols-outlined text-lg">picture_as_pdf</span>
 </div>
 <div class="min-w-0">
-<p class="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">${rhxEsc(title)}</p>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">${hasExternalLink
+        ? `<a class="inline-flex items-center gap-1 hover:text-primary transition-colors" href="${rhxEsc(url)}" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-sm">open_in_new</span>${rhxEsc(title)}</a>`
+        : rhxEsc(title)}</p>
 <p class="text-[11px] text-slate-500">${rhxEsc(authorMeta)}</p>
 </div>
 </div>
@@ -420,7 +424,7 @@ Pending
 </td>
 <td class="px-6 py-4 text-right">
 <div class="inline-flex items-center gap-2">
-<button class="px-3 py-1.5 text-xs font-semibold text-primary border border-primary/20 hover:bg-primary/5 rounded-lg transition-colors">View Summary</button>
+<button class="px-3 py-1.5 text-xs font-semibold text-primary border border-primary/20 hover:bg-primary/5 rounded-lg transition-colors test-view-summary-btn" data-paper-id="${paper.paper_id || ""}" type="button">View Summary</button>
 <button class="px-3 py-1.5 text-xs font-semibold text-red-600 border border-red-200 hover:bg-red-50 rounded-lg transition-colors test-remove-btn" type="button">Remove</button>
 </div>
 </td>
@@ -894,11 +898,68 @@ async function removePaperRow(row, button) {
     }
 }
 
+function ensurePaperSummaryModal() {
+    let modal = document.getElementById("test-paper-summary-modal");
+    if (modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "test-paper-summary-modal";
+    modal.className = "fixed inset-0 bg-slate-950/60 z-[80] hidden items-center justify-center p-4";
+    modal.innerHTML = `
+<div class="w-full max-w-3xl max-h-[85vh] overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl">
+<div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+<h3 id="test-paper-summary-title" class="text-base font-semibold text-slate-900 dark:text-slate-100">Paper Summary</h3>
+<button id="test-paper-summary-close" type="button" class="w-8 h-8 inline-flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<div id="test-paper-summary-body" class="px-5 py-4 text-sm text-slate-700 dark:text-slate-300 leading-relaxed overflow-y-auto max-h-[calc(85vh-64px)] whitespace-pre-wrap"></div>
+</div>`;
+
+    document.body.appendChild(modal);
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closePaperSummaryModal();
+    });
+    const closeBtn = document.getElementById("test-paper-summary-close");
+    if (closeBtn) closeBtn.addEventListener("click", closePaperSummaryModal);
+    return modal;
+}
+
+function openPaperSummaryModalById(paperId) {
+    const modal = ensurePaperSummaryModal();
+    const titleEl = document.getElementById("test-paper-summary-title");
+    const bodyEl = document.getElementById("test-paper-summary-body");
+    if (!modal || !titleEl || !bodyEl) return;
+
+    const paper = papersTableData.find((p) => String(p.paper_id || "") === String(paperId || ""));
+    if (!paper) return;
+
+    titleEl.textContent = paper.title || "Paper Summary";
+    bodyEl.textContent = (paper.summary || "").trim() || "Summary not available for this paper.";
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.body.classList.add("overflow-hidden");
+}
+
+function closePaperSummaryModal() {
+    const modal = document.getElementById("test-paper-summary-modal");
+    if (!modal) return;
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.classList.remove("overflow-hidden");
+}
+
 function initPaperRemoveActions() {
     const tbody = document.getElementById("test-papers-tbody");
     if (!tbody) return;
 
     tbody.addEventListener("click", async (event) => {
+        const summaryButton = event.target.closest(".test-view-summary-btn");
+        if (summaryButton) {
+            openPaperSummaryModalById(summaryButton.dataset.paperId || "");
+            return;
+        }
+
         const button = event.target.closest(".test-remove-btn");
         if (!button) return;
         const row = button.closest("tr");
@@ -1758,6 +1819,7 @@ function initResearchAIRun() {
 document.addEventListener("DOMContentLoaded", () => {
     initWorkspaceDropdown();
     initDeepReadSessionTimer();
+    ensurePaperSummaryModal();
     initPapersControls();
     initTestUpload();
     initTestPapersTable();
@@ -1768,4 +1830,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initResearchBriefGeneration();
     initResearchAIRun();
     syncResearchAISynthesis();
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closePaperSummaryModal();
 });

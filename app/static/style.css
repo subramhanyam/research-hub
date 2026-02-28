@@ -556,6 +556,13 @@ body { background: var(--bg-body); color: var(--text); font-family: var(--sans);
 .paper-row-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
 .paper-row-title a { color: var(--text); text-decoration: none; }
 .paper-row-title a:hover { color: var(--accent); }
+.paper-open-link-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 11px;
+    color: var(--accent);
+    transform: translateY(-1px);
+}
 .paper-row-meta { font-size: 11px; color: var(--text3); }
 .paper-row-source {
     font-size: 9px;
@@ -581,6 +588,69 @@ body { background: var(--bg-body); color: var(--text); font-family: var(--sans);
 }
 
 .paper-row-actions button:hover { border-color: var(--error); color: var(--error); }
+.paper-row-actions .paper-summary-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.paper-summary-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10, 16, 28, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.paper-summary-panel {
+    width: min(760px, 100%);
+    max-height: 85vh;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.paper-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.paper-summary-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#paper-summary-close-btn {
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--text2);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#paper-summary-close-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.paper-summary-body {
+    padding: 14px 16px 18px;
+    overflow-y: auto;
+    color: var(--text2);
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-size: 13px;
+}
 
 /* ===== ARXIV SEARCH ===== */
 .arxiv-search-form {
