@@ -12,6 +12,21 @@ let workspaceData = {
     evidence_assessment: {},
     insufficient_evidence_message: ''
 };
+const ACTIVE_SESSION_STORAGE_KEY = 'researchpilot.active_session_id';
+
+function persistActiveSessionId() {
+    try {
+        if (sessionId) localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, sessionId);
+    } catch (e) { /* ignore */ }
+}
+
+function loadActiveSessionId() {
+    try {
+        return localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY);
+    } catch (e) {
+        return null;
+    }
+}
 
 // Activity log state
 let currentActivityStep = null;
@@ -67,6 +82,7 @@ async function createWorkspace() {
     });
     const data = await resp.json();
     sessionId = data.session_id;
+    persistActiveSessionId();
     workspaceData = {
         papers: [],
         gaps: [],
@@ -153,6 +169,7 @@ async function createWorkspaceAuto(name) {
     });
     const data = await resp.json();
     sessionId = data.session_id;
+    persistActiveSessionId();
     workspaceData = {
         papers: [],
         gaps: [],
@@ -836,6 +853,7 @@ async function resumeSession() {
         if (result.error) { setStatus('error', result.error); return; }
 
         sessionId = result.session_id;
+        persistActiveSessionId();
         document.getElementById('ws-name').textContent = result.topic || 'Resumed';
         document.getElementById('ws-id').textContent = sessionId;
         document.getElementById('mission-topic').value = result.topic || '';
@@ -877,4 +895,32 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.target.id === 'mission-topic') runMission();
     if (e.key === 'Enter' && e.target.id === 'arxiv-query') searchArxiv();
     if (e.key === 'Enter' && e.target.id === 'sem-search-input') semanticSearch();
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const restoredSessionId = loadActiveSessionId();
+    if (!restoredSessionId) return;
+    sessionId = restoredSessionId;
+
+    const wsIdEl = document.getElementById('ws-id');
+    if (wsIdEl) wsIdEl.textContent = sessionId;
+
+    try {
+        const resp = await fetch(`/api/workspace/${sessionId}`);
+        if (!resp.ok) return;
+        const data = await resp.json();
+
+        const wsNameEl = document.getElementById('ws-name');
+        if (wsNameEl) wsNameEl.textContent = data.name || 'Workspace';
+
+        workspaceData.papers = data.papers || [];
+        workspaceData.gaps = data.gaps || [];
+        workspaceData.weak_gaps = data.weak_gaps || [];
+        workspaceData.ideas = data.ideas || [];
+        workspaceData.novelty_scores = data.novelty_scores || [];
+        workspaceData.missions = data.missions || [];
+        workspaceData.evidence_assessment = data.evidence_assessment || {};
+        workspaceData.insufficient_evidence_message = data.insufficient_evidence_message || '';
+        updateOverview();
+    } catch (e) { /* ignore */ }
 });

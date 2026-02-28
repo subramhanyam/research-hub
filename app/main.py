@@ -43,6 +43,10 @@ workspaces: dict[str, dict] = {}
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/test", response_class=HTMLResponse)
+async def test_page(request: Request):
+    return templates.TemplateResponse("test.html", {"request": request})
+
 
 # ===== WORKSPACE MANAGEMENT =====
 

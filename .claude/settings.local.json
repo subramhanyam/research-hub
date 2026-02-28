@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(git rm -r --cached agent_workspace/papers_arxiv/)"
     ]
   }
 }

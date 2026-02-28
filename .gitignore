@@ -17,3 +17,6 @@ chroma_db/
 
 # OS
 .DS_Store
+
+# Agent workspace PDFs
+agent_workspace/papers_arxiv/

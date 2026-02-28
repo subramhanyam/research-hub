@@ -1,0 +1,312 @@
+{
+  "session_id": "ac35c4ab",
+  "topic": "ai in medical",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 7,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "Med-Bot: An AI-Powered Assistant to Provide Accurate and Reliable Medical Information",
+      "summary": "This paper introduces Med-Bot, an AI-powered chatbot designed to provide users with accurate and reliable medical information. Utilizing advanced libraries and frameworks such as PyTorch, Chromadb, Langchain and Autogptq, Med-Bot is built to handle the complexities of natural language understanding in a healthcare context. The integration of llamaassisted data processing and AutoGPT-Q provides enhanced performance in processing and responding to queries based on PDFs of medical literature, ensuring that users receive precise and trustworthy information. This research details the methodologies employed in developing Med-Bot and evaluates its effectiveness in disseminating healthcare information.",
+      "url": "http://arxiv.org/abs/2411.09648v1",
+      "published": "2024-11-14",
+      "authors": [
+        "Ahan Bhatt",
+        "Nandan Vaghela"
+      ],
+      "citation_label": "[Paper 1 - Bhatt 2024]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 2,
+      "title": "Foundations of GenIR",
+      "summary": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "published": "2025-01-06",
+      "authors": [
+        "Qingyao Ai",
+        "Jingtao Zhan",
+        "Yiqun Liu"
+      ],
+      "citation_label": "[Paper 2 - Ai 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 3,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "summary": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "published": "2026-01-23",
+      "authors": [
+        "Melissa Wilfley",
+        "Mengting Ai",
+        "Madelyn Rose Sanfilippo"
+      ],
+      "citation_label": "[Paper 3 - Wilfley 2026]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "Tutorial on the development of AI models for medical image analysis",
+      "summary": "The idea of using computers to read medical scans was introduced as early as 1966. However, limits to machine learning technology meant progress was slow initially. The Alexnet breakthrough in 2012 sparked new interest in the topic, which resulted in the release of 100s of medical AI solutions on the market. In spite of success for some diseases and modalities, many challenges remain. Research typically focuses on the development of specific applications or techniques, clinical evaluation, or meta analysis of clinical studies or techniques through surveys or challenges. However, limited attention has been given to the development process of improving real world performance. In this tutorial, we address the latter and discuss some techniques to conduct the development process in order to make this as efficient as possible.",
+      "url": "http://arxiv.org/abs/2208.00766v1",
+      "published": "2022-07-14",
+      "authors": [
+        "Thijs Kooi"
+      ],
+      "citation_label": "[Paper 4 - Kooi 2022]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "A bridge between features and evidence for binary attribute-driven perfect privacy",
+      "summary": "Attribute-driven privacy aims to conceal a single user's attribute, contrary to anonymisation that tries to hide the full identity of the user in some data. When the attribute to protect from malicious inferences is binary, perfect privacy requires the log-likelihood-ratio to be zero resulting in no strength-of-evidence. This work presents an approach based on normalizing flow that maps a feature vector into a latent space where the evidence, related to the binary attribute, and an independent residual are disentangled. It can be seen as a non-linear discriminant analysis where the mapping is invertible allowing generation by mapping the latent variable back to the original space. This framework allows to manipulate the log-likelihood-ratio of the data and therefore allows to set it to zero for privacy. We show the applicability of the approach on an attribute-driven privacy task where the sex information is removed from speaker embeddings. Results on VoxCeleb2 dataset show the efficiency of the method that outperforms in terms of privacy and utility our previous experiments based on adversarial disentanglement.",
+      "url": "http://arxiv.org/abs/2110.05840v2",
+      "published": "2021-10-12",
+      "authors": [
+        "Paul-Gauthier No\u00e9",
+        "Andreas Nautsch",
+        "Driss Matrouf",
+        "Pierre-Michel Bousquet",
+        "Jean-Fran\u00e7ois Bonastre"
+      ],
+      "citation_label": "[Paper 5 - No\u00e9 2021]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "Computable Gap Assessment of Artificial Intelligence Governance in Children's Centres: Evidence-Mechanism-Governance-Indicator Modelling of UNICEF's Guidance on AI and Children 3.0 Based on the Graph-GAP Framework",
+      "summary": "This paper tackles practical challenges in governing child centered artificial intelligence: policy texts state principles and requirements but often lack reproducible evidence anchors, explicit causal pathways, executable governance toolchains, and computable audit metrics. We propose Graph-GAP, a methodology that decomposes requirements from authoritative policy texts into a four layer graph of evidence, mechanism, governance, and indicator, and that computes two metrics, GAP score and mitigation readiness, to identify governance gaps and prioritise actions. Using the UNICEF Innocenti Guidance on AI and Children 3.0 as primary material, we define reproducible extraction units, coding manuals, graph patterns, scoring scales, and consistency checks, and we demonstrate exemplar gap profiles and governance priority matrices for ten requirements. Results suggest that compared with privacy and data protection, requirements related to child well being and development, explainability and accountability, and cross agency implementation and resource allocation are more prone to indicator gaps and mechanism gaps. We recommend translating requirements into auditable closed loop governance that integrates child rights impact assessments, continuous monitoring metrics, and grievance redress procedures. At the coding level, we introduce a multi algorithm review aggregation revision workflow that runs rule based encoders, statistical or machine learning evaluators, and large model evaluators with diverse prompt configurations as parallel coders. Each extraction unit outputs evidence, mechanism, governance, and indicator labels plus readiness scores with evidence anchors. Reliability, stability, and uncertainty are assessed using Krippendorff alpha, weighted kappa, intraclass correlation, and bootstrap confidence intervals.",
+      "url": "http://arxiv.org/abs/2601.04216v1",
+      "published": "2025-12-20",
+      "authors": [
+        "Wei Meng"
+      ],
+      "citation_label": "[Paper 6 - Meng 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 7,
+      "title": "Towards objective and systematic evaluation of bias in artificial intelligence for medical imaging",
+      "summary": "Artificial intelligence (AI) models trained using medical images for clinical tasks often exhibit bias in the form of disparities in performance between subgroups. Since not all sources of biases in real-world medical imaging data are easily identifiable, it is challenging to comprehensively assess how those biases are encoded in models, and how capable bias mitigation methods are at ameliorating performance disparities. In this article, we introduce a novel analysis framework for systematically and objectively investigating the impact of biases in medical images on AI models. We developed and tested this framework for conducting controlled in silico trials to assess bias in medical imaging AI using a tool for generating synthetic magnetic resonance images with known disease effects and sources of bias. The feasibility is showcased by using three counterfactual bias scenarios to measure the impact of simulated bias effects on a convolutional neural network (CNN) classifier and the efficacy of three bias mitigation strategies. The analysis revealed that the simulated biases resulted in expected subgroup performance disparities when the CNN was trained on the synthetic datasets. Moreover, reweighing was identified as the most successful bias mitigation strategy for this setup, and we demonstrated how explainable AI methods can aid in investigating the manifestation of bias in the model using this framework. Developing fair AI models is a considerable challenge given that many and often unknown sources of biases can be present in medical imaging datasets. In this work, we present a novel methodology to objectively study the impact of biases and mitigation strategies on deep learning pipelines, which can support the development of clinical AI that is robust and responsible.",
+      "url": "http://arxiv.org/abs/2311.02115v2",
+      "published": "2023-11-03",
+      "authors": [
+        "Emma A. M. Stanley",
+        "Raissa Souza",
+        "Anthony Winder",
+        "Vedant Gulve",
+        "Kimberly Amador"
+      ],
+      "citation_label": "[Paper 7 - Stanley 2023]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No sources retrieved",
+      "missing_component": "No sources retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence found",
+      "missing_component": "No evidence found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No search queries executed",
+      "missing_component": "No search queries executed",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No relevant literature identified",
+      "missing_component": "No relevant literature identified",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No sources retrieved",
+      "missing_component": "No sources retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence found",
+      "missing_component": "No evidence found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No search queries executed",
+      "missing_component": "No search queries executed",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No relevant literature identified",
+      "missing_component": "No relevant literature identified",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 30.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 4,
+    "verdict": "insufficient",
+    "confidence": 0.3
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] AI-driven multimodal imaging analysis could enable earlier detection of subtle pathological changes in neurodegenerative diseases, potentially reducing diagnostic delay by an estimated 20% (unverified).",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[SPECULATION] Integrating wearable sensor data with deep learning models may predict acute exacerbations in chronic respiratory conditions, allowing preemptive interventions before hospital admission.",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[HYPOTHESIS] Federated learning across diverse hospital networks could improve the generalizability of diagnostic models for rare cancers, while preserving patient privacy.",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[SPECULATION] AI-guided adaptive clinical trial designs might accelerate the identification of effective therapeutic combinations for complex diseases such as autoimmune disorders.",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 5",
+      "description": "[HYPOTHESIS] Natural language processing of electronic health records could uncover latent phenotypic patterns, aiding in the stratification of patients for personalized medicine approaches.",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 6",
+      "description": "[SPECULATION] Reinforcement learning agents could optimize individualized rehabilitation protocols for post-stroke patients, tailoring therapy intensity in real time based on patient response.",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 7",
+      "description": "[HYPOTHESIS] AI-powered predictive analytics could forecast medication adherence in chronic disease management, potentially improving long-term outcomes by up to 15% (unverified).",
+      "missing_component": "No sources retrieved, No evidence found, No search queries executed, No relevant literature identified",
+      "addresses_gaps": [
+        "No sources retrieved",
+        "No evidence found",
+        "No search queries executed",
+        "No relevant literature identified"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> END"
+  ],
+  "generated_at": "2026-02-28T07:59:28.009938"
+}
