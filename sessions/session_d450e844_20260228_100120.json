@@ -1,0 +1,272 @@
+{
+  "session_id": "d450e844",
+  "topic": "in in workspace",
+  "subtopics": [],
+  "keywords": [],
+  "papers_found": 8,
+  "papers": [
+    {
+      "paper_id": 1,
+      "title": "The Retrieval Effectiveness of Web Search Engines: Considering Results Descriptions",
+      "summary": "Purpose: To compare five major Web search engines (Google, Yahoo, MSN, Ask.com, and Seekport) for their retrieval effectiveness, taking into account not only the results but also the results descriptions.\n  Design/Methodology/Approach: The study uses real-life queries. Results are made anonymous and are randomised. Results are judged by the persons posing the original queries.\n  Findings: The two major search engines, Google and Yahoo, perform best, and there are no significant differences between them. Google delivers significantly more relevant result descriptions than any other search engine. This could be one reason for users perceiving this engine as superior.\n  Research Limitations: The study is based on a user model where the user takes into account a certain amount of results rather systematically. This may not be the case in real life.\n  Practical Implications: Implies that search engines should focus on relevant descriptions. Searchers are advised to use other search engines in addition to Google.\n  Originality/Value: This is the first major study comparing results and descriptions systematically and proposes new retrieval measures to take into account results descriptions",
+      "url": "http://arxiv.org/abs/1511.05800v1",
+      "published": "2015-11-18",
+      "authors": [
+        "Dirk Lewandowski"
+      ],
+      "citation_label": "[Paper 1 - Lewandowski 2015]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 2,
+      "title": "Overcoming low-utility facets for complex answer retrieval",
+      "summary": "Many questions cannot be answered simply; their answers must include numerous nuanced details and additional context. Complex Answer Retrieval (CAR) is the retrieval of answers to such questions. In their simplest form, these questions are constructed from a topic entity (e.g., `cheese') and a facet (e.g., `health effects'). While topic matching has been thoroughly explored, we observe that some facets use general language that is unlikely to appear verbatim in answers. We call these low-utility facets. In this work, we present an approach to CAR that identifies and addresses low-utility facets. We propose two estimators of facet utility. These include exploiting the hierarchical structure of CAR queries and using facet frequency information from training data. To improve the retrieval performance on low-utility headings, we also include entity similarity scores using knowledge graph embeddings. We apply our approaches to a leading neural ranking technique, and evaluate using the TREC CAR dataset. We find that our approach perform significantly better than the unmodified neural ranker and other leading CAR techniques. We also provide a detailed analysis of our results, and verify that low-utility facets are indeed more difficult to match, and that our approach improves the performance for these difficult queries.",
+      "url": "http://arxiv.org/abs/1811.08772v1",
+      "published": "2018-11-21",
+      "authors": [
+        "Sean MacAvaney",
+        "Andrew Yates",
+        "Arman Cohan",
+        "Luca Soldaini",
+        "Kai Hui"
+      ],
+      "citation_label": "[Paper 2 - MacAvaney 2018]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 3,
+      "title": "AWCP: A Workspace Delegation Protocol for Deep-Engagement Collaboration across Remote Agents",
+      "summary": "The rapid evolution of Large Language Model (LLM)-based autonomous agents is reshaping the digital landscape toward an emerging Agentic Web, where increasingly specialized agents must collaborate to accomplish complex tasks. However, existing collaboration paradigms are constrained to message passing, leaving execution environments as isolated silos. This creates a context gap: agents cannot directly manipulate files or invoke tools in a peer's environment, and must instead resort to costly, error-prone environment reconstruction. We introduce the Agent Workspace Collaboration Protocol (AWCP), which bridges this gap through temporary workspace delegation inspired by the Unix philosophy that everything is a file. AWCP decouples a lightweight control plane from pluggable transport mechanisms, allowing a Delegator to project its workspace to a remote Executor, who then operates on the shared files directly with unmodified local toolchains. We provide a fully open-source reference implementation with MCP tool integration and validate the protocol through live demonstrations of asymmetric collaboration, where agents with complementary capabilities cooperate through delegated workspaces. By establishing the missing workspace layer in the agentic protocol stack, AWCP paves the way for a universally interoperable agent ecosystem in which collaboration transcends message boundaries. The protocol and reference implementation are publicly available at https://github.com/SII-Holos/awcp.",
+      "url": "http://arxiv.org/abs/2602.20493v1",
+      "published": "2026-02-24",
+      "authors": [
+        "Xiaohang Nie",
+        "Zihan Guo",
+        "Youliang Chen",
+        "Yuanjian Zhou",
+        "Weinan Zhang"
+      ],
+      "citation_label": "[Paper 3 - Nie 2026]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 4,
+      "title": "Cognitive Workspace: Active Memory Management for LLMs -- An Empirical Study of Functional Infinite Context",
+      "summary": "Large Language Models (LLMs) face fundamental limitations in context management despite recent advances extending context windows to millions of tokens. We propose Cognitive Workspace, a novel paradigm that transcends traditional Retrieval-Augmented Generation (RAG) by emulating human cognitive mechanisms of external memory use. Drawing from cognitive science foundations including Baddeley's working memory model, Clark's extended mind thesis, and Hutchins' distributed cognition framework, we demonstrate that current passive retrieval systems fail to capture the dynamic, task-driven nature of human memory management. Our analysis of 2024-2025 developments reveals that while techniques like Infini-attention and StreamingLLM achieve impressive context lengths, they lack the metacognitive awareness and active planning capabilities essential for true cognitive extension. Cognitive Workspace addresses these limitations through three core innovations: (1) active memory management with deliberate information curation, (2) hierarchical cognitive buffers enabling persistent working states, and (3) task-driven context optimization that dynamically adapts to cognitive demands. Empirical validation demonstrates Cognitive Workspace achieves an average 58.6% memory reuse rate (ranging from 54-60% across different tasks) compared to 0% for traditional RAG, with 17-18% net efficiency gain despite 3.3x higher operation counts. Statistical analysis confirms these advantages with p < 0.001 and Cohen's d > 23 across multiple task types, establishing the first quantitative evidence for active memory superiority in LLM systems. We present a comprehensive theoretical framework synthesizing insights from 50+ recent papers, positioning Cognitive Workspace as a fundamental shift from information retrieval to genuine cognitive augmentation.",
+      "url": "http://arxiv.org/abs/2508.13171v1",
+      "published": "2025-08-08",
+      "authors": [
+        "Tao An"
+      ],
+      "citation_label": "[Paper 4 - An 2025]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 5,
+      "title": "What Users See - Structures in Search Engine Results Pages",
+      "summary": "This paper investigates the composition of search engine results pages. We define what elements the most popular web search engines use on their results pages (e.g., organic results, advertisements, shortcuts) and to which degree they are used for popular vs. rare queries. Therefore, we send 500 queries of both types to the major search engines Google, Yahoo, Live.com and Ask. We count how often the different elements are used by the individual engines. In total, our study is based on 42,758 elements. Findings include that search engines use quite different approaches to results pages composition and therefore, the user gets to see quite different results sets depending on the search engine and search query used. Organic results still play the major role in the results pages, but different shortcuts are of some importance, too. Regarding the frequency of certain host within the results sets, we find that all search engines show Wikipedia results quite often, while other hosts shown depend on the search engine used. Both Google and Yahoo prefer results from their own offerings (such as YouTube or Yahoo Answers). Since we used the .com interfaces of the search engines, results may not be valid for other country-specific interfaces.",
+      "url": "http://arxiv.org/abs/1511.05802v1",
+      "published": "2015-11-18",
+      "authors": [
+        "Nadine Hoechstoetter",
+        "Dirk Lewandowski"
+      ],
+      "citation_label": "[Paper 5 - Hoechstoetter 2015]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 6,
+      "title": "The Influence of Commercial Intent of Search Results on Their Perceived Relevance",
+      "summary": "We carried out a retrieval effectiveness test on the three major web search engines (i.e., Google, Microsoft and Yahoo). In addition to relevance judgments, we classified the results according to their commercial intent and whether or not they carried any advertising. We found that all search engines provide a large number of results with a commercial intent. Google provides significantly more commercial results than the other search engines do. However, the commercial intent of a result did not influence jurors in their relevance judgments.",
+      "url": "http://arxiv.org/abs/1511.05810v1",
+      "published": "2015-11-18",
+      "authors": [
+        "Dirk Lewandowski"
+      ],
+      "citation_label": "[Paper 6 - Lewandowski 2015]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 7,
+      "title": "A bridge between features and evidence for binary attribute-driven perfect privacy",
+      "summary": "Attribute-driven privacy aims to conceal a single user's attribute, contrary to anonymisation that tries to hide the full identity of the user in some data. When the attribute to protect from malicious inferences is binary, perfect privacy requires the log-likelihood-ratio to be zero resulting in no strength-of-evidence. This work presents an approach based on normalizing flow that maps a feature vector into a latent space where the evidence, related to the binary attribute, and an independent residual are disentangled. It can be seen as a non-linear discriminant analysis where the mapping is invertible allowing generation by mapping the latent variable back to the original space. This framework allows to manipulate the log-likelihood-ratio of the data and therefore allows to set it to zero for privacy. We show the applicability of the approach on an attribute-driven privacy task where the sex information is removed from speaker embeddings. Results on VoxCeleb2 dataset show the efficiency of the method that outperforms in terms of privacy and utility our previous experiments based on adversarial disentanglement.",
+      "url": "http://arxiv.org/abs/2110.05840v2",
+      "published": "2021-10-12",
+      "authors": [
+        "Paul-Gauthier No\u00e9",
+        "Andreas Nautsch",
+        "Driss Matrouf",
+        "Pierre-Michel Bousquet",
+        "Jean-Fran\u00e7ois Bonastre"
+      ],
+      "citation_label": "[Paper 7 - No\u00e9 2021]",
+      "source": "mission"
+    },
+    {
+      "paper_id": 8,
+      "title": "Supporting Evidence-Based Medicine by Finding Both Relevant and Significant Works",
+      "summary": "In this paper, we present a new approach to improving the relevance and reliability of medical IR, which builds upon the concept of Level of Evidence (LoE). LoE framework categorizes medical publications into 7 distinct levels based on the underlying empirical evidence. Despite LoE framework's relevance in medical research and evidence-based practice, only few medical publications explicitly state their LoE. Therefore, we develop a classification model for automatically assigning LoE to medical publications, which successfully classifies over 26 million documents in MEDLINE database into LoE classes. The subsequent retrieval experiments on TREC PM datasets show substantial improvements in retrieval relevance, when LoE is used as a search filter.",
+      "url": "http://arxiv.org/abs/2407.18383v2",
+      "published": "2024-07-25",
+      "authors": [
+        "Sameh Frihat",
+        "Norbert Fuhr"
+      ],
+      "citation_label": "[Paper 8 - Frihat 2024]",
+      "source": "mission"
+    }
+  ],
+  "research_gaps": [
+    {
+      "gap": "No sources found",
+      "missing_component": "No sources found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence retrieved",
+      "missing_component": "No evidence retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No relevant documents",
+      "missing_component": "No relevant documents",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    }
+  ],
+  "weak_research_gaps": [
+    {
+      "gap": "No sources found",
+      "missing_component": "No sources found",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No evidence retrieved",
+      "missing_component": "No evidence retrieved",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    },
+    {
+      "gap": "No relevant documents",
+      "missing_component": "No relevant documents",
+      "supporting_papers": [],
+      "citations": [],
+      "frequency": 1,
+      "confidence": 60.0,
+      "strength": "weak"
+    }
+  ],
+  "evidence_assessment": {
+    "total_papers": 0,
+    "strong_gap_count": 0,
+    "weak_gap_count": 3,
+    "verdict": "insufficient",
+    "confidence": 0.6
+  },
+  "research_ideas": [
+    {
+      "title": "Future Direction 1",
+      "description": "[HYPOTHESIS] Investigate the feasibility of incorporating real\u2011time sensor data streams into the workspace to enhance dynamic decision\u2011making.",
+      "missing_component": "No sources found, No evidence retrieved, No relevant documents",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No relevant documents"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 2",
+      "description": "[HYPOTHESIS] Explore the use of federated learning across distributed workspaces to preserve data privacy while improving model generalization.",
+      "missing_component": "No sources found, No evidence retrieved, No relevant documents",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No relevant documents"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 3",
+      "description": "[SPECULATION] Consider integrating multimodal data (text, image, audio) to create richer contextual embeddings for workspace tasks.",
+      "missing_component": "No sources found, No evidence retrieved, No relevant documents",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No relevant documents"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 4",
+      "description": "[HYPOTHESIS] Evaluate the impact of graph\u2011based knowledge representation on workspace efficiency, potentially reducing redundant computations.",
+      "missing_component": "No sources found, No evidence retrieved, No relevant documents",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No relevant documents"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    },
+    {
+      "title": "Future Direction 5",
+      "description": "[SPECULATION] Assess the potential of quantum\u2011inspired optimization techniques to accelerate search operations within the workspace.",
+      "missing_component": "No sources found, No evidence retrieved, No relevant documents",
+      "addresses_gaps": [
+        "No sources found",
+        "No evidence retrieved",
+        "No relevant documents"
+      ],
+      "cited_papers": [],
+      "novelty_justification": "Generated by Expansion agent from identified missing aspects.",
+      "source": "expansion"
+    }
+  ],
+  "insufficient_evidence_message": "",
+  "novelty_scores": [
+    7.0,
+    7.0,
+    7.0,
+    7.0,
+    7.0
+  ],
+  "trace": [
+    "Planner -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> Researcher",
+    "Researcher -> Evaluator",
+    "Evaluator -> Expansion",
+    "Expansion -> END"
+  ],
+  "generated_at": "2026-02-28T10:01:20.372326"
+}

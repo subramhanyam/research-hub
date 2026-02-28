@@ -94,15 +94,19 @@ async def index(request: Request):
 
 @app.get("/test", response_class=HTMLResponse)
 async def test_page(request: Request):
-    return templates.TemplateResponse("test.html", {"request": request})
+    return templates.TemplateResponse("test.html", {"request": request, "active_page": "dashboard"})
 
 @app.get("/test/papers", response_class=HTMLResponse)
 async def test_papers_page(request: Request):
-    return templates.TemplateResponse("test_papers.html", {"request": request})
+    return templates.TemplateResponse("test_papers.html", {"request": request, "active_page": "papers"})
 
 @app.get("/test/search", response_class=HTMLResponse)
 async def test_search_page(request: Request):
-    return templates.TemplateResponse("test_search.html", {"request": request})
+    return templates.TemplateResponse("test_search.html", {"request": request, "active_page": "search"})
+
+@app.get("/test/research-ai", response_class=HTMLResponse)
+async def test_research_ai_page(request: Request):
+    return templates.TemplateResponse("test_research_ai.html", {"request": request, "active_page": "research_ai"})
 
 
 # ===== WORKSPACE MANAGEMENT =====

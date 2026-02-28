@@ -1,6 +1,31 @@
 ﻿const RHX_ACTIVE_SESSION_KEY = "researchpilot.active_session_id";
 let testSearchResults = [];
 let addedPaperUrls = new Set();
+let papersTableData = [];
+let papersSearchQuery = "";
+let papersFilterMode = "all";
+let papersSortMode = "newest";
+const RHX_WORKSPACE_NAME_KEY = "researchhubx.active_workspace_name";
+const RHX_WORKSPACES_KEY = "researchhubx.workspaces";
+
+function normalizeWorkspaces(list) {
+    if (!Array.isArray(list)) return [];
+    const bySession = new Map();
+    for (const w of list) {
+        if (!w || typeof w.session_id !== "string" || typeof w.name !== "string") continue;
+        const sessionId = w.session_id.trim();
+        const name = w.name.trim();
+        if (!sessionId || !name) continue;
+        bySession.set(sessionId, { session_id: sessionId, name });
+    }
+
+    // Also collapse exact display-name duplicates to keep dropdown options unique.
+    const byName = new Map();
+    for (const w of bySession.values()) {
+        byName.set(w.name.toLowerCase(), w);
+    }
+    return Array.from(byName.values());
+}
 
 function rhxEsc(value) {
     const div = document.createElement("div");
@@ -262,47 +287,359 @@ or search
 </tr>`;
 }
 
-function ensurePapersEmptyState() {
+function getStoredWorkspaceName() {
+    try {
+        return localStorage.getItem(RHX_WORKSPACE_NAME_KEY);
+    } catch (e) {
+        return null;
+    }
+}
+
+function setStoredWorkspaceName(name) {
+    try {
+        if (name) localStorage.setItem(RHX_WORKSPACE_NAME_KEY, name);
+    } catch (e) {
+        // ignore storage issues
+    }
+}
+
+function getStoredWorkspaces() {
+    try {
+        const raw = localStorage.getItem(RHX_WORKSPACES_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        const normalized = normalizeWorkspaces(parsed);
+        if (JSON.stringify(parsed) !== JSON.stringify(normalized)) {
+            setStoredWorkspaces(normalized);
+        }
+        return normalized;
+    } catch (e) {
+        return [];
+    }
+}
+
+function setStoredWorkspaces(workspaces) {
+    try {
+        localStorage.setItem(RHX_WORKSPACES_KEY, JSON.stringify(normalizeWorkspaces(workspaces || [])));
+    } catch (e) {
+        // ignore storage issues
+    }
+}
+
+function upsertWorkspaceEntry(entry) {
+    const current = getStoredWorkspaces();
+    const sanitized = normalizeWorkspaces([entry])[0];
+    if (!sanitized) return current;
+
+    const idx = current.findIndex((w) => w.session_id === sanitized.session_id);
+    if (idx >= 0) {
+        current[idx] = sanitized;
+    } else {
+        const sameNameIdx = current.findIndex((w) => w.name.toLowerCase() === sanitized.name.toLowerCase());
+        if (sameNameIdx >= 0) current[sameNameIdx] = sanitized;
+        else current.push(sanitized);
+    }
+    const normalized = normalizeWorkspaces(current);
+    setStoredWorkspaces(normalized);
+    return normalized;
+}
+
+function renderNoMatchStateRow() {
+    return `
+<tr id="test-papers-empty-row">
+<td class="px-6 py-8 text-sm text-slate-500" colspan="4">
+No matching files found for current search/filter.
+</td>
+</tr>`;
+}
+
+function getFilteredSortedPapers() {
+    let rows = [...papersTableData];
+
+    if (papersFilterMode === "local") {
+        rows = rows.filter((p) => p.source === "local_upload");
+    } else if (papersFilterMode === "arxiv") {
+        rows = rows.filter((p) => p.source === "arxiv_search");
+    }
+
+    if (papersSearchQuery) {
+        const q = papersSearchQuery.toLowerCase();
+        rows = rows.filter((p) => {
+            const title = (p.title || "").toLowerCase();
+            const authors = Array.isArray(p.authors) ? p.authors.join(" ").toLowerCase() : "";
+            const source = (p.source || "").toLowerCase();
+            return title.includes(q) || authors.includes(q) || source.includes(q);
+        });
+    }
+
+    const toTs = (p) => {
+        const ts = Date.parse(p.published || "");
+        return Number.isNaN(ts) ? 0 : ts;
+    };
+
+    if (papersSortMode === "newest") {
+        rows.sort((a, b) => toTs(b) - toTs(a));
+    } else if (papersSortMode === "oldest") {
+        rows.sort((a, b) => toTs(a) - toTs(b));
+    } else if (papersSortMode === "title") {
+        rows.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+    }
+
+    return rows;
+}
+
+function renderPapersTableBody() {
     const tbody = document.getElementById("test-papers-tbody");
     if (!tbody) return;
-    const existingEmpty = tbody.querySelector("#test-papers-empty-row");
-    const hasDataRows = tbody.querySelectorAll("tr:not(#test-papers-empty-row)").length > 0;
-    if (!hasDataRows && !existingEmpty) {
+    tbody.innerHTML = "";
+
+    if (!papersTableData.length) {
         tbody.insertAdjacentHTML("beforeend", renderPapersEmptyStateRow());
-    } else if (hasDataRows && existingEmpty) {
-        existingEmpty.remove();
+        return;
+    }
+
+    const rows = getFilteredSortedPapers();
+    if (!rows.length) {
+        tbody.insertAdjacentHTML("beforeend", renderNoMatchStateRow());
+        return;
+    }
+
+    tbody.insertAdjacentHTML("beforeend", rows.map((paper) => renderUploadedPaperRow(paper)).join(""));
+}
+
+function updatePapersControlLabels() {
+    const filterBtn = document.getElementById("test-papers-filter-btn");
+    const sortBtn = document.getElementById("test-papers-sort-btn");
+    if (filterBtn) {
+        const filterLabel = papersFilterMode === "all" ? "All" : (papersFilterMode === "local" ? "Local" : "arXiv");
+        filterBtn.innerHTML = '<span class="material-symbols-outlined text-lg">filter_list</span>Filter: ' + filterLabel;
+    }
+    if (sortBtn) {
+        const sortLabel = papersSortMode === "newest" ? "Newest" : (papersSortMode === "oldest" ? "Oldest" : "Title A-Z");
+        sortBtn.innerHTML = '<span class="material-symbols-outlined text-lg">sort</span>Sort: ' + sortLabel;
+    }
+}
+
+function initPapersControls() {
+    const searchInput = document.getElementById("test-papers-search-input");
+    const filterBtn = document.getElementById("test-papers-filter-btn");
+    const sortBtn = document.getElementById("test-papers-sort-btn");
+    if (!searchInput || !filterBtn || !sortBtn) return;
+
+    updatePapersControlLabels();
+
+    searchInput.addEventListener("input", () => {
+        papersSearchQuery = (searchInput.value || "").trim();
+        renderPapersTableBody();
+    });
+
+    filterBtn.addEventListener("click", () => {
+        papersFilterMode = papersFilterMode === "all" ? "local" : (papersFilterMode === "local" ? "arxiv" : "all");
+        updatePapersControlLabels();
+        renderPapersTableBody();
+    });
+
+    sortBtn.addEventListener("click", () => {
+        papersSortMode = papersSortMode === "newest" ? "oldest" : (papersSortMode === "oldest" ? "title" : "newest");
+        updatePapersControlLabels();
+        renderPapersTableBody();
+    });
+}
+
+function initWorkspaceDropdown() {
+    const dropdownRoot = document.getElementById("test-workspace-dropdown");
+    const triggerEl = document.getElementById("test-workspace-trigger");
+    const menuEl = document.getElementById("test-workspace-menu");
+    const optionsRoot = document.getElementById("test-workspace-options");
+    const newWsBtn = document.getElementById("test-new-workspace-btn");
+    const resumeFileInput = document.getElementById("test-resume-file");
+    const currentEl = document.getElementById("test-workspace-current");
+    if (!dropdownRoot || !triggerEl || !menuEl || !optionsRoot || !newWsBtn || !currentEl) return;
+
+    const closeMenu = () => {
+        menuEl.classList.add("hidden");
+    };
+    const openMenu = () => {
+        menuEl.classList.remove("hidden");
+    };
+    const toggleMenu = () => {
+        if (menuEl.classList.contains("hidden")) openMenu();
+        else closeMenu();
+    };
+
+    const applySelectedWorkspace = (name) => {
+        currentEl.textContent = name;
+        const optionEls = optionsRoot.querySelectorAll(".test-workspace-option");
+        optionEls.forEach((el) => {
+            const isActive = el.getAttribute("data-workspace-name") === name;
+            el.classList.toggle("bg-slate-100", isActive);
+            el.classList.toggle("dark:bg-slate-800", isActive);
+            el.classList.toggle("font-medium", isActive);
+            if (!isActive) {
+                el.classList.remove("bg-slate-100", "dark:bg-slate-800", "font-medium");
+            }
+        });
+    };
+
+    const renderOptions = () => {
+        const workspaces = getStoredWorkspaces();
+        if (!workspaces.length) {
+            optionsRoot.innerHTML = '<div class="px-2 py-2 text-xs text-slate-400">No workspaces yet.</div>';
+            return;
+        }
+        optionsRoot.innerHTML = workspaces.map((w) => (
+            `<button class="w-full text-left px-2 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm test-workspace-option" data-workspace-name="${rhxEsc(w.name)}" data-session-id="${rhxEsc(w.session_id)}" type="button">${rhxEsc(w.name)}</button>`
+        )).join("");
+    };
+
+    const refreshWorkspaceViews = async () => {
+        if (typeof window.syncTestKpis === "function") {
+            await window.syncTestKpis();
+        }
+        await initRecentPapers();
+        await initTestPapersTable();
+    };
+
+    const initializeWorkspaceState = () => {
+        let activeSession = rhxGetStoredSessionId();
+        let activeName = getStoredWorkspaceName();
+        let workspaces = getStoredWorkspaces();
+
+        if (activeSession) {
+            const existing = workspaces.find((w) => w.session_id === activeSession);
+            if (!existing) {
+                workspaces = upsertWorkspaceEntry({
+                    session_id: activeSession,
+                    name: activeName || "Quantum Computing Lab",
+                });
+            } else if (activeName && existing.name !== activeName) {
+                existing.name = activeName;
+                setStoredWorkspaces(workspaces);
+            } else {
+                activeName = existing.name;
+            }
+        } else if (workspaces.length) {
+            activeSession = workspaces[0].session_id;
+            activeName = workspaces[0].name;
+            rhxSetStoredSessionId(activeSession);
+            setStoredWorkspaceName(activeName);
+        }
+
+        renderOptions();
+        if (activeName) applySelectedWorkspace(activeName);
+    };
+
+    initializeWorkspaceState();
+
+    triggerEl.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!dropdownRoot.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+    });
+
+    optionsRoot.addEventListener("click", async (event) => {
+        const el = event.target.closest(".test-workspace-option");
+        if (!el) return;
+        event.stopPropagation();
+        const selected = el.getAttribute("data-workspace-name");
+        const selectedSession = el.getAttribute("data-session-id");
+        if (!selected || !selectedSession) return;
+        applySelectedWorkspace(selected);
+        setStoredWorkspaceName(selected);
+        rhxSetStoredSessionId(selectedSession);
+        closeMenu();
+        await refreshWorkspaceViews();
+    });
+
+    newWsBtn.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        const name = (window.prompt("Workspace name:", "Untitled Research") || "").trim();
+        if (!name) return;
+
+        try {
+            const resp = await fetch("/api/workspace/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name }),
+            });
+            if (!resp.ok) return;
+            const data = await resp.json();
+            const entry = { session_id: data.session_id, name: data.name || name };
+            upsertWorkspaceEntry(entry);
+            rhxSetStoredSessionId(entry.session_id);
+            setStoredWorkspaceName(entry.name);
+            renderOptions();
+            applySelectedWorkspace(entry.name);
+            closeMenu();
+            await refreshWorkspaceViews();
+        } catch (e) {
+            // ignore UI errors for now
+        }
+    });
+
+    if (resumeFileInput) {
+        resumeFileInput.addEventListener("change", async () => {
+            const file = (resumeFileInput.files || [])[0];
+            if (!file) return;
+
+            try {
+                const text = await file.text();
+                const sessionData = JSON.parse(text);
+                const resp = await fetch("/api/workspace/resume", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ session_data: sessionData }),
+                });
+                const result = await resp.json();
+                if (!resp.ok || result.error) {
+                    throw new Error(result.error || "Failed to resume session");
+                }
+
+                const entry = {
+                    session_id: result.session_id,
+                    name: result.topic || sessionData.topic || "Resumed Workspace",
+                };
+                upsertWorkspaceEntry(entry);
+                rhxSetStoredSessionId(entry.session_id);
+                setStoredWorkspaceName(entry.name);
+                renderOptions();
+                applySelectedWorkspace(entry.name);
+                closeMenu();
+                await refreshWorkspaceViews();
+            } catch (e) {
+                window.alert(`Import failed: ${(e && e.message) ? e.message : "Invalid session JSON"}`);
+            } finally {
+                resumeFileInput.value = "";
+            }
+        });
     }
 }
 
 async function initTestPapersTable() {
     const tbody = document.getElementById("test-papers-tbody");
     if (!tbody) return;
-    tbody.innerHTML = "";
+    papersTableData = [];
+    renderPapersTableBody();
 
     const sessionId = rhxGetStoredSessionId();
-    if (!sessionId) {
-        ensurePapersEmptyState();
-        return;
-    }
+    if (!sessionId) return;
 
     try {
         const resp = await fetch(`/api/workspace/${sessionId}`);
-        if (!resp.ok) {
-            ensurePapersEmptyState();
-            return;
-        }
+        if (!resp.ok) return;
         const data = await resp.json();
-        const uploaded = (data.papers || []).filter((p) => p.source === "local_upload" || p.source === "arxiv_search");
-        if (!uploaded.length) {
-            ensurePapersEmptyState();
-            return;
-        }
-
-        const html = uploaded.map((paper) => renderUploadedPaperRow(paper)).join("");
-        tbody.insertAdjacentHTML("beforeend", html);
-        ensurePapersEmptyState();
+        papersTableData = (data.papers || []).filter((p) => p.source === "local_upload" || p.source === "arxiv_search");
+        renderPapersTableBody();
     } catch (e) {
-        ensurePapersEmptyState();
+        renderPapersTableBody();
     }
 }
 
@@ -359,15 +696,14 @@ async function initRecentPapers() {
 async function removePaperRow(row, button) {
     const paperId = row.dataset.paperId;
     if (!paperId) {
-        row.remove();
-        ensurePapersEmptyState();
+        renderPapersTableBody();
         return;
     }
 
     let sessionId = rhxGetStoredSessionId();
     if (!sessionId) {
-        row.remove();
-        ensurePapersEmptyState();
+        papersTableData = papersTableData.filter((p) => String(p.paper_id || "") !== String(paperId));
+        renderPapersTableBody();
         return;
     }
 
@@ -389,8 +725,8 @@ async function removePaperRow(row, button) {
 
         // Remove in UI for successful delete, and also when stale data cannot be reconciled.
         if (resp.ok || resp.status === 404) {
-            row.remove();
-            ensurePapersEmptyState();
+            papersTableData = papersTableData.filter((p) => String(p.paper_id || "") !== String(paperId));
+            renderPapersTableBody();
             return;
         }
 
@@ -398,8 +734,8 @@ async function removePaperRow(row, button) {
         button.textContent = originalText;
     } catch (e) {
         // Keep UI responsive even if backend call fails unexpectedly.
-        row.remove();
-        ensurePapersEmptyState();
+        papersTableData = papersTableData.filter((p) => String(p.paper_id || "") !== String(paperId));
+        renderPapersTableBody();
     }
 }
 
@@ -600,6 +936,8 @@ function initTestSearch() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    initWorkspaceDropdown();
+    initPapersControls();
     initTestUpload();
     initTestPapersTable();
     initPaperRemoveActions();

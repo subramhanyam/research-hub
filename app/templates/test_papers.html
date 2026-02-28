@@ -5,6 +5,7 @@
 <title>ResearchHub X | Paper Library</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script>
         tailwind.config = {
@@ -50,96 +51,24 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-200">
 <div class="flex h-screen overflow-hidden">
-<aside class="w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col p-6">
-<div class="flex items-center gap-2 mb-10 px-2">
-<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-xl">hub</span>
-</div>
-<h1 class="font-bold text-xl tracking-tight text-primary dark:text-accent">ResearchHub X</h1>
-</div>
-<nav class="flex-1 space-y-1">
-<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4 px-2 uppercase tracking-wider">Main Navigation</p>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="/test">
-<span class="material-symbols-outlined text-xl">dashboard</span>
-                    Dashboard
-                </a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary text-white font-medium" href="/test/papers">
-<span class="material-symbols-outlined text-xl">description</span>
-                    Papers
-                </a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="/test/search">
-<span class="material-symbols-outlined text-xl">search</span>
-                    Search
-                </a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined text-xl">psychology</span>
-                    Research AI
-                </a>
-<div class="pt-8">
-<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4 px-2 uppercase tracking-wider">Settings</p>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined text-xl">settings</span>
-                        Settings
-                    </a>
-</div>
-</nav>
-<div class="mt-auto bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl">
-<p class="text-sm font-semibold mb-1">Pro Plan Active</p>
-<div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full mt-2">
-<div class="bg-primary h-full w-3/4 rounded-full"></div>
-</div>
-<p class="text-[10px] text-slate-500 mt-2 tracking-wide uppercase">7.2GB / 10GB Used</p>
-</div>
-</aside>
+{% include "partials/test_sidebar.html" %}
 <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
-<header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 shrink-0">
-<div class="flex items-center gap-4">
-<div class="relative group">
-<button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-700">
-<span class="material-symbols-outlined text-sm text-primary dark:text-accent">folder</span>
-<span class="text-sm font-medium">Quantum Computing Lab</span>
-<span class="material-symbols-outlined text-sm">expand_more</span>
-</button>
-</div>
-<div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
-<div class="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
-<button class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-600 shadow-sm rounded-lg text-primary dark:text-white transition-all">Local Library</button>
-<button class="px-3 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors">arXiv Discovery</button>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-secondary transition-colors">
-<span class="material-symbols-outlined text-sm">file_download</span>
-                        Export
-                    </button>
-<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
-<div class="flex items-center gap-3">
-<div class="text-right">
-<p class="text-sm font-semibold leading-none">Dr. Sarah Miller</p>
-<p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter mt-1">Lead Researcher</p>
-</div>
-<img alt="User avatar" class="w-10 h-10 rounded-full border-2 border-primary/20 p-0.5 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfYXNsne1VNcYiziDicEEAiZMIUPlXvS3c1AqY9VvJ2PWGeoqFUQ7xkFnfyJ_93dvx90GlP24i86X-BABndpGnkYHNcbaIf3JCLIzAXRhea2xccEW-rLYa9zTIXBo3MVjdgHqWZNjHLoIytRfYCheilYl6Ex-zrBI2A6C1yFR0c2BfJPBjiLGLu1qrSsKEbNJYEK8IQ09otk1wO7h0U6468xMnSQpWLJ8j6iQD1juFgDGeTJ_iLBJwvlN0VRW_V6vbV2YGifMaUvWX"/>
-</div>
-</div>
-</header>
+{% include "partials/test_topbar.html" %}
 <div class="flex-1 flex overflow-hidden">
 <div class="flex-1 flex flex-col min-w-0 bg-white dark:bg-slate-900 overflow-hidden">
 <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4">
 <div class="relative flex-1 max-w-md">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search papers by title, author or keyword..." type="text"/>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" id="test-papers-search-input" placeholder="Search papers by title, author or keyword..." type="text"/>
 </div>
 <div class="flex items-center gap-2">
-<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors" id="test-papers-filter-btn" type="button">
 <span class="material-symbols-outlined text-lg">filter_list</span>
-                                Filter
+                                Filter: All
                             </button>
-<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors" id="test-papers-sort-btn" type="button">
 <span class="material-symbols-outlined text-lg">sort</span>
-                                Sort
+                                Sort: Newest
                             </button>
 </div>
 </div>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ResearchHub X | Research AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#14532d",
+                        "background-light": "#f3f4f6",
+                        "background-dark": "#0f172a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                        secondary: "#15803d",
+                        accent: "#bbf7d0",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: "Inter", sans-serif;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .circular-progress {
+            background: conic-gradient(from 180deg at 50% 50%, #14532d 0deg, #16a34a 240deg, #e5e7eb 240deg);
+            mask-image: radial-gradient(transparent 55%, black 56%);
+            -webkit-mask-image: radial-gradient(transparent 55%, black 56%);
+        }
+        .agent-line {
+            position: relative;
+        }
+        .agent-line::before {
+            content: "";
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -8px;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .dark .agent-line::before {
+            background: #334155;
+        }
+        .agent-line:last-child::before {
+            display: none;
+        }
+        .rhx-agent-card {
+            transition: all 0.2s ease;
+        }
+        .rhx-agent-card.active {
+            border-color: #14532d;
+            box-shadow: 0 0 0 1px rgba(20, 83, 45, 0.18);
+        }
+        .rhx-agent-card.done {
+            border-color: #16a34a;
+            background: rgba(22, 163, 74, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-200">
+<div class="flex h-screen overflow-hidden">
+{% include "partials/test_sidebar.html" %}
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+{% include "partials/test_topbar.html" %}
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<main class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-8 space-y-6">
+<section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="text-xl font-bold tracking-tight">Autonomous Research Run</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Variant 3: Multi-Agent Synthesis</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+<span class="material-icons-outlined text-sm text-slate-500">tune</span>
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide" for="test-research-mission-mode">Mission Mode</label>
+<select class="bg-transparent border-none text-sm font-medium focus:ring-0 p-0 pr-6 cursor-pointer" id="test-research-mission-mode">
+<option value="autonomous_search">Autonomous search (arXiv + workspace)</option>
+<option value="workspace_only">Search only in workspace</option>
+</select>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-medium text-sm transition-all hover:opacity-90 shadow-lg shadow-primary/20">
+<span class="material-icons-outlined text-sm">play_arrow</span>
+                            Resume Run
+                        </button>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+<label class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 block">Active Research Goal</label>
+<p class="text-lg font-medium text-slate-800 dark:text-slate-200">Identify hardware limitations in superconducting qubits for fault-tolerant scaling between 2024-2026.</p>
+</div>
+</section>
+<section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-icons-outlined text-primary">hub</span>
+                        Agent Activity Feed
+                    </h3>
+<div class="flex items-center gap-2 text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-3 py-1 rounded-full uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Active Synthesis
+                    </div>
+</div>
+<div class="space-y-6">
+<div class="agent-line flex gap-4">
+<div class="z-10 w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white">
+<span class="material-icons-outlined text-sm">search</span>
+</div>
+<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Literature Scraper Agent</span>
+<span class="text-[10px] text-slate-400">09:42 AM</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Extracted 142 papers from ArXiv and Nature. Filtering for "cross-resonance gate noise"...</p>
+</div>
+</div>
+<div class="agent-line flex gap-4">
+<div class="z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] text-white">
+<span class="material-icons-outlined text-sm">psychology</span>
+</div>
+<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Synthesizer Agent</span>
+<span class="text-[10px] text-slate-400">09:45 AM</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Identified contradiction in thermal decoherence rates between IBM and Rigetti's 2023 reports.</p>
+</div>
+</div>
+<div class="agent-line flex gap-4">
+<div class="z-10 w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center text-[10px] text-white">
+<span class="material-icons-outlined text-sm">edit_note</span>
+</div>
+<div class="flex-1 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800 ring-1 ring-amber-200 dark:ring-amber-900/30">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Strategy Planner Agent</span>
+<span class="text-[10px] text-amber-500 font-bold uppercase">Processing...</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Drafting technical gap analysis for cryogenic interconnect density bottlenecks.</p>
+<div class="mt-2 h-1 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[65%] transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-icons-outlined text-primary">auto_awesome</span>
+                        Real-time Synthesis Output
+                    </h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800">
+<h4 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">Key Conclusions</h4>
+<ul class="space-y-3">
+<li class="text-sm flex gap-2">
+<span class="material-icons-outlined text-emerald-500 text-sm">check_circle</span>
+<span>Transmon qubits face critical scalability limit at ~1,000 physical qubits due to 3D wiring density.</span>
+</li>
+<li class="text-sm flex gap-2">
+<span class="material-icons-outlined text-emerald-500 text-sm">check_circle</span>
+<span>Error correction overhead remains the primary barrier for logical qubit survival beyond 1ms.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="space-y-4">
+<div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800">
+<h4 class="text-xs font-bold text-rose-500 uppercase tracking-widest mb-3">Identified Research Gaps</h4>
+<ul class="space-y-3">
+<li class="text-sm flex gap-2">
+<span class="material-icons-outlined text-rose-400 text-sm">warning</span>
+<span>Lack of standardized benchmarking for cryogenic microwave attenuator thermal leakage.</span>
+</li>
+<li class="text-sm flex gap-2">
+<span class="material-icons-outlined text-rose-400 text-sm">warning</span>
+<span>Material science bottleneck in Silicon-Germanium (SiGe) heterostructures for 4K controllers.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="lg:col-span-4 space-y-6">
+<section class="bg-card-light dark:bg-card-dark p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold">Active Agents</h3>
+<span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Mission Team</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Planner">
+<div class="flex items-center justify-between mb-2">
+<span class="material-icons-outlined text-primary text-base">settings</span>
+<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+</div>
+<p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Planner</p>
+<p class="text-[10px] text-slate-500 agent-status">Idle</p>
+</div>
+<div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Researcher">
+<div class="flex items-center justify-between mb-2">
+<span class="material-icons-outlined text-sky-600 dark:text-sky-400 text-base">travel_explore</span>
+<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+</div>
+<p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Researcher</p>
+<p class="text-[10px] text-slate-500 agent-status">Idle</p>
+</div>
+<div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Analyst">
+<div class="flex items-center justify-between mb-2">
+<span class="material-icons-outlined text-amber-600 dark:text-amber-400 text-base">insights</span>
+<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+</div>
+<p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Analyst</p>
+<p class="text-[10px] text-slate-500 agent-status">Idle</p>
+</div>
+<div class="rhx-agent-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-3" id="agent-Critic">
+<div class="flex items-center justify-between mb-2">
+<span class="material-icons-outlined text-rose-600 dark:text-rose-400 text-base">gavel</span>
+<span class="h-2 w-2 rounded-full bg-slate-300"></span>
+</div>
+<p class="text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200">Critic</p>
+<p class="text-[10px] text-slate-500 agent-status">Idle</p>
+</div>
+</div>
+</section>
+<section class="relative overflow-hidden bg-primary text-white p-6 rounded-3xl shadow-xl shadow-primary/20">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-2xl"></div>
+<h3 class="text-sm font-bold opacity-70 uppercase tracking-widest mb-4">Run Duration</h3>
+<div class="flex items-center gap-4 mb-6">
+<span class="text-4xl font-mono font-bold">04:12:08</span>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 bg-white/20 backdrop-blur-md hover:bg-white/30 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
+<span class="material-icons-outlined">pause</span>
+                        Pause
+                    </button>
+<button class="flex-1 bg-rose-500 hover:bg-rose-600 py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
+<span class="material-icons-outlined">stop</span>
+                        Abort
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<footer class="max-w-[1440px] mx-auto mt-8 flex flex-wrap items-center justify-between text-slate-400 text-[10px] uppercase font-bold tracking-[0.2em] px-4">
+<div>ResearchHub X • Workspace Beta v4.2.0</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">API Keys</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</div>
+</main>
+</div>
+
+<script src="/static/test_ui.js"></script>
+</body></html>
+

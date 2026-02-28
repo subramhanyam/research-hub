@@ -1,0 +1,43 @@
+<header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="relative" id="test-workspace-dropdown">
+<button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-700 min-w-[240px] justify-between" id="test-workspace-trigger" type="button">
+<span class="flex items-center gap-2">
+<span class="material-icons-outlined text-sm text-primary dark:text-accent">folder</span>
+<span class="text-sm font-medium" id="test-workspace-current">Quantum Computing Lab</span>
+</span>
+<span class="material-icons-outlined text-sm">expand_more</span>
+</button>
+<div class="absolute top-full left-0 mt-2 w-[260px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg p-2 z-20 hidden" id="test-workspace-menu">
+<div class="text-[10px] uppercase tracking-wider text-slate-400 px-2 py-1">Workspaces</div>
+<div id="test-workspace-options"></div>
+</div>
+</div>
+<button class="w-9 h-9 inline-flex items-center justify-center bg-primary text-white rounded-lg hover:bg-secondary transition-colors" id="test-new-workspace-btn" title="New Workspace" type="button">
+<span class="material-icons-outlined text-sm">add</span>
+</button>
+<label class="w-9 h-9 inline-flex items-center justify-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer" title="Import Workspace">
+<span class="material-icons-outlined text-sm">upload_file</span>
+<input accept=".json" class="hidden" id="test-resume-file" type="file"/>
+</label>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-icons-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-secondary transition-colors">
+<span class="material-icons-outlined text-sm">file_download</span>
+                        Export
+                    </button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-semibold leading-none">Dr. Sarah Miller</p>
+<p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter mt-1">Lead Researcher</p>
+</div>
+<img alt="User avatar" class="w-10 h-10 rounded-full border-2 border-primary/20 p-0.5 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfYXNsne1VNcYiziDicEEAiZMIUPlXvS3c1AqY9VvJ2PWGeoqFUQ7xkFnfyJ_93dvx90GlP24i86X-BABndpGnkYHNcbaIf3JCLIzAXRhea2xccEW-rLYa9zTIXBo3MVjdgHqWZNjHLoIytRfYCheilYl6Ex-zrBI2A6C1yFR0c2BfJPBjiLGLu1qrSsKEbNJYEK8IQ09otk1wO7h0U6468xMnSQpWLJ8j6iQD1juFgDGeTJ_iLBJwvlN0VRW_V6vbV2YGifMaUvWX"/>
+</div>
+</div>
+</header>

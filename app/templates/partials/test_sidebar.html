@@ -1,0 +1,35 @@
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col p-6">
+<div class="flex items-center gap-2 mb-10 px-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons-outlined text-white text-xl">hub</span>
+</div>
+<h1 class="font-bold text-xl tracking-tight text-primary dark:text-accent">ResearchHub X</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4 px-2 uppercase tracking-wider">Main Navigation</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl {% if active_page == 'dashboard' %}bg-primary text-white font-medium{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors{% endif %}" href="/test">
+<span class="material-icons-outlined text-xl">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl {% if active_page == 'papers' %}bg-primary text-white font-medium{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors{% endif %}" href="/test/papers">
+<span class="material-icons-outlined text-xl">description</span>
+                    Papers
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl {% if active_page == 'search' %}bg-primary text-white font-medium{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors{% endif %}" href="/test/search">
+<span class="material-icons-outlined text-xl">search</span>
+                    Search
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl {% if active_page == 'research_ai' %}bg-primary text-white font-medium{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors{% endif %}" href="/test/research-ai">
+<span class="material-icons-outlined text-xl">psychology</span>
+                    Research AI
+                </a>
+</nav>
+<div class="mt-auto bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-sm font-semibold mb-1">Go Pro</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">Unlock advanced gap analysis &amp; unlimited embedding.</p>
+<button class="w-full py-2 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-secondary transition-colors">Upgrade Now</button>
+</div>
+<div class="absolute -bottom-4 -right-4 w-16 h-16 bg-accent opacity-20 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+</div>
+</aside>
